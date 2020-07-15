@@ -1,4 +1,5 @@
 {
+    "keybindings": {
     ///////////////////////////////////
     // Basic selection operators, reset or extend selection
 
@@ -1291,4 +1292,5 @@
         },
         "modaledit.resetSelection",
     ],
+    }
 }
