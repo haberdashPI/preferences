@@ -384,16 +384,7 @@
     ////////////////////////
     // selection modifiers
 
-    "R": [
-        {
-            "command": "vscode-custom-word-motions.narrowto",
-            "args": {
-                "unit": "subword",
-                "boundary": "both",
-                "then": "subident",
-            }
-        }
-    ],
+    "R": [ "selection-utilities.trim-selection-whitespace" ],
     "E": [
         {
             "command": "vscode-custom-word-motions.narrowto",
@@ -720,6 +711,8 @@
             "clipboard-manager.editor.pickAndPaste",
         ],
 
+        "a": [ "selection-utilities.trim-whitespace" ],
+
         "o": [
             {
                 "condition": "editor.selection.isEmpty",
@@ -811,9 +804,6 @@
             "modaledit.resetSelection",
         ],
 
-        "a": [
-            "modaledit.enterInsert",
-        ],
         "q": [
             "rewrap.rewrapComment",
         ],
