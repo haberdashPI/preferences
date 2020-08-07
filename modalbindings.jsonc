@@ -88,8 +88,8 @@
 
     // basic movement
     "h": { "command": "cursorMove", "args": "{ to: 'left', select: __selecting }" },
-    "j": { "command": "cursorMove", "args": "{ to: 'down', select: __selecting }" },
-    "k": { "command": "cursorMove", "args": "{ to: 'up', select: __selecting }" },
+    "j": { "command": "cursorMove", "args": "{ to: 'down', by: 'wrappedLine', select: __selecting }" },
+    "k": { "command": "cursorMove", "args": "{ to: 'up', by: 'wrappedLine', select: __selecting }" },
     "l": { "command": "cursorMove", "args": "{ to: 'right', select: __selecting }" },
 
     // word-like movement
@@ -137,7 +137,7 @@
         "true": [
             {
                 "command": "cursorMove",
-                "args": "{ to: 'down', select: true }"
+                "args": "{ to: 'down', by: 'wrappedLine', select: true }"
             },
             {
                 "command": "cursorMove",
@@ -145,7 +145,7 @@
             },
             {
                 "command": "cursorMove",
-                "args": "{ to: 'up', select: true, value: 2 }"
+                "args": "{ to: 'up', by: 'wrappedLine', select: true, value: 2 }"
             },
             {
                 "command": "cursorMove",
@@ -155,7 +155,7 @@
         "false": [
             {
                 "command": "cursorMove",
-                "args": "{ to: 'up', select: true }"
+                "args": "{ to: 'up', by: 'wrappedLine', select: true }"
             },
             {
                 "command": "cursorMove",
@@ -174,7 +174,7 @@
             },
             {
                 "command": "cursorMove",
-                "args": "{ to: 'down', select: true, value: 2 }"
+                "args": "{ to: 'down', by: 'wrappedLine', select: true, value: 2 }"
             },
             {
                 "command": "cursorMove",
@@ -184,7 +184,7 @@
         "false": [
             {
                 "command": "cursorMove",
-                "args": "{ to: 'down', select: true }"
+                "args": "{ to: 'down', by: 'wrappedLine', select: true }"
             },
             {
                 "command": "cursorMove",
@@ -1148,13 +1148,13 @@
                 "true": [
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'down', select: false, value: Number(__keys.slice(0, -1).join('')) }"
+                        "args": "{ to: 'down', by: 'wrappedLine', select: false, value: Number(__keys.slice(0, -1).join('')) }"
                     },
                 ],
                 "false": [
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'down', select: true, value: Number(__keys.slice(0, -1).join('')) }"
+                        "args": "{ to: 'down', by: 'wrappedLine', select: true, value: Number(__keys.slice(0, -1).join('')) }"
                     },
                 ]
             },
@@ -1166,13 +1166,13 @@
                 "true": [
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'up', select: false, value: Number(__keys.slice(0, -1).join('')) }"
+                        "args": "{ to: 'up', by: 'wrappedLine', select: false, value: Number(__keys.slice(0, -1).join('')) }"
                     },
                 ],
                 "false": [
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'up', select: true, value: Number(__keys.slice(0, -1).join('')) }"
+                        "args": "{ to: 'up', by: 'wrappedLine', select: true, value: Number(__keys.slice(0, -1).join('')) }"
                     },
                 ]
             },
@@ -1202,7 +1202,7 @@
                 "true": [
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'down', select: true }"
+                        "args": "{ to: 'down', by: 'wrappedLine', select: true }"
                     },
                     {
                         "command": "cursorMove",
@@ -1210,7 +1210,7 @@
                     },
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'up', select: true, value: Number(__keys.slice(0, -1).join(''))+1 }"
+                        "args": "{ to: 'up', by: 'wrappedLine', select: true, value: Number(__keys.slice(0, -1).join(''))+1 }"
                     },
                     {
                         "command": "cursorMove",
@@ -1220,7 +1220,7 @@
                 "false": [
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'up', select: true, value: Number(__keys.slice(0, -1).join('')) }"
+                        "args": "{ to: 'up', by: 'wrappedLine', select: true, value: Number(__keys.slice(0, -1).join('')) }"
                     },
                     {
                         "command": "cursorMove",
@@ -1241,7 +1241,7 @@
                     },
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'down', select: true, value: Number(__keys.slice(0, -1).join(''))+1 }"
+                        "args": "{ to: 'down', by: 'wrappedLine', select: true, value: Number(__keys.slice(0, -1).join(''))+1 }"
                     },
                     {
                         "command": "cursorMove",
@@ -1251,7 +1251,7 @@
                 "false": [
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'down', select: true, value: Number(__keys.slice(0, -1).join('')) }"
+                        "args": "{ to: 'down', by: 'wrappedLine', select: true, value: Number(__keys.slice(0, -1).join('')) }"
                     },
                     {
                         "command": "cursorMove",
