@@ -397,7 +397,7 @@
 
     "x": [ "selection-utilities.add-next" ],
     "X": [ "selection-utilities.skip-next" ],
-    "r": [ "modaledit.resetSelection" ],
+    "r": [ "modaledit.cancelMultipleSelections" ],
     " ": [ "modaledit.enableSelection", ],
 
     ////////////////////////
@@ -486,7 +486,7 @@
     ],
 
     "C": [
-        "modaledit.resetSelection",
+        "modaledit.cancelMultipleSelections",
         "deleteAllRight",
         "modaledit.enterInsert",
     ],
@@ -512,7 +512,7 @@
         "editor.action.clipboardCutAction",
     ],
     "D": [
-        "modaledit.resetSelection",
+        "modaledit.cancelMultipleSelections",
         {
             "command": "cursorMove",
             "args": "{ to: 'wrappedLineEnd', select: true }"
@@ -523,7 +523,7 @@
         {
             "condition": "editor.selection.isEmpty",
             "true": [],
-            "false": ["modaledit.resetSelection"],
+            "false": ["modaledit.cancelMultipleSelections"],
         },
         {
             "command": "cursorMove",
@@ -553,7 +553,7 @@
             "args": "{ to: 'wrappedLineEnd', select: true }"
         },
         "editor.action.clipboardCopyAction",
-        "modaledit.resetSelection"
+        "modaledit.cancelMultipleSelections"
     ],
 
     // paste after
@@ -801,7 +801,7 @@
         "l": [
             "terminal-polyglot.send-text",
             "modaledit.touchText",
-            "modaledit.resetSelection",
+            "modaledit.cancelMultipleSelections",
         ],
 
         "q": [
@@ -1253,7 +1253,7 @@
 
         // multi-line actions
         "d": [
-            "modaledit.resetSelection",
+            "modaledit.cancelMultipleSelections",
             {
                 "command": "cursorMove",
                 "args": {"to": "wrappedLineStart", "select": false}
@@ -1280,7 +1280,7 @@
             "true": "editor.action.transformToLowercase",
             "false": "editor.action.transformToUppercase"
         },
-        "modaledit.resetSelection",
+        "modaledit.cancelMultipleSelections",
     ],
     }
 }
