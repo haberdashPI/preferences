@@ -695,12 +695,12 @@
         // actions
         "r": [
             "git.stageSelectedRanges",
-            "modaledit.touchText"
+            // "modaledit.touchText"
         ],
 
         "R": [
             "git.unstageSelectedRanges",
-            "modaledit.touchText"
+            // "modaledit.touchText"
         ],
 
         "V": [
@@ -800,7 +800,7 @@
 
         "l": [
             "terminal-polyglot.send-text",
-            "modaledit.touchText",
+            // "modaledit.touchText",
             "modaledit.cancelMultipleSelections",
         ],
 
