@@ -132,7 +132,7 @@
         "expandLineSelection",
     ],
 
-    "U": {
+    "K": {
         "condition": "editor.selection.isSingleLine",
         "true": [
             {
@@ -165,7 +165,7 @@
     },
 
     // TODO: handle last line of document specially
-    "u": {
+    "J": {
         "condition": "editor.selection.isSingleLine",
         "true": [
             {
@@ -208,28 +208,28 @@
     ],
 
 
-    // page movement
-    "J": [
-        {
-            "command": "editorScroll",
-            "args": "{ to: 'down', by: 'halfPage' }"
-        },
-        {
-            "command": "cursorMove",
-            "args": "{ to: 'viewPortBottom', select: __selecting }"
-        },
-    ],
+    // // page movement
+    // "J": [
+    //     {
+    //         "command": "editorScroll",
+    //         "args": "{ to: 'down', by: 'halfPage' }"
+    //     },
+    //     {
+    //         "command": "cursorMove",
+    //         "args": "{ to: 'viewPortBottom', select: __selecting }"
+    //     },
+    // ],
 
-    "K": [
-        {
-            "command": "editorScroll",
-            "args": "{ to: 'up', by: 'halfPage' }"
-        },
-        {
-            "command": "cursorMove",
-            "args": "{ to: 'viewPortTop', select: __selecting }"
-        },
-    ],
+    // "K": [
+    //     {
+    //         "command": "editorScroll",
+    //         "args": "{ to: 'up', by: 'halfPage' }"
+    //     },
+    //     {
+    //         "command": "cursorMove",
+    //         "args": "{ to: 'viewPortTop', select: __selecting }"
+    //     },
+    // ],
 
     // buffer related
     "$": [ "editor.action.selectAll" ],
@@ -1186,7 +1186,7 @@
             },
         ],
 
-        "U": [
+        "K": [
             {
                 "condition": "editor.selection.isSingleLine",
                 "true": [
@@ -1221,7 +1221,7 @@
         ],
 
         // TODO: handle last line of document specially
-        "u": [
+        "J": [
             {
                 "condition": "editor.selection.isSingleLine",
                 "true": [
