@@ -4,7 +4,7 @@
     // Basic selection operators, reset or extend selection
 
     // 'entire' movements (select entire object, not just from start point)
-    "e": {
+    "u": {
         // word-like movement
         "w": {
             "command": "vscode-custom-word-motions.moveby",
@@ -101,6 +101,10 @@
         "command": "vscode-custom-word-motions.moveby",
         "args": "{ unit: 'word', boundary: 'start', select: true }"
     },
+    "e": {
+        "command": "vscode-custom-word-motions.moveby",
+        "args": "{ unit: 'word', boundary: 'end', select: true }"
+    },
     "b": {
         "command": "vscode-custom-word-motions.moveby",
         "args": "{ unit: 'subword', boundary: 'start', value: -1, select: true }"
@@ -108,6 +112,10 @@
     "B": {
         "command": "vscode-custom-word-motions.moveby",
         "args": "{ unit: 'word', boundary: 'start', value: -1, select: true }"
+    },
+    "E": {
+        "command": "vscode-custom-word-motions.moveby",
+        "args": "{ unit: 'word', boundary: 'end', value: -1, select: true }"
     },
     // numbers
     "@": {
@@ -385,7 +393,7 @@
     // selection modifiers
 
     "R": [ "selection-utilities.trim-selection-whitespace" ],
-    "E": [
+    "U": [
         {
             "command": "vscode-custom-word-motions.narrowto",
             "args": {
@@ -689,6 +697,14 @@
         "b": {
             "command": "vscode-custom-word-motions.moveby",
             "args": { "unit": "WORD", "boundary": "start", "select": true, "value": -1 }
+        },
+        "W": {
+            "command": "vscode-custom-word-motions.moveby",
+            "args": { "unit": "WORD", "boundary": "end", "select": true, "value": 1 }
+        },
+        "B": {
+            "command": "vscode-custom-word-motions.moveby",
+            "args": { "unit": "WORD", "boundary": "end", "select": true, "value": -1 }
         },
 
 
@@ -1071,7 +1087,11 @@
         },
         "W": {
                 "command": "vscode-custom-word-motions.moveby",
-                "args": "{ 'unit': 'word', 'boundary': 'both', 'select': true, 'value': Number(__keys.slice(0, -1).join('')) }"
+                "args": "{ 'unit': 'word', 'boundary': 'start', 'select': true, 'value': Number(__keys.slice(0, -1).join('')) }"
+        },
+        "e": {
+                "command": "vscode-custom-word-motions.moveby",
+                "args": "{ 'unit': 'word', 'boundary': 'end', 'select': true, 'value': Number(__keys.slice(0, -1).join('')) }"
         },
         "b": {
                 "command": "vscode-custom-word-motions.moveby",
@@ -1079,7 +1099,11 @@
         },
         "B": {
                 "command": "vscode-custom-word-motions.moveby",
-                "args": "{ 'unit': 'word', 'boundary': 'both', 'value': -Number(__keys.slice(0, -1).join('')), select: true }"
+                "args": "{ 'unit': 'word', 'boundary': 'start', 'value': -Number(__keys.slice(0, -1).join('')), select: true }"
+        },
+        "E": {
+                "command": "vscode-custom-word-motions.moveby",
+                "args": "{ 'unit': 'word', 'boundary': 'end', 'value': -Number(__keys.slice(0, -1).join('')), select: true }"
         },
 
         "g": {
