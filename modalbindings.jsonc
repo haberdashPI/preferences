@@ -822,6 +822,11 @@
             // "modaledit.touchText",
             "modaledit.cancelMultipleSelections",
         ],
+        "L": [
+            "terminal-polyglot.send-block-text",
+            // "modaledit.touchText",
+            "modaledit.cancelMultipleSelections",
+        ],
 
         "q": [
             "rewrap.rewrapComment",
