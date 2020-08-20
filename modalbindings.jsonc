@@ -710,6 +710,8 @@
             "args": { "unit": "WORD", "boundary": "end", "select": true, "value": -1 }
         },
 
+        "x": [ "selection-utilities.add-prev" ],
+        "X": [ "selection-utilities.skip-prev" ],
 
         // actions
         "r": [
