@@ -378,16 +378,19 @@
     // more complex syntactic selections
 
     // "I": "select-indentation.expand-selection",
-    "%": [ "editor.action.jumpToBracket", ],
-    "'": [ "extension.selectSingleQuote", ],
-    "\"": [ "extension.selectDoubleQuote", ],
-    "[": [ "extension.selectSquareBrackets", ],
-    "{": [ "extension.selectCurlyBrackets", ],
-    "(": [ "extension.selectParenthesis", ],
-    "`": [ "extension.selectBackTick", ],
+    "%": "editor.action.jumpToBracket",
+    "'": "extension.selectSingleQuote",
+    "\"": "extension.selectDoubleQuote",
+    // the below is a bit hacky; I want to add these commandsto my extension
+    "[": "bracket-pair-colorizer-2.expandBracketSelection",
+    "{": [
+       "bracketeer.selectBracketContent",
+       "bracketeer.selectBracketContent",
+    ],
+    "`": "extension.selectBackTick",
 
-    "]": [ "vscode-select-by-indent.select-inner", ],
-    "}": [ "vscode-select-by-indent.select-outer", ],
+    "]": "vscode-select-by-indent.select-inner",
+    "}": "vscode-select-by-indent.select-outer", 
 
     ////////////////////////
     // selection modifiers
