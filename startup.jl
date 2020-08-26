@@ -22,4 +22,9 @@ end
 
 @static if gethostname() != "edgewater"
     @tryusing Alert alertREPL(5.0)
+else
+    @tryusing Alert begin
+        using AlertPushover
+        pushover_alert!(token = ENV["MY_PUSHOVER_TOKEN"], user = ENV["MY_USER_PUSHOVER_TOKEN"])
+    end
 end
