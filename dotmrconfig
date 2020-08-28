@@ -1,0 +1,111 @@
+
+[Documents/work/projects/bistable]
+checkout = git clone 'https://github.com/haberdashPI/bistable' 'bistable'
+
+[Documents/work/projects/german_track]
+checkout = git clone 'https://github.com/haberdashPI/german_track.git' 'german_track'
+
+[Documents/home/species]
+checkout = git clone 'https://github.com/haberdashPI/species.git' 'species'
+
+[Documents/home/terminal-polyglot]
+checkout = git clone 'https://github.com/haberdashPI/terminal-polyglot' 'terminal-polyglot'
+
+[Documents/home/vim-multi-repl]
+checkout = git clone 'https://github.com/haberdashPI/vim-multi-repl' 'vim-multi-repl'
+
+[Documents/work/writing/bistability_paper]
+checkout = git clone 'https://github.com/haberdashPI/bistability_paper' 'bistability_paper'
+
+[Documents/work/projects/ap_amount_speech]
+checkout = git clone 'https://github.com/haberdashPI/ap_amount_speech.git' 'ap_amount_speech'
+
+[Documents/home/neurobehave-presentation]
+checkout = git clone 'https://github.com/haberdashPI/vscode-neurobehave-presentation.git' 'neurobehave-presentation'
+
+[Documents/work/projects/german_track_collection]
+checkout = git clone 'https://github.com/haberdashPI/german_track_collection' 'german_track_collection'
+
+[Documents/work/writing/job_application]
+checkout = git clone 'https://github.com/haberdashPI/job_application' 'job_application'
+
+[Documents/home/matlab-in-julia]
+checkout = git clone 'https://github.com/haberdashPI/vscode-matlab-in-julia.git' 'matlab-in-julia'
+
+[Documents/work/writing/cv]
+checkout = git clone 'https://github.com/haberdashPI/CV.git' 'cv'
+
+[Documents/work/tools/IoSR_MatlabToolbox]
+checkout = git clone 'https://github.com/IoSR-Surrey/MatlabToolbox' 'IoSR_MatlabToolbox'
+
+[Documents/home/python-in-julia]
+checkout = git clone 'https://github.com/haberdashPI/vscode-python-in-julia.git' 'python-in-julia'
+
+[Documents/work/tools/clockify-priority]
+checkout = git clone 'https://github.com/haberdashPI/clockify-priorities.git' 'clockify-priority'
+
+[Documents/work/projects/ILDrandom]
+checkout = git clone 'https://github.com/haberdashPI/ILDrandom.git' 'ILDrandom'
+
+[Documents/juliadev/CorticalSpectralTemporalResponses]
+checkout = git clone 'https://github.com/haberdashPI/CorticalSpectralTemporalResponses.git' 'CorticalSpectralTemporalResponses'
+
+[Documents/juliadev/PlotAxes]
+checkout = git clone 'https://github.com/haberdashPI/PlotAxes.jl' 'PlotAxes'
+
+[Documents/work/projects/ap2]
+checkout = git clone 'https://github.com/haberdashPI/ap2.git' 'ap2'
+
+[Documents/work/projects/SignalOperators]
+checkout = git clone 'https://github.com/haberdashPI/SignalOperators.jl' 'SignalOperators'
+
+[Documents/work/writing/bwf_grant]
+checkout = git clone 'https://github.com/haberdashPI/bwf_grant.git' 'bwf_grant'
+
+[Documents/work/tools/API_MO]
+checkout = git clone 'https://github.com/sofacoustics/API_MO' 'API_MO'
+
+[Documents/juliadev/LambdaFn]
+checkout = git clone 'https://github.com/haberdashPI/LambdaFn.jl' 'LambdaFn'
+
+[Documents/work/tools/vscode-custom-word-motions]
+checkout = git clone 'https://github.com/haberdashPI/vscode-custom-word-motions.git' 'vscode-custom-word-motions'
+
+[Documents/work/tools/vscode-modaledit]
+checkout = git clone 'https://github.com/haberdashPI/vscode-modaledit' 'vscode-modaledit'
+
+[Documents/work/tools/vscode-select-by-indent]
+checkout = git clone 'https://github.com/haberdashPI/vscode-select-by-indent.git' 'vscode-select-by-indent'
+
+[Documents/work/tools/git-latexdiff]
+checkout = git clone 'https://gitlab.com/git-latexdiff/git-latexdiff' 'git-latexdiff'
+
+[Documents/work/tools/vscode-move-cursor-by-argument]
+checkout = git clone 'https://github.com/haberdashPI/vscode-move-cursor-by-argument.git' 'vscode-move-cursor-by-argument'
+
+[Documents/work/tools/vscode-settings]
+checkout = git clone 'https://github.com/haberdashPI/vscode-settings.git' 'vscode-settings'
+
+[Documents/work/tools/CategoricalArrays.jl]
+checkout = git clone 'https://github.com/haberdashPI/CategoricalArrays.jl' 'CategoricalArrays.jl'
+
+[Documents/work/tools/LabRegistry]
+checkout = git clone 'https://github.com/haberdashPI/LabRegistry.jl' 'LabRegistry'
+
+[Documents/work/writing/top_down]
+checkout = git clone 'https://github.com/haberdashPI/top_down' 'top_down'
+
+[Documents/work/tools/selection-utilities]
+checkout = git clone 'https://github.com/haberdashPI/vscode-selection-utilities.git' 'selection-utilities'
+
+[Documents/work/projects/apamount]
+checkout = git clone 'https://github.com/haberdashPI/apamount.git' 'apamount'
+
+[Documents/work/projects/bistable_archive]
+checkout = git clone 'https://github.com/haberdashPI/bistable_archive.git' 'bistable_archive'
+
+[Documents/work/projects/SignalBase]
+checkout = git clone 'https://github.com/haberdashpi/SignalBase.jl' 'SignalBase'
+
+[Documents/home/bcmc-sanity]
+checkout = git clone 'https://github.com/haberdashPI/bcmc-sanity.git' 'bcmc-sanity'
