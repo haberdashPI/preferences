@@ -1,4 +1,3 @@
-
 [Documents/work/projects/bistable]
 checkout = git clone 'https://github.com/haberdashPI/bistable' 'bistable'
 
@@ -47,10 +46,10 @@ checkout = git clone 'https://github.com/haberdashPI/clockify-priorities.git' 'c
 [Documents/work/projects/ILDrandom]
 checkout = git clone 'https://github.com/haberdashPI/ILDrandom.git' 'ILDrandom'
 
-[Documents/juliadev/CorticalSpectralTemporalResponses]
+[Documents/tools/CorticalSpectralTemporalResponses]
 checkout = git clone 'https://github.com/haberdashPI/CorticalSpectralTemporalResponses.git' 'CorticalSpectralTemporalResponses'
 
-[Documents/juliadev/PlotAxes]
+[Documents/tools/PlotAxes]
 checkout = git clone 'https://github.com/haberdashPI/PlotAxes.jl' 'PlotAxes'
 
 [Documents/work/projects/ap2]
