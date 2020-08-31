@@ -106,3 +106,6 @@ checkout = git clone 'https://github.com/haberdashpi/SignalBase.jl' 'SignalBase'
 
 [Documents/home/bcmc-sanity]
 checkout = git clone 'https://github.com/haberdashPI/bcmc-sanity.git' 'bcmc-sanity'
+
+[Documents/notes]
+checkout = git clone 'https://github.com/haberdashPI/notes' 'notes'
