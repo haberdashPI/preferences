@@ -1142,6 +1142,7 @@
                 "args": "{ 'unit': 'word', 'boundary': 'end', 'value': -Number(__keys.slice(0, -1).join('')), select: true }"
         },
 
+        // special jump commands
         "g": {
             "e,E,f,F": {
                 "command": "modaledit.typeNormalKeys",
@@ -1160,8 +1161,44 @@
                     "command": "modaledit.goToBookmark",
                     "args": "{ bookmark: Number(__keys.slice(0, -2).join('')) }"
                 },
-            ]
+            ],
 
+            // jump down given number of full lines (not wrapped)
+            "j": [
+                {
+                    "condition": "!__selecting",
+                    "true": [
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'down', by: 'line', select: false, value: Number(__keys.slice(0, -2).join('')) }"
+                        },
+                    ],
+                    "false": [
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'down', by: 'line', select: true, value: Number(__keys.slice(0, -2).join('')) }"
+                        },
+                    ]
+                },
+            ],
+
+            "k":[
+                {
+                    "condition": "!__selecting",
+                    "true": [
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'up', by: 'line', select: false, value: Number(__keys.slice(0, -2).join('')) }"
+                        },
+                    ],
+                    "false": [
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'up', by: 'line', select: true, value: Number(__keys.slice(0, -2).join('')) }"
+                        },
+                    ]
+                },
+            ],
         },
 
 
