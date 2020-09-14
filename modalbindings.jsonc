@@ -997,6 +997,24 @@
             },
             "modaledit.enterNormal"
         ],
+        "*": [
+            "modaledit.enterInsert",
+            {
+                "command": "type",
+                "args": { "text": "*" },
+            },
+            "modaledit.enterNormal"
+        ],
+        "2": {
+            "*": [
+                "modaledit.enterInsert",
+                {
+                    "command": "type",
+                    "args": { "text": "**" },
+                },
+                "modaledit.enterNormal"
+            ],
+        },
         "{": [
         "modaledit.enterInsert",
         {
