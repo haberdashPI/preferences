@@ -382,15 +382,41 @@
     "'": "extension.selectSingleQuote",
     "\"": "extension.selectDoubleQuote",
     // the below is a bit hacky; I want to add these commandsto my extension
-    "[": "bracket-pair-colorizer-2.expandBracketSelection",
+    "[": [
+        {
+            "condition": "!editor.selection.isEmpty",
+            "true": [
+                "selection-utilities.active-at-start",
+                { "command": "cursorMove", "args": { "to": "left", "select": true, "value": 2 } },
+                "selection-utilities.active-at-end",
+                { "command": "cursorMove", "args": { "to": "right", "select": true, "value": 2 } }
+            ],
+            "false": []
+        },
+        {
+            "command": "editor.action.selectToBracket",
+            "args": {"selectBrackets": false}
+        }
+    ],
     "{": [
-       "bracketeer.selectBracketContent",
-       "bracketeer.selectBracketContent",
+        {
+            "condition": "!editor.selection.isEmpty",
+            "true": [
+                "selection-utilities.active-at-start",
+                { "command": "cursorMove", "args": { "to": "left", "select": true } },
+                "selection-utilities.active-at-end",
+                { "command": "cursorMove", "args": { "to": "right", "select": true } }
+            ],
+        },
+        {
+            "command": "editor.action.selectToBracket",
+            "args": {"selectBrackets": true}
+        }
     ],
     "`": "extension.selectBackTick",
 
     "]": "vscode-select-by-indent.select-inner",
-    "}": "vscode-select-by-indent.select-outer", 
+    "}": "vscode-select-by-indent.select-outer",
 
     ////////////////////////
     // selection modifiers
@@ -1042,7 +1068,7 @@
 
     "0": {
         // cut to clipboard
-        "x": [
+        "d": [
             {
                 "condition": "!editor.selection.isEmpty",
                 "true": [
@@ -1053,7 +1079,7 @@
                 ]
             }
         ],
-        "X": [
+        "D": [
             {
                 "condition": "!editor.selection.isEmpty",
                 "true": {
