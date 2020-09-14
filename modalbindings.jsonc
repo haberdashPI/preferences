@@ -544,6 +544,9 @@
         },
     ],
 
+    // check
+    "^": "markdown-checkbox.markCheckbox",
+
     // cut to clipboard
     "d": [
         "editor.action.clipboardCutAction",
