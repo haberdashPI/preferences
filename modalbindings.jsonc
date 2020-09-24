@@ -1220,6 +1220,72 @@
                     ]
                 },
             ],
+
+            "K": [
+                {
+                    "condition": "editor.selection.isSingleLine",
+                    "true": [
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'down', by: 'line', select: true }"
+                        },
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'wrappedLineStart', select: false }"
+                        },
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'up', by: 'line', select: true, value: Number(__keys.slice(0, -2).join(''))+1 }"
+                        },
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'wrappedLineStart', select: true }"
+                        },
+                    ],
+                    "false": [
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'up', by: 'line', select: true, value: Number(__keys.slice(0, -2).join('')) }"
+                        },
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'lineStart', select: true }"
+                        },
+                    ],
+                },
+            ],
+
+            // TODO: handle last line of document specially
+            "J": [
+                {
+                    "condition": "editor.selection.isSingleLine",
+                    "true": [
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'wrappedLineStart', select: false }"
+                        },
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'down', by: 'line', select: true, value: Number(__keys.slice(0, -2).join(''))+1 }"
+                        },
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'wrappedLineStart', select: true }"
+                        },
+                    ],
+                    "false": [
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'down', by: 'line', select: true, value: Number(__keys.slice(0, -2).join('')) }"
+                        },
+                        {
+                            "command": "cursorMove",
+                            "args": "{ to: 'wrappedLineStart', select: true }"
+                        },
+                    ],
+                },
+            ],
+
         },
 
 
