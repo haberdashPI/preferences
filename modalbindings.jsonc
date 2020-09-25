@@ -386,9 +386,9 @@
         {
             "condition": "!editor.selection.isEmpty",
             "true": [
-                "selection-utilities.active-at-start",
+                "selection-utilities.activeAtStart",
                 { "command": "cursorMove", "args": { "to": "left", "select": true, "value": 2 } },
-                "selection-utilities.active-at-end",
+                "selection-utilities.activeAtEnd",
                 { "command": "cursorMove", "args": { "to": "right", "select": true, "value": 2 } }
             ],
             "false": []
@@ -402,9 +402,9 @@
         {
             "condition": "!editor.selection.isEmpty",
             "true": [
-                "selection-utilities.active-at-start",
+                "selection-utilities.activeAtStart",
                 { "command": "cursorMove", "args": { "to": "left", "select": true } },
-                "selection-utilities.active-at-end",
+                "selection-utilities.activeAtEnd",
                 { "command": "cursorMove", "args": { "to": "right", "select": true } }
             ],
         },
@@ -421,7 +421,7 @@
     ////////////////////////
     // selection modifiers
 
-    "R": [ "selection-utilities.trim-selection-whitespace" ],
+    "R": [ "selection-utilities.trimSelectionWhitespace" ],
     "U": [
         {
             "command": "vscode-custom-word-motions.narrowto",
@@ -432,8 +432,8 @@
         }
     ],
 
-    "x": [ "selection-utilities.add-next" ],
-    "X": [ "selection-utilities.skip-next" ],
+    "x": [ "selection-utilities.addNext" ],
+    "X": [ "selection-utilities.skipNext" ],
     "r": [ "modaledit.cancelMultipleSelections" ],
     " ": [ "modaledit.enableSelection", ],
 
@@ -473,7 +473,7 @@
                 "modaledit.enterInsert"
             ],
             "false": [
-                "selection-utilities.exchange-anchor-active",
+                "selection-utilities.exchangeAnchorActive",
                 {
                     "condition": "!editor.selection.isReversed",
                     "true": {
@@ -630,7 +630,7 @@
                 "condition": "!editor.selection.isReversed",
                 "true": "editor.action.insertLineBefore",
                 "false": [
-                    "selection-utilities.exchange-anchor-active",
+                    "selection-utilities.exchangeAnchorActive",
                     "editor.action.insertLineBefore",
                 ]
             }
@@ -645,7 +645,7 @@
                 "condition": "editor.selection.isReversed",
                 "true": "editor.action.insertLineBefore",
                 "false": [
-                    "selection-utilities.exchange-anchor-active",
+                    "selection-utilities.exchangeAnchorActive",
                     "editor.action.insertLineBefore",
                 ]
             }
@@ -739,8 +739,8 @@
             "args": { "unit": "WORD", "boundary": "end", "select": true, "value": -1 }
         },
 
-        "x": [ "selection-utilities.add-prev" ],
-        "X": [ "selection-utilities.skip-prev" ],
+        "x": [ "selection-utilities.addPrev" ],
+        "X": [ "selection-utilities.skipPrev" ],
 
         // actions
         "r": [
@@ -761,7 +761,7 @@
             "clipboard-manager.editor.pickAndPaste",
         ],
 
-        "a": [ "selection-utilities.trim-whitespace" ],
+        "a": [ "selection-utilities.trimWhitespace" ],
 
         "o": [
             {
@@ -771,7 +771,7 @@
                     "condition": "!editor.selection.isReversed",
                     "true": "editor.action.insertLineBefore",
                     "false": [
-                        "selection-utilities.exchange-anchor-active",
+                        "selection-utilities.exchangeAnchorActive",
                         "editor.action.insertLineBefore",
                     ]
                 }
@@ -785,7 +785,7 @@
                     "condition": "editor.selection.isReversed",
                     "true": "editor.action.insertLineBefore",
                     "false": [
-                        "selection-utilities.exchange-anchor-active",
+                        "selection-utilities.exchangeAnchorActive",
                         "editor.action.insertLineBefore",
                     ]
                 }
@@ -1035,33 +1035,33 @@
             "modaledit.enterNormal"
         ],
 
-        "=": "selection-utilities.align-selections-left",
-        "+": "selection-utilities.align-selections-right",
+        "=": "selection-utilities.alignSelectionsLeft",
+        "+": "selection-utilities.alignSelectionsRight",
 
         // histoory
         ".": "modaledit.repeatLastSelection",
 
         // selection modifiers
-        "h": "selection-utilities.active-at-start",
-        "l": "selection-utilities.active-at-end",
-        "j": "selection-utilities.move-primary-right",
-        "k": "selection-utilities.move-primary-left",
-        "c": "selection-utilities.append-to-memory",
-        "v": "selection-utilities.restore-and-clear",
-        "x": "selection-utilities.swap-with-memory",
-        "n": "selection-utilities.delete-last-saved",
-        "d": "selection-utilities.delete-primary",
-        "s": "selection-utilities.split-by-newline",
-        "S": "selection-utilities.split-by",
-        "g": "selection-utilities.create-by",
-        "G": "selection-utilities.create-by-regex",
-        "r": "selection-utilities.split-by-regex",
-        "f": "selection-utilities.include-by",
-        "F": "selection-utilities.exclude-by",
-        "t": "selection-utilities.include-by-regex",
-        "T": "selection-utilities.exclude-by-regex",
+        "h": "selection-utilities.activeAtStart",
+        "l": "selection-utilities.activeAtEnd",
+        "j": "selection-utilities.movePrimaryRight",
+        "k": "selection-utilities.movePrimaryLeft",
+        "c": "selection-utilities.appendToMemory",
+        "v": "selection-utilities.restoreAndClear",
+        "x": "selection-utilities.swapWithMemory",
+        "n": "selection-utilities.deleteLastSaved",
+        "d": "selection-utilities.deletePrimary",
+        "s": "selection-utilities.splitByNewline",
+        "S": "selection-utilities.splitBy",
+        "g": "selection-utilities.createBy",
+        "G": "selection-utilities.createByRegex",
+        "r": "selection-utilities.splitByRegex",
+        "f": "selection-utilities.includeBy",
+        "F": "selection-utilities.excludeBy",
+        "t": "selection-utilities.includeByRegex",
+        "T": "selection-utilities.excludeByRegex",
         "-": {
-            "command": "selection-utilities.restore-and-clear",
+            "command": "selection-utilities.restoreAndClear",
             "args": {"register": "cancel"}
         },
 
