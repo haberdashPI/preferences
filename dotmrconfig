@@ -108,3 +108,6 @@ checkout = git clone 'https://github.com/haberdashPI/bcmc-sanity.git' 'bcmc-sani
 
 [Documents/notes]
 checkout = git clone 'https://github.com/haberdashPI/notes' 'notes'
+
+[Documents/work/writing/lincoln_lab_app]
+checkout = git clone 'https://github.com/haberdashPI/lincoln_lab_app.git' 'lincoln_lab_app'
