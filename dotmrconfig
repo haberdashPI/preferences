@@ -25,8 +25,9 @@ checkout = git clone 'https://github.com/haberdashPI/vscode-neurobehave-presenta
 [Documents/work/projects/german_track_collection]
 checkout = git clone 'https://github.com/haberdashPI/german_track_collection' 'german_track_collection'
 
-[Documents/work/writing/job_application]
-checkout = git clone 'https://github.com/haberdashPI/job_application' 'job_application'
+[Documents/work/writing/academic_job_application]
+checkout = git clone 'https://github.com/haberdashPI/job_application' 'academic_job_application'
+
 
 [Documents/tools/matlab-in-julia]
 checkout = git clone 'https://github.com/haberdashPI/vscode-matlab-in-julia.git' 'matlab-in-julia'
