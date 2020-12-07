@@ -112,3 +112,6 @@ checkout = git clone 'https://github.com/haberdashPI/notes' 'notes'
 
 [Documents/work/writing/lincoln_lab_app]
 checkout = git clone 'https://github.com/haberdashPI/lincoln_lab_app.git' 'lincoln_lab_app'
+
+[Documents/work/projects/deep_learn_practice]
+checkout = git clone 'https://github.com/haberdashPI/deep_learn_practice.git' 'deep_learn_practice'
