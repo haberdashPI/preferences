@@ -1,7 +1,7 @@
 ZSH_THEME="powerlevel10k/powerlevel10k"
 KEYTIMEOUT=1
 
-plugins=(git fzf z brew fd docker vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-interactive-cd asdf pipenv direnv)
+plugins=(git fzf z brew fd docker vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-interactive-cd asdf)
 source $ZSH/oh-my-zsh.sh
 
 bindkey '\e;' autosuggest-accept
