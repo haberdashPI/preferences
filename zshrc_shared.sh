@@ -1,6 +1,8 @@
 ZSH_THEME="powerlevel10k/powerlevel10k"
 KEYTIMEOUT=1
 
+export JULIA_PKG_DEVDIR="${HOME}/Documents/tools"
+
 plugins=(git fzf z brew fd docker vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-interactive-cd asdf)
 source $ZSH/oh-my-zsh.sh
 
