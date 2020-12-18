@@ -50,9 +50,6 @@ checkout = git clone 'https://github.com/haberdashPI/ILDrandom.git' 'ILDrandom'
 [Documents/tools/CorticalSpectralTemporalResponses]
 checkout = git clone 'https://github.com/haberdashPI/CorticalSpectralTemporalResponses.git' 'CorticalSpectralTemporalResponses'
 
-[Documents/tools/PlotAxes]
-checkout = git clone 'https://github.com/haberdashPI/PlotAxes.jl' 'PlotAxes'
-
 [Documents/work/projects/ap2]
 checkout = git clone 'https://github.com/haberdashPI/ap2.git' 'ap2'
 
@@ -115,3 +112,24 @@ checkout = git clone 'https://github.com/haberdashPI/lincoln_lab_app.git' 'linco
 
 [Documents/work/projects/deep_learn_practice]
 checkout = git clone 'https://github.com/haberdashPI/deep_learn_practice.git' 'deep_learn_practice'
+
+[Documents/tools/Alert.jl]
+checkout = git clone 'https://github.com/haberdashPI/Alert.jl' 'Alert.jl'
+
+[Documents/tools/AlertPushover.jl]
+checkout = git clone 'https://github.com/haberdashPI/AlertPushover.jl' 'AlertPushover.jl'
+
+[Documents/tools/MetaArrays.jl]
+checkout = git clone 'https://github.com/haberdashPI/MetaArrays.jl' 'MetaArrays.jl'
+
+[Documents/tools/PlotAxes.jl]
+checkout = git clone 'https://github.com/haberdashPI/PlotAxes.jl' 'PlotAxes.jl'
+
+[Documents/tools/SignalOperators.jl]
+checkout = git clone 'https://github.com/haberdashPI/SignalOperators.jl' 'SignalOperators.jl'
+
+[Documents/tools/SignalBase.jl]
+checkout = git clone 'https://github.com/haberdashPI/SignalBase.jl' 'SignalBase.jl'
+
+[Documents/tools/vscode-selection-utilities]
+checkout = git clone 'https://github.com/haberdashPI/vscode-selection-utilities' 'vscode-selection-utilities'
