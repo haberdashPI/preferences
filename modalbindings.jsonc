@@ -1066,6 +1066,15 @@
         },
 
         // motions
+
+        ";": {
+            "command": "selection-utilities.moveBy",
+            "args": { "unit": "comment", "boundary": "both", "selectWhole": true },
+        },
+        ":": {
+            "command": "selection-utilities.moveBy",
+            "args": { "unit": "comment", "boundary": "both", "selectWhole": true, "value": -1}
+        },
         "w": {
             "command": "move-cursor-by-argument.move-by-argument",
             "args": { "value": 1, "boundary": "start", "select": true }
