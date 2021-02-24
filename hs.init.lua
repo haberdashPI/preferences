@@ -16,13 +16,14 @@ function showModeDisplay(d,text)
   text = text or "Moving windows"
   local frame = hs.screen.mainScreen():frame()
   hs.printf("frame: "..tostring(frame).."\n")
-  local height = 60
-  local padding = 12
-  modeDisplay = c.new({x=0,y=frame.h-height/2,h=height,w=frame.w}):appendElements({
-    {action = "build", padding = 0, type = "rectangle"},
-    {action = "fill", fillColor = { alpha = 0.5, green = 0.3, red = 0.3, blue = 0.0}, type = "rectangle"},
-    {action = "fill", fillColor = { red = 1.0, green = 1.0, blue = 1.0}, type = "text",
-      text = text, frame = {x = padding, y = padding, w = "80%", h = "80%"}, textSize = (height - padding)/2}
+  local height = 110
+  local padding = 24
+  modeDisplay = c.new({x=frame.w*0.25,y=frame.h/2-height/2,h=height-2*padding,w=frame.w*0.5}):appendElements({
+    {type = "rectangle", type = "rectangle", roundedRectRadii = {xRadius = padding/2, yRadius = padding/2},
+      fillColor = { alpha = 0.7, green = 0.0, red = 0.0, blue = 0.0},
+      strokeWidth = 5.0, strokeColor = { alpha = 1.0, green = 1.0, red = 1.0, blue = 1.0}},
+    {action = "fill", type = "text", fillColor = { red = 1.0, green = 1.0, blue = 1.0},
+      text = text, frame = {x = padding/2, y = padding/10, w = "80%", h = "80%"}, textSize = (height - padding)/2}
   })
   modeDisplay:show(d);
 end
