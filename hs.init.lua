@@ -71,6 +71,8 @@ function wideLayout() mash1('s') end
 function fullLayout() mash1('d') end
 function focusNext() mash1('k') end
 function focusPrev() mash1('j') end
+function shiftForward() mash2('k') end
+function shiftBackward() mash2('j') end
 function expandMain() mash1('l') end
 function shrinkMain() mash1('h') end
 function incrMain() mash2(',') end
@@ -89,6 +91,8 @@ wmk:bind('', '=', incrMain)
 wmk:bind('', '-', decrMain)
 wmk:bind('', 'g', swapMain)
 wmk:bind('', 'q', toggleTile)
+wmk:bind('shift', 'j', shiftForward)
+wmk:bind('shift', 'k', shiftBackward)
 wmk:bind('', ';', function()
   focusNext()
   wmk:exit()
@@ -123,106 +127,3 @@ end
 
 wmk:bind('', 'return', function() wmk:exit() end)
 wmk:bind('', 'escape', function() wmk:exit() end)
-
-
--- hs.window.switcher.ui.showThumbnails = false
--- hs.window.switcher.ui.showSelectedThumbnail = false
--- tileSwitcher = hs.window.switcher.new(hs.window.filter.defaultCurrentSpace);
-
--- vert = {
---   hs.window.layout.new({{
---     windowfilter = hs.window.filter.defaultCurrentSpace,
---     "move 1 foc [0,0,30,100] 0,0 | tile 4 [30,0,100,100] 0,0 | min"
---   }}),
---   hs.window.layout.new({{
---     windowfilter = hs.window.filter.defaultCurrentSpace,
---     "move 1 foc [0,0,40,100] 0,0 | tile 4 [40,0,100,100] 0,0 | min"
---   }}),
---   hs.window.layout.new({{
---     windowfilter = hs.window.filter.defaultCurrentSpace,
---     "move 1 foc [0,0,50,100] 0,0 | tile 4 [50,0,100,100] 0,0 | min"
---   }}),
---   hs.window.layout.new({{
---     windowfilter = hs.window.filter.defaultCurrentSpace,
---     "move 1 foc [0,0,60,100] 0,0 | tile 4 [60,0,100,100] 0,0 | min"
---   }}),
---   hs.window.layout.new({{
---     windowfilter = hs.window.filter.defaultCurrentSpace,
---     "move 1 foc [0,0,70,100] 0,0 | tile 4 [70,0,100,100] 0,0 | min"
---   }})
--- }
-
--- horz = {
---   hs.window.layout.new({{
---     windowfilter = hs.window.filter.defaultCurrentSpace,
---     "move 1 foc [0,0,100,30] 0,0 | tile 4 [0,30,100,100] 0,0 | min"
---   }}),
---   hs.window.layout.new({{
---     windowfilter = hs.window.filter.defaultCurrentSpace,
---     "move 1 foc [0,0,100,40] 0,0 | tile 4 [0,40,100,100] 0,0 | min"
---   }}),
---   hs.window.layout.new({{
---     windowfilter = hs.window.filter.defaultCurrentSpace,
---     "move 1 foc [0,0,100,50] 0,0 | tile 4 [0,50,100,100] 0,0 | min"
---   }}),
---   hs.window.layout.new({{
---     windowfilter = hs.window.filter.defaultCurrentSpace,
---     "move 1 foc [0,0,100,60] 0,0 | tile 4 [0,60,100,100] 0,0 | min"
---   }}),
---   hs.window.layout.new({{
---     windowfilter = hs.window.filter.defaultCurrentSpace,
---     "move 1 foc [0,0,100,70] 0,0 | tile 4 [0,70,100,100] 0,0 | min"
---   }})
--- }
-
--- lastLayout = vert;
-
--- full = hs.window.layout.new({{
---   windowfilter = hs.window.filter.defaultCurrentSpace,
---   "max 0,0"
--- }})
--- offset = 3
-
--- wmk:bind('', 'escape', function() wmk:exit() end);
--- wmk:bind('', 's', function()
---   vert[offset]:apply()
---   lastLayout = vert
---   wmk:exit();
--- end);
-
--- wmk:bind('', 'd', function()
---   horz[offset]:apply()
---   lastLayout = horz
---   wmk:exit()
--- end);
-
--- wmk:bind('', '[', function()
---   if offset > 1 then
---     offset = offset - 1
---     lastLayout[offset]:apply()
---   end
--- end)
-
--- wmk:bind('', ']', function()
---   if offset < 5 then
---     offset = offset + 1
---     lastLayout[offset]:apply()
---   end
--- end)
-
--- wmk:bind('', '=', function()
---   offset = 3
---   lastLayout[offset]:apply()
--- end)
-
--- wmk:bind('', 'f', function()
---   full:apply()
---   wmk:exit()
--- end);
-
--- wmk:bind('ctrl', ';', nil, function() tileSwitcher:previous() end,
---   nil, function() tileSwitcher:next() end);
--- wmk:bind('ctrl', '\'', nil, function() tileSwitcher:next() end,
---   nil, function() tileSwitcher:next() end);
-
--- wmk:bind('', 'return', function() wmk:exit() end);
