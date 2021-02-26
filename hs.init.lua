@@ -80,6 +80,7 @@ function incrMain() mash2(',') end
 function decrMain() mash2('.') end
 function swapMain() mash1("return") end
 function toggleTile() mash2('t') end
+function minimizeWindow() hs.window.focusedWindow():minimize() end
 
 wmk:bind('', 's', tallLayout)
 wmk:bind('', 'd', wideLayout)
@@ -94,6 +95,7 @@ wmk:bind('', 'g', swapMain)
 wmk:bind('', 'q', toggleTile)
 wmk:bind('shift', 'j', shiftForward)
 wmk:bind('shift', 'k', shiftBackward)
+wmk:bind('','m', minimizeWindow)
 wmk:bind('', ';', function()
   focusNext()
   wmk:exit()
