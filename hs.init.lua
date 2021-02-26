@@ -19,11 +19,14 @@ function showModeDisplay(d,text)
   local height = 110
   local padding = 24
   modeDisplay = c.new({x=frame.w*0.25,y=frame.h/2-height/2,h=height-2*padding,w=frame.w*0.5}):appendElements({
-    {type = "rectangle", type = "rectangle", roundedRectRadii = {xRadius = padding/2, yRadius = padding/2},
+    {type = "rectangle", type = "rectangle",
+      roundedRectRadii = {xRadius = padding/4, yRadius = padding/4},
+      withShadow = true,
+      padding = 10.0,
       fillColor = { alpha = 0.7, green = 0.0, red = 0.0, blue = 0.0},
-      strokeWidth = 5.0, strokeColor = { alpha = 1.0, green = 1.0, red = 1.0, blue = 1.0}},
+      strokeWidth = 1.0, strokeColor = { alpha = 1.0, green = 0.25, red = 0.25, blue = 0.25}},
     {action = "fill", type = "text", fillColor = { red = 1.0, green = 1.0, blue = 1.0},
-      text = text, frame = {x = padding/2, y = padding/10, w = "80%", h = "80%"}, textSize = (height - padding)/2}
+      text = text, frame = {x = padding, y = (height-padding)*0.2, w = "80%", h = "80%"}, textSize = (height - padding)*0.3}
   })
   modeDisplay:show(d);
 end
