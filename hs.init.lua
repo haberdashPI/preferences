@@ -15,7 +15,6 @@ local VimMode = hs.loadSpoon('VimMode')
 local vim = VimMode:new()
 vim:bindHotKeys({ enter = {{'ctrl'}, '\\'} })
 vim:enableBetaFeature('block_cursor_overlay')
-vim:disableForApp("Visual Studio Code")
 vim:shouldDimScreenInNormalMode(false)
 
 -- Tiling window management
