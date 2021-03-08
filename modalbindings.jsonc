@@ -336,7 +336,7 @@
         },
     ],
 
-    "m": [
+    "s": [
         {
             "command": "modaledit.search",
             "args": {
@@ -351,7 +351,7 @@
             }
         },
     ],
-    "M": [
+    "S": [
         {
             "command": "modaledit.search",
             "args": {
@@ -958,7 +958,7 @@
    },
 
    // second leader
-    "s": {
+    "m": {
        // actions
         "(": [
             "modaledit.enterInsert",
