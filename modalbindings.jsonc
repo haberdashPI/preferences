@@ -697,14 +697,14 @@
     "-": "cursorUndo",
     "_": "cursorRedo",
 
-    "q": [
-    ],
-    "Q": [
-        {
-            "command": "modaledit.replayRecordedKeys",
-            "args": "{ register: 'default' }"
-        },
-    ],
+    // "q": [
+    // ],
+    // "Q": [
+    //     {
+    //         "command": "modaledit.replayRecordedKeys",
+    //         "args": "{ register: 'default' }"
+    //     },
+    // ],
 
     // ".": {
     //     "command": "modaledit.replayRecordedKeys",
@@ -958,7 +958,7 @@
    },
 
    // second leader
-    "m": {
+    "q": {
        // actions
         "(": [
             "modaledit.enterInsert",
