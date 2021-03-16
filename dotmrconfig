@@ -133,3 +133,6 @@ checkout = git clone 'https://github.com/haberdashPI/SignalBase.jl' 'SignalBase.
 
 [Documents/tools/vscode-selection-utilities]
 checkout = git clone 'https://github.com/haberdashPI/vscode-selection-utilities' 'vscode-selection-utilities'
+
+[Documents/home/bcmc-catalyst]
+checkout = git clone 'https://github.com/haberdashPI/bcmc-catalyst' 'bcmc-catalyst'
