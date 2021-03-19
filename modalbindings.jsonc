@@ -762,34 +762,53 @@
         ],
 
         "a": [ "selection-utilities.trimWhitespace" ],
-
-        "o": [
-            {
-                "condition": "editor.selection.isEmpty",
-                "true": "editor.action.insertLineAfter",
-                "false": {
-                    "condition": "!editor.selection.isReversed",
-                    "true": "editor.action.insertLineBefore",
-                    "false": [
-                        "selection-utilities.exchangeAnchorActive",
-                        "editor.action.insertLineBefore",
-                    ]
-                }
+        "v": [
+            { "condition": "!editor.selection.isEmpty",
+                "true": {
+                    "command": "cursorMove",
+                    "args": "{ to: 'right', select: false, value: 0 }"
+                },
+                "false": "cursorRight"
             },
+            "editor.action.clipboardPasteAction",
         ],
-        "O": [
+
+        // paste before
+        "V": [
             {
-                "condition": "editor.selection.isEmpty",
-                "true": "editor.action.insertLineBefore",
-                "false": {
-                    "condition": "editor.selection.isReversed",
-                    "true": "editor.action.insertLineBefore",
-                    "false": [
-                        "selection-utilities.exchangeAnchorActive",
-                        "editor.action.insertLineBefore",
-                    ]
-                }
+                "condition": "!editor.selection.isEmpty",
+                "true": {
+                    "command": "cursorMove",
+                    "args": "{ to: 'left', select: false, value: 0 }"
+                },
+                "false": []
             },
+            "editor.action.clipboardPasteAction",
+        ],
+
+        "i": [
+            "expandLineSelection",
+            { "condition": "!editor.selection.isEmpty",
+                "true": {
+                    "command": "cursorMove",
+                    "args": "{ to: 'right', select: false, value: 0 }"
+                },
+                "false": "cursorRight"
+            },
+            "editor.action.clipboardPasteAction",
+        ],
+
+        "I": [
+            "expandLineSelection",
+            {
+                "condition": "!editor.selection.isEmpty",
+                "true": {
+                    "command": "cursorMove",
+                    "args": "{ to: 'left', select: false, value: 0 }"
+                },
+                "false": []
+            },
+            "editor.action.clipboardPasteAction",
         ],
 
         ";": [
