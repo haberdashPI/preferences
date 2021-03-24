@@ -17,8 +17,6 @@ vim:bindHotKeys({ enter = {{'ctrl'}, '\\'} })
 vim:enableBetaFeature('block_cursor_overlay')
 vim:shouldDimScreenInNormalMode(false)
 
--- Tiling window management
--- -----------------------------------------------------------------
 wmk = hs.hotkey.modal.new('ctrl', ';')
 c = require("hs.canvas")
 modeDisplay = nil
@@ -69,7 +67,7 @@ end
 function sendTo(n)
   return function()
     hs.printf('sending to '..n..'\n')
-    mash2(tostring(n))
+    hs.execute(yabai..'-m window --space '..n)
     hs.timer.doAfter(0.2, function()
       wmk:enter()
     end)
@@ -81,34 +79,62 @@ function mash1(key) hs.eventtap.keyStroke({"alt", "shift"}, key) end
 function mash2(key) hs.eventtap.keyStroke({"alt", "shift", "ctrl"}, key) end
 function mash3(key) hs.eventtap.keyStroke({"ctrl"}, key) end
 
-function tallLayout() mash1('a') end
-function wideLayout() mash1('s') end
-function fullLayout() mash1('d') end
-function focusNext() mash1('k') end
-function focusPrev() mash1('j') end
-function shiftForward() mash2('k') end
-function shiftBackward() mash2('j') end
-function expandMain() mash1('l') end
-function shrinkMain() mash1('h') end
-function incrMain() mash2(',') end
-function decrMain() mash2('.') end
-function swapMain() mash1("return") end
-function toggleTile() mash2('t') end
+yabai = "/usr/local/bin/yabai "
+-- function tallLayout() mash1('a') end
+-- function wideLayout() mash1('s') end
+-- function fullLayout() mash1('d') end
+
+function floatLayout() hs.execute(yabai..'-m config layout float') end
+function tileLayout() hs.execute(yabai..'-m config layout bsp') end
+function toggleSplit() hs.execute(yabai..'-m window --toggle split') end
+function toggleZoom() hs.execute(yabai..'-m window --toggle zoom-fullscreen') end
+function rotateLayoutRight() hs.execute(yabai..'-m space --rotate 270') end
+function rotateLayoutLeft() hs.execute(yabai..'-m space --rotate 90') end
+-- function focusNext() mash1('k') end
+-- function focusPrev() mash1('j') end
+-- function shiftForward() mash2('k') end
+-- function shiftBackward() mash2('j') end
+function focusNext() hs.execute(yabai..'-m window --focus next || '..yabai..'-m window --focus first') end
+function focusPrev() hs.execute(yabai..'-m window --focus prev || '..yabai..'-m window --focus last') end
+function shiftForward() hs.execute(yabai..'-m window --swap next || '..yabai..'-m window --swap first') end
+function shiftBackward() hs.execute(yabai..'-m window --swap prev || '..yabai..'-m window --swap last') end
+function warpForward() hs.execute(yabai..'-m window --warp next || '..yabai..'-m window --warp first') end
+function warpBackward() hs.execute(yabai..'-m window --warp prev || '..yabai..'-m window --warp last') end
+
+-- function expandMain() mash1('l') end
+-- function shrinkMain() mash1('h') end
+-- function incrMain() mash2(',') end
+-- function decrMain() mash2('.') end
+-- function swapMain() mash1("return") end
+-- function toggleTile() mash2('t') end
+function focusMain() hs.execute(yabai..'-m window --focus first') end
+function swapMain() hs.execute(yabai..'-m window --swap first') end
+function expandMain() hs.execute(yabai..'-m window first --resize bottom_right:100:100') end
+function shrinkMain() hs.execute(yabai..'-m window first --resize bottom_right:-100:-100') end
+function toggleFloat() hs.execute(yabai..'-m window --toggle float') end
 function minimizeWindow() hs.window.focusedWindow():minimize() end
 
-wmk:bind('', 's', tallLayout)
-wmk:bind('', 'd', wideLayout)
-wmk:bind('', 'f', fullLayout)
+wmk:bind('', 's', toggleSplit)
+wmk:bind('', 'd', tileLayout)
+wmk:bind('', 'a', floatLayout)
+wmk:bind('', 'f', toggleZoom)
+wmk:bind('', 'q', toggleFloat)
+wmk:bind('', 'r', rotateLayoutRight)
+wmk:bind('shift', 'r', rotateLayoutLeft)
+
 wmk:bind('', 'k', focusPrev)
 wmk:bind('', 'j', focusNext)
 wmk:bind('', 'h', shrinkMain)
 wmk:bind('', 'l', expandMain)
-wmk:bind('', '=', incrMain)
-wmk:bind('', '-', decrMain)
-wmk:bind('', 'g', swapMain)
-wmk:bind('', 'q', toggleTile)
+-- wmk:bind('', '=', incrMain)
+-- wmk:bind('', '-', decrMain)
+wmk:bind('', 'g', focusMain)
+wmk:bind('shift', 'g', swapMain)
+
 wmk:bind('shift', 'j', shiftForward)
 wmk:bind('shift', 'k', shiftBackward)
+wmk:bind('shift', 'l', warpForward)
+wmk:bind('shift', 'h', warpBackward)
 wmk:bind('','m', minimizeWindow)
 wmk:bind('', ';', function()
   focusNext()
