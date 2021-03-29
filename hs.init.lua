@@ -17,12 +17,16 @@ vim:bindHotKeys({ enter = {{'ctrl'}, '\\'} })
 vim:enableBetaFeature('block_cursor_overlay')
 vim:shouldDimScreenInNormalMode(false)
 
+function windowMode()
+  return hs.execute(yabai.."-m query --spaces --space recent | "..rg.."-o '\"type\":\"([a-z]+)\"' -r '$1'"):gsub("%s+", "")
+end
 wmk = hs.hotkey.modal.new('ctrl', ';')
 c = require("hs.canvas")
 modeDisplay = nil
 function showModeDisplay(d,text)
   clearModeDisplay(0);
-  text = text or "Moving windows"
+  mode = windowMode()
+  text = text or ("Moving windows ("..mode..")")
   local frame = hs.screen.mainScreen():frame()
   hs.printf("frame: "..tostring(frame).."\n")
   local height = 110
@@ -80,6 +84,12 @@ function mash2(key) hs.eventtap.keyStroke({"alt", "shift", "ctrl"}, key) end
 function mash3(key) hs.eventtap.keyStroke({"ctrl"}, key) end
 
 yabai = "/usr/local/bin/yabai "
+rg = "/usr/local/bin/rg "
+function byMode(modes)
+  return function()
+    modes[windowMode()]()
+  end
+end
 
 function floatLayout() hs.execute(yabai..'-m config layout float') end
 function tileLayout() hs.execute(yabai..'-m config layout bsp') end
@@ -101,26 +111,44 @@ function expandMain() hs.execute(yabai..'-m window first --resize bottom_right:1
 function shrinkMain() hs.execute(yabai..'-m window first --resize bottom_right:-100:-100') end
 function toggleFloat() hs.execute(yabai..'-m window --toggle float') end
 function minimizeWindow() hs.window.focusedWindow():minimize() end
+function balanceSplits() hs.execute(yabai..'-m space --balance') end
+function stackWindowNext() hs.execute(yabai..'-m window --stack next || '..yabai..'-m window --stack first') end
+function stackWindowPrev() hs.execute(yabai..'-m window --stack prev || '..yabai..'-m window --stack last') end
 
-wmk:bind('', 's', toggleSplit)
-wmk:bind('', 'd', tileLayout)
-wmk:bind('', 'a', floatLayout)
+function moveUp() hs.execute(yabai..'-m window --move rel:0:-100') end
+function moveDown() hs.execute(yabai..'-m window --move rel:0:100') end
+function moveRight() hs.execute(yabai..'-m window --move rel:100:0') end
+function moveLeft() hs.execute(yabai..'-m window --move rel:-100:0') end
+function growVert() hs.execute(yabai..'-m window --resize bottom:0:100') end
+function shrinkVert() hs.execute(yabai..'-m window --resize bottom:0:-100') end
+function growHorz() hs.execute(yabai..'-m window --resize right:100:0') end
+function shrinkHorz() hs.execute(yabai..'-m window --resize right:-100:0') end
+function center() hs.execute(yabai..'-m window --grid 9:15:3:2:9:5') end
+
+wmk:bind('', 'b', balanceSplits)
+wmk:bind('', 'a', function() focusMain(); tileLayout(); showModeDisplay(0) end)
+wmk:bind('', 's', function() floatLayout(); showModeDisplay(0) end)
+wmk:bind('', 'i', stackWindowPrev)
+wmk:bind('', 'o', stackWindowNext)
+wmk:bind('', 'd', toggleSplit)
+wmk:bind('', 'v', toggleFloat)
 wmk:bind('', 'f', toggleZoom)
-wmk:bind('', 'q', toggleFloat)
 wmk:bind('', 'r', rotateLayoutRight)
 wmk:bind('shift', 'r', rotateLayoutLeft)
 
-wmk:bind('', 'k', focusPrev)
-wmk:bind('', 'j', focusNext)
-wmk:bind('', 'h', shrinkMain)
-wmk:bind('', 'l', expandMain)
-wmk:bind('', 'g', focusMain)
+wmk:bind('', 'k', byMode{bsp=focusPrev, float=moveUp})
+wmk:bind('', 'j', byMode{bsp=focusNext, float=moveDown})
+wmk:bind('', 'h', byMode{bsp=shrinkMain, float=moveLeft})
+wmk:bind('', 'l', byMode{bsp=expandMain, float=moveRight})
+wmk:bind('', 'g', byMode{bsp=focusMain, float=center})
+wmk:bind('', 'tab', focusNext)
+wmk:bind('shift', 'tab', focusPrev)
 wmk:bind('shift', 'g', swapMain)
 
-wmk:bind('shift', 'j', shiftForward)
-wmk:bind('shift', 'k', shiftBackward)
-wmk:bind('shift', 'l', warpForward)
-wmk:bind('shift', 'h', warpBackward)
+wmk:bind('shift', 'j', byMode{bsp=shiftForward, float=growVert})
+wmk:bind('shift', 'k', byMode{bsp=shiftBackward, float=shrinkVert})
+wmk:bind('shift', 'l', byMode{bsp=warpForward, float=growHorz})
+wmk:bind('shift', 'h', byMode{bsp=warpBackward, float=shrinkHorz})
 wmk:bind('','m', minimizeWindow)
 wmk:bind('', ';', function()
   focusNext()
