@@ -762,29 +762,6 @@
         ],
 
         "a": [ "selection-utilities.trimWhitespace" ],
-        "v": [
-            { "condition": "!editor.selection.isEmpty",
-                "true": {
-                    "command": "cursorMove",
-                    "args": "{ to: 'right', select: false, value: 0 }"
-                },
-                "false": "cursorRight"
-            },
-            "editor.action.clipboardPasteAction",
-        ],
-
-        // paste before
-        "V": [
-            {
-                "condition": "!editor.selection.isEmpty",
-                "true": {
-                    "command": "cursorMove",
-                    "args": "{ to: 'left', select: false, value: 0 }"
-                },
-                "false": []
-            },
-            "editor.action.clipboardPasteAction",
-        ],
 
         "i": [
             "expandLineSelection",
