@@ -104,6 +104,11 @@ function shiftForward() hs.execute(yabai..'-m window --swap next || '..yabai..'-
 function shiftBackward() hs.execute(yabai..'-m window --swap prev || '..yabai..'-m window --swap last') end
 function warpForward() hs.execute(yabai..'-m window --warp next || '..yabai..'-m window --warp first') end
 function warpBackward() hs.execute(yabai..'-m window --warp prev || '..yabai..'-m window --warp last') end
+function nextWindowInStack() hs.execute(yabai..'-m window --focus stack.next || '..yabai..'-m window --focus stack.first') end
+function prevWindowInStack() hs.execute(yabai..'-m window --focus stack.prev || '..yabai..'-m window --focus stack.last') end
+function unstackWindow()
+  hs.execute(yabai..'-m window --toggle float && '..yabai..'-m window --toggle float')
+end
 
 function focusMain() hs.execute(yabai..'-m window --focus first') end
 function swapMain() hs.execute(yabai..'-m window --swap first') end
@@ -130,12 +135,15 @@ wmk:bind('', 'a', function() focusMain(); tileLayout(); showModeDisplay(0) end)
 wmk:bind('', 's', function() floatLayout(); showModeDisplay(0) end)
 wmk:bind('', 'i', stackWindowPrev)
 wmk:bind('', 'o', stackWindowNext)
+wmk:bind('', 'p', unstackWindow)
 wmk:bind('', 'd', toggleSplit)
 wmk:bind('', 'v', toggleFloat)
 wmk:bind('', 'f', toggleZoom)
 wmk:bind('', 'r', rotateLayoutRight)
 wmk:bind('shift', 'r', rotateLayoutLeft)
 
+wmk:bind('', '[', prevWindowInStack)
+wmk:bind('', ']', nextWindowInStack)
 wmk:bind('', 'k', byMode{bsp=focusPrev, float=moveUp})
 wmk:bind('', 'j', byMode{bsp=focusNext, float=moveDown})
 wmk:bind('', 'h', byMode{bsp=shrinkMain, float=moveLeft})
