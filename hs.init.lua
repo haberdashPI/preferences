@@ -72,6 +72,7 @@ function sendTo(n)
   return function()
     hs.printf('sending to '..n..'\n')
     hs.execute(yabai..'-m window --space '..n)
+    hs.execute(yabai..'-m space --focus '..n)
     hs.timer.doAfter(0.2, function()
       wmk:enter()
     end)
@@ -129,6 +130,7 @@ function shrinkVert() hs.execute(yabai..'-m window --resize bottom:0:-100') end
 function growHorz() hs.execute(yabai..'-m window --resize right:100:0') end
 function shrinkHorz() hs.execute(yabai..'-m window --resize right:-100:0') end
 function center() hs.execute(yabai..'-m window --grid 9:15:3:2:9:5') end
+function toggleDesktop() hs.execute(yabai..'-m space --toggle show-desktop') end
 
 wmk:bind('', 'b', balanceSplits)
 wmk:bind('', 'a', function() focusMain(); tileLayout(); showModeDisplay(0) end)
@@ -137,6 +139,7 @@ wmk:bind('', 'i', stackWindowPrev)
 wmk:bind('', 'o', stackWindowNext)
 wmk:bind('', 'p', unstackWindow)
 wmk:bind('', 'd', toggleSplit)
+wmk:bind('shift', 'D', toggleDesktop)
 wmk:bind('', 'v', toggleFloat)
 wmk:bind('', 'f', toggleZoom)
 wmk:bind('', 'r', rotateLayoutRight)
