@@ -132,6 +132,58 @@ function shrinkHorz() hs.execute(yabai..'-m window --resize right:-100:0') end
 function center() hs.execute(yabai..'-m window --grid 9:15:3:2:9:5') end
 function toggleDesktop() hs.execute(yabai..'-m space --toggle show-desktop') end
 
+numberDisplays = {};
+function clearNumberDisplay()
+  if not (numberDisplays == nil) then
+    for _, display in pairs(numberDisplays) do
+      display:delete()
+    end
+    numberDisplays = nil;
+  end
+end
+function showNumber(boxes)
+  clearNumberDisplay();
+  local frame = hs.screen.mainScreen():frame()
+  local height = 110
+  local padding = 24
+  local textHeight = 50;
+  local textWidth = 30*2;
+
+  numberDisplays = {};
+  for i, box in pairs(boxes) do
+    numberDisplays[i] = c.new({x=box.x+box.w/2-textWidth,y=box.y+box.h/2-textHeight,h=textHeight,w=textWidth}):appendElements({
+    {type = "rectangle", type = "rectangle",
+      roundedRectRadii = {xRadius = padding/4, yRadius = padding/4},
+      withShadow = true,
+      padding = 10.0,
+      fillColor = { alpha = 0.7, green = 0.0, red = 0.0, blue = 0.0},
+      strokeWidth = 1.0, strokeColor = { alpha = 1.0, green = 0.25, red = 0.25, blue = 0.25}},
+    {action = "fill", type = "text", fillColor = { red = 1.0, green = 1.0, blue = 1.0},
+      text = tostring(i), frame = {x = padding, y = (textHeight-padding)*0.5, w = "80%", h = "80%"}, textSize = (textHeight - padding)*0.8}
+    })
+    numberDisplays[i]:show();
+  end
+end
+
+function windowStats()
+  local windows = hs.json.decode(hs.execute(yabai..'-m query --windows --space mouse'))
+  -- filter floating and minimized windows
+  local results = {}
+  j = 0;
+  for i, window in pairs(windows) do
+    print("Examining window: "..window.app)
+    print("Floating: "..window.floating)
+    print("Minimized: "..window.minimized)
+    if window.floating == 0 and window.minimized == 0 then
+      j = j + 1
+      results[j] = window.frame
+      results[j].id = window.id
+      print("Adding to results...")
+    end
+  end
+  return results
+end
+
 wmk:bind('', 'b', balanceSplits)
 wmk:bind('', 'a', function() focusMain(); tileLayout(); showModeDisplay(0) end)
 wmk:bind('', 's', function() floatLayout(); showModeDisplay(0) end)
