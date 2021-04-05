@@ -1,4 +1,5 @@
 Install = hs.loadSpoon("SpoonInstall")
+yabaif = require('yabai')
 
 -- Clipboard history
 -- -----------------------------------------------------------------
@@ -92,8 +93,8 @@ function byMode(modes)
   end
 end
 
-function floatLayout() hs.execute(yabai..'-m config layout float') end
-function tileLayout() hs.execute(yabai..'-m config layout bsp') end
+function floatLayout() yabaif.send(function() end,'config','layout float') end
+function tileLayout() yabaif.send(function() end,'config','layout bsp') end
 function toggleSplit() hs.execute(yabai..'-m window --toggle split') end
 function toggleZoom() hs.execute(yabai..'-m window --toggle zoom-fullscreen') end
 function rotateLayoutRight() hs.execute(yabai..'-m space --rotate 270') end
