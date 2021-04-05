@@ -272,7 +272,7 @@ function showNumber(boxes)
       roundedRectRadii = {xRadius = padding/4, yRadius = padding/4},
       withShadow = true,
       padding = 10.0,
-      fillColor = { alpha = 0.7, green = 0.0, red = 0.0, blue = 0.0},
+      fillColor = { alpha = 0.7, green = 0.0, red = 1.0, blue = 0.0},
       strokeWidth = 1.0, strokeColor = { alpha = 1.0, green = 0.25, red = 0.25, blue = 0.25}},
     {action = "fill", type = "text", fillColor = { red = 1.0, green = 1.0, blue = 1.0},
       text = tostring(i), frame = {x = padding, y = (textHeight-padding)*0.5, w = "80%", h = "80%"}, textSize = (textHeight - padding)*0.8}
@@ -281,23 +281,44 @@ function showNumber(boxes)
   end
 end
 
-function windowStats()
-  yabaif.send(function(data) windows = hs.json.decode(data) end,'query','--windows --space mouse')
-  -- filter floating and minimized windows
+function managedWindows(windows)
   local results = {}
-  j = 0;
+  local j = 0;
+  if windows == nil then
+    return results
+  end
   for i, window in pairs(windows) do
-    print("Examining window: "..window.app)
-    print("Floating: "..window.floating)
-    print("Minimized: "..window.minimized)
     if window.floating == 0 and window.minimized == 0 then
       j = j + 1
       results[j] = window.frame
       results[j].id = window.id
-      print("Adding to results...")
     end
   end
   return results
+end
+
+function showWindowNumbers()
+  yabaif.send(function(data)
+    print("Show window numbers")
+    data = data:gsub("inf", "0")
+    local success, result_err = pcall(function() return hs.json.decode(data) end)
+    if not success then
+      print("Parsing error: "..result_err)
+    else
+      local win = managedWindows(result_err)
+      showNumber(win)
+    end
+  end,'query','--windows','--space','mouse')
+  -- filter floating and minimized windows
+end
+
+function focusOnWindow(n)
+  yabaif.send(function(data)
+    -- print(result)
+    local result = hs.json.decode(data)
+    local wins = managedWindows(result)
+    yabaif.send(function() end, 'window','--focus', wins[n].id)
+  end,'query','--windows','--space','mouse')
 end
 
 wmk:bind('', 'b', balanceSplits)
@@ -356,10 +377,31 @@ sendtok:bind('', 'escape', function()
   sendtok:exit()
   wmk:enter()
 end)
-
 function sendtok:entered()
   showModeDisplay(0.25, "Sending to screen: ")
 end
+
+movetow = hs.hotkey.modal.new()
+wmk:bind('', 'w', function() movetow:enter() end)
+for i=1,9 do
+  movetow:bind('', tostring(i), function()
+    wmk:exit()
+    movetow:exit()
+    focusOnWindow(i)
+  end)
+end
+movetow:bind('', 'escape', function()
+  movetow:exit()
+  wmk:enter()
+end)
+function movetow:entered()
+  showWindowNumbers()
+  showModeDisplay(0.25, "Focus on window: ")
+end
+function movetow:exited()
+  clearNumberDisplay()
+end
+
 
 wmk:bind('', 'return', function() wmk:exit() end)
 wmk:bind('', 'escape', function() wmk:exit() end)
