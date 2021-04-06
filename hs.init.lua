@@ -229,17 +229,37 @@ end
 function moveLeft()
   yabaif.send(function() end, 'window', '--move', 'rel:-100:0')
 end
-function growVert()
-  yabaif.send(function() end, 'window', '--resize', 'bottom:0:100')
+function resizeDown()
+  yabaif.send(function(data)
+    -- print("data: "..tostring(data))
+    -- if data ~= nil then
+      yabaif.send(function() end, 'window', '--resize', 'top:0:100')
+    -- end
+  end, 'window', '--resize', 'bottom:0:100')
 end
-function shrinkVert()
-  yabaif.send(function() end, 'window', '--resize', 'bottom:0:-100')
+function resizeUp()
+  yabaif.send(function()
+    -- print("data: "..tostring(data))
+    -- if data ~= nil then
+      yabaif.send(function() end, 'window', '--resize', 'top:0:-100')
+    -- end
+  end, 'window', '--resize', 'bottom:0:-100')
 end
-function growHorz()
-  yabaif.send(function() end, 'window', '--resize', 'right:100:0')
+function resizeRight()
+  yabaif.send(function()
+    -- print("data: "..tostring(data))
+    -- if data ~= nil then
+      yabaif.send(function() end, 'window', '--resize', 'left:100:0')
+    -- end
+  end, 'window', '--resize', 'right:100:0')
 end
-function shrinkHorz()
-  yabaif.send(function() end, 'window', '--resize', 'right:-100:0')
+function resizeLeft()
+  yabaif.send(function()
+    -- print("data: "..tostring(data))
+    -- if data ~= nil then
+      yabaif.send(function() end, 'window', '--resize', 'left:-100:0')
+    -- end
+  end, 'window', '--resize', 'right:-100:0')
 end
 function center()
   yabaif.send(function() end, 'window', '--grid', '9:15:3:2:9:5')
@@ -281,6 +301,7 @@ function showNumber(boxes)
   end
 end
 
+function upperLeft(w1, w2)
 function managedWindows(windows)
   local results = {}
   local j = 0;
@@ -345,10 +366,10 @@ wmk:bind('', 'tab', focusNext)
 wmk:bind('shift', 'tab', focusPrev)
 wmk:bind('shift', 'g', swapMain)
 
-wmk:bind('shift', 'j', byMode{bsp=shiftForward, float=growVert})
-wmk:bind('shift', 'k', byMode{bsp=shiftBackward, float=shrinkVert})
-wmk:bind('shift', 'l', byMode{bsp=warpForward, float=growHorz})
-wmk:bind('shift', 'h', byMode{bsp=warpBackward, float=shrinkHorz})
+wmk:bind('shift', 'j', byMode{bsp=shiftForward, float=resizeUp})
+wmk:bind('shift', 'k', byMode{bsp=shiftBackward, float=resizeDown})
+wmk:bind('shift', 'l', byMode{bsp=warpForward, float=resizeRight})
+wmk:bind('shift', 'h', byMode{bsp=warpBackward, float=resizeLeft})
 wmk:bind('','m', minimizeWindow)
 wmk:bind('', ';', function()
   focusNext()
