@@ -106,8 +106,8 @@ function byMode(modes)
   end
 end
 
-function floatLayout() yabaif.send(function() end,'config','layout float') end
-function tileLayout() yabaif.send(function() end,'config','layout bsp') end
+function floatLayout() yabaif.send(function() end,'config','layout', 'float') end
+function tileLayout() yabaif.send(function() end,'config','layout', 'bsp') end
 function toggleSplit() yabaif.send(function() end,'window','--toggle','split') end
 function toggleZoom() yabaif.send(function() end,'window','--toggle','zoom-fullscreen') end
 function rotateLayoutRight() yabaif.send(function() end,'space','--rotate','270') end
@@ -205,14 +205,14 @@ end
 function stackWindowNext()
   yabaif.send(function(data)
     if data ~= nil then
-      yabaif.send('window', '--stack', 'first')
+      yabaif.send(function() end, 'window', '--stack', 'first')
     end
   end,'window', '--stack', 'next')
 end
 function stackWindowPrev()
   yabaif.send(function(data)
     if data ~= nil then
-      yabaif.send('window', '--stack', 'last')
+      yabaif.send(function() end, 'window', '--stack', 'last')
     end
   end,'window', '--stack', 'prev')
 end
@@ -302,6 +302,19 @@ function showNumber(boxes)
 end
 
 function upperLeft(w1, w2)
+  if w1.y ~= w2.y then
+    return w1.y < w2.y
+  elseif w1.x ~= w2.x then
+    return w1.x < w2.x
+  elseif w1.h ~= w2.h then
+    return w1.h < w2.h
+  elseif w1.w < w2.w then
+    return w1.w < w2.w
+  else
+    return w1.id < w1.id
+  end
+end
+
 function managedWindows(windows)
   local results = {}
   local j = 0;
@@ -315,6 +328,7 @@ function managedWindows(windows)
       results[j].id = window.id
     end
   end
+  table.sort(results, upperLeft)
   return results
 end
 
@@ -410,12 +424,22 @@ for i=1,9 do
     movetow:exit()
     focusOnWindow(i)
   end)
+  movetow:bind('shift', tostring(i), function()
+    movetow:exit()
+    wmk:enter()
+    focusOnWindow(i)
+  end)
 end
 movetow:bind('', 'escape', function()
+  movetow:exit()
+  wmk:exit()
+end)
+movetow:bind('', 'return', function()
   movetow:exit()
   wmk:enter()
 end)
 function movetow:entered()
+  wmk:exit()
   showWindowNumbers()
   showModeDisplay(0.25, "Focus on window: ")
 end
