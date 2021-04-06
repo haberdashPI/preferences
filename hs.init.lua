@@ -78,16 +78,13 @@ end
 
 function sendTo(n)
   return function()
-    hs.printf('sending to '..n..'\n')
-    yabaif.send(function(data)
-      if data == data then
-        yabaif.send(function()
-          hs.timer.doAfter(0.2, function()
-            wmk:enter()
-          end)
-        end, 'space','--focus',tostring(n))
-      end
-    end,'window','--space',tostring(n))
+    yabaif.send(function() end, 'window','--space',tostring(n))
+    hs.timer.doAfter(0.2, function()
+      mash3(tostring(n))
+      hs.timer.doAfter(0.2, function()
+        wmk:enter()
+      end)
+    end)
   end
 end
 
@@ -413,6 +410,7 @@ sendtok:bind('', 'escape', function()
   wmk:enter()
 end)
 function sendtok:entered()
+  wmk:exit()
   showModeDisplay(0.25, "Sending to screen: ")
 end
 
