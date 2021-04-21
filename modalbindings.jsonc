@@ -95,36 +95,36 @@
     // word-like movement
     "w": {
         "command": "selection-utilities.moveBy",
-        "args": "{ unit: 'subword', boundary: 'start', select: true }"
+        "args": { "unit": "subword", "boundary": "start", "select": true }
     },
     "W": {
         "command": "selection-utilities.moveBy",
-        "args": "{ unit: 'word', boundary: 'start', select: true }"
+        "args": { "unit": "word", "boundary": "start", "select": true }
     },
     "e": {
         "command": "selection-utilities.moveBy",
-        "args": "{ unit: 'word', boundary: 'end', select: true }"
+        "args": { "unit": "word", "boundary": "end", "select": true }
     },
     "b": {
         "command": "selection-utilities.moveBy",
-        "args": "{ unit: 'subword', boundary: 'start', value: -1, select: true }"
+        "args": { "unit": "subword", "boundary": "start", "value": -1, "select": true }
     },
     "B": {
         "command": "selection-utilities.moveBy",
-        "args": "{ unit: 'word', boundary: 'start', value: -1, select: true }"
+        "args": { "unit": "word", "boundary": "start", "value": -1, "select": true }
     },
     "E": {
         "command": "selection-utilities.moveBy",
-        "args": "{ unit: 'word', boundary: 'end', value: -1, select: true }"
+        "args": { "unit": "word", "boundary": "end", "value": -1, "select": true }
     },
     // numbers
     "@": {
         "command": "selection-utilities.moveBy",
-        "args": "{ value: -1, unit: 'integer', boundary: 'both', selectWhole: true }"
+        "args": { "value": -1, "unit": "integer", "boundary": "both", "selectWhole": true }
     },
     "#": {
         "command": "selection-utilities.moveBy",
-        "args": "{ unit: 'integer', boundary: 'both', selectWhole: true }"
+        "args": { "unit": "integer", "boundary": "both", "selectWhole": true }
     },
 
     ///////////////////////
@@ -133,7 +133,7 @@
     "H": "cursorHomeSelect",
     "L": {
         "command": "cursorMove",
-        "args": "{ to: 'wrappedLineEnd', select: true }"
+        "args": { "to": "wrappedLineEnd", "select": true }
     },
 
     "G": [
@@ -145,29 +145,29 @@
         "true": [
             {
                 "command": "cursorMove",
-                "args": "{ to: 'down', by: 'wrappedLine', select: true }"
+                "args": { "to": "down", "by": "wrappedLine", "select": true }
             },
             {
                 "command": "cursorMove",
-                "args": "{ to: 'wrappedLineStart', select: false }"
+                "args": { "to": "wrappedLineStart", "select": false }
             },
             {
                 "command": "cursorMove",
-                "args": "{ to: 'up', by: 'wrappedLine', select: true, value: 2 }"
+                "args": { "to": "up", "by": "wrappedLine", "select": true, "value": 2 }
             },
             {
                 "command": "cursorMove",
-                "args": "{ to: 'wrappedLineStart', select: true }"
+                "args": { "to": "wrappedLineStart", "select": true }
             },
         ],
         "false": [
             {
                 "command": "cursorMove",
-                "args": "{ to: 'up', by: 'wrappedLine', select: true }"
+                "args": { "to": "up", "by": "wrappedLine", "select": true }
             },
             {
                 "command": "cursorMove",
-                "args": "{ to: 'wrappedLineStart', select: true }"
+                "args": { "to": "wrappedLineStart", "select": true }
             },
         ],
     },
@@ -178,25 +178,25 @@
         "true": [
             {
                 "command": "cursorMove",
-                "args": "{ to: 'wrappedLineStart', select: false }"
+                "args": { "to": "wrappedLineStart", "select": false }
             },
             {
                 "command": "cursorMove",
-                "args": "{ to: 'down', by: 'wrappedLine', select: true, value: 2 }"
+                "args": { "to": "down", "by": "wrappedLine", "select": true, "value": 2 }
             },
             {
                 "command": "cursorMove",
-                "args": "{ to: 'wrappedLineStart', select: true }"
+                "args": { "to": "wrappedLineStart", "select": true }
             },
         ],
         "false": [
             {
                 "command": "cursorMove",
-                "args": "{ to: 'down', by: 'wrappedLine', select: true }"
+                "args": { "to": "down", "by": "wrappedLine", "select": true }
             },
             {
                 "command": "cursorMove",
-                "args": "{ to: 'wrappedLineStart', select: true }"
+                "args": { "to": "wrappedLineStart", "select": true }
             },
         ],
     },
@@ -450,11 +450,11 @@
                     "condition": "!editor.selection.isReversed",
                     "true": {
                         "command": "cursorMove",
-                        "args": "{ to: 'right', select: false, value: 0 }"
+                        "args": { "to": "right", "select": false, "value": 0 }
                     },
                     "false": {
                         "command": "cursorMove",
-                        "args": "{ to: 'left', select: false, value: 0 }"
+                        "args": { "to": "left", "select": false, "value": 0 }
                     }
                 },
                 "modaledit.enterInsert"
@@ -468,7 +468,7 @@
             "true": [
                 {
                     "command": "cursorMove",
-                    "args": "{ to: 'right', select: false }"
+                    "args": { "to": "right", "select": false }
                 },
                 "modaledit.enterInsert"
             ],
@@ -478,11 +478,11 @@
                     "condition": "!editor.selection.isReversed",
                     "true": {
                         "command": "cursorMove",
-                        "args": "{ to: 'right', select: false, value: 0 }"
+                        "args": { "to": "right", "select": false, "value": 0 }
                     },
                     "false": {
                         "command": "cursorMove",
-                        "args": "{ to: 'left', select: false, value: 0 }"
+                        "args": { "to": "left", "select": false, "value": 0 }
                     }
                 },
                 "modaledit.enterInsert"
@@ -493,7 +493,7 @@
     "I": [
         {
             "command": "cursorMove",
-            "args": "{ to: 'wrappedLineFirstNonWhitespaceCharacter', select: false }"
+            "args": { "to": "wrappedLineFirstNonWhitespaceCharacter", "select": false }
         },
         "modaledit.enterInsert",
     ],
@@ -501,7 +501,7 @@
     "A": [
         {
             "command": "cursorMove",
-            "args": "{ to: 'wrappedLineEnd', select: false }"
+            "args": { "to": "wrappedLineEnd", "select": false }
         },
         "modaledit.enterInsert",
     ],
@@ -555,7 +555,7 @@
         "modaledit.cancelMultipleSelections",
         {
             "command": "cursorMove",
-            "args": "{ to: 'wrappedLineEnd', select: true }"
+            "args": { "to": "wrappedLineEnd", "select": true }
         },
         "editor.action.clipboardCutAction",
     ],
@@ -567,7 +567,7 @@
         },
         {
             "command": "cursorMove",
-            "args": "{ to: 'right', select: true }"
+            "args": { "to": "right", "select": true }
         },
         "editor.action.clipboardCutAction",
     ],
@@ -579,18 +579,18 @@
             "condition": "!editor.selection.isReversed",
             "true": {
                 "command": "cursorMove",
-                "args": "{ to: 'right', select: false, value: 0 }"
+                "args": { "to": "right", "select": false, "value": 0 }
             },
             "false": {
                 "command": "cursorMove",
-                "args": "{ to: 'left', select: false, value: 0 }"
+                "args": { "to": "left", "select": false, "value": 0 }
             }
         },
     ],
     "Y": [
         {
             "command": "cursorMove",
-            "args": "{ to: 'wrappedLineEnd', select: true }"
+            "args": { "to": "wrappedLineEnd", "select": true }
         },
         "editor.action.clipboardCopyAction",
         "modaledit.cancelMultipleSelections"
@@ -601,7 +601,7 @@
         { "condition": "!editor.selection.isEmpty",
             "true": {
                 "command": "cursorMove",
-                "args": "{ to: 'right', select: false, value: 0 }"
+                "args": { "to": "right", "select": false, "value": 0 }
             },
             "false": "cursorRight"
         },
@@ -614,7 +614,7 @@
             "condition": "!editor.selection.isEmpty",
             "true": {
                 "command": "cursorMove",
-                "args": "{ to: 'left', select: false, value: 0 }"
+                "args": { "to": "left", "select": false, "value": 0 }
             },
             "false": []
         },
@@ -672,11 +672,11 @@
             "condition": "!editor.selection.isReversed",
             "true": {
                 "command": "cursorMove",
-                "args": "{ to: 'right', select: false, value: 0 }"
+                "args": { "to": "right", "select": false, "value": 0 }
             },
             "false": {
                 "command": "cursorMove",
-                "args": "{ to: 'left', select: false, value: 0 }"
+                "args": { "to": "left", "select": false, "value": 0 }
             }
         },
     ],
@@ -686,11 +686,11 @@
             "condition": "!editor.selection.isReversed",
             "true": {
                 "command": "cursorMove",
-                "args": "{ to: 'right', select: false, value: 0 }"
+                "args": { "to": "right", "select": false, "value": 0 }
             },
             "false": {
                 "command": "cursorMove",
-                "args": "{ to: 'left', select: false, value: 0 }"
+                "args": { "to": "left", "select": false, "value": 0 }
             }
         },
     ],
@@ -768,7 +768,7 @@
             { "condition": "!editor.selection.isEmpty",
                 "true": {
                     "command": "cursorMove",
-                    "args": "{ to: 'right', select: false, value: 0 }"
+                    "args": { "to": "right", "select": false, "value": 0 }
                 },
                 "false": "cursorRight"
             },
@@ -781,7 +781,7 @@
                 "condition": "!editor.selection.isEmpty",
                 "true": {
                     "command": "cursorMove",
-                    "args": "{ to: 'left', select: false, value: 0 }"
+                    "args": { "to": "left", "select": false, "value": 0 }
                 },
                 "false": []
             },
@@ -796,11 +796,11 @@
                     "condition": "!editor.selection.isReversed",
                     "true": {
                         "command": "cursorMove",
-                        "args": "{ to: 'right', select: false, value: 0 }"
+                        "args": { "to": "right", "select": false, "value": 0 }
                     },
                     "false": {
                         "command": "cursorMove",
-                        "args": "{ to: 'left', select: false, value: 0 }"
+                        "args": { "to": "left", "select": false, "value": 0 }
                     }
                 },
                 "false": []
@@ -814,11 +814,11 @@
                     "condition": "!editor.selection.isReversed",
                     "true": {
                         "command": "cursorMove",
-                        "args": "{ to: 'right', select: false, value: 0 }"
+                        "args": { "to": "right", "select": false, "value": 0 }
                     },
                     "false": {
                         "command": "cursorMove",
-                        "args": "{ to: 'left', select: false, value: 0 }"
+                        "args": { "to": "left", "select": false, "value": 0 }
                     }
                 },
                 "false": []
@@ -832,11 +832,11 @@
                     "condition": "!editor.selection.isReversed",
                     "true": {
                         "command": "cursorMove",
-                        "args": "{ to: 'right', select: false, value: 0 }"
+                        "args": { "to": "right", "select": false, "value": 0 }
                     },
                     "false": {
                         "command": "cursorMove",
-                        "args": "{ to: 'left', select: false, value: 0 }"
+                        "args": { "to": "left", "select": false, "value": 0 }
                     }
                 },
                 "false": []
@@ -942,13 +942,13 @@
         "n": [
             {
                 "command": "modaledit.defineBookmark",
-                "args": "{ bookmark: 'default' }"
+                "args": { "bookmark": "default" }
             },
         ],
         "m": [
             {
                 "command": "modaledit.goToBookmark",
-                "args": "{ bookmark: 'default' }"
+                "args": { "bookmark": "default" }
             },
         ]
    },
@@ -1112,11 +1112,11 @@
                     "condition": "!editor.selection.isReversed",
                     "true": {
                         "command": "cursorMove",
-                        "args": "{ to: 'right', select: false, value: 0 }"
+                        "args": { "to": "right", "select": false, "value": 0 }
                     },
                     "false": {
                         "command": "cursorMove",
-                        "args": "{ to: 'left', select: false, value: 0 }"
+                        "args": { "to": "left", "select": false, "value": 0 }
                     }
                 },
                 "false": []
@@ -1232,11 +1232,11 @@
                     "true": [
                         {
                             "command": "cursorMove",
-                            "args": "{ to: 'down', by: 'line', select: true }"
+                            "args": { "to": "down", "by": "line", "select": true }
                         },
                         {
                             "command": "cursorMove",
-                            "args": "{ to: 'wrappedLineStart', select: false }"
+                            "args": { "to": "wrappedLineStart", "select": false }
                         },
                         {
                             "command": "cursorMove",
@@ -1244,7 +1244,7 @@
                         },
                         {
                             "command": "cursorMove",
-                            "args": "{ to: 'wrappedLineStart', select: true }"
+                            "args": { "to": "wrappedLineStart", "select": true }
                         },
                     ],
                     "false": [
@@ -1254,7 +1254,7 @@
                         },
                         {
                             "command": "cursorMove",
-                            "args": "{ to: 'lineStart', select: true }"
+                            "args": { "to": "lineStart", "select": true }
                         },
                     ],
                 },
@@ -1267,7 +1267,7 @@
                     "true": [
                         {
                             "command": "cursorMove",
-                            "args": "{ to: 'wrappedLineStart', select: false }"
+                            "args": { "to": "wrappedLineStart", "select": false }
                         },
                         {
                             "command": "cursorMove",
@@ -1275,7 +1275,7 @@
                         },
                         {
                             "command": "cursorMove",
-                            "args": "{ to: 'wrappedLineStart', select: true }"
+                            "args": { "to": "wrappedLineStart", "select": true }
                         },
                     ],
                     "false": [
@@ -1285,7 +1285,7 @@
                         },
                         {
                             "command": "cursorMove",
-                            "args": "{ to: 'wrappedLineStart', select: true }"
+                            "args": { "to": "wrappedLineStart", "select": true }
                         },
                     ],
                 },
@@ -1381,11 +1381,11 @@
                 "true": [
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'down', by: 'wrappedLine', select: true }"
+                        "args": { "to": "down", "by": "wrappedLine", "select": true }
                     },
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'wrappedLineStart', select: false }"
+                        "args": { "to": "wrappedLineStart", "select": false }
                     },
                     {
                         "command": "cursorMove",
@@ -1393,7 +1393,7 @@
                     },
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'wrappedLineStart', select: true }"
+                        "args": { "to": "wrappedLineStart", "select": true }
                     },
                 ],
                 "false": [
@@ -1403,7 +1403,7 @@
                     },
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'wrappedLineStart', select: true }"
+                        "args": { "to": "wrappedLineStart", "select": true }
                     },
                 ],
             },
@@ -1416,7 +1416,7 @@
                 "true": [
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'wrappedLineStart', select: false }"
+                        "args": { "to": "wrappedLineStart", "select": false }
                     },
                     {
                         "command": "cursorMove",
@@ -1424,7 +1424,7 @@
                     },
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'wrappedLineStart', select: true }"
+                        "args": { "to": "wrappedLineStart", "select": true }
                     },
                 ],
                 "false": [
@@ -1434,7 +1434,7 @@
                     },
                     {
                         "command": "cursorMove",
-                        "args": "{ to: 'wrappedLineStart', select: true }"
+                        "args": { "to": "wrappedLineStart", "select": true }
                     },
                 ],
             },
@@ -1460,7 +1460,7 @@
             "condition": "editor.selection.isEmpty",
             "true": {
                 "command": "cursorMove",
-                "args": "{ to: 'right', select: true }"
+                "args": { "to": "right", "select": true }
             },
             "false": [],
         },
