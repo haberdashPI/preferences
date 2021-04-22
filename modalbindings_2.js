@@ -1,67 +1,45 @@
 function withCommand(command, args){
-    return Object.fromEntries(Object.entries(arglist).map(([key, args]) => {
-        [key, {
-            command,
-            args: args
-        }]
-    }))
+    return Object.fromEntries(Object.entries(args).map(([key, args]) =>
+        [key, { command, args }]
+    ))
 }
 
-function expandModes(bindings, modes){
-    let result = {}
-    for(mode of modes){
-        result[mode] = filterByMode(bindings, mode)
-    }
-}
-
-function filterByMode(bindings, mode){
-    Object.fromEntires(Object.entries(bindings).filter(([key, val]) => {
-        !val.mode || val.mode.split(',').some(x => x == mode)
-    }).map(([key, val]) => {
-        if(val.mode && val.commands){
-            return [key, val.commands]
-        }else{
-            return [key, val]
-        }
-    }))
-}
-
-function expandSequences(bindings){
+function expandBindings(bindings){
     let allEntries = Object.entries(bindings).map(([key, val]) => {
-        if(key.length > 1){
+        [ match, g1, givenMode, seq ] = key.match(/^(([a-z]{2,}):)?(.*)$/)
+        if(seq.length > 1){
             let obj = val
-            for(let i = key.length-1; i>=0; i--){
-                obj = {[key[i]]: obj}
+            for(let i = seq.length-1; i>=0; i--){
+                obj = {[seq[i]]: obj}
             }
-            return [key, obj]
-        }else return [key, val]
+            return [givenMode || 'normal', obj]
+        }
+        return [givenMode || 'normal', {[key]: val}]
     })
     result = {}
-    for(let entry of allEntries){
-        result[entry[0]] = deepMerge(result[entry[0]], entry[1])
+    for(let [key, value] of allEntries){
+        let merged = deepMerge(result[key], value)
+        result[key] = merged
     }
-    return result
+    return {keybindings: result}
 }
 function isObject(item){
     return item && typeof(item) === 'object' && !Array.isArray(item);
 }
 function deepMerge(a, b){
     if(isObject(a) && isObject(b)){
-        for(const key in b){
-            if(!a[key]){
-                a[key] = b[key]
+        let result = a
+        for(let key of Object.keys(b)){
+            if(!result[key] === undefined){
+                result = { ...result, [key]: b[key] }
             }else{
-                a[key] = deepMerge(a[key], b[key])
+                result = { ...result, [key]: deepMerge(result[key], b[key])}
             }
         }
-        return a
+        return result
     }else{
         return b
     }
-}
-
-function expandBindings(bindings){
-    return expandModes(expandSequences(bindings))
 }
 
 const bindings = expandBindings({
@@ -187,83 +165,71 @@ const bindings = expandBindings({
             }
         },
     ],
-    F: [
-        {
-            command: "modaledit.search",
-            args: {
-                caseSensitive: true,
-                acceptAfter: 1,
-                backwards: true,
-                selectTillMatch: true,
-                wrapAround: true
-            }
-        },
-    ],
-
-    t: [
-        {
-            command: "modaledit.search",
-            args: {
-                caseSensitive: true,
-                acceptAfter: 1,
-                backwards: false,
-                selectTillMatch: true,
-                typeAfterAccept: "h",
-                typeBeforeNextMatch: "l",
-                typeAfterNextMatch: "h",
-                typeBeforePreviousMatch: "h",
-                typeAfterPreviousMatch: "l",
-                wrapAround: true
-            }
-        },
-    ],
-    T: [
-        {
-            command: "modaledit.search",
-            args: {
-                caseSensitive: true,
-                acceptAfter: 1,
-                backwards: true,
-                selectTillMatch: true,
-                typeAfterAccept: "l",
-                typeBeforeNextMatch: "h",
-                typeAfterNextMatch: "l",
-                typeBeforePreviousMatch: "l",
-                typeAfterPreviousMatch: "h",
-                wrapAround: true
-            }
-        },
-    ],
-
-    s: [
-        {
-            command: "modaledit.search",
-            args: {
-                caseSensitive: true,
-                acceptAfter: 2,
-                backwards: false,
-                selectTillMatch: true,
-                typeAfterAccept: "hh",
-                typeBeforeNextMatch: "ll",
-                typeAfterNextMatch: "hh",
-                wrapAround: true
-            }
-        },
-    ],
-    S: [
-        {
-            command: "modaledit.search",
-            args: {
-                casSensitive: true,
-                acceptAfter: 2,
-                backwards: true,
-                selectTillMatch: true,
-                typeBeforePreviousMatch: "ll",
-                typeAfterPreviousMatch: "hh",
-                wrapAround: true
-            }
-        },
-    ],
+    F: {
+        command: "modaledit.search",
+        args: {
+            caseSensitive: true,
+            acceptAfter: 1,
+            backwards: true,
+            selectTillMatch: true,
+            wrapAround: true
+        }
+    },
+    t: {
+        command: "modaledit.search",
+        args: {
+            caseSensitive: true,
+            acceptAfter: 1,
+            backwards: false,
+            selectTillMatch: true,
+            typeAfterAccept: "h",
+            typeBeforeNextMatch: "l",
+            typeAfterNextMatch: "h",
+            typeBeforePreviousMatch: "h",
+            typeAfterPreviousMatch: "l",
+            wrapAround: true
+        }
+    },
+    T: {
+        command: "modaledit.search",
+        args: {
+            caseSensitive: true,
+            acceptAfter: 1,
+            backwards: true,
+            selectTillMatch: true,
+            typeAfterAccept: "l",
+            typeBeforeNextMatch: "h",
+            typeAfterNextMatch: "l",
+            typeBeforePreviousMatch: "l",
+            typeAfterPreviousMatch: "h",
+            wrapAround: true
+        }
+    },
+    s: {
+        command: "modaledit.search",
+        args: {
+            caseSensitive: true,
+            acceptAfter: 2,
+            backwards: false,
+            selectTillMatch: true,
+            typeAfterAccept: "hh",
+            typeBeforeNextMatch: "ll",
+            typeAfterNextMatch: "hh",
+            wrapAround: true
+        }
+    },
+    S: {
+        command: "modaledit.search",
+        args: {
+            casSensitive: true,
+            acceptAfter: 2,
+            backwards: true,
+            selectTillMatch: true,
+            typeBeforePreviousMatch: "ll",
+            typeAfterPreviousMatch: "hh",
+            wrapAround: true
+        }
+    },
 
     ////////////////////////
     // more complex syntactic selections
@@ -763,3 +729,5 @@ const bindings = expandBindings({
         args: {register: "cancel"}
     },
 })
+
+module.exports = { bindings, deepMerge }
