@@ -19,6 +19,16 @@ end
 
 @tryusing OhMyREPL enable_autocomplete_brackets(true)
 @tryusing Revise
+@tryusing TerminalPager begin
+       TerminalPager.set_keybinding('j', :down)
+       TerminalPager.set_keybinding('J', :fastdown)
+       TerminalPager.set_keybinding('k', :up)
+       TerminalPager.set_keybinding('K', :fastup)
+       TerminalPager.set_keybinding('h', :left)
+       TerminalPager.set_keybinding('H', :fastleft)
+       TerminalPager.set_keybinding('l', :right)
+       TerminalPager.set_keybinding('L', :fastright)
+end
 
 @static if gethostname() != "edgewater"
     @tryusing Alert alertREPL(5.0)
