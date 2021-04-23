@@ -1,6 +1,6 @@
 function withCommand(command, args){
     return Object.fromEntries(Object.entries(args).map(([key, args]) =>
-        [key, { command, args }]
+        [key, { [command]: args }]
     ))
 }
 
@@ -9,10 +9,10 @@ module.exports = {keybindings: {
     // motions
 
     // basic movement
-    h: { command: "cursorMove", args: { to: 'left', select: "__mode == 'visual'", value: '__count' } },
-    j: { command: "cursorMove", args: { to: 'down', by: 'wrappedLine', select: "__mode == 'visual'", value: '__count' } },
-    k: { command: "cursorMove", args: { to: 'up', by: 'wrappedLine', select: "__mode == 'visual'" , value: '__count' } },
-    l: { command: "cursorMove", args: { to: 'right', select: "__mode == 'visual'", value: '__count' } },
+    h: { "cursorMove": { to: 'left', select: "__mode == 'visual'", value: '__count' } },
+    j: { "cursorMove": { to: 'down', by: 'wrappedLine', select: "__mode == 'visual'", value: '__count' } },
+    k: { "cursorMove": { to: 'up', by: 'wrappedLine', select: "__mode == 'visual'" , value: '__count' } },
+    l: { "cursorMove": { to: 'right', select: "__mode == 'visual'", value: '__count' } },
 
     // regex movements
     ...withCommand("selection-utilities.moveBy", {
@@ -75,10 +75,10 @@ module.exports = {keybindings: {
 
     // line related movements
     H: "cursorHomeSelect",
-    L: { command: "cursorMove", args: { to: "wrappedLineEnd", select: true } },
+    L: { "cursorMove": { to: "wrappedLineEnd", select: true } },
     G:  "expandLineSelection",
-    K: { command: "selection-utiliies.selectLines", args: { value: "-__count" } },
-    J: { command: "selection-utiliies.selectLines", args: { value: "__count" } },
+    K: { "selection-utiliies.selectLines": { value: "-__count" } },
+    J: { "selection-utiliies.selectLines": { value: "__count" } },
 
     // buffer related
     $: [ "editor.action.selectAll" ],
@@ -103,95 +103,69 @@ module.exports = {keybindings: {
     ";": "modalkeys.nextMatch",
     ",": "modalkeys.previousMatch",
 
-    "?": [
-        {
-            command: "modalkeys.search",
-            args: {
-                caseSensitive: true,
-                backwards: false,
-                selectTillMatch: true,
-                wrapAround: true
-            }
-        },
-    ],
-
-    f: [
-        {
-            command: "modalkeys.search",
-            args: {
-                caseSensitive: true,
-                acceptAfter: 1,
-                backwards: false,
-                selectTillMatch: true,
-                wrapAround: true
-            }
-        },
-    ],
-    F: {
-        command: "modalkeys.search",
-        args: {
-            caseSensitive: true,
-            acceptAfter: 1,
-            backwards: true,
-            selectTillMatch: true,
-            wrapAround: true
-        }
-    },
-    t: {
-        command: "modalkeys.search",
-        args: {
-            caseSensitive: true,
-            acceptAfter: 1,
-            backwards: false,
-            selectTillMatch: true,
-            typeAfterAccept: "h",
-            typeBeforeNextMatch: "l",
-            typeAfterNextMatch: "h",
-            typeBeforePreviousMatch: "h",
-            typeAfterPreviousMatch: "l",
-            wrapAround: true
-        }
-    },
-    T: {
-        command: "modalkeys.search",
-        args: {
-            caseSensitive: true,
-            acceptAfter: 1,
-            backwards: true,
-            selectTillMatch: true,
-            typeAfterAccept: "l",
-            typeBeforeNextMatch: "h",
-            typeAfterNextMatch: "l",
-            typeBeforePreviousMatch: "l",
-            typeAfterPreviousMatch: "h",
-            wrapAround: true
-        }
-    },
-    s: {
-        command: "modalkeys.search",
-        args: {
-            caseSensitive: true,
-            acceptAfter: 2,
-            backwards: false,
-            selectTillMatch: true,
-            typeAfterAccept: "hh",
-            typeBeforeNextMatch: "ll",
-            typeAfterNextMatch: "hh",
-            wrapAround: true
-        }
-    },
-    S: {
-        command: "modalkeys.search",
-        args: {
-            casSensitive: true,
-            acceptAfter: 2,
-            backwards: true,
-            selectTillMatch: true,
-            typeBeforePreviousMatch: "ll",
-            typeAfterPreviousMatch: "hh",
-            wrapAround: true
-        }
-    },
+    "?": { "modalkeys.search": {
+        caseSensitive: true,
+        backwards: false,
+        selectTillMatch: true,
+        wrapAround: true
+    } },
+    f: { "modalkeys.search": {
+        caseSensitive: true,
+        acceptAfter: 1,
+        backwards: false,
+        selectTillMatch: true,
+        wrapAround: true
+    }},
+    F: { "modalkeys.search": {
+        caseSensitive: true,
+        acceptAfter: 1,
+        backwards: true,
+        selectTillMatch: true,
+        wrapAround: true
+    }},
+    t: { "modalkeys.search": {
+        caseSensitive: true,
+        acceptAfter: 1,
+        backwards: false,
+        selectTillMatch: true,
+        typeAfterAccept: "h",
+        typeBeforeNextMatch: "l",
+        typeAfterNextMatch: "h",
+        typeBeforePreviousMatch: "h",
+        typeAfterPreviousMatch: "l",
+        wrapAround: true
+    }},
+    T: { "modalkeys.search": {
+        caseSensitive: true,
+        acceptAfter: 1,
+        backwards: true,
+        selectTillMatch: true,
+        typeAfterAccept: "l",
+        typeBeforeNextMatch: "h",
+        typeAfterNextMatch: "l",
+        typeBeforePreviousMatch: "l",
+        typeAfterPreviousMatch: "h",
+        wrapAround: true
+    }},
+    s: { "modalkeys.search": {
+        caseSensitive: true,
+        acceptAfter: 2,
+        backwards: false,
+        selectTillMatch: true,
+        typeAfterAccept: "hh",
+        typeBeforeNextMatch: "ll",
+        typeAfterNextMatch: "hh",
+        wrapAround: true
+    }},
+    S: { "modalkeys.search": {
+        casSensitive: true,
+        acceptAfter: 2,
+        backwards: true,
+        selectTillMatch: true,
+        typeBeforePreviousMatch: "ll",
+        typeAfterPreviousMatch: "hh",
+        wrapAround: true
+    }},
 
     ////////////////////////
     // more complex syntactic selections
@@ -216,7 +190,7 @@ module.exports = {keybindings: {
     // selection modifiers
 
     R:  "selection-utilities.trimSelectionWhitespace" ,
-    U: { command: "selection-utilities.narrowTo", args: { unit: "subident", boundary: "both", } },
+    U: { "selection-utilities.narrowTo": { unit: "subident", boundary: "both", } },
 
     x:    "selection-utilities.addNext",
     "gx": "selection-utilities.addPrev" ,
@@ -230,80 +204,32 @@ module.exports = {keybindings: {
     // actions
 
     // insert/append text
-    i: {
-        condition: "editor.selection.isEmpty",
-        true: "modalkeys.enterInsert",
-        false: [
-            {
-                condition: "!editor.selection.isReversed",
-                true: {
-                    command: "cursorMove",
-                    args: { to: "right", select: false, value: 0 }
-                },
-                false: {
-                    command: "cursorMove",
-                    args: { to: "left", select: false, value: 0 }
-                }
-            },
-            "modalkeys.enterInsert"
-        ]
-    },
-
-    a: {
-        condition: "editor.selection.isEmpty",
-        true: [
-            {
-                command: "cursorMove",
-                args: { to: "right", select: false }
-            },
-            "modalkeys.enterInsert"
-        ],
-        false: [
-            "selection-utilities.exchangeAnchorActive",
-            {
-                condition: "!editor.selection.isReversed",
-                true: {
-                    command: "cursorMove",
-                    args: { to: "right", select: false, value: 0 }
-                },
-                false: {
-                    command: "cursorMove",
-                    args: { to: "left", select: false, value: 0 }
-                }
-            },
-            "modalkeys.enterInsert"
-        ]
-    },
+    i: [ "modaledit.cancelMultipleSelections", "modalkeys.enterInsert" ],
+    a: [ "selection-utilities.exchangeAnchorActive", "modaledit.cancelMultipleSelections", "modalkeys.enterInsert" ],
 
     I: [
-        {
-            command: "cursorMove",
-            args: { to: "wrappedLineFirstNonWhitespaceCharacter", select: false }
-        },
+        { "cursorMove": { to: "wrappedLineFirstNonWhitespaceCharacter", select: false } },
         "modalkeys.enterInsert",
     ],
 
     A: [
-        {
-            command: "cursorMove",
-            args: { to: "wrappedLineEnd", select: false }
-        },
+        { "cursorMove": { to: "wrappedLineEnd", select: false } },
         "modalkeys.enterInsert",
     ],
 
     // change
     c: [
         {
-            condition: "!editor.selection.isSingleLine && editor.selection.end.character == 0 && editor.selection.start.character == 0",
-            false: [
-                "deleteRight",
-                "modalkeys.enterInsert"
-            ],
-            true: [
+            if: "!editor.selection.isSingleLine && editor.selection.end.character == 0 && editor.selection.start.character == 0",
+            then: [
                 "deleteRight",
                 "editor.action.insertLineBefore",
                 "modalkeys.enterInsert"
-            ]
+            ],
+            else: [
+                "deleteRight",
+                "modalkeys.enterInsert"
+            ],
         },
     ],
 
@@ -317,17 +243,16 @@ module.exports = {keybindings: {
 
     "~": [
         {
-            condition: "editor.selection.isEmpty",
-            true: {
-                command: "cursorMove",
-                args: { to: "right", select: true }
+            if: "editor.selection.isEmpty",
+            then: {
+                "cursorMove":
+                { to: "right", select: true }
             },
-            false: [],
         },
         {
-            condition: "__selection == __selection.toUpperCase()",
-            true: "editor.action.transformToLowercase",
-            false: "editor.action.transformToUppercase"
+            if: "__selection == __selection.toUpperCase()",
+            then: "editor.action.transformToLowercase",
+            else: "editor.action.transformToUppercase"
         },
         "modalkeys.cancelMultipleSelections",
     ],
@@ -336,16 +261,16 @@ module.exports = {keybindings: {
     // update numerical selection
     "+": [
         {
-            condition: "editor.selections.length === 1",
-            true: "editor.emmet.action.incrementNumberByOne",
-            false: "extension.incrementSelection",
+            if: "editor.selections.length === 1",
+            then: "editor.emmet.action.incrementNumberByOne",
+            else: "extension.incrementSelection",
         },
     ],
     "=": [
         {
-            condition: "editor.selections.length === 1",
-            true: "editor.emmet.action.decrementNumberByOne",
-            false: "extension.decrementSelection",
+            if: "editor.selections.length === 1",
+            then: "editor.emmet.action.decrementNumberByOne",
+            else: "extension.decrementSelection",
         },
     ],
 
@@ -359,32 +284,32 @@ module.exports = {keybindings: {
     "g[": [ "bracketeer.swapBrackets", ],
     "gq": [ "bracketeer.swapQuotes", ],
     "gQ": [ "bracketeer.removeQuotes", ],
-    "'(": [ "modalkeys.enterInsert", { command: "type", args: { text: "(" }, }, "modalkeys.enterNormal" ],
-    "'<": [ "modalkeys.enterInsert", { command: "type", args: { text: "<" }, }, "modalkeys.enterNormal" ],
-    "'`": [ "modalkeys.enterInsert", { command: "type", args: { text: "`" }, }, "modalkeys.enterNormal" ],
-    "'\"": [ "modalkeys.enterInsert", { command: "type", args: { "text": "\"" }, }, "modalkeys.enterNormal" ],
-    "''": [ "modalkeys.enterInsert", { command: "type", args: { text: "'" }, }, "modalkeys.enterNormal" ],
-    "'*": [ "modalkeys.enterInsert", { command: "type", args: { text: "*" }, }, "modalkeys.enterNormal" ],
-    "'2*": [ "modalkeys.enterInsert", { command: "type", args: { text: "**" }, }, "modalkeys.enterNormal" ],
-    "'{": [ "modalkeys.enterInsert", { command: "type", args: { text: "{" }, }, "modalkeys.enterNormal" ],
-    "'[": [ "modalkeys.enterInsert", { command: "type", args: { text: "[" }, }, "modalkeys.enterNormal" ],
+    "'(": [ "modalkeys.enterInsert", { "type": { text: "(" }, }, "modalkeys.enterNormal" ],
+    "'<": [ "modalkeys.enterInsert", { "type": { text: "<" }, }, "modalkeys.enterNormal" ],
+    "'`": [ "modalkeys.enterInsert", { "type": { text: "`" }, }, "modalkeys.enterNormal" ],
+    "'\"": [ "modalkeys.enterInsert", { "type": { "text": "\"" }, }, "modalkeys.enterNormal" ],
+    "''": [ "modalkeys.enterInsert", { "type": { text: "'" }, }, "modalkeys.enterNormal" ],
+    "'*": [ "modalkeys.enterInsert", { "type": { text: "*" }, }, "modalkeys.enterNormal" ],
+    "'2*": [ "modalkeys.enterInsert", { "type": { text: "**" }, }, "modalkeys.enterNormal" ],
+    "'{": [ "modalkeys.enterInsert", { "type": { text: "{" }, }, "modalkeys.enterNormal" ],
+    "'[": [ "modalkeys.enterInsert", { "type": { text: "[" }, }, "modalkeys.enterNormal" ],
 
     /////////////
     // clipboard actions
 
     // cut to clipboard
     d: {
-        condition: "__count == 1",
-        true: "editor.action.clipboardCutAction",
-        false: [
+        if: "__count == 1",
+        then: "editor.action.clipboardCutAction",
+        else: [
             "modalkeys.cancelMultipleSelections",
             {
-                command: "cursorMove",
-                args: {to: "wrappedLineStart", select: false}
+                "cursorMove":
+                {to: "wrappedLineStart", select: false}
             },
             {
-                command: "cursorMove",
-                args: { to: 'down', select: true, value: '__count+1' }
+                "cursorMove":
+                { to: 'down', select: true, value: '__count+1' }
             },
             "editor.action.clipboardCutAction",
         ]
@@ -392,23 +317,17 @@ module.exports = {keybindings: {
 
     D: [
         "modalkeys.cancelMultipleSelections",
-        {
-            command: "cursorMove",
-            args: { to: "wrappedLineEnd", select: true }
-        },
+        { "cursorMove": { to: "wrappedLineEnd", select: true } },
         "editor.action.clipboardCutAction",
     ],
 
     "\\": [
         {
-            condition: "editor.selection.isEmpty",
-            true: [],
-            false: ["modalkeys.cancelMultipleSelections"],
+            if: "editor.selection.isEmpty",
+            then: [],
+            else: ["modalkeys.cancelMultipleSelections"],
         },
-        {
-            command: "cursorMove",
-            args: { to: "right", select: true }
-        },
+        { "cursorMove": { to: "right", select: true } },
         "editor.action.clipboardCutAction",
     ],
 
@@ -416,36 +335,25 @@ module.exports = {keybindings: {
     y: [
         "editor.action.clipboardCopyAction",
         {
-            condition: "!editor.selection.isReversed",
-            true: {
-                command: "cursorMove",
-                args: { to: "right", select: false, value: 0 }
-            },
-            false: {
-                command: "cursorMove",
-                args: { to: "left", select: false, value: 0 }
-            }
+            if: "!editor.selection.isReversed",
+            then: { "cursorMove": { to: "right", select: false, value: 0 } },
+            else: { "cursorMove": { to: "left", select: false, value: 0 } }
         },
     ],
 
     // copy line to clipboard
     Y: [
-        {
-            command: "cursorMove",
-            args: { to: "wrappedLineEnd", select: true }
-        },
+        { "cursorMove": { to: "wrappedLineEnd", select: true } },
         "editor.action.clipboardCopyAction",
         "modalkeys.cancelMultipleSelections"
     ],
 
     // paste after
     v: [
-        { condition: "!editor.selection.isEmpty",
-            true: {
-                command: "cursorMove",
-                args: { to: "right", select: false, value: 0 }
-            },
-            false: "cursorRight"
+        {
+            if: "!editor.selection.isEmpty",
+            then: { "cursorMove": { to: "right", select: false, value: 0 } },
+            else: "cursorRight"
         },
         "editor.action.clipboardPasteAction",
     ],
@@ -453,12 +361,9 @@ module.exports = {keybindings: {
     // paste before
     V: [
         {
-            condition: "!editor.selection.isEmpty",
-            true: {
-                command: "cursorMove",
-                args: { to: "left", select: false, value: 0 }
-            },
-            false: []
+            if: "!editor.selection.isEmpty",
+            then: { "cursorMove": { to: "left", select: false, value: 0 } },
+            else: []
         },
         "editor.action.clipboardPasteAction",
     ],
@@ -473,12 +378,9 @@ module.exports = {keybindings: {
     // paste lines below
     "gi": [
         "expandLineSelection",
-        { condition: "!editor.selection.isEmpty",
-            true: {
-                command: "cursorMove",
-                args: { to: "right", select: false, value: 0 }
-            },
-            false: "cursorRight"
+        { if: "!editor.selection.isEmpty",
+            then: { "cursorMove": { to: "right", select: false, value: 0 } },
+            else: "cursorRight"
         },
         "editor.action.clipboardPasteAction",
     ],
@@ -487,12 +389,9 @@ module.exports = {keybindings: {
     "gI": [
         "expandLineSelection",
         {
-            condition: "!editor.selection.isEmpty",
-            true: {
-                command: "cursorMove",
-                args: { to: "left", select: false, value: 0 }
-            },
-            false: []
+            if: "!editor.selection.isEmpty",
+            then: { "cursorMove": { to: "left", select: false, value: 0 } },
+            else: []
         },
         "editor.action.clipboardPasteAction",
     ],
@@ -501,12 +400,12 @@ module.exports = {keybindings: {
     // begin line below
     o: [
         {
-            condition: "editor.selection.isEmpty",
-            true: "editor.action.insertLineAfter",
-            false: {
-                condition: "!editor.selection.isReversed",
-                true: "editor.action.insertLineBefore",
-                false: [
+            if: "editor.selection.isEmpty",
+            then: "editor.action.insertLineAfter",
+            else: {
+                if: "!editor.selection.isReversed",
+                then: "editor.action.insertLineBefore",
+                else: [
                     "selection-utilities.exchangeAnchorActive",
                     "editor.action.insertLineBefore",
                 ]
@@ -516,12 +415,12 @@ module.exports = {keybindings: {
     ],
     O: [
         {
-            condition: "editor.selection.isEmpty",
-            true: "editor.action.insertLineBefore",
-            false: {
-                condition: "editor.selection.isReversed",
-                true: "editor.action.insertLineBefore",
-                false: [
+            if: "editor.selection.isEmpty",
+            then: "editor.action.insertLineBefore",
+            else: {
+                if: "editor.selection.isReversed",
+                then: "editor.action.insertLineBefore",
+                else: [
                     "selection-utilities.exchangeAnchorActive",
                     "editor.action.insertLineBefore",
                 ]
@@ -542,29 +441,17 @@ module.exports = {keybindings: {
     z: [
         "undo",
         {
-            condition: "!editor.selection.isReversed",
-            true: {
-                command: "cursorMove",
-                args: { to: "right", select: false, value: 0 }
-            },
-            false: {
-                command: "cursorMove",
-                args: { to: "left", select: false, value: 0 }
-            }
+            if: "!editor.selection.isReversed",
+            then: { "cursorMove": { to: "right", select: false, value: 0 } },
+            else: { "cursorMove": { to: "left", select: false, value: 0 } }
         },
     ],
     Z: [
         "redo",
         {
-            condition: "!editor.selection.isReversed",
-            true: {
-                command: "cursorMove",
-                args: { to: "right", select: false, value: 0 }
-            },
-            false: {
-                command: "cursorMove",
-                args: { to: "left", select: false, value: 0 }
-            }
+            if: "!editor.selection.isReversed",
+            then: { "cursorMove": { to: "right", select: false, value: 0 } },
+            else: { "cursorMove": { to: "left", select: false, value: 0 } }
         },
     ],
     "-": "cursorUndo",
@@ -580,37 +467,25 @@ module.exports = {keybindings: {
     "g;": [
         "editor.action.commentLine",
         {
-            condition: "!editor.selection.isEmpty",
-            true: {
-                condition: "!editor.selection.isReversed",
-                true: {
-                    command: "cursorMove",
-                    args: { to: "right", select: false, value: 0 }
-                },
-                false: {
-                    command: "cursorMove",
-                    args: { to: "left", select: false, value: 0 }
-                }
+            if: "!editor.selection.isEmpty",
+            then: {
+                if: "!editor.selection.isReversed",
+                then: { "cursorMove": { to: "right", select: false, value: 0 } },
+                else: { "cursorMove": { to: "left", select: false, value: 0 } }
             },
-            false: []
+            else: []
         },
     ],
     "g:": [
         "editor.action.blockComment",
         {
-            condition: "!editor.selection.isEmpty",
-            true: {
-                condition: "!editor.selection.isReversed",
-                true: {
-                    command: "cursorMove",
-                    args: { to: "right", select: false, value: 0 }
-                },
-                false: {
-                    command: "cursorMove",
-                    args: { to: "left", select: false, value: 0 }
-                }
+            if: "!editor.selection.isEmpty",
+            then: {
+                if: "!editor.selection.isReversed",
+                then: { "cursorMove": { to: "right", select: false, value: 0 } },
+                else: { "cursorMove": { to: "left", select: false, value: 0 } }
             },
-            false: []
+            else: []
         },
     ],
     "gq": "rewrap.rewrapComment",
@@ -639,28 +514,17 @@ module.exports = {keybindings: {
 
     /////////////
     // window manipulation
-    "gc": { command: "revealLine", args: "{ lineNumber: __line, at: 'center' }" },
-    "gt": { command: "revealLine", args: "{ lineNumber: __line, at: 'top' }" },
-    "gT": { command: "revealLine", args: "{ lineNumber: __line, at: 'bottom' }" },
+    "gc": { "revealLine": { lineNumber: '__line', at: 'center' } },
+    "gt": { "revealLine": { lineNumber: '__line', at: 'top' } },
+    "gT": { "revealLine": { lineNumber: '__line', at: 'bottom' } },
     "gh": "editor.action.showHover",
     "gg": "editor.action.revealDefinition",
     "gG": "editor.action.revealDefinitionAside",
 
     //////////
     // bookmarks
-    "gn": [
-        {
-            command: "modalkeys.defineBookmark",
-            args: { bookmark: "default" }
-        },
-    ],
-    "gm": [
-        {
-            command: "modalkeys.goToBookmark",
-            args: { bookmark: "default" }
-        },
-    ],
-
+    "gn": { "modalkeys.defineBookmark": { bookmark: "default" } },
+    "gm": { "modalkeys.goToBookmark": { bookmark: "default" } },
 
     ///////////////
     // selection modiefiers
@@ -686,8 +550,5 @@ module.exports = {keybindings: {
     "'F": "selection-utilities.excludeBy",
     "'t": "selection-utilities.includeByRegex",
     "'T": "selection-utilities.excludeByRegex",
-    "'-": {
-        command: "selection-utilities.restoreAndClear",
-        args: {register: "cancel"}
-    },
+    "'-": { "selection-utilities.restoreAndClear": {register: "cancel"} },
 }}
