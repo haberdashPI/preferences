@@ -4,53 +4,15 @@ function withCommand(command, args){
     ))
 }
 
-function expandBindings(bindings){
-    let allEntries = Object.entries(bindings).map(([key, val]) => {
-        [ match, g1, givenMode, seq ] = key.match(/^(([a-z]{2,}):)?(.*)$/)
-        if(seq.length > 1){
-            let obj = val
-            for(let i = seq.length-1; i>=0; i--){
-                obj = {[seq[i]]: obj}
-            }
-            return [givenMode || 'normal', obj]
-        }
-        return [givenMode || 'normal', {[key]: val}]
-    })
-    result = {}
-    for(let [key, value] of allEntries){
-        let merged = deepMerge(result[key], value)
-        result[key] = merged
-    }
-    return {keybindings: result}
-}
-function isObject(item){
-    return item && typeof(item) === 'object' && !Array.isArray(item);
-}
-function deepMerge(a, b){
-    if(isObject(a) && isObject(b)){
-        let result = a
-        for(let key of Object.keys(b)){
-            if(!result[key] === undefined){
-                result = { ...result, [key]: b[key] }
-            }else{
-                result = { ...result, [key]: deepMerge(result[key], b[key])}
-            }
-        }
-        return result
-    }else{
-        return b
-    }
-}
-
-const bindings = expandBindings({
+module.exports = {keybindings: {
     /////////////
     // motions
 
     // basic movement
-    h: { command: "cursorMove", args: { to: 'left', select: "__selecting" } },
-    j: { command: "cursorMove", args: { to: 'down', by: 'wrappedLine', select: "__selecting" } },
-    k: { command: "cursorMove", args: { to: 'up', by: 'wrappedLine', select: "__selecting" } },
-    l: { command: "cursorMove", args: { to: 'right', select: "__selecting" } },
+    h: { command: "cursorMove", args: { to: 'left', select: "__mode == 'visual'", value: '__count' } },
+    j: { command: "cursorMove", args: { to: 'down', by: 'wrappedLine', select: "__mode == 'visual'", value: '__count' } },
+    k: { command: "cursorMove", args: { to: 'up', by: 'wrappedLine', select: "__mode == 'visual'" , value: '__count' } },
+    l: { command: "cursorMove", args: { to: 'right', select: "__mode == 'visual'", value: '__count' } },
 
     // regex movements
     ...withCommand("selection-utilities.moveBy", {
@@ -81,14 +43,14 @@ const bindings = expandBindings({
         "#": { value: '__count', unit: "integer", boundary: "both", selectWhole: true } ,
 
         // comments
-        "q;": { unit: "comment", boundary: "both", selectWhole: true, value: '__count'},
-        "q:": { unit: "comment", boundary: "both", selectWhole: true, value: '-__count'},
+        "';": { unit: "comment", boundary: "both", selectWhole: true, value: '__count'},
+        "':": { unit: "comment", boundary: "both", selectWhole: true, value: '-__count'},
 
         // paragraphs and sections
         p:     { unit: "paragraph",  boundary: "start", select     : true, value: '__count' } ,
         P:     { unit: "paragraph",  boundary: "start", select     : true, value: '-__count' },
-        "up":  { unit: "paragraph",  boundary: "whole", selectWhole: true, value: '__count' } ,
-        "uP":  { unit: "paragraph",  boundary: "start", selectWhole: true, value: '-__count' },
+        "up":  { unit: "paragraph",  boundary: "both", selectWhole: true, value: '__count' } ,
+        "uP":  { unit: "paragraph",  boundary: "both", selectWhole: true, value: '-__count' },
         "gp":  { unit: "section",    boundary: "start", select:      true, value: '__count'  },
         "gP":  { unit: "section",    boundary: "start", select:      true, value: '-__count' },
         "gs":  { unit: "subsection", boundary: "start", select:      true, value: '__count'  },
@@ -101,10 +63,10 @@ const bindings = expandBindings({
 
     // function arguments
     ...withCommand("move-cursor-by-argument.move-by-argument", {
-        "qw": { value: "__count", boundary: "start", select: true },
-        "qb": { value: "-__count", boundary: "start", select: true },
-        "qW": { value: "__count", boundary: "start", select: true },
-        "qB": { value: "-__count", boundary: "end", select: true },
+        "'w": { value: "__count", boundary: "start", select: true },
+        "'b": { value: "-__count", boundary: "start", select: true },
+        "'W": { value: "__count", boundary: "start", select: true },
+        "'B": { value: "-__count", boundary: "end", select: true },
         "uqw": { value: "__count", boundary: "start", selectWhole: true },
         "uqb": { value: "-__count", boundary: "start", selectWhole: true },
         "uqW": { value: "__count", boundary: "start", selectWhole: true },
@@ -138,12 +100,12 @@ const bindings = expandBindings({
 
     n: "editor.action.nextMatchFindAction",
     N: "editor.action.previousMatchFindAction",
-    ";": "modaledit.nextMatch",
-    ",": "modaledit.previousMatch",
+    ";": "modalkeys.nextMatch",
+    ",": "modalkeys.previousMatch",
 
     "?": [
         {
-            command: "modaledit.search",
+            command: "modalkeys.search",
             args: {
                 caseSensitive: true,
                 backwards: false,
@@ -155,7 +117,7 @@ const bindings = expandBindings({
 
     f: [
         {
-            command: "modaledit.search",
+            command: "modalkeys.search",
             args: {
                 caseSensitive: true,
                 acceptAfter: 1,
@@ -166,7 +128,7 @@ const bindings = expandBindings({
         },
     ],
     F: {
-        command: "modaledit.search",
+        command: "modalkeys.search",
         args: {
             caseSensitive: true,
             acceptAfter: 1,
@@ -176,7 +138,7 @@ const bindings = expandBindings({
         }
     },
     t: {
-        command: "modaledit.search",
+        command: "modalkeys.search",
         args: {
             caseSensitive: true,
             acceptAfter: 1,
@@ -191,7 +153,7 @@ const bindings = expandBindings({
         }
     },
     T: {
-        command: "modaledit.search",
+        command: "modalkeys.search",
         args: {
             caseSensitive: true,
             acceptAfter: 1,
@@ -206,7 +168,7 @@ const bindings = expandBindings({
         }
     },
     s: {
-        command: "modaledit.search",
+        command: "modalkeys.search",
         args: {
             caseSensitive: true,
             acceptAfter: 2,
@@ -219,7 +181,7 @@ const bindings = expandBindings({
         }
     },
     S: {
-        command: "modaledit.search",
+        command: "modalkeys.search",
         args: {
             casSensitive: true,
             acceptAfter: 2,
@@ -236,8 +198,8 @@ const bindings = expandBindings({
 
     // "I": "select-indentation.expand-selection",
     '%': "editor.action.jumpToBracket",
-    "'": "extension.selectSingleQuote",
-    "\\": "extension.selectDoubleQuote",
+    "q": "extension.selectSingleQuote",
+    "Q": "extension.selectDoubleQuote",
     // the below is a bit hacky; I want to add these commandsto my extension
     "[": "selection-utilities.select-in-bracket",
     "{": "selection-utilities.select-around-bracket",
@@ -261,8 +223,8 @@ const bindings = expandBindings({
     X:    "selection-utilities.skipNext",
     "gX": "selection-utilities.skipPrev" ,
 
-    r: "modaledit.cancelMultipleSelections",
-    " ": "modaledit.enableSelection",
+    r: "modalkeys.cancelMultipleSelections",
+    " ": "modalkeys.enableSelection",
 
     ///////////////////////////////////////////////////////
     // actions
@@ -270,7 +232,7 @@ const bindings = expandBindings({
     // insert/append text
     i: {
         condition: "editor.selection.isEmpty",
-        true: "modaledit.enterInsert",
+        true: "modalkeys.enterInsert",
         false: [
             {
                 condition: "!editor.selection.isReversed",
@@ -283,7 +245,7 @@ const bindings = expandBindings({
                     args: { to: "left", select: false, value: 0 }
                 }
             },
-            "modaledit.enterInsert"
+            "modalkeys.enterInsert"
         ]
     },
 
@@ -294,7 +256,7 @@ const bindings = expandBindings({
                 command: "cursorMove",
                 args: { to: "right", select: false }
             },
-            "modaledit.enterInsert"
+            "modalkeys.enterInsert"
         ],
         false: [
             "selection-utilities.exchangeAnchorActive",
@@ -309,7 +271,7 @@ const bindings = expandBindings({
                     args: { to: "left", select: false, value: 0 }
                 }
             },
-            "modaledit.enterInsert"
+            "modalkeys.enterInsert"
         ]
     },
 
@@ -318,7 +280,7 @@ const bindings = expandBindings({
             command: "cursorMove",
             args: { to: "wrappedLineFirstNonWhitespaceCharacter", select: false }
         },
-        "modaledit.enterInsert",
+        "modalkeys.enterInsert",
     ],
 
     A: [
@@ -326,7 +288,7 @@ const bindings = expandBindings({
             command: "cursorMove",
             args: { to: "wrappedLineEnd", select: false }
         },
-        "modaledit.enterInsert",
+        "modalkeys.enterInsert",
     ],
 
     // change
@@ -335,20 +297,20 @@ const bindings = expandBindings({
             condition: "!editor.selection.isSingleLine && editor.selection.end.character == 0 && editor.selection.start.character == 0",
             false: [
                 "deleteRight",
-                "modaledit.enterInsert"
+                "modalkeys.enterInsert"
             ],
             true: [
                 "deleteRight",
                 "editor.action.insertLineBefore",
-                "modaledit.enterInsert"
+                "modalkeys.enterInsert"
             ]
         },
     ],
 
     C: [
-        "modaledit.cancelMultipleSelections",
+        "modalkeys.cancelMultipleSelections",
         "deleteAllRight",
-        "modaledit.enterInsert",
+        "modalkeys.enterInsert",
     ],
 
     "gy": "editor.action.joinLines",
@@ -367,7 +329,7 @@ const bindings = expandBindings({
             true: "editor.action.transformToLowercase",
             false: "editor.action.transformToUppercase"
         },
-        "modaledit.cancelMultipleSelections",
+        "modalkeys.cancelMultipleSelections",
     ],
 
 
@@ -395,17 +357,17 @@ const bindings = expandBindings({
     // brackets
     "g{": [ "bracketeer.removeBrackets", ],
     "g[": [ "bracketeer.swapBrackets", ],
-    "g'": [ "bracketeer.swapQuotes", ],
-    "\"": [ "bracketeer.removeQuotes", ],
-    "q(": [ "modaledit.enterInsert", { command: "type", args: { text: "(" }, }, "modaledit.enterNormal" ],
-    "q<": [ "modaledit.enterInsert", { command: "type", args: { text: "<" }, }, "modaledit.enterNormal" ],
-    "q`": [ "modaledit.enterInsert", { command: "type", args: { text: "`" }, }, "modaledit.enterNormal" ],
-    "q\"": [ "modaledit.enterInsert", { command: "type", args: { "text": "\"" }, }, "modaledit.enterNormal" ],
-    "q'": [ "modaledit.enterInsert", { command: "type", args: { text: "'" }, }, "modaledit.enterNormal" ],
-    "q*": [ "modaledit.enterInsert", { command: "type", args: { text: "*" }, }, "modaledit.enterNormal" ],
-    "q2*": [ "modaledit.enterInsert", { command: "type", args: { text: "**" }, }, "modaledit.enterNormal" ],
-    "q{": [ "modaledit.enterInsert", { command: "type", args: { text: "{" }, }, "modaledit.enterNormal" ],
-    "q[": [ "modaledit.enterInsert", { command: "type", args: { text: "[" }, }, "modaledit.enterNormal" ],
+    "gq": [ "bracketeer.swapQuotes", ],
+    "gQ": [ "bracketeer.removeQuotes", ],
+    "'(": [ "modalkeys.enterInsert", { command: "type", args: { text: "(" }, }, "modalkeys.enterNormal" ],
+    "'<": [ "modalkeys.enterInsert", { command: "type", args: { text: "<" }, }, "modalkeys.enterNormal" ],
+    "'`": [ "modalkeys.enterInsert", { command: "type", args: { text: "`" }, }, "modalkeys.enterNormal" ],
+    "'\"": [ "modalkeys.enterInsert", { command: "type", args: { "text": "\"" }, }, "modalkeys.enterNormal" ],
+    "''": [ "modalkeys.enterInsert", { command: "type", args: { text: "'" }, }, "modalkeys.enterNormal" ],
+    "'*": [ "modalkeys.enterInsert", { command: "type", args: { text: "*" }, }, "modalkeys.enterNormal" ],
+    "'2*": [ "modalkeys.enterInsert", { command: "type", args: { text: "**" }, }, "modalkeys.enterNormal" ],
+    "'{": [ "modalkeys.enterInsert", { command: "type", args: { text: "{" }, }, "modalkeys.enterNormal" ],
+    "'[": [ "modalkeys.enterInsert", { command: "type", args: { text: "[" }, }, "modalkeys.enterNormal" ],
 
     /////////////
     // clipboard actions
@@ -415,7 +377,7 @@ const bindings = expandBindings({
         condition: "__count == 1",
         true: "editor.action.clipboardCutAction",
         false: [
-            "modaledit.cancelMultipleSelections",
+            "modalkeys.cancelMultipleSelections",
             {
                 command: "cursorMove",
                 args: {to: "wrappedLineStart", select: false}
@@ -429,7 +391,7 @@ const bindings = expandBindings({
     },
 
     D: [
-        "modaledit.cancelMultipleSelections",
+        "modalkeys.cancelMultipleSelections",
         {
             command: "cursorMove",
             args: { to: "wrappedLineEnd", select: true }
@@ -441,7 +403,7 @@ const bindings = expandBindings({
         {
             condition: "editor.selection.isEmpty",
             true: [],
-            false: ["modaledit.cancelMultipleSelections"],
+            false: ["modalkeys.cancelMultipleSelections"],
         },
         {
             command: "cursorMove",
@@ -473,7 +435,7 @@ const bindings = expandBindings({
             args: { to: "wrappedLineEnd", select: true }
         },
         "editor.action.clipboardCopyAction",
-        "modaledit.cancelMultipleSelections"
+        "modalkeys.cancelMultipleSelections"
     ],
 
     // paste after
@@ -550,7 +512,7 @@ const bindings = expandBindings({
                 ]
             }
         },
-        "modaledit.enterInsert",
+        "modalkeys.enterInsert",
     ],
     O: [
         {
@@ -565,7 +527,7 @@ const bindings = expandBindings({
                 ]
             }
         },
-        "modaledit.enterInsert",
+        "modalkeys.enterInsert",
     ],
 
     // line indent
@@ -609,8 +571,8 @@ const bindings = expandBindings({
     "_": "cursorRedo",
 
     ".": [
-        "modaledit.repeatLastSelection",
-        "modaledit.repeatLastChange",
+        "modalkeys.repeatLastSelection",
+        "modalkeys.repeatLastChange",
     ],
 
     /////////////
@@ -657,11 +619,11 @@ const bindings = expandBindings({
     // terminal actions
     "gl": [
         "terminal-polyglot.send-text",
-        "modaledit.cancelMultipleSelections",
+        "modalkeys.cancelMultipleSelections",
     ],
     "gL": [
         "terminal-polyglot.send-block-text",
-        "modaledit.cancelMultipleSelections",
+        "modalkeys.cancelMultipleSelections",
     ],
 
     ///////////////////
@@ -688,13 +650,13 @@ const bindings = expandBindings({
     // bookmarks
     "gn": [
         {
-            command: "modaledit.defineBookmark",
+            command: "modalkeys.defineBookmark",
             args: { bookmark: "default" }
         },
     ],
     "gm": [
         {
-            command: "modaledit.goToBookmark",
+            command: "modalkeys.goToBookmark",
             args: { bookmark: "default" }
         },
     ],
@@ -702,32 +664,30 @@ const bindings = expandBindings({
 
     ///////////////
     // selection modiefiers
-    "q=": "selection-utilities.alignSelectionsLeft",
-    "q+": "selection-utilities.alignSelectionsRight",
+    "'=": "selection-utilities.alignSelectionsLeft",
+    "'+": "selection-utilities.alignSelectionsRight",
 
     // selection modifiers
-    "qh": "selection-utilities.activeAtStart",
-    "ql": "selection-utilities.activeAtEnd",
-    "qj": "selection-utilities.movePrimaryRight",
-    "qk": "selection-utilities.movePrimaryLeft",
-    "qc": "selection-utilities.appendToMemory",
-    "qv": "selection-utilities.restoreAndClear",
-    "qx": "selection-utilities.swapWithMemory",
-    "qn": "selection-utilities.deleteLastSaved",
-    "qd": "selection-utilities.deletePrimary",
-    "qs": "selection-utilities.splitByNewline",
-    "qS": "selection-utilities.splitBy",
-    "qg": "selection-utilities.createBy",
-    "qG": "selection-utilities.createByRegex",
-    "qr": "selection-utilities.splitByRegex",
-    "qf": "selection-utilities.includeBy",
-    "qF": "selection-utilities.excludeBy",
-    "qt": "selection-utilities.includeByRegex",
-    "qT": "selection-utilities.excludeByRegex",
-    "q-": {
+    "'h": "selection-utilities.activeAtStart",
+    "'l": "selection-utilities.activeAtEnd",
+    "'j": "selection-utilities.movePrimaryRight",
+    "'k": "selection-utilities.movePrimaryLeft",
+    "'c": "selection-utilities.appendToMemory",
+    "'v": "selection-utilities.restoreAndClear",
+    "'x": "selection-utilities.swapWithMemory",
+    "'n": "selection-utilities.deleteLastSaved",
+    "'d": "selection-utilities.deletePrimary",
+    "'s": "selection-utilities.splitByNewline",
+    "'S": "selection-utilities.splitBy",
+    "'g": "selection-utilities.createBy",
+    "'G": "selection-utilities.createByRegex",
+    "'r": "selection-utilities.splitByRegex",
+    "'f": "selection-utilities.includeBy",
+    "'F": "selection-utilities.excludeBy",
+    "'t": "selection-utilities.includeByRegex",
+    "'T": "selection-utilities.excludeByRegex",
+    "'-": {
         command: "selection-utilities.restoreAndClear",
         args: {register: "cancel"}
     },
-})
-
-module.exports = { bindings, deepMerge }
+}}
