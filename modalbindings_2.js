@@ -47,10 +47,10 @@ module.exports = {keybindings: {
         "':": { unit: "comment", boundary: "both", selectWhole: true, value: '-__count'},
 
         // paragraphs and sections
-        p:     { unit: "paragraph",  boundary: "start", select     : true, value: '__count' } ,
+        p:     { unit: "paragraph",  boundary: "start", select     : true, value: '__count'  },
         P:     { unit: "paragraph",  boundary: "start", select     : true, value: '-__count' },
-        "up":  { unit: "paragraph",  boundary: "both", selectWhole: true, value: '__count' } ,
-        "uP":  { unit: "paragraph",  boundary: "both", selectWhole: true, value: '-__count' },
+        "up":  { unit: "paragraph",  boundary: "both",  selectWhole: true, value: '__count'  },
+        "uP":  { unit: "paragraph",  boundary: "both",  selectWhole: true, value: '-__count' },
         "gp":  { unit: "section",    boundary: "start", select:      true, value: '__count'  },
         "gP":  { unit: "section",    boundary: "start", select:      true, value: '-__count' },
         "gs":  { unit: "subsection", boundary: "start", select:      true, value: '__count'  },
@@ -63,14 +63,14 @@ module.exports = {keybindings: {
 
     // function arguments
     ...withCommand("move-cursor-by-argument.move-by-argument", {
-        "'w": { value: "__count", boundary: "start", select: true },
-        "'b": { value: "-__count", boundary: "start", select: true },
-        "'W": { value: "__count", boundary: "start", select: true },
-        "'B": { value: "-__count", boundary: "end", select: true },
-        "uqw": { value: "__count", boundary: "start", selectWhole: true },
+        "'w":  { value: "__count",  boundary: "start", select:      true },
+        "'b":  { value: "-__count", boundary: "start", select:      true },
+        "'W":  { value: "__count",  boundary: "start", select:      true },
+        "'B":  { value: "-__count", boundary: "end",   select:      true },
+        "uqw": { value: "__count",  boundary: "start", selectWhole: true },
         "uqb": { value: "-__count", boundary: "start", selectWhole: true },
-        "uqW": { value: "__count", boundary: "start", selectWhole: true },
-        "uqB": { value: "-__count", boundary: "end", selectWhole: true },
+        "uqW": { value: "__count",  boundary: "start", selectWhole: true },
+        "uqB": { value: "-__count", boundary: "end",   selectWhole: true },
     }),
 
     // line related movements
@@ -204,18 +204,15 @@ module.exports = {keybindings: {
     // actions
 
     // insert/append text
-    i: [ "modaledit.cancelMultipleSelections", "modalkeys.enterInsert" ],
-    a: [ "selection-utilities.exchangeAnchorActive", "modaledit.cancelMultipleSelections", "modalkeys.enterInsert" ],
+    i: [ "modalkeys.cancelMultipleSelections", "modalkeys.enterInsert" ],
+    a: [ "selection-utilities.exchangeAnchorActive", "modalkeys.cancelMultipleSelections", "modalkeys.enterInsert" ],
 
     I: [
         { "cursorMove": { to: "wrappedLineFirstNonWhitespaceCharacter", select: false } },
         "modalkeys.enterInsert",
     ],
 
-    A: [
-        { "cursorMove": { to: "wrappedLineEnd", select: false } },
-        "modalkeys.enterInsert",
-    ],
+    A: [ { "cursorMove": { to: "wrappedLineEnd", select: false } }, "modalkeys.enterInsert", ],
 
     // change
     c: [
@@ -532,23 +529,25 @@ module.exports = {keybindings: {
     "'+": "selection-utilities.alignSelectionsRight",
 
     // selection modifiers
-    "'h": "selection-utilities.activeAtStart",
-    "'l": "selection-utilities.activeAtEnd",
-    "'j": "selection-utilities.movePrimaryRight",
-    "'k": "selection-utilities.movePrimaryLeft",
-    "'c": "selection-utilities.appendToMemory",
-    "'v": "selection-utilities.restoreAndClear",
-    "'x": "selection-utilities.swapWithMemory",
-    "'n": "selection-utilities.deleteLastSaved",
-    "'d": "selection-utilities.deletePrimary",
-    "'s": "selection-utilities.splitByNewline",
-    "'S": "selection-utilities.splitBy",
-    "'g": "selection-utilities.createBy",
-    "'G": "selection-utilities.createByRegex",
-    "'r": "selection-utilities.splitByRegex",
-    "'f": "selection-utilities.includeBy",
-    "'F": "selection-utilities.excludeBy",
-    "'t": "selection-utilities.includeByRegex",
-    "'T": "selection-utilities.excludeByRegex",
+    "\"": { "modalkeys.enterMode": { mode: "selectedit" } },
+    "selectedit::h": "selection-utilities.activeAtStart",
+    "selectedit::l": "selection-utilities.activeAtEnd",
+    "selectedit::j": "selection-utilities.movePrimaryRight",
+    "selectedit::k": "selection-utilities.movePrimaryLeft",
+    "selectedit::c": "selection-utilities.appendToMemory",
+    "selectedit::v": "selection-utilities.restoreAndClear",
+    "selectedit::x": "selection-utilities.swapWithMemory",
+    "selectedit::n": "selection-utilities.deleteLastSaved",
+    "selectedit::d": "selection-utilities.deletePrimary",
+    "selectedit::s": "selection-utilities.splitByNewline",
+    "selectedit::S": "selection-utilities.splitBy",
+    "selectedit::g": "selection-utilities.createBy",
+    "selectedit::G": "selection-utilities.createByRegex",
+    "selectedit::r": "selection-utilities.splitByRegex",
+    "selectedit::f": "selection-utilities.includeBy",
+    "selectedit::F": "selection-utilities.excludeBy",
+    "selectedit::t": "selection-utilities.includeByRegex",
+    "selectedit::T": "selection-utilities.excludeByRegex",
+    "selectedit::\"": { "modalkeys.enterMode": { mode: "normal" } },
     "'-": { "selection-utilities.restoreAndClear": {register: "cancel"} },
 }}
