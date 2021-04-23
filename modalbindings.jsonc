@@ -379,8 +379,8 @@
 
     // "I": "select-indentation.expand-selection",
     "%": "editor.action.jumpToBracket",
-    "'": "extension.selectSingleQuote",
-    "\"": "extension.selectDoubleQuote",
+    "q": "extension.selectSingleQuote",
+    "Q": "extension.selectDoubleQuote",
     // the below is a bit hacky; I want to add these commandsto my extension
     "[": [
         {
@@ -855,7 +855,7 @@
             "modaledit.cancelMultipleSelections",
         ],
 
-        "q": [
+        "'": [
             "rewrap.rewrapComment",
         ],
 
@@ -925,8 +925,8 @@
 
         "{": [ "bracketeer.removeBrackets", ],
         "[": [ "bracketeer.swapBrackets", ],
-        "'": [ "bracketeer.swapQuotes", ],
-        "\"": [ "bracketeer.removeQuotes", ],
+        "q": [ "bracketeer.swapQuotes", ],
+        "Q": [ "bracketeer.removeQuotes", ],
 
         "e": [ "editor.action.marker.next", ],
         "E": [ "editor.action.marker.prev", ],
@@ -954,7 +954,7 @@
    },
 
    // second leader
-    "q": {
+    "'": {
        // actions
         "(": [
             "modaledit.enterInsert",
