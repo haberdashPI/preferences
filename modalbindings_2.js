@@ -1,9 +1,3 @@
-function withCommand(command, args){
-    return Object.fromEntries(Object.entries(args).map(([key, args]) =>
-        [key, { [command]: args }]
-    ))
-}
-
 module.exports = {keybindings: {
     /////////////
     // motions
@@ -15,7 +9,7 @@ module.exports = {keybindings: {
     l: { "cursorMove": { to: 'right', select: "__mode == 'visual'", value: '__count' } },
 
     // regex movements
-    ...withCommand("selection-utilities.moveBy", {
+    "::using::selection-utilities.moveBy": {
         // word-like
         w:     { unit: "subword", boundary: "start", select:      true, value: '__count' } ,
         "uw":  { unit: "subword", boundary: "start", selectWhole: true, value: '__count' } ,
@@ -59,10 +53,10 @@ module.exports = {keybindings: {
         "ugP": { unit: "section",    boundary: "start", selectWhole: true, value: '-__count' },
         "ugs": { unit: "subsection", boundary: "start", selectWhole: true, value: '__count'  },
         "ugS": { unit: "subsection", boundary: "start", selectWhole: true, value: '-__count' },
-    }),
+    },
 
     // function arguments
-    ...withCommand("move-cursor-by-argument.move-by-argument", {
+    "::using::move-cursor-by-argument.move-by-argument": {
         "'w":  { value: "__count",  boundary: "start", select:      true },
         "'b":  { value: "-__count", boundary: "start", select:      true },
         "'W":  { value: "__count",  boundary: "start", select:      true },
@@ -71,14 +65,17 @@ module.exports = {keybindings: {
         "uqb": { value: "-__count", boundary: "start", selectWhole: true },
         "uqW": { value: "__count",  boundary: "start", selectWhole: true },
         "uqB": { value: "-__count", boundary: "end",   selectWhole: true },
-    }),
+    },
 
     // line related movements
     H: "cursorHomeSelect",
     L: { "cursorMove": { to: "wrappedLineEnd", select: true } },
     G:  "expandLineSelection",
-    K: { "selection-utiliies.selectLines": { value: "-__count" } },
-    J: { "selection-utiliies.selectLines": { value: "__count" } },
+    K: [
+        { "modalkeys.typeKeys": { keys: "` ${__count}kG`" } },
+        "selection-utilities.activeAtStart"
+    ],
+    J: { "modalkeys.typeKeys": { keys: "` ${__count}jG`" } },
 
     // buffer related
     $: [ "editor.action.selectAll" ],
@@ -175,8 +172,30 @@ module.exports = {keybindings: {
     "q": "extension.selectSingleQuote",
     "Q": "extension.selectDoubleQuote",
     // the below is a bit hacky; I want to add these commandsto my extension
-    "[": "selection-utilities.select-in-bracket",
-    "{": "selection-utilities.select-around-bracket",
+    "[": [
+        {
+            if: "!editor.selection.isEmpty",
+            then: [
+                "selection-utilities.activeAtStart",
+                { "cursorMove": { "to": "left", "select": true, "value": 2 } },
+                "selection-utilities.activeAtEnd",
+                { "cursorMove": { "to": "right", "select": true, "value": 2 } }
+            ],
+        },
+        { "editor.action.selectToBracket": {"selectBrackets": false} }
+    ],
+    "{": [
+        {
+            if: "!editor.selection.isEmpty",
+            then: [
+                "selection-utilities.activeAtStart",
+                { "cursorMove": { "to": "left", "select": true } },
+                "selection-utilities.activeAtEnd",
+                { "cursorMove": { "to": "right", "select": true } }
+            ],
+        },
+        { "editor.action.selectToBracket": {"selectBrackets": true} }
+    ],
     "`": "extension.selectBackTick",
 
     "g>": "extension.selectAngleBrackets",
@@ -205,7 +224,7 @@ module.exports = {keybindings: {
 
     // insert/append text
     i: [ "modalkeys.cancelMultipleSelections", "modalkeys.enterInsert" ],
-    a: [ "selection-utilities.exchangeAnchorActive", "modalkeys.cancelMultipleSelections", "modalkeys.enterInsert" ],
+    a: [ "modalkeys.cancelMultipleSelections", { if: "__char != ''", then: "cursorRight" }, "modalkeys.enterInsert"],
 
     I: [
         { "cursorMove": { to: "wrappedLineFirstNonWhitespaceCharacter", select: false } },
@@ -530,24 +549,25 @@ module.exports = {keybindings: {
 
     // selection modifiers
     "\"": { "modalkeys.enterMode": { mode: "selectedit" } },
+    "selectedit::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
     "selectedit::h": "selection-utilities.activeAtStart",
     "selectedit::l": "selection-utilities.activeAtEnd",
     "selectedit::j": "selection-utilities.movePrimaryRight",
     "selectedit::k": "selection-utilities.movePrimaryLeft",
-    "selectedit::c": "selection-utilities.appendToMemory",
-    "selectedit::v": "selection-utilities.restoreAndClear",
-    "selectedit::x": "selection-utilities.swapWithMemory",
-    "selectedit::n": "selection-utilities.deleteLastSaved",
+    "'c": "selection-utilities.appendToMemory",
+    "'v": "selection-utilities.restoreAndClear",
+    "'x": "selection-utilities.swapWithMemory",
+    "'n": "selection-utilities.deleteLastSaved",
     "selectedit::d": "selection-utilities.deletePrimary",
-    "selectedit::s": "selection-utilities.splitByNewline",
-    "selectedit::S": "selection-utilities.splitBy",
-    "selectedit::g": "selection-utilities.createBy",
-    "selectedit::G": "selection-utilities.createByRegex",
-    "selectedit::r": "selection-utilities.splitByRegex",
-    "selectedit::f": "selection-utilities.includeBy",
-    "selectedit::F": "selection-utilities.excludeBy",
-    "selectedit::t": "selection-utilities.includeByRegex",
-    "selectedit::T": "selection-utilities.excludeByRegex",
+    "selectedit::sj": "selection-utilities.splitByNewline",
+    "selectedit::sc": "selection-utilities.splitBy",
+    "selectedit::cc": "selection-utilities.createBy",
+    "selectedit::cr": "selection-utilities.createByRegex",
+    "selectedit::sr": "selection-utilities.splitByRegex",
+    "selectedit::ic": "selection-utilities.includeBy",
+    "selectedit::ec": "selection-utilities.excludeBy",
+    "selectedit::ir": "selection-utilities.includeByRegex",
+    "selectedit::er": "selection-utilities.excludeByRegex",
     "selectedit::\"": { "modalkeys.enterMode": { mode: "normal" } },
     "'-": { "selection-utilities.restoreAndClear": {register: "cancel"} },
 }}
