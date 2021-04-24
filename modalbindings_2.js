@@ -61,10 +61,10 @@ module.exports = {keybindings: {
         "'b":  { value: "-__count", boundary: "start", select:      true },
         "'W":  { value: "__count",  boundary: "start", select:      true },
         "'B":  { value: "-__count", boundary: "end",   select:      true },
-        "uqw": { value: "__count",  boundary: "start", selectWhole: true },
-        "uqb": { value: "-__count", boundary: "start", selectWhole: true },
-        "uqW": { value: "__count",  boundary: "start", selectWhole: true },
-        "uqB": { value: "-__count", boundary: "end",   selectWhole: true },
+        "ufw": { value: "__count",  boundary: "start", selectWhole: true },
+        "ufb": { value: "-__count", boundary: "start", selectWhole: true },
+        "ufW": { value: "__count",  boundary: "start", selectWhole: true },
+        "ufB": { value: "-__count", boundary: "end",   selectWhole: true },
     },
 
     // line related movements
@@ -548,16 +548,18 @@ module.exports = {keybindings: {
     "'+": "selection-utilities.alignSelectionsRight",
 
     // selection modifiers
+    "'c": "selection-utilities.appendToMemory",
+    "'v": "selection-utilities.restoreAndClear",
+    "'x": "selection-utilities.swapWithMemory",
+    "'n": "selection-utilities.deleteLastSaved",
+    "'-": { "selection-utilities.restoreAndClear": {register: "cancel"} },
+
     "\"": { "modalkeys.enterMode": { mode: "selectedit" } },
     "selectedit::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
     "selectedit::h": "selection-utilities.activeAtStart",
     "selectedit::l": "selection-utilities.activeAtEnd",
     "selectedit::j": "selection-utilities.movePrimaryRight",
     "selectedit::k": "selection-utilities.movePrimaryLeft",
-    "'c": "selection-utilities.appendToMemory",
-    "'v": "selection-utilities.restoreAndClear",
-    "'x": "selection-utilities.swapWithMemory",
-    "'n": "selection-utilities.deleteLastSaved",
     "selectedit::d": "selection-utilities.deletePrimary",
     "selectedit::sj": "selection-utilities.splitByNewline",
     "selectedit::sc": "selection-utilities.splitBy",
@@ -569,5 +571,4 @@ module.exports = {keybindings: {
     "selectedit::ir": "selection-utilities.includeByRegex",
     "selectedit::er": "selection-utilities.excludeByRegex",
     "selectedit::\"": { "modalkeys.enterMode": { mode: "normal" } },
-    "'-": { "selection-utilities.restoreAndClear": {register: "cancel"} },
 }}
