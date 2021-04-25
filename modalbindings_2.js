@@ -208,7 +208,8 @@ module.exports = {keybindings: {
     ////////////////////////
     // selection modifiers
 
-    R:  "selection-utilities.trimSelectionWhitespace" ,
+    R: [ "expandLineSelection", "selection-utilities.trimSelectionWhitespace" ],
+    "visual::R":  "selection-utilities.trimSelectionWhitespace" ,
     U: { "selection-utilities.narrowTo": { unit: "subident", boundary: "both", } },
 
     x:  { "selection-utilities.addNext": {}, repeat: '__count' },
@@ -482,11 +483,11 @@ module.exports = {keybindings: {
 
     /////////////
     // terminal actions
-    "gl": [
+    "\n": [
         "terminal-polyglot.send-text",
         "modalkeys.cancelMultipleSelections",
     ],
-    "gL": [
+    "g\n": [
         "terminal-polyglot.send-block-text",
         "modalkeys.cancelMultipleSelections",
     ],
