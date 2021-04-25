@@ -169,8 +169,8 @@ module.exports = {keybindings: {
 
     // "I": "select-indentation.expand-selection",
     '%': "editor.action.jumpToBracket",
-    "q": "extension.selectSingleQuote",
-    "Q": "extension.selectDoubleQuote",
+    "''": "extension.selectSingleQuote",
+    "'\"": "extension.selectDoubleQuote",
     // the below is a bit hacky; I want to add these commandsto my extension
     "[": [
         {
@@ -211,10 +211,10 @@ module.exports = {keybindings: {
     R:  "selection-utilities.trimSelectionWhitespace" ,
     U: { "selection-utilities.narrowTo": { unit: "subident", boundary: "both", } },
 
-    x:    "selection-utilities.addNext",
-    "gx": "selection-utilities.addPrev" ,
-    X:    "selection-utilities.skipNext",
-    "gX": "selection-utilities.skipPrev" ,
+    x:  { "selection-utilities.addNext": {}, repeat: '__count' },
+    gx: { "selection-utilities.addPrev": {}, repeat: '__count' },
+    X:  { "selection-utilities.skipNext": {}, repeat: '__count' },
+    gX: { "selection-utilities.skipPrev": {}, repeat: '__count' },
 
     r: "modalkeys.cancelMultipleSelections",
     " ": "modalkeys.enableSelection",
@@ -296,19 +296,19 @@ module.exports = {keybindings: {
     "ga": "selection-utilities.trimWhitespace",
 
     // brackets
-    "g{": [ "bracketeer.removeBrackets", ],
-    "g[": [ "bracketeer.swapBrackets", ],
-    "gq": [ "bracketeer.swapQuotes", ],
-    "gQ": [ "bracketeer.removeQuotes", ],
-    "'(": [ "modalkeys.enterInsert", { "type": { text: "(" }, }, "modalkeys.enterNormal" ],
-    "'<": [ "modalkeys.enterInsert", { "type": { text: "<" }, }, "modalkeys.enterNormal" ],
-    "'`": [ "modalkeys.enterInsert", { "type": { text: "`" }, }, "modalkeys.enterNormal" ],
-    "'\"": [ "modalkeys.enterInsert", { "type": { "text": "\"" }, }, "modalkeys.enterNormal" ],
-    "''": [ "modalkeys.enterInsert", { "type": { text: "'" }, }, "modalkeys.enterNormal" ],
-    "'*": [ "modalkeys.enterInsert", { "type": { text: "*" }, }, "modalkeys.enterNormal" ],
-    "'2*": [ "modalkeys.enterInsert", { "type": { text: "**" }, }, "modalkeys.enterNormal" ],
-    "'{": [ "modalkeys.enterInsert", { "type": { text: "{" }, }, "modalkeys.enterNormal" ],
-    "'[": [ "modalkeys.enterInsert", { "type": { text: "[" }, }, "modalkeys.enterNormal" ],
+    "'d[":  "bracketeer.removeBrackets",
+    "'s[":  "bracketeer.swapBrackets",
+    "'s\"":  "bracketeer.swapQuotes",
+    "'d\"":  "bracketeer.removeQuotes",
+    "'i(": [ "modalkeys.enterInsert", { "type": { text: "(" }, }, "modalkeys.enterNormal" ],
+    "'i<": [ "modalkeys.enterInsert", { "type": { text: "<" }, }, "modalkeys.enterNormal" ],
+    "'i`": [ "modalkeys.enterInsert", { "type": { text: "`" }, }, "modalkeys.enterNormal" ],
+    "'i\"": [ "modalkeys.enterInsert", { "type": { "text": "\"" }, }, "modalkeys.enterNormal" ],
+    "'i'": [ "modalkeys.enterInsert", { "type": { text: "'" }, }, "modalkeys.enterNormal" ],
+    "'i*": [ "modalkeys.enterInsert", { "type": { text: "*" }, }, "modalkeys.enterNormal" ],
+    // "'i2*": [ "modalkeys.enterInsert", { "type": { text: "**" }, }, "modalkeys.enterNormal" ],
+    "'i{": [ "modalkeys.enterInsert", { "type": { text: "{" }, }, "modalkeys.enterNormal" ],
+    "'i[": [ "modalkeys.enterInsert", { "type": { text: "[" }, }, "modalkeys.enterNormal" ],
 
     /////////////
     // clipboard actions
@@ -414,36 +414,10 @@ module.exports = {keybindings: {
 
 
     // begin line below
-    o: [
-        {
-            if: "editor.selection.isEmpty",
-            then: "editor.action.insertLineAfter",
-            else: {
-                if: "!editor.selection.isReversed",
-                then: "editor.action.insertLineBefore",
-                else: [
-                    "selection-utilities.exchangeAnchorActive",
-                    "editor.action.insertLineBefore",
-                ]
-            }
-        },
-        "modalkeys.enterInsert",
-    ],
-    O: [
-        {
-            if: "editor.selection.isEmpty",
-            then: "editor.action.insertLineBefore",
-            else: {
-                if: "editor.selection.isReversed",
-                then: "editor.action.insertLineBefore",
-                else: [
-                    "selection-utilities.exchangeAnchorActive",
-                    "editor.action.insertLineBefore",
-                ]
-            }
-        },
-        "modalkeys.enterInsert",
-    ],
+    o: ["editor.action.insertLineAfter", "modalkeys.enterInsert"],
+    "visual::o": "selection-utilities.activeAtStart",
+    O: [ "editor.action.insertLineBefore", "modalkeys.enterInsert" ],
+    "visual::O": "selection-utilities.activeAtEnd",
 
     // line indent
     ">": "editor.action.indentLines",
@@ -558,9 +532,9 @@ module.exports = {keybindings: {
     "selectedit::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
     "selectedit::h": "selection-utilities.activeAtStart",
     "selectedit::l": "selection-utilities.activeAtEnd",
-    "selectedit::j": "selection-utilities.movePrimaryRight",
-    "selectedit::k": "selection-utilities.movePrimaryLeft",
-    "selectedit::d": "selection-utilities.deletePrimary",
+    "selectedit::j": { "selection-utilities.movePrimaryRight": {}, repeat: '__count' },
+    "selectedit::k": { "selection-utilities.movePrimaryLeft": {}, repeat: '__count' },
+    "selectedit::d": { "selection-utilities.deletePrimary": {}, repeat: '__count' },
     "selectedit::sj": "selection-utilities.splitByNewline",
     "selectedit::sc": "selection-utilities.splitBy",
     "selectedit::cc": "selection-utilities.createBy",
