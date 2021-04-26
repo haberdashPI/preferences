@@ -451,9 +451,11 @@ module.exports = {keybindings: {
     "_": "cursorRedo",
 
     ".": [
-        "modalkeys.repeatLastSelection",
+        "modalkeys.repeatLastUsedSelection",
         "modalkeys.repeatLastChange",
     ],
+    "'.": "modalkeys.repeatLastUsedSelection",
+    "g.": "modalkeys.repeatLastChange",
 
     /////////////
     // comment actions
