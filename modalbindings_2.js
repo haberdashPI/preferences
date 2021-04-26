@@ -11,26 +11,26 @@ module.exports = {keybindings: {
     // regex movements
     "::using::selection-utilities.moveBy": {
         // word-like
-        w:     { unit: "subword", boundary: "start", select:      true, value: '__count' } ,
-        "uw":  { unit: "subword", boundary: "start", selectWhole: true, value: '__count' } ,
-        W:     { unit: "word",    boundary: "start", select:      true, value: '__count' } ,
-        "uW":  { unit: "word",    boundary: "start", selectWhole: true, value: '__count' } ,
-        e:     { unit: "word",    boundary: "end",   select:      true, value: '__count' } ,
-        "ue":  { unit: "word",    boundary: "end",   selectWhole: true, value: '__count' } ,
-        b:     { unit: "subword", boundary: "start", select:      true, value: '-__count' } ,
-        "ub":  { unit: "subword", boundary: "start", selectWhole: true, value: '-__count' } ,
-        B:     { unit: "word",    boundary: "start", select:      true, value: '-__count' } ,
-        "uB":  { unit: "word",    boundary: "start", selectWhole: true, value: '-__count' } ,
-        E:     { unit: "word",    boundary: "end",   select:      true, value: '-__count' } ,
-        "uE":  { unit: "word",    boundary: "end",   selectWhole: true, value: '-__count' } ,
-        "gw":  { unit: "WORD",    boundary: "start", select:      true, value: "__count" },
-        "ugw": { unit: "WORD",    boundary: "start", selectWhole: true, value: "__count" },
-        "gb":  { unit: "WORD",    boundary: "start", select:      true, value: "-__count" },
-        "ugb": { unit: "WORD",    boundary: "start", selectWhole: true, value: "-__count" },
-        "gW":  { unit: "WORD",    boundary: "end",   select:      true, value: "__count" },
-        "ugW": { unit: "WORD",    boundary: "end",   selectWhole: true, value: "__count" },
-        "gB":  { unit: "WORD",    boundary: "end",   select:      true, value: "-__count" },
-        "ugB": { unit: "WORD",    boundary: "end",   selectWhole: true, value: "-__count" },
+        w:   { unit: "subword", boundary: "start", select:      true, value:  '__count' } ,
+        uw:  { unit: "subword", boundary: "start", selectWhole: true, value:  '__count' } ,
+        W:   { unit: "word",    boundary: "start", select:      true, value:  '__count' } ,
+        uW:  { unit: "word",    boundary: "start", selectWhole: true, value:  '__count' } ,
+        e:   { unit: "word",    boundary: "end",   select:      true, value:  '__count' } ,
+        ue:  { unit: "word",    boundary: "end",   selectWhole: true, value:  '__count' } ,
+        b:   { unit: "subword", boundary: "start", select:      true, value: '-__count' } ,
+        ub:  { unit: "subword", boundary: "start", selectWhole: true, value: '-__count' } ,
+        B:   { unit: "word",    boundary: "start", select:      true, value: '-__count' } ,
+        uB:  { unit: "word",    boundary: "start", selectWhole: true, value: '-__count' } ,
+        E:   { unit: "word",    boundary: "end",   select:      true, value: '-__count' } ,
+        uE:  { unit: "word",    boundary: "end",   selectWhole: true, value: '-__count' } ,
+        gw:  { unit: "WORD",    boundary: "start", select:      true, value:  "__count" },
+        ugw: { unit: "WORD",    boundary: "start", selectWhole: true, value:  "__count" },
+        gb:  { unit: "WORD",    boundary: "start", select:      true, value: "-__count" },
+        ugb: { unit: "WORD",    boundary: "start", selectWhole: true, value: "-__count" },
+        gW:  { unit: "WORD",    boundary: "end",   select:      true, value:  "__count" },
+        ugW: { unit: "WORD",    boundary: "end",   selectWhole: true, value:  "__count" },
+        gB:  { unit: "WORD",    boundary: "end",   select:      true, value: "-__count" },
+        ugB: { unit: "WORD",    boundary: "end",   selectWhole: true, value: "-__count" },
 
         // numbers
         "@": { value: '-__count', unit: "integer", boundary: "both", selectWhole: true } ,
@@ -41,18 +41,18 @@ module.exports = {keybindings: {
         "':": { unit: "comment", boundary: "both", selectWhole: true, value: '-__count'},
 
         // paragraphs and sections
-        p:     { unit: "paragraph",  boundary: "start", select     : true, value: '__count'  },
-        P:     { unit: "paragraph",  boundary: "start", select     : true, value: '-__count' },
-        "up":  { unit: "paragraph",  boundary: "both",  selectWhole: true, value: '__count'  },
-        "uP":  { unit: "paragraph",  boundary: "both",  selectWhole: true, value: '-__count' },
-        "gp":  { unit: "section",    boundary: "start", select:      true, value: '__count'  },
-        "gP":  { unit: "section",    boundary: "start", select:      true, value: '-__count' },
-        "gs":  { unit: "subsection", boundary: "start", select:      true, value: '__count'  },
-        "gS":  { unit: "subsection", boundary: "start", select:      true, value: '-__count' },
-        "ugp": { unit: "section",    boundary: "start", selectWhole: true, value: '__count'  },
-        "ugP": { unit: "section",    boundary: "start", selectWhole: true, value: '-__count' },
-        "ugs": { unit: "subsection", boundary: "start", selectWhole: true, value: '__count'  },
-        "ugS": { unit: "subsection", boundary: "start", selectWhole: true, value: '-__count' },
+        p:     { unit: "paragraph",  boundary: "start", select:    true, value: '__count'  },
+        P:     { unit: "paragraph",  boundary: "start", select:    true, value: '-__count' },
+        up:  { unit: "paragraph",  boundary: "both",  selectWhole: true, value: '__count'  },
+        uP:  { unit: "paragraph",  boundary: "both",  selectWhole: true, value: '-__count' },
+        gp:  { unit: "section",    boundary: "start", select:      true, value: '__count'  },
+        gP:  { unit: "section",    boundary: "start", select:      true, value: '-__count' },
+        gs:  { unit: "subsection", boundary: "start", select:      true, value: '__count'  },
+        gS:  { unit: "subsection", boundary: "start", select:      true, value: '-__count' },
+        ugp: { unit: "section",    boundary: "start", selectWhole: true, value: '__count'  },
+        ugP: { unit: "section",    boundary: "start", selectWhole: true, value: '-__count' },
+        ugs: { unit: "subsection", boundary: "start", selectWhole: true, value: '__count'  },
+        ugS: { unit: "subsection", boundary: "start", selectWhole: true, value: '-__count' },
     },
 
     // function arguments
@@ -79,8 +79,11 @@ module.exports = {keybindings: {
 
     // buffer related
     $: [ "editor.action.selectAll" ],
-    "gj": "cursorBottomSelect",
-    "gk": "cursorTopSelect",
+    "gj": { "cursorMove": { to: 'down', by: 'line', select: "__mode == 'visual'", value: '__count' } },
+    // "gJ":
+
+    "gk": { "cursorMove": { to: 'up', by: 'line', select: "__mode == 'visual'", value: '__count' } },
+
 
     // search related
     "/": "actions.find",
@@ -518,18 +521,19 @@ module.exports = {keybindings: {
     "gm": { "modalkeys.goToBookmark": { bookmark: "default" } },
 
     ///////////////
-    // selection modiefiers
-    "'=": "selection-utilities.alignSelectionsLeft",
-    "'+": "selection-utilities.alignSelectionsRight",
-
     // selection modifiers
+    "\"": { "modalkeys.enterMode": { mode: "selectedit" } },
+    "selectedit::\"": { "modalkeys.enterMode": { mode: "normal" } },
+    "selectedit::\n": { "modalkeys.enterMode": { mode: "normal" } },
+
+    "selectedit::=": "selection-utilities.alignSelectionsLeft",
+    "selectedit::+": "selection-utilities.alignSelectionsRight",
     "'c": "selection-utilities.appendToMemory",
     "'v": "selection-utilities.restoreAndClear",
     "'x": "selection-utilities.swapWithMemory",
     "'n": "selection-utilities.deleteLastSaved",
     "'-": { "selection-utilities.restoreAndClear": {register: "cancel"} },
 
-    "\"": { "modalkeys.enterMode": { mode: "selectedit" } },
     "selectedit::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
     "selectedit::h": "selection-utilities.activeAtStart",
     "selectedit::l": "selection-utilities.activeAtEnd",
@@ -545,5 +549,4 @@ module.exports = {keybindings: {
     "selectedit::ec": "selection-utilities.excludeBy",
     "selectedit::ir": "selection-utilities.includeByRegex",
     "selectedit::er": "selection-utilities.excludeByRegex",
-    "selectedit::\"": { "modalkeys.enterMode": { mode: "normal" } },
 }}
