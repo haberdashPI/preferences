@@ -7,8 +7,20 @@ module.exports = {keybindings: {
     j: { "cursorMove": { to: 'down', by: 'wrappedLine', select: "__mode == 'visual'", value: '__count' } },
     k: { "cursorMove": { to: 'up', by: 'wrappedLine', select: "__mode == 'visual'" , value: '__count' } },
     l: { "cursorMove": { to: 'right', select: "__mode == 'visual'", value: '__count' } },
+    gj: { "cursorMove": { to: 'down', by: 'line', select: "__mode == 'visual'", value: '__count' } },
+    gk: { "cursorMove": { to: 'up', by: 'line', select: "__mode == 'visual'", value: '__count' } },
 
-    // regex movements
+    // line related movements
+    H: "cursorHomeSelect",
+    L: { "cursorMove": { to: "wrappedLineEnd", select: true } },
+    G:  "expandLineSelection",
+    K: [
+        { "modalkeys.typeKeys": { keys: "` ${__count}kG`" } },
+        "selection-utilities.activeAtStart"
+    ],
+    J: { "modalkeys.typeKeys": { keys: "` ${__count}jG`" } },
+
+    // movements around regex units
     "::using::selection-utilities.moveBy": {
         // word-like
         w:   { unit: "subword", boundary: "start", select:      true, value:  '__count' } ,
@@ -67,23 +79,10 @@ module.exports = {keybindings: {
         "ufB": { value: "-__count", boundary: "end",   selectWhole: true },
     },
 
-    // line related movements
-    H: "cursorHomeSelect",
-    L: { "cursorMove": { to: "wrappedLineEnd", select: true } },
-    G:  "expandLineSelection",
-    K: [
-        { "modalkeys.typeKeys": { keys: "` ${__count}kG`" } },
-        "selection-utilities.activeAtStart"
-    ],
-    J: { "modalkeys.typeKeys": { keys: "` ${__count}jG`" } },
-
     // buffer related
     $: [ "editor.action.selectAll" ],
-    "gj": { "cursorMove": { to: 'down', by: 'line', select: "__mode == 'visual'", value: '__count' } },
-    // "gJ":
-
-    "gk": { "cursorMove": { to: 'up', by: 'line', select: "__mode == 'visual'", value: '__count' } },
-
+    "'j": "cursorBottomSelect",
+    "'k": "cursorTopSelect",
 
     // search related
     "/": "actions.find",
@@ -303,7 +302,7 @@ module.exports = {keybindings: {
     "'d[":  "bracketeer.removeBrackets",
     "'s[":  "bracketeer.swapBrackets",
     "'s\"":  "bracketeer.swapQuotes",
-    "'d\"":  "bracketeer.removeQuotes",
+    "'d'":  "bracketeer.removeQuotes",
     "'i(": [ "modalkeys.enterInsert", { "type": { text: "(" }, }, "modalkeys.enterNormal" ],
     "'i<": [ "modalkeys.enterInsert", { "type": { text: "<" }, }, "modalkeys.enterNormal" ],
     "'i`": [ "modalkeys.enterInsert", { "type": { text: "`" }, }, "modalkeys.enterNormal" ],
@@ -419,9 +418,9 @@ module.exports = {keybindings: {
 
     // begin line below
     o: ["editor.action.insertLineAfter", "modalkeys.enterInsert"],
-    "visual::o": "selection-utilities.activeAtStart",
+    "visual::o": "selection-utilities.activeAtEnd",
     O: [ "editor.action.insertLineBefore", "modalkeys.enterInsert" ],
-    "visual::O": "selection-utilities.activeAtEnd",
+    "visual::O": "selection-utilities.activeAtStart",
 
     // line indent
     ">": "editor.action.indentLines",
