@@ -133,3 +133,6 @@ checkout = git clone 'https://github.com/haberdashPI/vscode-selection-utilities'
 
 [Documents/home/bcmc-catalyst]
 checkout = git clone 'https://github.com/haberdashPI/bcmc-catalyst' 'bcmc-catalyst'
+
+[Documents/tools/vscode-modal-keys]
+checkout = git clone 'https://github.com/haberdashPI/vscode-modal-keys.git' 'vscode-modal-keys'
