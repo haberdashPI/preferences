@@ -487,40 +487,40 @@ module.exports = {keybindings: {
 
     /////////////
     // terminal actions
-    "\n": {
+    m: {
         if: "__selection.match('\\n')",
         then: [ "terminal-polyglot.send-block-text", "modalkeys.cancelMultipleSelections" ],
         else: [ "terminal-polyglot.send-text", "modalkeys.cancelMultipleSelections" ],
     },
-    "g\n": [
+    gm: [
         "terminal-polyglot.send-text",
         "modalkeys.cancelMultipleSelections",
     ],
 
     ///////////////////
     // git/version control
-    "gr": "git.stageSelectedRanges",
-    "gR": "git.unstageSelectedRanges",
-    "ge": "editor.action.marker.next",
-    "gE": "editor.action.marker.prev",
-    "gd": "editor.action.dirtydiff.next",
-    "gD": "editor.action.dirtydiff.previous",
-    "gf": "workbench.action.editor.nextChange",
-    "gF": "workbench.action.editor.previousChange",
+    gr: "git.stageSelectedRanges",
+    gR: "git.unstageSelectedRanges",
+    ge: "editor.action.marker.next",
+    gE: "editor.action.marker.prev",
+    gd: "editor.action.dirtydiff.next",
+    gD: "editor.action.dirtydiff.previous",
+    gf: "workbench.action.editor.nextChange",
+    gF: "workbench.action.editor.previousChange",
 
     /////////////
     // window manipulation
-    "gc": { "revealLine": { lineNumber: '__line', at: 'center' } },
-    "gt": { "revealLine": { lineNumber: '__line', at: 'top' } },
-    "gT": { "revealLine": { lineNumber: '__line', at: 'bottom' } },
-    "gh": "editor.action.showHover",
-    "gg": "editor.action.revealDefinition",
-    "gG": "editor.action.revealDefinitionAside",
+    gc: { "revealLine": { lineNumber: '__line', at: 'center' } },
+    gt: { "revealLine": { lineNumber: '__line', at: 'top' } },
+    gT: { "revealLine": { lineNumber: '__line', at: 'bottom' } },
+    gh: "editor.action.showHover",
+    gg: "editor.action.revealDefinition",
+    gG: "editor.action.revealDefinitionAside",
 
     //////////
     // bookmarks
-    "gn": { "modalkeys.defineBookmark": { bookmark: "default" } },
-    "gm": { "modalkeys.goToBookmark": { bookmark: "default" } },
+    gN: { "modalkeys.defineBookmark": { bookmark: "default", bookmark: '__count' } },
+    gn: { "modalkeys.goToBookmark": { bookmark: "default", bookmark: '__count' } },
 
     ///////////////
     // selection modifiers
@@ -534,6 +534,7 @@ module.exports = {keybindings: {
     "'v": "selection-utilities.restoreAndClear",
     "'x": "selection-utilities.swapWithMemory",
     "'n": "selection-utilities.deleteLastSaved",
+    "'\n": "selection-utilities.splitByNewline",
     "'-": { "selection-utilities.restoreAndClear": {register: "cancel"} },
 
     "selectedit::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
