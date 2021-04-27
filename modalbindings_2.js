@@ -487,12 +487,13 @@ module.exports = {keybindings: {
 
     /////////////
     // terminal actions
-    "\n": [
-        "terminal-polyglot.send-text",
-        "modalkeys.cancelMultipleSelections",
-    ],
+    "\n": {
+        if: "__selection.match('\\n')",
+        then: [ "terminal-polyglot.send-block-text", "modalkeys.cancelMultipleSelections" ],
+        else: [ "terminal-polyglot.send-text", "modalkeys.cancelMultipleSelections" ],
+    },
     "g\n": [
-        "terminal-polyglot.send-block-text",
+        "terminal-polyglot.send-text",
         "modalkeys.cancelMultipleSelections",
     ],
 
