@@ -55,8 +55,8 @@ module.exports = {keybindings: {
         // paragraphs and sections
         p:     { unit: "paragraph",  boundary: "start", select:    true, value: '__count'  },
         P:     { unit: "paragraph",  boundary: "start", select:    true, value: '-__count' },
-        up:  { unit: "paragraph",  boundary: "both",  selectWhole: true, value: '__count'  },
-        uP:  { unit: "paragraph",  boundary: "both",  selectWhole: true, value: '-__count' },
+        up:  { unit: "paragraph",  boundary: "start",  selectWhole: true, value: '__count'  },
+        uP:  { unit: "paragraph",  boundary: "start",  selectWhole: true, value: '-__count' },
         gp:  { unit: "section",    boundary: "start", select:      true, value: '__count'  },
         gP:  { unit: "section",    boundary: "start", select:      true, value: '-__count' },
         gs:  { unit: "subsection", boundary: "start", select:      true, value: '__count'  },
