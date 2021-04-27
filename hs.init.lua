@@ -353,7 +353,7 @@ function focusOnWindow(n)
   end,'query','--windows','--space','mouse')
 end
 
-wmk:bind('', 'b', balanceSplits)
+wmk:bind('', '=', balanceSplits)
 wmk:bind('', 'a', function() focusMain(); tileLayout(); showModeDisplay(0) end)
 wmk:bind('', 's', function() floatLayout(); showModeDisplay(0) end)
 wmk:bind('', 'i', stackWindowPrev)
