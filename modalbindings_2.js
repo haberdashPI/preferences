@@ -437,6 +437,7 @@ module.exports = {keybindings: {
             then: { "cursorMove": { to: "right", select: false, value: 0 } },
             else: { "cursorMove": { to: "left", select: false, value: 0 } }
         },
+        "modalkeys.untouchDocument",
     ],
     Z: [
         "redo",
@@ -445,6 +446,7 @@ module.exports = {keybindings: {
             then: { "cursorMove": { to: "right", select: false, value: 0 } },
             else: { "cursorMove": { to: "left", select: false, value: 0 } }
         },
+        "modalkeys.untouchDocument",
     ],
     "-": "cursorUndo",
     "_": "cursorRedo",
@@ -509,8 +511,8 @@ module.exports = {keybindings: {
 
     /////////////
     // window manipulation
-    "'zt": { "revealLine": { lineNumber: '__line', at: 'center' } },
-    "'zz": { "revealLine": { lineNumber: '__line', at: 'top' } },
+    "'zc": { "revealLine": { lineNumber: '__line', at: 'center' } },
+    "'zt": { "revealLine": { lineNumber: '__line', at: 'top' } },
     "'zb": { "revealLine": { lineNumber: '__line', at: 'bottom' } },
     gh: "editor.action.showHover",
     gH: "editor.debug.action.showDebugHover",
