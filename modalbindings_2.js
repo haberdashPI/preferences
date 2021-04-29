@@ -57,26 +57,26 @@ module.exports = {keybindings: {
         P:     { unit: "paragraph",  boundary: "start", select:    true, value: '-__count' },
         up:  { unit: "paragraph",  boundary: "start",  selectWhole: true, value: '__count'  },
         uP:  { unit: "paragraph",  boundary: "start",  selectWhole: true, value: '-__count' },
-        gp:  { unit: "section",    boundary: "start", select:      true, value: '__count'  },
-        gP:  { unit: "section",    boundary: "start", select:      true, value: '-__count' },
-        gs:  { unit: "subsection", boundary: "start", select:      true, value: '__count'  },
-        gS:  { unit: "subsection", boundary: "start", select:      true, value: '-__count' },
-        ugp: { unit: "section",    boundary: "start", selectWhole: true, value: '__count'  },
-        ugP: { unit: "section",    boundary: "start", selectWhole: true, value: '-__count' },
-        ugs: { unit: "subsection", boundary: "start", selectWhole: true, value: '__count'  },
-        ugS: { unit: "subsection", boundary: "start", selectWhole: true, value: '-__count' },
+        "'p":  { unit: "section",    boundary: "start", select:      true, value: '__count'  },
+        "'P":  { unit: "section",    boundary: "start", select:      true, value: '-__count' },
+        "'o":  { unit: "subsection", boundary: "start", select:      true, value: '__count'  },
+        "'O":  { unit: "subsection", boundary: "start", select:      true, value: '-__count' },
+        "u'o": { unit: "section",    boundary: "start", selectWhole: true, value: '__count'  },
+        "u'O": { unit: "section",    boundary: "start", selectWhole: true, value: '-__count' },
+        "u'p": { unit: "subsection", boundary: "start", selectWhole: true, value: '__count'  },
+        "u'P": { unit: "subsection", boundary: "start", selectWhole: true, value: '-__count' },
     },
 
     // function arguments
     "::using::move-cursor-by-argument.move-by-argument": {
-        "'w":  { value: "__count",  boundary: "start", select:      true },
-        "'b":  { value: "-__count", boundary: "start", select:      true },
+        "'w":  { value: "__count",  boundary: "both", select:      true },
+        "'b":  { value: "-__count", boundary: "both", select:      true },
         "'W":  { value: "__count",  boundary: "start", select:      true },
         "'B":  { value: "-__count", boundary: "end",   select:      true },
-        "ufw": { value: "__count",  boundary: "start", selectWhole: true },
-        "ufb": { value: "-__count", boundary: "start", selectWhole: true },
-        "ufW": { value: "__count",  boundary: "start", selectWhole: true },
-        "ufB": { value: "-__count", boundary: "end",   selectWhole: true },
+        "u'w": { value: "__count",  boundary: "both", selectWhole: true },
+        "u'b": { value: "-__count", boundary: "both", selectWhole: true },
+        "u'W": { value: "__count",  boundary: "start", selectWhole: true },
+        "u'B": { value: "-__count", boundary: "end",   selectWhole: true },
     },
 
     // buffer related
@@ -100,7 +100,7 @@ module.exports = {keybindings: {
     n: "editor.action.nextMatchFindAction",
     N: "editor.action.previousMatchFindAction",
     ";": "modalkeys.nextMatch",
-    ",": "modalkeys.previousMatch",
+    ",,": "modalkeys.previousMatch",
 
     "?": { "modalkeys.search": {
         caseSensitive: true,
@@ -299,19 +299,19 @@ module.exports = {keybindings: {
     "ga": "selection-utilities.trimWhitespace",
 
     // brackets
-    "'d[":  "bracketeer.removeBrackets",
-    "'s[":  "bracketeer.swapBrackets",
-    "'s\"":  "bracketeer.swapQuotes",
-    "'d'":  "bracketeer.removeQuotes",
-    "'i(": [ "modalkeys.enterInsert", { "type": { text: "(" }, }, "modalkeys.enterNormal" ],
-    "'i<": [ "modalkeys.enterInsert", { "type": { text: "<" }, }, "modalkeys.enterNormal" ],
-    "'i`": [ "modalkeys.enterInsert", { "type": { text: "`" }, }, "modalkeys.enterNormal" ],
-    "'i\"": [ "modalkeys.enterInsert", { "type": { "text": "\"" }, }, "modalkeys.enterNormal" ],
-    "'i'": [ "modalkeys.enterInsert", { "type": { text: "'" }, }, "modalkeys.enterNormal" ],
-    "'i*": [ "modalkeys.enterInsert", { "type": { text: "*" }, }, "modalkeys.enterNormal" ],
+    "gd[":  "bracketeer.removeBrackets",
+    "gs[":  "bracketeer.swapBrackets",
+    "gs\"":  "bracketeer.swapQuotes",
+    "gd'":  "bracketeer.removeQuotes",
+    "gi(": [ "modalkeys.enterInsert", { "type": { text: "(" }, }, "modalkeys.enterNormal" ],
+    "gi<": [ "modalkeys.enterInsert", { "type": { text: "<" }, }, "modalkeys.enterNormal" ],
+    "gi`": [ "modalkeys.enterInsert", { "type": { text: "`" }, }, "modalkeys.enterNormal" ],
+    "gi\"": [ "modalkeys.enterInsert", { "type": { "text": "\"" }, }, "modalkeys.enterNormal" ],
+    "gi'": [ "modalkeys.enterInsert", { "type": { text: "'" }, }, "modalkeys.enterNormal" ],
+    "gi*": [ "modalkeys.enterInsert", { "type": { text: "*" }, }, "modalkeys.enterNormal" ],
     // "'i2*": [ "modalkeys.enterInsert", { "type": { text: "**" }, }, "modalkeys.enterNormal" ],
-    "'i{": [ "modalkeys.enterInsert", { "type": { text: "{" }, }, "modalkeys.enterNormal" ],
-    "'i[": [ "modalkeys.enterInsert", { "type": { text: "[" }, }, "modalkeys.enterNormal" ],
+    "gi{": [ "modalkeys.enterInsert", { "type": { text: "{" }, }, "modalkeys.enterNormal" ],
+    "gi[": [ "modalkeys.enterInsert", { "type": { text: "[" }, }, "modalkeys.enterNormal" ],
 
     /////////////
     // clipboard actions
@@ -321,24 +321,23 @@ module.exports = {keybindings: {
         if: "__count == 1",
         then: "editor.action.clipboardCutAction",
         else: [
-            "modalkeys.cancelMultipleSelections",
-            {
-                "cursorMove":
-                {to: "wrappedLineStart", select: false}
-            },
-            {
-                "cursorMove":
-                { to: 'down', select: true, value: '__count+1' }
-            },
+            { "modalkeys.typeKeys": { keys: "` ${__count}jG`" } },
             "editor.action.clipboardCutAction",
         ]
     },
 
-    D: [
-        "modalkeys.cancelMultipleSelections",
-        { "cursorMove": { to: "wrappedLineEnd", select: true } },
-        "editor.action.clipboardCutAction",
-    ],
+    D: {
+        if: "__count == 1",
+        then: [
+            "modalkeys.cancelMultipleSelections",
+            { "cursorMove": { to: "wrappedLineEnd", select: true } },
+            "editor.action.clipboardCutAction",
+        ],
+        else: [
+            { "modalkeys.typeKeys": { keys: "` ${__count}kG`" } },
+            "editor.action.clipboardCutAction",
+        ]
+    },
 
     "\\": [
         {
@@ -395,7 +394,7 @@ module.exports = {keybindings: {
 
 
     // paste lines below
-    "gi": [
+    ",v": [
         "expandLineSelection",
         { if: "!editor.selection.isEmpty",
             then: { "cursorMove": { to: "right", select: false, value: 0 } },
@@ -405,7 +404,7 @@ module.exports = {keybindings: {
     ],
 
     // paste lines above
-    "gI": [
+    ",V": [
         "expandLineSelection",
         {
             if: "!editor.selection.isEmpty",
@@ -489,8 +488,8 @@ module.exports = {keybindings: {
     // terminal actions
     m: {
         if: "__selection.match('\\n')",
-        then: [ "terminal-polyglot.send-block-text", "modalkeys.cancelMultipleSelections" ],
-        else: [ "terminal-polyglot.send-text", "modalkeys.cancelMultipleSelections" ],
+        then: [ "terminal-polyglot.send-block-text", "modalkeys.cancelMultipleSelections", "modalkeys.touchDocument" ],
+        else: [ "terminal-polyglot.send-text", "modalkeys.cancelMultipleSelections", "modalkeys.touchDocument" ],
     },
     gm: [
         "terminal-polyglot.send-text",
@@ -499,28 +498,29 @@ module.exports = {keybindings: {
 
     ///////////////////
     // git/version control
-    gr: "git.stageSelectedRanges",
-    gR: "git.unstageSelectedRanges",
-    ge: "editor.action.marker.next",
-    gE: "editor.action.marker.prev",
-    gd: "editor.action.dirtydiff.next",
-    gD: "editor.action.dirtydiff.previous",
-    gf: "workbench.action.editor.nextChange",
-    gF: "workbench.action.editor.previousChange",
+    "'r": "git.stageSelectedRanges",
+    "'R": "git.unstageSelectedRanges",
+    "'e": "editor.action.marker.next",
+    "'E": "editor.action.marker.prev",
+    "'d": "editor.action.dirtydiff.next",
+    "'D": "editor.action.dirtydiff.previous",
+    "'f": "workbench.action.editor.nextChange",
+    "'F": "workbench.action.editor.previousChange",
 
     /////////////
     // window manipulation
-    gc: { "revealLine": { lineNumber: '__line', at: 'center' } },
-    gt: { "revealLine": { lineNumber: '__line', at: 'top' } },
-    gT: { "revealLine": { lineNumber: '__line', at: 'bottom' } },
+    "'zt": { "revealLine": { lineNumber: '__line', at: 'center' } },
+    "'zz": { "revealLine": { lineNumber: '__line', at: 'top' } },
+    "'zb": { "revealLine": { lineNumber: '__line', at: 'bottom' } },
     gh: "editor.action.showHover",
+    gH: "editor.debug.action.showDebugHover",
     gg: "editor.action.revealDefinition",
     gG: "editor.action.revealDefinitionAside",
 
     //////////
     // bookmarks
-    gN: { "modalkeys.defineBookmark": { bookmark: "default", bookmark: '__count' } },
-    gn: { "modalkeys.goToBookmark": { bookmark: "default", bookmark: '__count' } },
+    "g ": { "modalkeys.defineBookmark": { bookmark: "default", bookmark: '__count' } },
+    gJ: { "modalkeys.goToBookmark": { bookmark: "default", bookmark: '__count' } },
 
     ///////////////
     // selection modifiers
@@ -543,7 +543,7 @@ module.exports = {keybindings: {
     "selectedit::j": { "selection-utilities.movePrimaryRight": {}, repeat: '__count' },
     "selectedit::k": { "selection-utilities.movePrimaryLeft": {}, repeat: '__count' },
     "selectedit::d": { "selection-utilities.deletePrimary": {}, repeat: '__count' },
-    "selectedit::sj": "selection-utilities.splitByNewline",
+    "selectedit::s\n": "selection-utilities.splitByNewline",
     "selectedit::sc": "selection-utilities.splitBy",
     "selectedit::cc": "selection-utilities.createBy",
     "selectedit::cr": "selection-utilities.createByRegex",
