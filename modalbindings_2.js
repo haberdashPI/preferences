@@ -110,9 +110,12 @@ module.exports = {keybindings: {
     },
 
     // buffer related
-    $: { "editor.action.selectAll": {}, kind: "select", label: "everything" },
-    "'j": { "cursorBottomSelect": {}, kind: "select", label: "to bottom" },
-    "'k": { "cursorTopSelect": {}, kind: "select", label: "to top" },
+    "::doc::$": { kind: "select", label: "everything" },
+    "$": "editor.action.selectAll",
+    "::doc::'j": { kind: "select", label: "to bottom" },
+    "'j": "cursorBottomSelect",
+    "::doc::'k": { kind: "select", label: "to top" },
+    "'k": "cursorTopSelect",
 
     // search related
     "/": "actions.find",
