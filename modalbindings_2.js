@@ -523,6 +523,7 @@ module.exports = {keybindings: {
     // bookmarks
     "g ": { "modalkeys.defineBookmark": { bookmark: "default", bookmark: '__count' } },
     gJ: { "modalkeys.goToBookmark": { bookmark: "default", bookmark: '__count' } },
+    "gc ": { "modalkeys.clearBookmark": { bookmark: "default", bookmark: '__count' } },
 
     ///////////////
     // selection modifiers
