@@ -500,8 +500,8 @@ module.exports = {keybindings: {
 
     ///////////////////
     // git/version control
-    "'r": "git.stageSelectedRanges",
-    "'R": "git.unstageSelectedRanges",
+    "gr": [ "git.stageSelectedRanges", "modalkeys.touchDocument" ],
+    "gR": [ "git.unstageSelectedRanges", "modalkeys.touchDocument" ],
     "'e": "editor.action.marker.next",
     "'E": "editor.action.marker.prev",
     "'d": "editor.action.dirtydiff.next",
@@ -523,7 +523,7 @@ module.exports = {keybindings: {
     // bookmarks
     "g ": { "modalkeys.defineBookmark": { bookmark: "default", bookmark: '__count' } },
     gJ: { "modalkeys.goToBookmark": { bookmark: "default", bookmark: '__count' } },
-    "gc ": { "modalkeys.clearBookmark": { bookmark: "default", bookmark: '__count' } },
+    "gd ": { "modalkeys.clearBookmark": { bookmark: "default", bookmark: '__count' } },
 
     ///////////////
     // selection modifiers
