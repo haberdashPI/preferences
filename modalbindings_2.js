@@ -171,8 +171,8 @@ module.exports = {keybindings: {
 
     // "I": "select-indentation.expand-selection",
     '%': "editor.action.jumpToBracket",
-    "''": "extension.selectSingleQuote",
-    "'\"": "extension.selectDoubleQuote",
+    "''": "bracketeer.selectQuotesContent",
+    "'\"": ["bracketeer.selectQuotesContent", "bracketeer.selectQuotesContent"],
     // the below is a bit hacky; I want to add these commandsto my extension
     "[": [
         {
