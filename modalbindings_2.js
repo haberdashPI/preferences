@@ -500,8 +500,9 @@ module.exports = {keybindings: {
 
     ///////////////////
     // git/version control
-    "gr": [ "git.stageSelectedRanges", "modalkeys.touchDocument" ],
-    "gR": [ "git.unstageSelectedRanges", "modalkeys.touchDocument" ],
+    gr: [ "git.stageSelectedRanges", "modalkeys.touchDocument" ],
+    gR: [ "git.unstageSelectedRanges", "modalkeys.touchDocument" ],
+    gu: "git.revertSelectedRanges",
     "'e": "editor.action.marker.next",
     "'E": "editor.action.marker.prev",
     "'d": "editor.action.dirtydiff.next",
