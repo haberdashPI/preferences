@@ -198,7 +198,6 @@ module.exports = {keybindings: {
         },
         { "editor.action.selectToBracket": {"selectBrackets": true} }
     ],
-    "`": "extension.selectBackTick",
 
     "g>": "extension.selectAngleBrackets",
     "g<": "extension.selectInTag",
@@ -260,22 +259,8 @@ module.exports = {keybindings: {
 
     "gy": "editor.action.joinLines",
 
-    "~": [
-        {
-            if: "editor.selection.isEmpty",
-            then: {
-                "cursorMove":
-                { to: "right", select: true }
-            },
-        },
-        {
-            if: "__selection == __selection.toUpperCase()",
-            then: "editor.action.transformToLowercase",
-            else: "editor.action.transformToUppercase"
-        },
-        "modalkeys.cancelMultipleSelections",
-    ],
-
+    "~": "editor.action.transformToUppercase",
+    "`": "editor.action.transformToLowercase",
 
     // update numerical selection
     "+": [
