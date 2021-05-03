@@ -3,12 +3,14 @@ module.exports = {keybindings: {
     // motions
 
     // basic movement
-    h: { "cursorMove": { to: 'left', select: "__mode == 'visual'", value: '__count' } },
-    j: { "cursorMove": { to: 'down', by: 'wrappedLine', select: "__mode == 'visual'", value: '__count' } },
-    k: { "cursorMove": { to: 'up', by: 'wrappedLine', select: "__mode == 'visual'" , value: '__count' } },
-    l: { "cursorMove": { to: 'right', select: "__mode == 'visual'", value: '__count' } },
-    gj: { "cursorMove": { to: 'down', by: 'line', select: "__mode == 'visual'", value: '__count' } },
-    gk: { "cursorMove": { to: 'up', by: 'line', select: "__mode == 'visual'", value: '__count' } },
+    "::using::curosrMove::": {
+        h: { to: 'left', select: "__mode == 'visual'", value: '__count' },
+        j: { to: 'down', by: 'wrappedLine', select: "__mode == 'visual'", value: '__count' },
+        k: { to: 'up', by: 'wrappedLine', select: "__mode == 'visual'" , value: '__count' },
+        l: { to: 'right', select: "__mode == 'visual'", value: '__count' },
+        gj: { to: 'down', by: 'line', select: "__mode == 'visual'", value: '__count' },
+        gk: { to: 'up', by: 'line', select: "__mode == 'visual'", value: '__count' },
+    },
 
     // line related movements
     H: "cursorHomeSelect",
@@ -451,30 +453,8 @@ module.exports = {keybindings: {
 
     /////////////
     // comment actions
-    "g;": [
-        "editor.action.commentLine",
-        {
-            if: "!editor.selection.isEmpty",
-            then: {
-                if: "!editor.selection.isReversed",
-                then: { "cursorMove": { to: "right", select: false, value: 0 } },
-                else: { "cursorMove": { to: "left", select: false, value: 0 } }
-            },
-            else: []
-        },
-    ],
-    "g:": [
-        "editor.action.blockComment",
-        {
-            if: "!editor.selection.isEmpty",
-            then: {
-                if: "!editor.selection.isReversed",
-                then: { "cursorMove": { to: "right", select: false, value: 0 } },
-                else: { "cursorMove": { to: "left", select: false, value: 0 } }
-            },
-            else: []
-        },
-    ],
+    "g;": [ "editor.action.commentLine", "modalkeys.cancelMultipleSelections", ],
+    "g:": [ "editor.action.blockComment", "modalkeys.cancelMultipleSelections", ],
     "gq": "rewrap.rewrapComment",
 
     /////////////
