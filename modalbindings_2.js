@@ -217,10 +217,15 @@ module.exports = {keybindings: {
     // more complex syntactic selections
 
     // "I": "select-indentation.expand-selection",
+    "::doc::%": { kind : "select", label: "bracket →"},
     '%': "editor.action.jumpToBracket",
+    "::doc:'": { kind: "leader", label: "select"},
+    "::doc::''": { kind: "select", label: "inisde quotes" },
     "''": "bracketeer.selectQuotesContent",
+    "::doc::'\"": { kind: "select", label: "around quotes" },
     "'\"": ["bracketeer.selectQuotesContent", "bracketeer.selectQuotesContent"],
     // the below is a bit hacky; I want to add these commandsto my extension
+    "::doc::[": { kind: "select", label: "inside brackets", },
     "[": [
         {
             if: "!editor.selection.isEmpty",
@@ -233,6 +238,7 @@ module.exports = {keybindings: {
         },
         { "editor.action.selectToBracket": {"selectBrackets": false} }
     ],
+    "::doc::[": { kind: "select", label: "outside brackets", },
     "{": [
         {
             if: "!editor.selection.isEmpty",
