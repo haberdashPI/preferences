@@ -11,7 +11,7 @@ module.exports = {keybindings: {
     k: { "cursorMove": { to: 'up', by: 'wrappedLine', select: "__mode == 'visual'" , value: '__count'} },
     "::doc::l": { kind: "select", label: '→' },
     l: { "cursorMove": { to: 'right', select: "__mode == 'visual'", value: '__count' }},
-    g: { label: "leader 1" },
+    "::doc::g": { kind: "leader", label: "leader 1" },
     "::doc::gj": { kind: "select", label: 'unwrp ↓' },
     gj: { "cursorMove": { to: 'down', by: 'line', select: "__mode == 'visual'", value: '__count'} },
     "::doc::gk": { kind: "select", label: 'unwrp ↑' },
@@ -40,25 +40,25 @@ module.exports = {keybindings: {
         uw:  { unit: "subword", boundary: "start", selectWhole: true, value:  '__count' } ,
         "::doc::W": { kind: "select", label: "word " },
         W:   { unit: "word",    boundary: "start", select:      true, value:  '__count'} ,
-        uW:  { unit: "word",    boundary: "start", selectWhole: true, value:  '__count',
+        uW:  { unit: "word",    boundary: "start", selectWhole: true, value:  '__count'},
         "::doc::e": { kind: "select", label: "sbwrd end →" },
-        e:   { unit: "word",    boundary: "end",   select:      true, value:  '__count'} ,
-        ue:  { unit: "word",    boundary: "end",   selectWhole: true, value:  '__count',
+        e:   { unit: "word",    boundary: "end",   select:      true, value:  '__count'},
+        ue:  { unit: "word",    boundary: "end",   selectWhole: true, value:  '__count'},
         "::doc::b": { kind: "select", label: "subwrd ←" },
-        b:   { unit: "subword", boundary: "start", select:      true, value: '-__count'} ,
+        b:   { unit: "subword", boundary: "start", select:      true, value: '-__count'},
         ub:  { unit: "subword", boundary: "start", selectWhole: true, value: '-__count',
         "::doc::B": { kind: "select", label: "word ←" },
-        B:   { unit: "word",    boundary: "start", select:      true, value: '-__count'} ,
+        B:   { unit: "word",    boundary: "start", select:      true, value: '-__count'},
         uB:  { unit: "word",    boundary: "start", selectWhole: true, value: '-__count',
         "::doc::E": { kind: "select", label: "sbwrd end ←" },
-        E:   { unit: "word",    boundary: "end",   select:      true, value: '-__count'} ,
+        E:   { unit: "word",    boundary: "end",   select:      true, value: '-__count'},
         uE:  { unit: "word",    boundary: "end",   selectWhole: true, value: '-__count',
         "::doc::gw": { kind: "select", label: "word →" },
         gw:  { unit: "WORD",    boundary: "start", select:      true, value:  "__count"},
         ugw: { unit: "WORD",    boundary: "start", selectWhole: true, value:  "__count",
         "::doc::gb": { kind: "select", label: "word ←" },
         gb:  { unit: "WORD",    boundary: "start", select:      true, value: "-__count"},
-        ugb: { unit: "WORD",    boundary: "start", selectWhole: true, value: "-__count",
+        ugb: { unit: "WORD",    boundary: "start", selectWhole: true, value: "-__count"},
 
         // numbers
         "::doc::@": { kind: "select", label: "number →" },
@@ -118,29 +118,38 @@ module.exports = {keybindings: {
     "'k": "cursorTopSelect",
 
     // search related
+    "::doc::/": { kind: "select", label: "find" },
     "/": "actions.find",
+    "::doc::*": { kind: "select", label: "find selected" },
     "*": [
         "actions.find",
         "editor.action.nextMatchFindAction",
         "closeFindWidget"
     ],
+    "::doc::&": { kind: "select", label: "fnd bck selctd" },
     "&": [
         "actions.find",
         "editor.action.previousMatchFindAction",
         "closeFindWidget"
     ],
 
+    "::doc::n": { kind: "select", label: "vfind →"},
     n: "editor.action.nextMatchFindAction",
+    "::doc::N": { kind: "select", label: "vfind ←"},
     N: "editor.action.previousMatchFindAction",
+    "::doc::;": { kind: "select", label: "find →"},
     ";": "modalkeys.nextMatch",
+    "::doc::,,": { kind: "select", label: "find ←"},
     ",,": "modalkeys.previousMatch",
 
+    "::doc::?": { kind: "select", label: "find string" },
     "?": { "modalkeys.search": {
         caseSensitive: true,
         backwards: false,
         selectTillMatch: true,
         wrapAround: true
     } },
+    "::doc::f": { kind: "select", label: "find char" },
     f: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 1,
@@ -148,6 +157,7 @@ module.exports = {keybindings: {
         selectTillMatch: true,
         wrapAround: true
     }},
+    "::doc::F": { kind: "select", label: "fnd prv chr"},
     F: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 1,
@@ -155,6 +165,7 @@ module.exports = {keybindings: {
         selectTillMatch: true,
         wrapAround: true
     }},
+    "::doc::t": { kind: "select", label: "until char" },
     t: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 1,
@@ -167,6 +178,7 @@ module.exports = {keybindings: {
         typeAfterPreviousMatch: "l",
         wrapAround: true
     }},
+    "::doc::t": { kind: "select", label: "untl prv chr" },
     T: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 1,
@@ -179,6 +191,7 @@ module.exports = {keybindings: {
         typeAfterPreviousMatch: "h",
         wrapAround: true
     }},
+    "::doc::t": { kind: "select", label: "until char pair" },
     s: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 2,
@@ -189,6 +202,7 @@ module.exports = {keybindings: {
         typeAfterNextMatch: "hh",
         wrapAround: true
     }},
+    "::doc::t": { kind: "select", label: "untl prv chr pair" },
     S: { "modalkeys.search": {
         casSensitive: true,
         acceptAfter: 2,
