@@ -236,8 +236,9 @@ module.exports = {keybindings: {
     A: [ { "cursorMove": { to: "wrappedLineEnd", select: false } }, "modalkeys.enterInsert", ],
 
     // change
-    c: [
-        {
+    c: {
+        if: "__count == 1",
+        then: {
             if: "!editor.selection.isSingleLine && editor.selection.end.character == 0 && editor.selection.start.character == 0",
             then: [
                 "deleteRight",
@@ -249,13 +250,18 @@ module.exports = {keybindings: {
                 "modalkeys.enterInsert"
             ],
         },
-    ],
+        else: [{ "modalkeys.typeKeys": { keys: "`r ${__count}jGc`" } }, "modalkeys.enterInsert"]
+    },
 
-    C: [
-        "modalkeys.cancelMultipleSelections",
-        "deleteAllRight",
-        "modalkeys.enterInsert",
-    ],
+    C: {
+        if: "__count == 1",
+        then: [
+            "modalkeys.cancelMultipleSelections",
+            "deleteAllRight",
+            "modalkeys.enterInsert",
+        ],
+        else: [{ "modalkeys.typeKeys": { keys: "`r ${__count}kGc`" } }, "modalkeys.enterInsert"]
+    },
 
     "gy": "editor.action.joinLines",
 
@@ -306,7 +312,7 @@ module.exports = {keybindings: {
         if: "__count == 1",
         then: "editor.action.clipboardCutAction",
         else: [
-            { "modalkeys.typeKeys": { keys: "` ${__count}jG`" } },
+            { "modalkeys.typeKeys": { keys: "`r ${__count}jG`" } },
             "editor.action.clipboardCutAction",
         ]
     },
@@ -319,7 +325,7 @@ module.exports = {keybindings: {
             "editor.action.clipboardCutAction",
         ],
         else: [
-            { "modalkeys.typeKeys": { keys: "` ${__count}kG`" } },
+            { "modalkeys.typeKeys": { keys: "`r ${__count}kG`" } },
             "editor.action.clipboardCutAction",
         ]
     },
