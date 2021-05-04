@@ -333,11 +333,7 @@ module.exports = {keybindings: {
     },
 
     "\\": [
-        {
-            if: "editor.selection.isEmpty",
-            then: [],
-            else: ["modalkeys.cancelMultipleSelections"],
-        },
+        "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: "right", select: true } },
         "editor.action.clipboardCutAction",
     ],
@@ -354,21 +350,13 @@ module.exports = {keybindings: {
 
     // paste after
     v: [
-        {
-            if: "!editor.selection.isEmpty",
-            then: { "cursorMove": { to: "right", select: false, value: 0 } },
-            else: "cursorRight"
-        },
+        "modalkeys.cancelMultipleSelections",
         "editor.action.clipboardPasteAction",
     ],
 
     // paste before
     V: [
-        {
-            if: "!editor.selection.isEmpty",
-            then: { "cursorMove": { to: "left", select: false, value: 0 } },
-            else: []
-        },
+        "modalkeys.cancelMultipleSelections",
         "editor.action.clipboardPasteAction",
     ],
 
@@ -382,21 +370,16 @@ module.exports = {keybindings: {
     // paste lines below
     ",v": [
         "expandLineSelection",
-        { if: "!editor.selection.isEmpty",
-            then: { "cursorMove": { to: "right", select: false, value: 0 } },
-            else: "cursorRight"
-        },
+        "selection-utilities.activeAtEnd",
+        "cancelMultipleSelections",
         "editor.action.clipboardPasteAction",
     ],
 
     // paste lines above
     ",V": [
         "expandLineSelection",
-        {
-            if: "!editor.selection.isEmpty",
-            then: { "cursorMove": { to: "left", select: false, value: 0 } },
-            else: []
-        },
+        "selection-utilities.activeAtStart",
+        "cancelMultipleSelections",
         "editor.action.clipboardPasteAction",
     ],
 
