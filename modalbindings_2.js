@@ -25,26 +25,26 @@ module.exports = {keybindings: {
     // movements around regex units
     "::using::selection-utilities.moveBy": {
         // word-like
-        w:   { unit: "subword", boundary: "start", select:      true, value:  '__count' } ,
-        uw:  { unit: "subword", boundary: "start", selectWhole: true, value:  '__count' } ,
-        W:   { unit: "word",    boundary: "start", select:      true, value:  '__count' } ,
-        uW:  { unit: "word",    boundary: "start", selectWhole: true, value:  '__count' } ,
-        e:   { unit: "word",    boundary: "end",   select:      true, value:  '__count' } ,
-        ue:  { unit: "word",    boundary: "end",   selectWhole: true, value:  '__count' } ,
-        b:   { unit: "subword", boundary: "start", select:      true, value: '-__count' } ,
-        ub:  { unit: "subword", boundary: "start", selectWhole: true, value: '-__count' } ,
-        B:   { unit: "word",    boundary: "start", select:      true, value: '-__count' } ,
-        uB:  { unit: "word",    boundary: "start", selectWhole: true, value: '-__count' } ,
-        E:   { unit: "word",    boundary: "end",   select:      true, value: '-__count' } ,
-        uE:  { unit: "word",    boundary: "end",   selectWhole: true, value: '-__count' } ,
-        gw:  { unit: "WORD",    boundary: "start", select:      true, value:  "__count" },
-        ugw: { unit: "WORD",    boundary: "start", selectWhole: true, value:  "__count" },
-        gb:  { unit: "WORD",    boundary: "start", select:      true, value: "-__count" },
-        ugb: { unit: "WORD",    boundary: "start", selectWhole: true, value: "-__count" },
-        gW:  { unit: "WORD",    boundary: "end",   select:      true, value:  "__count" },
-        ugW: { unit: "WORD",    boundary: "end",   selectWhole: true, value:  "__count" },
-        gB:  { unit: "WORD",    boundary: "end",   select:      true, value: "-__count" },
-        ugB: { unit: "WORD",    boundary: "end",   selectWhole: true, value: "-__count" },
+        w:     { unit: "subword", boundary: "start", select:      true, value:  '__count' },
+        uw:    { unit: "subword", boundary: "start", selectWhole: true, value:  '__count' },
+        W:     { unit: "word",    boundary: "start", select:      true, value:  '__count' },
+        uW:    { unit: "word",    boundary: "start", selectWhole: true, value:  '__count' },
+        e:     { unit: "word",    boundary: "end",   select:      true, value:  '__count' },
+        ue:    { unit: "word",    boundary: "end",   selectWhole: true, value:  '__count' },
+        b:     { unit: "subword", boundary: "start", select:      true, value: '-__count' },
+        ub:    { unit: "subword", boundary: "start", selectWhole: true, value: '-__count' },
+        B:     { unit: "word",    boundary: "start", select:      true, value: '-__count' },
+        uB:    { unit: "word",    boundary: "start", selectWhole: true, value: '-__count' },
+        E:     { unit: "word",    boundary: "end",   select:      true, value: '-__count' },
+        uE:    { unit: "word",    boundary: "end",   selectWhole: true, value: '-__count' },
+        "'w":  { unit: "WORD",    boundary: "start", select:      true, value:  "__count" },
+        "u'w": { unit: "WORD",    boundary: "start", selectWhole: true, value:  "__count" },
+        "'b":  { unit: "WORD",    boundary: "start", select:      true, value: "-__count" },
+        "u'b": { unit: "WORD",    boundary: "start", selectWhole: true, value: "-__count" },
+        "'W":  { unit: "WORD",    boundary: "end",   select:      true, value:  "__count" },
+        "u'W": { unit: "WORD",    boundary: "both",  selectWhole: true, value:  "__count" },
+        "'B":  { unit: "WORD",    boundary: "end",   select:      true, value: "-__count" },
+        "u'B": { unit: "WORD",    boundary: "both",  selectWhole: true, value: "-__count" },
 
         // numbers
         "@": { value: '-__count', unit: "integer", boundary: "both", selectWhole: true } ,
@@ -71,14 +71,14 @@ module.exports = {keybindings: {
 
     // function arguments
     "::using::move-cursor-by-argument.move-by-argument": {
-        "'w":  { value: "__count",  boundary: "both", select:      true },
-        "'b":  { value: "-__count", boundary: "both", select:      true },
-        "'W":  { value: "__count",  boundary: "start", select:      true },
-        "'B":  { value: "-__count", boundary: "end",   select:      true },
-        "u'w": { value: "__count",  boundary: "both", selectWhole: true },
-        "u'b": { value: "-__count", boundary: "both", selectWhole: true },
-        "u'W": { value: "__count",  boundary: "start", selectWhole: true },
-        "u'B": { value: "-__count", boundary: "end",   selectWhole: true },
+        ",w":  { value: "__count",  boundary: "both", select:      true },
+        ",b":  { value: "-__count", boundary: "both", select:      true },
+        ",W":  { value: "__count",  boundary: "start", select:      true },
+        ",B":  { value: "-__count", boundary: "end",   select:      true },
+        "u,w": { value: "__count",  boundary: "both", selectWhole: true },
+        "u,b": { value: "-__count", boundary: "both", selectWhole: true },
+        "u,W": { value: "__count",  boundary: "start", selectWhole: true },
+        "u,B": { value: "-__count", boundary: "end",   selectWhole: true },
     },
 
     // buffer related
@@ -201,10 +201,10 @@ module.exports = {keybindings: {
         { "editor.action.selectToBracket": {"selectBrackets": true} }
     ],
 
-    "g>": "extension.selectAngleBrackets",
-    "g<": "extension.selectInTag",
-    "g]": "vscode-select-by-indent.select-outer-top-only",
+    "'>": "extension.selectAngleBrackets",
+    "'<": "extension.selectInTag",
 
+    "']": "vscode-select-by-indent.select-outer-top-only",
     "]": "vscode-select-by-indent.select-inner",
     "}": "vscode-select-by-indent.select-outer",
 
@@ -443,9 +443,9 @@ module.exports = {keybindings: {
 
     /////////////
     // window manipulation
-    "'zc": { "revealLine": { lineNumber: '__line', at: 'center' } },
-    "'zt": { "revealLine": { lineNumber: '__line', at: 'top' } },
-    "'zb": { "revealLine": { lineNumber: '__line', at: 'bottom' } },
+    "'gc": { "revealLine": { lineNumber: '__line', at: 'center' } },
+    "'gt": { "revealLine": { lineNumber: '__line', at: 'top' } },
+    "'gb": { "revealLine": { lineNumber: '__line', at: 'bottom' } },
     gh: "editor.action.showHover",
     gH: "editor.debug.action.showDebugHover",
     gg: "editor.action.revealDefinition",
@@ -454,7 +454,7 @@ module.exports = {keybindings: {
     //////////
     // bookmarks
     "g ": { "modalkeys.defineBookmark": { bookmark: "default", bookmark: '__count' } },
-    gJ: { "modalkeys.goToBookmark": { bookmark: "default", bookmark: '__count' } },
+    "' ": { "modalkeys.goToBookmark": { bookmark: "default", bookmark: '__count' } },
     "gd ": { "modalkeys.clearBookmark": { bookmark: "default", bookmark: '__count' } },
 
     ///////////////
