@@ -3,7 +3,7 @@ module.exports = {keybindings: {
     // motions
 
     // basic movement
-    "::using::curosrMove::": {
+    "::using::cursorMove::": {
         h: { to: 'left', select: "__mode == 'visual'", value: '__count' },
         j: { to: 'down', by: 'wrappedLine', select: "__mode == 'visual'", value: '__count' },
         k: { to: 'up', by: 'wrappedLine', select: "__mode == 'visual'" , value: '__count' },
@@ -343,14 +343,7 @@ module.exports = {keybindings: {
     ],
 
     // copy to clipboard
-    y: [
-        "editor.action.clipboardCopyAction",
-        {
-            if: "!editor.selection.isReversed",
-            then: { "cursorMove": { to: "right", select: false, value: 0 } },
-            else: { "cursorMove": { to: "left", select: false, value: 0 } }
-        },
-    ],
+    y: [ "editor.action.clipboardCopyAction", "modalkeys.cancelMultipleSelections", ],
 
     // copy line to clipboard
     Y: [
@@ -423,24 +416,8 @@ module.exports = {keybindings: {
     ///////////////////////
     // history
 
-    z: [
-        "undo",
-        {
-            if: "!editor.selection.isReversed",
-            then: { "cursorMove": { to: "right", select: false, value: 0 } },
-            else: { "cursorMove": { to: "left", select: false, value: 0 } }
-        },
-        "modalkeys.untouchDocument",
-    ],
-    Z: [
-        "redo",
-        {
-            if: "!editor.selection.isReversed",
-            then: { "cursorMove": { to: "right", select: false, value: 0 } },
-            else: { "cursorMove": { to: "left", select: false, value: 0 } }
-        },
-        "modalkeys.untouchDocument",
-    ],
+    z: [ "undo", "modalkeys.cancelMultipleSelections", "modalkeys.untouchDocument", ],
+    Z: [ "redo", "modalkeys.cancelMultipleSelections", "modalkeys.untouchDocument", ],
     "-": "cursorUndo",
     "_": "cursorRedo",
 
