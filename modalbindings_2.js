@@ -1,3 +1,17 @@
+function countSelectsLines(to, count1, countN){
+    return {
+        if: "__count === 1",
+        then: count1,
+        else: [
+            "modalkeys.cancelMultipleSelections",
+            "modalkeys.enableSelection",
+            { "cursorMove": { to: to, by: 'wrappedLine', select: true, value: '__count' } },
+            "expandLineSelection",
+            countN || count1
+        ]
+    }
+}
+
 module.exports = {keybindings: {
     /////////////
     // motions
@@ -17,10 +31,18 @@ module.exports = {keybindings: {
     L: { "cursorMove": { to: "wrappedLineEnd", select: true } },
     G:  "expandLineSelection",
     K: [
-        { "modalkeys.typeKeys": { keys: "` ${__count}kG`" } },
+        "modalkeys.cancelMultipleSelections",
+        "modalkeys.enableSelection",
+        { "cursorMove": { to: 'up', by: 'wrappedLine', select: true, value: '__count' } },
+        "expandLineSelection",
         "selection-utilities.activeAtStart"
     ],
-    J: { "modalkeys.typeKeys": { keys: "` ${__count}jG`" } },
+    J: [
+        "modalkeys.cancelMultipleSelections",
+        "modalkeys.enableSelection",
+        { "cursorMove": { to: 'down', by: 'wrappedLine', select: true, value: '__count' } },
+        "expandLineSelection",
+    ],
 
     // movements around regex units
     "::using::selection-utilities.moveBy": {
@@ -238,34 +260,36 @@ module.exports = {keybindings: {
     A: [ { "cursorMove": { to: "wrappedLineEnd", select: false } }, "modalkeys.enterInsert", ],
 
     // change
-    c: {
-        if: "__count == 1",
-        then: {
-            if: "!editor.selection.isSingleLine && editor.selection.end.character == 0 && editor.selection.start.character == 0",
-            then: [
-                "deleteRight",
-                "editor.action.insertLineBefore",
-                "modalkeys.enterInsert"
-            ],
-            else: [
-                "deleteRight",
-                "modalkeys.enterInsert"
-            ],
-        },
-        else: [{ "modalkeys.typeKeys": { keys: "`r ${__count}jGc`" } }, "modalkeys.enterInsert"]
-    },
-
-    C: {
-        if: "__count == 1",
+    c: countSelectsLines('down', {
+        if: "!editor.selection.isSingleLine && editor.selection.end.character == 0 && editor.selection.start.character == 0",
         then: [
-            "modalkeys.cancelMultipleSelections",
-            "deleteAllRight",
-            "modalkeys.enterInsert",
+            "deleteRight",
+            "editor.action.insertLineBefore",
+            "modalkeys.enterInsert"
         ],
-        else: [{ "modalkeys.typeKeys": { keys: "`r ${__count}kGc`" } }, "modalkeys.enterInsert"]
+        else: [
+            "deleteRight",
+            "modalkeys.enterInsert"
+        ],
     },
+    [
+        "deleteRight",
+        "editor.action.insertLineBefore",
+        "modalkeys.enterInsert"
+    ]),
 
-    "gy": "editor.action.joinLines",
+    C: countSelectsLines('up', [
+        "modalkeys.cancelMultipleSelections",
+        "deleteAllRight",
+        "modalkeys.enterInsert",
+    ],
+    [
+        "deleteRight",
+        "editor.actions.insertLineBefore",
+        "modalkeys.enterInsert"
+    ]),
+
+    "gy": countSelectsLines('down', "editor.action.joinLines"),
 
     "~": "editor.action.transformToUppercase",
     "`": "editor.action.transformToLowercase",
@@ -310,27 +334,14 @@ module.exports = {keybindings: {
     // clipboard actions
 
     // cut to clipboard
-    d: {
-        if: "__count == 1",
-        then: "editor.action.clipboardCutAction",
-        else: [
-            { "modalkeys.typeKeys": { keys: "`r ${__count}jG`" } },
-            "editor.action.clipboardCutAction",
-        ]
-    },
+    d: countSelectsLines('down', "editor.action.clipboardCutAction"),
 
-    D: {
-        if: "__count == 1",
-        then: [
-            "modalkeys.cancelMultipleSelections",
-            { "cursorMove": { to: "wrappedLineEnd", select: true } },
-            "editor.action.clipboardCutAction",
-        ],
-        else: [
-            { "modalkeys.typeKeys": { keys: "`r ${__count}kG`" } },
-            "editor.action.clipboardCutAction",
-        ]
-    },
+    D: countSelectsLines('up', [
+        "modalkeys.cancelMultipleSelections",
+        { "cursorMove": { to: "wrappedLineEnd", select: true } },
+        "editor.action.clipboardCutAction",
+    ],
+    "editor.action.clipboardCutAction"),
 
     "\\": [
         "modalkeys.cancelMultipleSelections",
@@ -339,14 +350,19 @@ module.exports = {keybindings: {
     ],
 
     // copy to clipboard
-    y: [ "editor.action.clipboardCopyAction", "modalkeys.cancelMultipleSelections", ],
+    y: countSelectsLines('down', [
+        "editor.action.clipboardCopyAction", "modalkeys.cancelMultipleSelections",
+    ]),
 
     // copy line to clipboard
-    Y: [
+    Y: countSelectsLines('up', [
         { "cursorMove": { to: "wrappedLineEnd", select: true } },
         "editor.action.clipboardCopyAction",
         "modalkeys.cancelMultipleSelections"
-    ],
+    ], [
+        "editor.action.clipboardCopyAction",
+        "modalkeys.cancelMultipleSelections"
+    ]),
 
     // paste after
     v: [
@@ -371,7 +387,7 @@ module.exports = {keybindings: {
     ",v": [
         "expandLineSelection",
         "selection-utilities.activeAtEnd",
-        "cancelMultipleSelections",
+        "modalkeys.cancelMultipleSelections",
         "editor.action.clipboardPasteAction",
     ],
 
@@ -379,7 +395,7 @@ module.exports = {keybindings: {
     ",V": [
         "expandLineSelection",
         "selection-utilities.activeAtStart",
-        "cancelMultipleSelections",
+        "modalkeys.cancelMultipleSelections",
         "editor.action.clipboardPasteAction",
     ],
 
@@ -413,21 +429,25 @@ module.exports = {keybindings: {
 
     /////////////
     // comment actions
-    "g;": [ "editor.action.commentLine", "modalkeys.cancelMultipleSelections", ],
-    "g:": [ "editor.action.blockComment", "modalkeys.cancelMultipleSelections", ],
+    "g;":  countSelectsLines('down', [
+        "editor.action.commentLine", "modalkeys.cancelMultipleSelections",
+    ]),
+    "g:":  countSelectsLines('down', [
+        "editor.action.blockComment", "modalkeys.cancelMultipleSelections",
+    ]),
     "gq": "rewrap.rewrapComment",
 
     /////////////
     // terminal actions
-    m: {
+    m: countSelectsLines('down', {
         if: "__selection.match('\\n')",
         then: [ "terminal-polyglot.send-block-text", "modalkeys.cancelMultipleSelections", "modalkeys.touchDocument" ],
         else: [ "terminal-polyglot.send-text", "modalkeys.cancelMultipleSelections", "modalkeys.touchDocument" ],
-    },
-    gm: [
+    }),
+    gm: countSelectsLines('down', [
         "terminal-polyglot.send-text",
         "modalkeys.cancelMultipleSelections",
-    ],
+    ]),
 
     ///////////////////
     // git/version control
@@ -446,6 +466,8 @@ module.exports = {keybindings: {
     "'gc": { "revealLine": { lineNumber: '__line', at: 'center' } },
     "'gt": { "revealLine": { lineNumber: '__line', at: 'top' } },
     "'gb": { "revealLine": { lineNumber: '__line', at: 'bottom' } },
+    "'gm": "workbench.action.minimizeOtherEditors",
+    "'g=": "workbench.action.evenEditorWidths",
     gh: "editor.action.showHover",
     gH: "editor.debug.action.showDebugHover",
     gg: "editor.action.revealDefinition",
