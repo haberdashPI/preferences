@@ -85,10 +85,10 @@ module.exports = {keybindings: {
         "'A":  { unit: "section",    boundary: "start", select:      true, value: '-__count' },
         "'s":  { unit: "subsection", boundary: "start", select:      true, value: '__count'  },
         "'S":  { unit: "subsection", boundary: "start", select:      true, value: '-__count' },
-        "u'a": { unit: "subsection", boundary: "start", selectWhole: true, value: '__count'  },
-        "u'A": { unit: "subsection", boundary: "start", selectWhole: true, value: '-__count' },
-        "u's": { unit: "section",    boundary: "start", selectWhole: true, value: '__count'  },
-        "u'S": { unit: "section",    boundary: "start", selectWhole: true, value: '-__count' },
+        "u'a": { unit: "section",    boundary: "start", selectWhole: true, value: '__count'  },
+        "u'A": { unit: "section",    boundary: "start", selectWhole: true, value: '-__count' },
+        "u's": { unit: "subsection", boundary: "start", selectWhole: true, value: '__count'  },
+        "u'S": { unit: "subsection", boundary: "start", selectWhole: true, value: '-__count' },
     },
 
     // function arguments
