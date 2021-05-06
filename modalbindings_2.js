@@ -33,6 +33,10 @@ function countSelectsLines(to, count1, countN){
     }
 }
 
+function isLang(langid) {
+    return "editor.document.languageId === '"+langid+"'"
+}
+
 module.exports = {keybindings: {
     /////////////
     // motions
@@ -468,14 +472,33 @@ module.exports = {keybindings: {
 
     /////////////
     // terminal actions
-    m: countSelectsLines('down', {
-        if: "__selection.match('\\n')",
-        then: [ "terminal-polyglot.send-block-text", "modalkeys.cancelMultipleSelections", "modalkeys.touchDocument" ],
-        else: [ "terminal-polyglot.send-text", "modalkeys.cancelMultipleSelections", "modalkeys.touchDocument" ],
-    }),
     gm: countSelectsLines('down', [
+        {
+            if: "__selection.match('\\n')",
+            then: "terminal-polyglot.send-block-text",
+            else: "terminal-polyglot.send-text"
+        },
+        "modalkeys.cancelMultipleSelections",
+        "modalkeys.touchDocument"
+    ]),
+
+    m: countSelectsLines('down', [
+        {
+            if: isLang("julia"),
+            then: "language-julia.executeCodeBlockOrSelection",
+            else: {
+                if: "__selection.match('\\n')",
+                then: "terminal-polyglot.send-block-text",
+                else: "terminal-polyglot.send-text"
+            },
+        },
+        "modalkeys.cancelMultipleSelections",
+        "modalkeys.touchDocument"
+    ]),
+    M: countSelectsLines('down', [
         "terminal-polyglot.send-text",
         "modalkeys.cancelMultipleSelections",
+        "modalkeys.touchDocument"
     ]),
 
     ///////////////////
