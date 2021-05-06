@@ -443,6 +443,7 @@ module.exports = {keybindings: {
     "<": countSelectsLines('down', "editor.action.outdentLines"),
 
     ",f": "workbench.action.quickOpen",
+    ",r": "workbench.action.openRecent",
     ":": "workbench.action.showCommands",
 
     ///////////////////////
