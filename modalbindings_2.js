@@ -357,7 +357,7 @@ module.exports = {keybindings: {
     // cut to clipboard
     d: countSelectsLines('down', [
         "editor.action.clipboardCutAction",
-        "modalkeys.cancelMultipleSelections"
+        "modalkeys.enterNormal"
     ]),
 
     D: countSelectsLines('up', [
@@ -368,7 +368,7 @@ module.exports = {keybindings: {
     ],
     [
         "editor.action.clipboardCutAction",
-        "editor.action.cancelMultipleSelections"
+        "editor.action.enterNormal"
     ]),
 
     "\\": [
