@@ -438,7 +438,8 @@ module.exports = {keybindings: {
     ">": "editor.action.indentLines",
     "<": "editor.action.outdentLines",
 
-    ":": "workbench.action.quickOpen",
+    ",f": "workbench.action.quickOpen",
+    ":": "workbench.action.showCommands",
 
     ///////////////////////
     // history
