@@ -1,7 +1,8 @@
 /**
- * Set up a command that changes or alters slected text so that when you specify a count for
- * that command it can be used to select nearby lines. This allows noun-less verbs. e.g. 4d
- * deletes the current line and the 4 lines below the current line.
+ * Extend a command to support a count argument. The command is assumed to change or alter
+ * selected text so that when you specify a count for that command it can be used to select
+ * nearby lines. This allows noun-less verbs. e.g. 4d deletes the current line and the 4
+ * lines below the current line.
  *
  * NOTE: typically, there is a missing count, e.g. 1d doesn't delete the current line and
  * the line below. For that you would use Jd, since 1d and Jd are just as many characters it
