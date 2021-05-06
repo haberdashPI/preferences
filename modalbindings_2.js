@@ -334,14 +334,21 @@ module.exports = {keybindings: {
     // clipboard actions
 
     // cut to clipboard
-    d: countSelectsLines('down', "editor.action.clipboardCutAction"),
+    d: countSelectsLines('down', [
+        "editor.action.clipboardCutAction",
+        "modalkeys.cancelMultipleSelections"
+    ]),
 
     D: countSelectsLines('up', [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: "wrappedLineEnd", select: true } },
         "editor.action.clipboardCutAction",
+        "modalkeys.cancelMultipleSelections"
     ],
-    "editor.action.clipboardCutAction"),
+    [
+        "editor.action.clipboardCutAction",
+        "editor.action.cancelMultipleSelections"
+    ]),
 
     "\\": [
         "modalkeys.cancelMultipleSelections",
