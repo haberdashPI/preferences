@@ -1,3 +1,23 @@
+/**
+ * Set up a command that changes or alters slected text so that when you specify a count for
+ * that command it can be used to select nearby lines. This allows noun-less verbs. e.g. 4d
+ * deletes the current line and the 4 lines below the current line.
+ *
+ * NOTE: typically, there is a missing count, e.g. 1d doesn't delete the current line and
+ * the line below. For that you would use Jd, since 1d and Jd are just as many characters it
+ * is okay that 1d has a different meaning. This is because d (on its own) defaults to a
+ * __count == 1.
+ *
+ * In summary: 1d or d deletes one line, Jd deletes two lines, 2d deltes 3 lines and 3d
+ * deletes 4 lines.
+ *
+ * @param {string} to direction to select lines in (up / ddown)
+ * @param {command} count1 The command to run when __count === 1
+ * @param {command} countN The command to run after selection `count` lines when `__count >
+ * 1`
+ * @returns combined command to handle all `__count` values and properly select the right
+ * number of lines for __count > 1
+ */
 function countSelectsLines(to, count1, countN){
     return {
         if: "__count === 1",
