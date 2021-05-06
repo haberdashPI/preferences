@@ -439,8 +439,8 @@ module.exports = {keybindings: {
     "visual::O": "selection-utilities.activeAtStart",
 
     // line indent
-    ">": "editor.action.indentLines",
-    "<": "editor.action.outdentLines",
+    ">": countSelectsLines('down', "editor.action.indentLines"),
+    "<": countSelectsLines('down', "editor.action.outdentLines"),
 
     ",f": "workbench.action.quickOpen",
     ":": "workbench.action.showCommands",
