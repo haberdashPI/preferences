@@ -17,7 +17,7 @@ macro tryusing(mod,expr...)
     end
 end
 
-@tryusing OhMyREPL enable_autocomplete_brackets(true)
+@tryusing OhMyREPL enable_autocomplete_brackets(false)
 @tryusing Revise
 @tryusing TerminalPager begin
        TerminalPager.set_keybinding('j', :down)
