@@ -439,8 +439,8 @@ module.exports = {keybindings: {
     "visual::O": "selection-utilities.activeAtStart",
 
     // line indent
-    ">": countSelectsLines('down', "editor.action.indentLines"),
-    "<": countSelectsLines('down', "editor.action.outdentLines"),
+    ">": countSelectsLines('down', "editor.action.indentLines", ["editor.action.indentLines", "modalkeys.cancelMultipleSelections"]),
+    "<": countSelectsLines('down', "editor.action.outdentLines", ["editor.action.outdentLines", "modalkeys.cancelMultipleSelections"]),
 
     ",f": "workbench.action.quickOpen",
     ",r": "workbench.action.openRecent",
@@ -504,9 +504,9 @@ module.exports = {keybindings: {
 
     ///////////////////
     // git/version control
-    gr: [ "git.stageSelectedRanges", "modalkeys.touchDocument" ],
-    gR: [ "git.unstageSelectedRanges", "modalkeys.touchDocument" ],
-    gu: "git.revertSelectedRanges",
+    gr: countSelectsLines([ "git.stageSelectedRanges", "modalkeys.touchDocument", "modalkeys.cancelMultipleSelections" ]),
+    gR: countSelectsLines([ "git.unstageSelectedRanges", "modalkeys.touchDocument", "modalkeys.cancelMultipleSelections" ]),
+    gu: countSelectsLines(["git.revertSelectedRanges", "modalkeys.cancelMultipleSelections"]),
     "'e": "editor.action.marker.next",
     "'E": "editor.action.marker.prev",
     "'d": "editor.action.dirtydiff.next",
