@@ -47,8 +47,8 @@ module.exports = {keybindings: {
         j: { to: 'down', by: 'wrappedLine', select: "__mode == 'visual'", value: '__count' },
         k: { to: 'up', by: 'wrappedLine', select: "__mode == 'visual'" , value: '__count' },
         l: { to: 'right', select: "__mode == 'visual'", value: '__count' },
-        "'j": { to: 'down', by: 'line', select: "__mode == 'visual'", value: '__count' },
-        "'k": { to: 'up', by: 'line', select: "__mode == 'visual'", value: '__count' },
+        gj: { to: 'down', by: 'line', select: "__mode == 'visual'", value: '__count' },
+        gk: { to: 'up', by: 'line', select: "__mode == 'visual'", value: '__count' },
     },
 
     // line related movements
@@ -532,9 +532,11 @@ module.exports = {keybindings: {
 
     //////////
     // bookmarks
-    "g ": { "modalkeys.defineBookmark": { bookmark: "default", bookmark: '__count' } },
-    "' ": { "modalkeys.goToBookmark": { bookmark: "default", bookmark: '__count' } },
-    "gd ": { "modalkeys.clearBookmark": { bookmark: "default", bookmark: '__count' } },
+    "g ": "vsc-labeled-bookmarks.toggleBookmark",
+    "'j": "vsc-labeled-bookmarks.navigateToNextBookmark",
+    "'k": "vsc-labeled-bookmarks.navigateToPreviousBookmark",
+    "gd ": "vsc-labeled-bookmarks.deleteBookmark",
+    "'#": "vsc-labeled-bookmarks.navigateToBookmark",
 
     ///////////////
     // selection modifiers
