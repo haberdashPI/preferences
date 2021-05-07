@@ -398,13 +398,29 @@ module.exports = {keybindings: {
 
     // paste after
     v: [
-        "modalkeys.cancelMultipleSelections",
+        {
+            if: "!editor.selection.isEmpty",
+            then: [
+                "selection-utilities.activeAtEnd",
+                "modalkeys.cancelMultipleSelections",
+            ],
+            else: [
+                "modalkeys.cancelMultipleSelections",
+                "cursorRight",
+            ],
+        },
         "editor.action.clipboardPasteAction",
     ],
 
     // paste before
     V: [
-        "modalkeys.cancelMultipleSelections",
+        {
+            if: "!editor.selection.isEmpty",
+            then: [
+                "selection-utilities.activeAtStart",
+                "modalkeys.cancelMultipleSelections",
+            ],
+        },
         "editor.action.clipboardPasteAction",
     ],
 
