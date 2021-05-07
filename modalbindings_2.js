@@ -522,9 +522,13 @@ module.exports = {keybindings: {
     "'gm": "workbench.action.minimizeOtherEditors",
     "'g=": "workbench.action.evenEditorWidths",
     gh: "editor.action.showHover",
-    gH: "editor.debug.action.showDebugHover",
     gg: "editor.action.revealDefinition",
     gG: "editor.action.revealDefinitionAside",
+
+    /////////
+    // debugging
+    gH: "editor.debug.action.showDebugHover",
+    gb: "editor.debug.action.toggleBreakpoint",
 
     //////////
     // bookmarks
