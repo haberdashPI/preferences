@@ -47,8 +47,8 @@ module.exports = {keybindings: {
         j: { to: 'down', by: 'wrappedLine', select: "__mode == 'visual'", value: '__count' },
         k: { to: 'up', by: 'wrappedLine', select: "__mode == 'visual'" , value: '__count' },
         l: { to: 'right', select: "__mode == 'visual'", value: '__count' },
-        gj: { to: 'down', by: 'line', select: "__mode == 'visual'", value: '__count' },
-        gk: { to: 'up', by: 'line', select: "__mode == 'visual'", value: '__count' },
+        "'j": { to: 'down', by: 'line', select: "__mode == 'visual'", value: '__count' },
+        "'k": { to: 'up', by: 'line', select: "__mode == 'visual'", value: '__count' },
     },
 
     // line related movements
@@ -130,8 +130,8 @@ module.exports = {keybindings: {
 
     // buffer related
     $: [ "editor.action.selectAll" ],
-    "'j": "cursorBottomSelect",
-    "'k": "cursorTopSelect",
+    "'G": "cursorBottomSelect",
+    "'gg": "cursorTopSelect",
 
     // search related
     "/": "actions.find",
