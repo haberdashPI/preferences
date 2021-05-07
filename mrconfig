@@ -59,14 +59,8 @@ checkout = git clone 'https://github.com/haberdashPI/SignalOperators.jl' 'Signal
 [Documents/work/writing/bwf_grant]
 checkout = git clone 'https://github.com/haberdashPI/bwf_grant.git' 'bwf_grant'
 
-[Documents/tools/API_MO]
-checkout = git clone 'https://github.com/sofacoustics/API_MO' 'API_MO'
-
 [Documents/tools/LambdaFn]
 checkout = git clone 'https://github.com/haberdashPI/LambdaFn.jl' 'LambdaFn'
-
-[Documents/tools/vscode-custom-word-motions]
-checkout = git clone 'https://github.com/haberdashPI/vscode-custom-word-motions.git' 'vscode-custom-word-motions'
 
 [Documents/tools/vscode-modaledit]
 checkout = git clone 'https://github.com/haberdashPI/vscode-modaledit' 'vscode-modaledit'
