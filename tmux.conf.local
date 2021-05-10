@@ -280,7 +280,7 @@ tmux_conf_copy_to_os_clipboard=false
 # start with mouse mode disabled
 set -g mouse off
 # scroll whell moves to copy mode and scrolls the view
-setw -g mouse on 
+setw -g mouse on
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
