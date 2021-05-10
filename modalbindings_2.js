@@ -176,11 +176,7 @@ module.exports = {keybindings: {
         acceptAfter: 1,
         backwards: false,
         selectTillMatch: true,
-        typeAfterAccept: "h",
-        typeBeforeNextMatch: "l",
-        typeAfterNextMatch: "h",
-        typeBeforePreviousMatch: "h",
-        typeAfterPreviousMatch: "l",
+        offset: 'exclusive',
         wrapAround: true
     }},
     T: { "modalkeys.search": {
@@ -188,11 +184,7 @@ module.exports = {keybindings: {
         acceptAfter: 1,
         backwards: true,
         selectTillMatch: true,
-        typeAfterAccept: "l",
-        typeBeforeNextMatch: "h",
-        typeAfterNextMatch: "l",
-        typeBeforePreviousMatch: "l",
-        typeAfterPreviousMatch: "h",
+        offset: 'exclusive',
         wrapAround: true
     }},
     s: { "modalkeys.search": {
@@ -200,9 +192,7 @@ module.exports = {keybindings: {
         acceptAfter: 2,
         backwards: false,
         selectTillMatch: true,
-        typeAfterAccept: "hh",
-        typeBeforeNextMatch: "ll",
-        typeAfterNextMatch: "hh",
+        offset: 'start',
         wrapAround: true
     }},
     S: { "modalkeys.search": {
@@ -210,8 +200,7 @@ module.exports = {keybindings: {
         acceptAfter: 2,
         backwards: true,
         selectTillMatch: true,
-        typeBeforePreviousMatch: "ll",
-        typeAfterPreviousMatch: "hh",
+        offset: 'start',
         wrapAround: true
     }},
 
@@ -343,7 +332,7 @@ module.exports = {keybindings: {
     // brackets
     "gd[":  "bracketeer.removeBrackets",
     "gs[":  "bracketeer.swapBrackets",
-    "gs\"":  "bracketeer.swapQuotes",
+    "gs'":  "bracketeer.swapQuotes",
     "gd'":  "bracketeer.removeQuotes",
     "gi(": [ "modalkeys.enterInsert", { "type": { text: "(" }, }, "modalkeys.enterNormal" ],
     "gi<": [ "modalkeys.enterInsert", { "type": { text: "<" }, }, "modalkeys.enterNormal" ],
@@ -489,16 +478,6 @@ module.exports = {keybindings: {
 
     /////////////
     // terminal actions
-    gm: countSelectsLines('down', [
-        {
-            if: "__selection.match('\\n')",
-            then: "terminal-polyglot.send-block-text",
-            else: "terminal-polyglot.send-text"
-        },
-        "modalkeys.cancelMultipleSelections",
-        "modalkeys.touchDocument"
-    ]),
-
     m: countSelectsLines('down', [
         {
             if: isLang("julia"),
@@ -513,6 +492,15 @@ module.exports = {keybindings: {
         "modalkeys.touchDocument"
     ]),
     M: countSelectsLines('down', [
+        {
+            if: "__selection.match('\\n')",
+            then: "terminal-polyglot.send-block-text",
+            else: "terminal-polyglot.send-text"
+        },
+        "modalkeys.cancelMultipleSelections",
+        "modalkeys.touchDocument"
+    ]),
+    gm: countSelectsLines('down', [
         "terminal-polyglot.send-text",
         "modalkeys.cancelMultipleSelections",
         "modalkeys.touchDocument"
