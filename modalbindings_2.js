@@ -449,6 +449,7 @@ module.exports = {keybindings: {
     ",f": "workbench.action.quickOpen",
     ",r": "workbench.action.openRecent",
     ":": "workbench.action.showCommands",
+    ",g": "workbench.action.gotoLine",
 
     ///////////////////////
     // history
