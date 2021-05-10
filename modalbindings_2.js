@@ -33,10 +33,6 @@ function countSelectsLines(to, count1, countN){
     }
 }
 
-function isLang(langid) {
-    return "editor.document.languageId === '"+langid+"'"
-}
-
 module.exports = {keybindings: {
     /////////////
     // motions
@@ -214,7 +210,7 @@ module.exports = {keybindings: {
     // the below is a bit hacky; I want to add these commandsto my extension
     "[": [
         {
-            if: "!editor.selection.isEmpty",
+            if: "!__selection.isEmpty",
             then: [
                 "selection-utilities.activeAtStart",
                 { "cursorMove": { "to": "left", "select": true, "value": 2 } },
@@ -226,7 +222,7 @@ module.exports = {keybindings: {
     ],
     "{": [
         {
-            if: "!editor.selection.isEmpty",
+            if: "!__selection.isEmpty",
             then: [
                 "selection-utilities.activeAtStart",
                 { "cursorMove": { "to": "left", "select": true } },
@@ -275,7 +271,7 @@ module.exports = {keybindings: {
 
     // change
     c: countSelectsLines('down', {
-        if: "!editor.selection.isSingleLine && editor.selection.end.character == 0 && editor.selection.start.character == 0",
+        if: "!__selection.isSingleLine && __selection.end.character == 0 && __selection.start.character == 0",
         then: [
             "deleteRight",
             "editor.action.insertLineBefore",
@@ -311,14 +307,14 @@ module.exports = {keybindings: {
     // update numerical selection
     "+": [
         {
-            if: "editor.selections.length === 1",
+            if: "__selections.length === 1",
             then: "editor.emmet.action.incrementNumberByOne",
             else: "extension.incrementSelection",
         },
     ],
     "=": [
         {
-            if: "editor.selections.length === 1",
+            if: "__selections.length === 1",
             then: "editor.emmet.action.decrementNumberByOne",
             else: "extension.decrementSelection",
         },
@@ -388,7 +384,7 @@ module.exports = {keybindings: {
     // paste after
     v: [
         {
-            if: "!editor.selection.isEmpty",
+            if: "!__selection.isEmpty",
             then: [
                 "selection-utilities.activeAtEnd",
                 "modalkeys.cancelMultipleSelections",
@@ -404,7 +400,7 @@ module.exports = {keybindings: {
     // paste before
     V: [
         {
-            if: "!editor.selection.isEmpty",
+            if: "!__selection.isEmpty",
             then: [
                 "selection-utilities.activeAtStart",
                 "modalkeys.cancelMultipleSelections",
@@ -480,10 +476,10 @@ module.exports = {keybindings: {
     // terminal actions
     m: countSelectsLines('down', [
         {
-            if: isLang("julia"),
+            if: "__language == 'julia'",
             then: "language-julia.executeCodeBlockOrSelection",
             else: {
-                if: "__selection.match('\\n')",
+                if: "!__selection.isSingleLine",
                 then: "terminal-polyglot.send-block-text",
                 else: "terminal-polyglot.send-text"
             },
@@ -493,7 +489,7 @@ module.exports = {keybindings: {
     ]),
     M: countSelectsLines('down', [
         {
-            if: "__selection.match('\\n')",
+            if: "!__selection.isSingleLine",
             then: "terminal-polyglot.send-block-text",
             else: "terminal-polyglot.send-text"
         },
