@@ -305,3 +305,5 @@ set -g @plugin 'tmux-plugins/tmux-yank'
 run -b '~/.tmux/plugins/tpm/tpm'
 
 set-option -g default-shell /bin/zsh
+
+set-option -g remain-on-exit on
