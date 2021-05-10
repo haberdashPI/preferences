@@ -124,6 +124,9 @@ module.exports = {keybindings: {
         "u,B": { value: "-__count", boundary: "end",   selectWhole: true },
     },
 
+    // generic, magic selection
+    "uu": "editor.action.smartSelect.expand",
+
     // buffer related
     $: [ "editor.action.selectAll" ],
     "'G": "cursorBottomSelect",
