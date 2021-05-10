@@ -12,6 +12,5 @@ julia_exec=`asdf env julia which julia`
 # echo $julia_exec
 # echo $@
 # bash
-echo "${@:q}" > $HOME/debug.txt
-$julia_exec "${@:q}"
+$julia_exec "${@[1,-2]:q}" ${@[-1]}
 # tmux new-session -A -s $name $julia_exec $@
