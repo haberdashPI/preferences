@@ -12,14 +12,18 @@
  * In summary: 1d or d deletes one line, Jd deletes two lines, 2d deltes 3 lines and 3d
  * deletes 4 lines.
  *
- * @param {string} to direction to select lines in (up / ddown)
+ * @param {string} to (optional) direction to select lines in (up / ddown), defaults to 'down',
  * @param {command} count1 The command to run when __count === 1
- * @param {command} countN The command to run after selection `count` lines when `__count >
- * 1`
+ * @param {command} countN (topional) The command to run after selection `count` lines when `__count >
+ * 1`, defaults to `count1`
  * @returns combined command to handle all `__count` values and properly select the right
  * number of lines for __count > 1
  */
 function countSelectsLines(to, count1, countN){
+    if(!count1){
+        count1 = to
+        to = 'down'
+    }
     return {
         if: "__count === 1",
         then: count1,
