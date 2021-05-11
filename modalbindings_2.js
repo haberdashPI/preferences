@@ -118,14 +118,18 @@ module.exports = {keybindings: {
 
     // function arguments
     "::using::move-cursor-by-argument.move-by-argument": {
-        ",w":  { value: "__count",  boundary: "both", select:      true },
-        ",b":  { value: "-__count", boundary: "both", select:      true },
+        ",w":  { value: "__count",  boundary: "end", select:      true },
+        ",b":  { value: "-__count", boundary: "start", select:      true },
         ",W":  { value: "__count",  boundary: "start", select:      true },
         ",B":  { value: "-__count", boundary: "end",   select:      true },
-        "u,w": { value: "__count",  boundary: "both", selectWhole: true },
-        "u,b": { value: "-__count", boundary: "both", selectWhole: true },
-        "u,W": { value: "__count",  boundary: "start", selectWhole: true },
-        "u,B": { value: "-__count", boundary: "end",   selectWhole: true },
+        // "u,w": { value: "__count",  boundary: "both", selectWhole: true },
+        // "u,b": { value: "-__count", boundary: "both", selectWhole: true },
+        // "u,W": { value: "__count",  boundary: "start", selectWhole: true },
+        // "u,B": { value: "-__count", boundary: "end",   selectWhole: true },
+        "u.": { value: "__count",  boundary: "both", selectWhole: true },
+        "u,": { value: "-__count", boundary: "both", selectWhole: true },
+        "u>": { value: "__count",  boundary: "start", selectWhole: true },
+        "u<": { value: "-__count", boundary: "end",   selectWhole: true },
     },
 
     // generic, magic selection
