@@ -37,18 +37,26 @@ function countSelectsLines(to, count1, countN){
     }
 }
 
+function withCountDefault(def, command){
+    return {
+        if: "__count === 1",
+        then: command(def),
+        else: command("__count"),
+    }
+}
+
 module.exports = {keybindings: {
     /////////////
     // motions
 
     // basic movement
     "::using::cursorMove::": {
-        h: { to: 'left', select: "__mode == 'visual'", value: '__count' },
-        j: { to: 'down', by: 'wrappedLine', select: "__mode == 'visual'", value: '__count' },
-        k: { to: 'up', by: 'wrappedLine', select: "__mode == 'visual'" , value: '__count' },
-        l: { to: 'right', select: "__mode == 'visual'", value: '__count' },
-        gj: { to: 'down', by: 'line', select: "__mode == 'visual'", value: '__count' },
-        gk: { to: 'up', by: 'line', select: "__mode == 'visual'", value: '__count' },
+        h: { to: 'left', select: "__mode !== 'normal'", value: '__count' },
+        j: { to: 'down', by: 'wrappedLine', select: "__mode !== 'normal'", value: '__count' },
+        k: { to: 'up', by: 'wrappedLine', select: "__mode !== 'normal'" , value: '__count' },
+        l: { to: 'right', select: "__mode !== 'normal'", value: '__count' },
+        gj: { to: 'down', by: 'line', select: "__mode !== 'normal'", value: '__count' },
+        gk: { to: 'up', by: 'line', select: "__mode !== 'normal'", value: '__count' },
     },
 
     // line related movements
@@ -256,11 +264,6 @@ module.exports = {keybindings: {
     "visual::R":  "selection-utilities.trimSelectionWhitespace" ,
     U: { "selection-utilities.narrowTo": { unit: "subident", boundary: "both", } },
 
-    x:  { "selection-utilities.addNext": {}, repeat: '__count' },
-    gx: { "selection-utilities.addPrev": {}, repeat: '__count' },
-    X:  { "selection-utilities.skipNext": {}, repeat: '__count' },
-    gX: { "selection-utilities.skipPrev": {}, repeat: '__count' },
-
     r: "modalkeys.cancelMultipleSelections",
     " ": "modalkeys.enableSelection",
 
@@ -369,7 +372,7 @@ module.exports = {keybindings: {
         "editor.action.enterNormal"
     ]),
 
-    "\\": [
+    "x": [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: "right", select: true } },
         "editor.action.clipboardCutAction",
@@ -543,29 +546,54 @@ module.exports = {keybindings: {
     //////////
     // bookmarks
     "g ": "vsc-labeled-bookmarks.toggleBookmark",
-    "'j": "vsc-labeled-bookmarks.navigateToNextBookmark",
-    "'k": "vsc-labeled-bookmarks.navigateToPreviousBookmark",
+    "normal::'j": "vsc-labeled-bookmarks.navigateToNextBookmark",
+    "normal::'k": "vsc-labeled-bookmarks.navigateToPreviousBookmark",
+    "visual::'j": "vsc-labeled-bookmarks.expandSelectionToNextBookmark",
+    "visual::'k": ["vsc-labeled-bookmarks.expandSelectionToPreviousBookmark", "selection-utilities.activeAtStart"],
     "gd ": "vsc-labeled-bookmarks.deleteBookmark",
     "'#": "vsc-labeled-bookmarks.navigateToBookmark",
 
     ///////////////
     // selection modifiers
-    "\"": { "modalkeys.enterMode": { mode: "selectedit" } },
-    "selectedit::\"": { "modalkeys.enterMode": { mode: "normal" } },
-    "selectedit::\n": { "modalkeys.enterMode": { mode: "normal" } },
+    '"': [
+        { if: "__selections.length <= 1",
+            then: { "selection-utilities.addNext": {}, repeat: '__count' } },
+        { "modalkeys.enterMode": { mode: "selectedit" } },
+    ],
+    "selectedit::\n": [ { "modalkeys.enterMode": { mode: "normal" }} ],
+
+    "selectedit::\"": { "selection-utilities.addNext": {}, repeat: '__count' },
+    "selectedit::J": { "selection-utilities.addNext": {}, repeat: '__count' },
+    "selectedit::K": { "selection-utilities.addPrev": {}, repeat: '__count' },
+    "selectedit::gj":  { "selection-utilities.skipNext": {}, repeat: '__count' },
+    "selectedit::gk": { "selection-utilities.skipPrev": {}, repeat: '__count' },
+
 
     "selectedit::=": "selection-utilities.alignSelectionsLeft",
     "selectedit::+": "selection-utilities.alignSelectionsRight",
-    "'c": "selection-utilities.appendToMemory",
-    "'v": "selection-utilities.restoreAndClear",
-    "'x": "selection-utilities.swapWithMemory",
-    "'n": "selection-utilities.deleteLastSaved",
-    "'\n": "selection-utilities.splitByNewline",
-    "'-": { "selection-utilities.restoreAndClear": {register: "cancel"} },
+    "'c": [
+        withCountDefault(undefined, c => ({ "selection-utilities.appendToMemory": { register: c } })),
+        "modalkeys.cancelMultipleSelections", "modalkeys.enterNormal"
+    ],
+    "'v": [
+        withCountDefault(undefined, c => ({ "selection-utilities.restoreAndClear": { register: c } })),
+        { if: "__selections.length > 1", then: { "modalkeys.enterMode": { mode: "selectedit" }}}
+    ],
+
+    "'x": withCountDefault(undefined, c => ({ "selection-utilities.swapWithMemory": { register: c } })),
+    "'n": withCountDefault(undefined, c => ({ "selection-utilities.deleteLastSaved": { register: c } })),
+    "'\n": [
+        "selection-utilities.splitByNewline",
+        { "modalkeys.enterMode": { mode: "selectedit" } }
+    ],
+    "'-": [
+        { "selection-utilities.restoreAndClear": {register: "cancel"} },
+        { if: "__selections.length > 1", then: { "modalkeys.enterMode": { mode: "selectedit" }}}
+    ],
 
     "selectedit::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
-    "selectedit::h": "selection-utilities.activeAtStart",
-    "selectedit::l": "selection-utilities.activeAtEnd",
+    "selectedit::O": "selection-utilities.activeAtStart",
+    "selectedit::o": "selection-utilities.activeAtEnd",
     "selectedit::j": { "selection-utilities.movePrimaryRight": {}, repeat: '__count' },
     "selectedit::k": { "selection-utilities.movePrimaryLeft": {}, repeat: '__count' },
     "selectedit::d": { "selection-utilities.deletePrimary": {}, repeat: '__count' },
