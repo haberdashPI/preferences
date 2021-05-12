@@ -4,44 +4,28 @@
  * nearby lines. This allows noun-less verbs. e.g. 4d deletes the current line and the 4
  * lines below the current line.
  *
- * NOTE: typically, there is a missing count, e.g. 1d doesn't delete the current line and
- * the line below. For that you would use Jd, since 1d and Jd are just as many characters it
- * is okay that 1d has a different meaning. This is because d (on its own) defaults to a
- * __count == 1.
- *
- * In summary: 1d or d deletes one line, Jd deletes two lines, 2d deltes 3 lines and 3d
- * deletes 4 lines.
- *
  * @param {string} to (optional) direction to select lines in (up / ddown), defaults to 'down',
- * @param {command} count1 The command to run when __count === 1
- * @param {command} countN (topional) The command to run after selection `count` lines when `__count >
- * 1`, defaults to `count1`
+ * @param {command} countnone The command to run when __count is not specified
+ * @param {command} countN (topional) The command to run after selecting downwards or upwards
+ * `__count` lines.
  * @returns combined command to handle all `__count` values and properly select the right
- * number of lines for __count > 1
+ * number of lines.
  */
-function countSelectsLines(to, count1, countN){
-    if(!count1){
-        count1 = to
+function countSelectsLines(to, countnone, countN){
+    if(!countnone){
+        countnone = to
         to = 'down'
     }
     return {
-        if: "__count === 1",
-        then: count1,
+        if: "__count === undefined",
+        then: countnone,
         else: [
             "modalkeys.cancelMultipleSelections",
             "modalkeys.enableSelection",
             { "cursorMove": { to: to, by: 'wrappedLine', select: true, value: '__count' } },
             "expandLineSelection",
-            countN || count1
+            countN || countnone
         ]
-    }
-}
-
-function withCountDefault(def, command){
-    return {
-        if: "__count === 1",
-        then: command(def),
-        else: command("__count"),
     }
 }
 
@@ -51,12 +35,12 @@ module.exports = {keybindings: {
 
     // basic movement
     "::using::cursorMove::": {
-        h: { to: 'left', select: "__mode !== 'normal'", value: '__count' },
-        j: { to: 'down', by: 'wrappedLine', select: "__mode !== 'normal'", value: '__count' },
-        k: { to: 'up', by: 'wrappedLine', select: "__mode !== 'normal'" , value: '__count' },
-        l: { to: 'right', select: "__mode !== 'normal'", value: '__count' },
-        gj: { to: 'down', by: 'line', select: "__mode !== 'normal'", value: '__count' },
-        gk: { to: 'up', by: 'line', select: "__mode !== 'normal'", value: '__count' },
+        h: { to: 'left', select: "__mode !== 'normal'", value: '(__count || 1)' },
+        j: { to: 'down', by: 'wrappedLine', select: "__mode !== 'normal'", value: '(__count || 1)' },
+        k: { to: 'up', by: 'wrappedLine', select: "__mode !== 'normal'" , value: '(__count || 1)' },
+        l: { to: 'right', select: "__mode !== 'normal'", value: '(__count || 1)' },
+        gj: { to: 'down', by: 'line', select: "__mode !== 'normal'", value: '(__count || 1)' },
+        gk: { to: 'up', by: 'line', select: "__mode !== 'normal'", value: '(__count || 1)' },
     },
 
     // line related movements
@@ -65,77 +49,77 @@ module.exports = {keybindings: {
     G:  "expandLineSelection",
     K: [
         "modalkeys.cancelMultipleSelections",
-        { "cursorMove": { to: 'up', by: 'wrappedLine', select: true, value: '__count' } },
+        { "cursorMove": { to: 'up', by: 'wrappedLine', select: true, value: '(__count || 1)' } },
         "expandLineSelection",
         "selection-utilities.activeAtStart"
     ],
     J: [
         "modalkeys.cancelMultipleSelections",
-        { "cursorMove": { to: 'down', by: 'wrappedLine', select: true, value: '__count' } },
+        { "cursorMove": { to: 'down', by: 'wrappedLine', select: true, value: '(__count || 1)' } },
         "expandLineSelection",
     ],
 
     // movements around regex units
     "::using::selection-utilities.moveBy": {
         // word-like
-        w:     { unit: "subword", boundary: "start", select:      true, value:  '__count' },
-        uw:    { unit: "subword", boundary: "start", selectWhole: true, value:  '__count' },
-        W:     { unit: "word",    boundary: "start", select:      true, value:  '__count' },
-        uW:    { unit: "word",    boundary: "start", selectWhole: true, value:  '__count' },
-        e:     { unit: "word",    boundary: "end",   select:      true, value:  '__count' },
-        ue:    { unit: "word",    boundary: "end",   selectWhole: true, value:  '__count' },
-        b:     { unit: "subword", boundary: "start", select:      true, value: '-__count' },
-        ub:    { unit: "subword", boundary: "start", selectWhole: true, value: '-__count' },
-        B:     { unit: "word",    boundary: "start", select:      true, value: '-__count' },
-        uB:    { unit: "word",    boundary: "start", selectWhole: true, value: '-__count' },
-        E:     { unit: "word",    boundary: "end",   select:      true, value: '-__count' },
-        uE:    { unit: "word",    boundary: "end",   selectWhole: true, value: '-__count' },
-        "'w":  { unit: "WORD",    boundary: "start", select:      true, value:  "__count" },
-        "u'w": { unit: "WORD",    boundary: "start", selectWhole: true, value:  "__count" },
-        "'b":  { unit: "WORD",    boundary: "start", select:      true, value: "-__count" },
-        "u'b": { unit: "WORD",    boundary: "start", selectWhole: true, value: "-__count" },
-        "'W":  { unit: "WORD",    boundary: "end",   select:      true, value:  "__count" },
-        "u'W": { unit: "WORD",    boundary: "both",  selectWhole: true, value:  "__count" },
-        "'B":  { unit: "WORD",    boundary: "end",   select:      true, value: "-__count" },
-        "u'B": { unit: "WORD",    boundary: "both",  selectWhole: true, value: "-__count" },
+        w:     { unit: "subword", boundary: "start", select:      true, value:  '(__count || 1)' },
+        uw:    { unit: "subword", boundary: "start", selectWhole: true, value:  '(__count || 1)' },
+        W:     { unit: "word",    boundary: "start", select:      true, value:  '(__count || 1)' },
+        uW:    { unit: "word",    boundary: "start", selectWhole: true, value:  '(__count || 1)' },
+        e:     { unit: "word",    boundary: "end",   select:      true, value:  '(__count || 1)' },
+        ue:    { unit: "word",    boundary: "end",   selectWhole: true, value:  '(__count || 1)' },
+        b:     { unit: "subword", boundary: "start", select:      true, value: '-(__count || 1)' },
+        ub:    { unit: "subword", boundary: "start", selectWhole: true, value: '-(__count || 1)' },
+        B:     { unit: "word",    boundary: "start", select:      true, value: '-(__count || 1)' },
+        uB:    { unit: "word",    boundary: "start", selectWhole: true, value: '-(__count || 1)' },
+        E:     { unit: "word",    boundary: "end",   select:      true, value: '-(__count || 1)' },
+        uE:    { unit: "word",    boundary: "end",   selectWhole: true, value: '-(__count || 1)' },
+        "'w":  { unit: "WORD",    boundary: "start", select:      true, value:  "(__count || 1)" },
+        "u'w": { unit: "WORD",    boundary: "start", selectWhole: true, value:  "(__count || 1)" },
+        "'b":  { unit: "WORD",    boundary: "start", select:      true, value: "-(__count || 1)" },
+        "u'b": { unit: "WORD",    boundary: "start", selectWhole: true, value: "-(__count || 1)" },
+        "'W":  { unit: "WORD",    boundary: "end",   select:      true, value:  "(__count || 1)" },
+        "u'W": { unit: "WORD",    boundary: "both",  selectWhole: true, value:  "(__count || 1)" },
+        "'B":  { unit: "WORD",    boundary: "end",   select:      true, value: "-(__count || 1)" },
+        "u'B": { unit: "WORD",    boundary: "both",  selectWhole: true, value: "-(__count || 1)" },
 
         // numbers
-        "@": { value: '-__count', unit: "integer", boundary: "both", selectWhole: true } ,
-        "#": { value: '__count', unit: "integer", boundary: "both", selectWhole: true } ,
+        "@": { value: '-(__count || 1)', unit: "integer", boundary: "both", selectWhole: true } ,
+        "#": { value: '(__count || 1)', unit: "integer", boundary: "both", selectWhole: true } ,
 
         // comments
-        "';": { unit: "comment", boundary: "both", selectWhole: true, value: '__count'},
-        "':": { unit: "comment", boundary: "both", selectWhole: true, value: '-__count'},
+        "';": { unit: "comment", boundary: "both", selectWhole: true, value: '(__count || 1)'},
+        "':": { unit: "comment", boundary: "both", selectWhole: true, value: '-(__count || 1)'},
 
         // paragraphs and sections
-        p:     { unit: "paragraph",  boundary: "start", select:    true, value: '__count'  },
-        P:     { unit: "paragraph",  boundary: "start", select:    true, value: '-__count' },
-        up:  { unit: "paragraph",  boundary: "start",  selectWhole: true, value: '__count'  },
-        uP:  { unit: "paragraph",  boundary: "start",  selectWhole: true, value: '-__count' },
-        "'a":  { unit: "section",    boundary: "start", select:      true, value: '__count'  },
-        "'A":  { unit: "section",    boundary: "start", select:      true, value: '-__count' },
-        "'s":  { unit: "subsection", boundary: "start", select:      true, value: '__count'  },
-        "'S":  { unit: "subsection", boundary: "start", select:      true, value: '-__count' },
-        "u'a": { unit: "section",    boundary: "start", selectWhole: true, value: '__count'  },
-        "u'A": { unit: "section",    boundary: "start", selectWhole: true, value: '-__count' },
-        "u's": { unit: "subsection", boundary: "start", selectWhole: true, value: '__count'  },
-        "u'S": { unit: "subsection", boundary: "start", selectWhole: true, value: '-__count' },
+        p:     { unit: "paragraph",  boundary: "start", select:    true, value: '(__count || 1)'  },
+        P:     { unit: "paragraph",  boundary: "start", select:    true, value: '-(__count || 1)' },
+        up:  { unit: "paragraph",  boundary: "start",  selectWhole: true, value: '(__count || 1)'  },
+        uP:  { unit: "paragraph",  boundary: "start",  selectWhole: true, value: '-(__count || 1)' },
+        "'a":  { unit: "section",    boundary: "start", select:      true, value: '(__count || 1)'  },
+        "'A":  { unit: "section",    boundary: "start", select:      true, value: '-(__count || 1)' },
+        "'s":  { unit: "subsection", boundary: "start", select:      true, value: '(__count || 1)'  },
+        "'S":  { unit: "subsection", boundary: "start", select:      true, value: '-(__count || 1)' },
+        "u'a": { unit: "section",    boundary: "start", selectWhole: true, value: '(__count || 1)'  },
+        "u'A": { unit: "section",    boundary: "start", selectWhole: true, value: '-(__count || 1)' },
+        "u's": { unit: "subsection", boundary: "start", selectWhole: true, value: '(__count || 1)'  },
+        "u'S": { unit: "subsection", boundary: "start", selectWhole: true, value: '-(__count || 1)' },
     },
 
     // function arguments
     "::using::move-cursor-by-argument.move-by-argument": {
-        ",w":  { value: "__count",  boundary: "end", select:      true },
-        ",b":  { value: "-__count", boundary: "start", select:      true },
-        ",W":  { value: "__count",  boundary: "start", select:      true },
-        ",B":  { value: "-__count", boundary: "end",   select:      true },
-        // "u,w": { value: "__count",  boundary: "both", selectWhole: true },
-        // "u,b": { value: "-__count", boundary: "both", selectWhole: true },
-        // "u,W": { value: "__count",  boundary: "start", selectWhole: true },
-        // "u,B": { value: "-__count", boundary: "end",   selectWhole: true },
-        "u.": { value: "__count",  boundary: "both", selectWhole: true },
-        "u,": { value: "-__count", boundary: "both", selectWhole: true },
-        "u>": { value: "__count",  boundary: "start", selectWhole: true },
-        "u<": { value: "-__count", boundary: "end",   selectWhole: true },
+        ",w":  { value: "(__count || 1)",  boundary: "end", select:      true },
+        ",b":  { value: "-(__count || 1)", boundary: "start", select:      true },
+        ",W":  { value: "(__count || 1)",  boundary: "start", select:      true },
+        ",B":  { value: "-(__count || 1)", boundary: "end",   select:      true },
+        // "u,w": { value: "(__count || 1)",  boundary: "both", selectWhole: true },
+        // "u,b": { value: "-(__count || 1)", boundary: "both", selectWhole: true },
+        // "u,W": { value: "(__count || 1)",  boundary: "start", selectWhole: true },
+        // "u,B": { value: "-(__count || 1)", boundary: "end",   selectWhole: true },
+        "u.": { value: "(__count || 1)",  boundary: "both", selectWhole: true },
+        "u,": { value: "-(__count || 1)", boundary: "both", selectWhole: true },
+        "u>": { value: "(__count || 1)",  boundary: "start", selectWhole: true },
+        "u<": { value: "-(__count || 1)", boundary: "end",   selectWhole: true },
     },
 
     // generic, magic selection
@@ -159,10 +143,10 @@ module.exports = {keybindings: {
         "closeFindWidget"
     ],
 
-    n: "editor.action.nextMatchFindAction",
-    N: "editor.action.previousMatchFindAction",
-    ";": "modalkeys.nextMatch",
-    ",,": "modalkeys.previousMatch",
+    n: { "editor.action.nextMatchFindAction": {}, repeat: "__count" },
+    N: { "editor.action.previousMatchFindAction": {}, repeat: "__count" },
+    ";": { "modalkeys.nextMatch": {}, repeat: "__count" },
+    ",,": { "modalkeys.previousMatch": {}, repeat: "__count" },
 
     "?": { "modalkeys.search": {
         caseSensitive: true,
@@ -557,31 +541,32 @@ module.exports = {keybindings: {
     // selection modifiers
     '"': [
         { if: "__selections.length <= 1",
-            then: { "selection-utilities.addNext": {}, repeat: '__count' } },
+            then: { "selection-utilities.addNext": {}, repeat: '(__count || 1)' } },
         { "modalkeys.enterMode": { mode: "selectedit" } },
     ],
-    "selectedit::\n": [ { "modalkeys.enterMode": { mode: "normal" }} ],
+    "selectedit::\n": [ "selection-utilities.cancelSelection", { "modalkeys.enterMode": { mode: "normal" }} ],
+    "selectedit:: ": [ { "modalkeys.enterMode": { mode: "normal" }} ],
 
-    "selectedit::\"": { "selection-utilities.addNext": {}, repeat: '__count' },
-    "selectedit::J": { "selection-utilities.addNext": {}, repeat: '__count' },
-    "selectedit::K": { "selection-utilities.addPrev": {}, repeat: '__count' },
-    "selectedit::gj":  { "selection-utilities.skipNext": {}, repeat: '__count' },
-    "selectedit::gk": { "selection-utilities.skipPrev": {}, repeat: '__count' },
+    "selectedit::\"": { "selection-utilities.addNext": {}, repeat: '(__count || 1)' },
+    "selectedit::J": { "selection-utilities.addNext": {}, repeat: '(__count || 1)' },
+    "selectedit::K": { "selection-utilities.addPrev": {}, repeat: '(__count || 1)' },
+    "selectedit::gj":  { "selection-utilities.skipNext": {}, repeat: '(__count || 1)' },
+    "selectedit::gk": { "selection-utilities.skipPrev": {}, repeat: '(__count || 1)' },
 
 
     "selectedit::=": "selection-utilities.alignSelectionsLeft",
     "selectedit::+": "selection-utilities.alignSelectionsRight",
     "'c": [
-        withCountDefault(undefined, c => ({ "selection-utilities.appendToMemory": { register: c } })),
+        { "selection-utilities.appendToMemory": { register: "__count" } },
         "modalkeys.cancelMultipleSelections", "modalkeys.enterNormal"
     ],
     "'v": [
-        withCountDefault(undefined, c => ({ "selection-utilities.restoreAndClear": { register: c } })),
+        { "selection-utilities.restoreAndClear": { register: "__count" } },
         { if: "__selections.length > 1", then: { "modalkeys.enterMode": { mode: "selectedit" }}}
     ],
 
-    "'x": withCountDefault(undefined, c => ({ "selection-utilities.swapWithMemory": { register: c } })),
-    "'n": withCountDefault(undefined, c => ({ "selection-utilities.deleteLastSaved": { register: c } })),
+    "'x": { "selection-utilities.swapWithMemory": { register: "__count" } },
+    "'n": { "selection-utilities.deleteLastSaved": { register: "__count" } },
     "'\n": [
         "selection-utilities.splitByNewline",
         { "modalkeys.enterMode": { mode: "selectedit" } }
@@ -594,9 +579,9 @@ module.exports = {keybindings: {
     "selectedit::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
     "selectedit::O": "selection-utilities.activeAtStart",
     "selectedit::o": "selection-utilities.activeAtEnd",
-    "selectedit::j": { "selection-utilities.movePrimaryRight": {}, repeat: '__count' },
-    "selectedit::k": { "selection-utilities.movePrimaryLeft": {}, repeat: '__count' },
-    "selectedit::d": { "selection-utilities.deletePrimary": {}, repeat: '__count' },
+    "selectedit::j": { "selection-utilities.movePrimaryRight": {}, repeat: '(__count || 1)' },
+    "selectedit::k": { "selection-utilities.movePrimaryLeft": {}, repeat: '(__count || 1)' },
+    "selectedit::d": { "selection-utilities.deletePrimary": {}, repeat: '(__count || 1)' },
     "selectedit::s\n": "selection-utilities.splitByNewline",
     "selectedit::sc": "selection-utilities.splitBy",
     "selectedit::cc": "selection-utilities.createBy",
