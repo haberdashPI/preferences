@@ -541,17 +541,17 @@ module.exports = {keybindings: {
     // selection modifiers
     '"': [
         { if: "__selections.length <= 1",
-            then: { "selection-utilities.addNext": {}, repeat: '(__count || 1)' } },
+            then: { "selection-utilities.addNext": {}, repeat: '__count' } },
         { "modalkeys.enterMode": { mode: "selectedit" } },
     ],
     "selectedit::\n": [ "selection-utilities.cancelSelection", { "modalkeys.enterMode": { mode: "normal" }} ],
     "selectedit:: ": [ { "modalkeys.enterMode": { mode: "normal" }} ],
 
-    "selectedit::\"": { "selection-utilities.addNext": {}, repeat: '(__count || 1)' },
-    "selectedit::J": { "selection-utilities.addNext": {}, repeat: '(__count || 1)' },
-    "selectedit::K": { "selection-utilities.addPrev": {}, repeat: '(__count || 1)' },
-    "selectedit::gj":  { "selection-utilities.skipNext": {}, repeat: '(__count || 1)' },
-    "selectedit::gk": { "selection-utilities.skipPrev": {}, repeat: '(__count || 1)' },
+    "selectedit::\"": { "selection-utilities.addNext": {}, repeat: '__count' },
+    "selectedit::J": { "selection-utilities.addNext": {}, repeat: '__count' },
+    "selectedit::K": { "selection-utilities.addPrev": {}, repeat: '__count' },
+    "selectedit::gj":  { "selection-utilities.skipNext": {}, repeat: '__count' },
+    "selectedit::gk": { "selection-utilities.skipPrev": {}, repeat: '__count' },
 
 
     "selectedit::=": "selection-utilities.alignSelectionsLeft",
@@ -579,9 +579,9 @@ module.exports = {keybindings: {
     "selectedit::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
     "selectedit::O": "selection-utilities.activeAtStart",
     "selectedit::o": "selection-utilities.activeAtEnd",
-    "selectedit::j": { "selection-utilities.movePrimaryRight": {}, repeat: '(__count || 1)' },
-    "selectedit::k": { "selection-utilities.movePrimaryLeft": {}, repeat: '(__count || 1)' },
-    "selectedit::d": { "selection-utilities.deletePrimary": {}, repeat: '(__count || 1)' },
+    "selectedit::j": { "selection-utilities.movePrimaryRight": {}, repeat: '__count' },
+    "selectedit::k": { "selection-utilities.movePrimaryLeft": {}, repeat: '__count' },
+    "selectedit::d": { "selection-utilities.deletePrimary": {}, repeat: '__count' },
     "selectedit::s\n": "selection-utilities.splitByNewline",
     "selectedit::sc": "selection-utilities.splitBy",
     "selectedit::cc": "selection-utilities.createBy",
