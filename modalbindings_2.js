@@ -59,6 +59,10 @@ module.exports = {keybindings: {
         "expandLineSelection",
     ],
 
+    "\\": [
+        "modalkeys.cancelMultipleSelections",
+        { "cursorMove": { to: 'right', select: true, value: '(__count || 1)' } }
+    ],
 
     // movements around regex units
     "::using::selection-utilities.moveBy": {
