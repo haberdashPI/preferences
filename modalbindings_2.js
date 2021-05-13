@@ -59,15 +59,17 @@ module.exports = {keybindings: {
         "expandLineSelection",
     ],
 
+
     // movements around regex units
     "::using::selection-utilities.moveBy": {
         // word-like
         w:     { unit: "subword", boundary: "start", select:      true, value:  '(__count || 1)' },
         uw:    { unit: "subword", boundary: "start", selectWhole: true, value:  '(__count || 1)' },
+        ue:    { unit: "subword", boundary: "both",  selectWhole: true, value:  '(__count || 1)' },
         W:     { unit: "word",    boundary: "start", select:      true, value:  '(__count || 1)' },
         uW:    { unit: "word",    boundary: "start", selectWhole: true, value:  '(__count || 1)' },
+        uE:    { unit: "word",    boundary: "both",  selectWhole: true, value:  '(__count || 1)' },
         e:     { unit: "word",    boundary: "end",   select:      true, value:  '(__count || 1)' },
-        ue:    { unit: "word",    boundary: "end",   selectWhole: true, value:  '(__count || 1)' },
         b:     { unit: "subword", boundary: "start", select:      true, value: '-(__count || 1)' },
         ub:    { unit: "subword", boundary: "start", selectWhole: true, value: '-(__count || 1)' },
         B:     { unit: "word",    boundary: "start", select:      true, value: '-(__count || 1)' },
@@ -76,12 +78,10 @@ module.exports = {keybindings: {
         uE:    { unit: "word",    boundary: "end",   selectWhole: true, value: '-(__count || 1)' },
         "'w":  { unit: "WORD",    boundary: "start", select:      true, value:  "(__count || 1)" },
         "u'w": { unit: "WORD",    boundary: "start", selectWhole: true, value:  "(__count || 1)" },
+        "u'e": { unit: "WORD",    boundary: "both",  selectWhole: true, value:  "(__count || 1)" },
         "'b":  { unit: "WORD",    boundary: "start", select:      true, value: "-(__count || 1)" },
         "u'b": { unit: "WORD",    boundary: "start", selectWhole: true, value: "-(__count || 1)" },
-        "'W":  { unit: "WORD",    boundary: "end",   select:      true, value:  "(__count || 1)" },
-        "u'W": { unit: "WORD",    boundary: "both",  selectWhole: true, value:  "(__count || 1)" },
-        "'B":  { unit: "WORD",    boundary: "end",   select:      true, value: "-(__count || 1)" },
-        "u'B": { unit: "WORD",    boundary: "both",  selectWhole: true, value: "-(__count || 1)" },
+        "u'e": { unit: "WORD",    boundary: "both",  selectWhole: true, value: "-(__count || 1)" },
 
         // numbers
         "@": { value: '-(__count || 1)', unit: "integer", boundary: "both", selectWhole: true } ,
@@ -104,6 +104,10 @@ module.exports = {keybindings: {
         "u'A": { unit: "section",    boundary: "start", selectWhole: true, value: '-(__count || 1)' },
         "u's": { unit: "subsection", boundary: "start", selectWhole: true, value: '(__count || 1)'  },
         "u'S": { unit: "subsection", boundary: "start", selectWhole: true, value: '-(__count || 1)' },
+        "q'a": { unit: "section",    boundary: "both",  selectWhole: true, value: '(__count || 1)'  },
+        "q'A": { unit: "section",    boundary: "both",  selectWhole: true, value: '-(__count || 1)' },
+        "q's": { unit: "subsection", boundary: "both",  selectWhole: true, value: '(__count || 1)'  },
+        "q'S": { unit: "subsection", boundary: "both",  selectWhole: true, value: '-(__count || 1)' },
     },
 
     // function arguments
