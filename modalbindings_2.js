@@ -272,17 +272,25 @@ module.exports = {keybindings: {
     // change
     c: countSelectsLines('down', {
         if: "!__selection.isSingleLine && __selection.end.character == 0 && __selection.start.character == 0",
+        // multi-line selection
         then: [
             "deleteRight",
             "editor.action.insertLineBefore",
             "modalkeys.enterInsert"
         ],
-        else: [
+        // single line selection
+        else: { if: "!__selection.isEmpty", then: [
             "deleteRight",
             "modalkeys.enterInsert"
         ],
-    },
-    [
+        // nothing selectioned
+        else: [
+            "expandLineSelection",
+            "deleteRight",
+            "editor.action.insertLineBefore",
+            "modalkeys.enterInsert"
+        ]}
+    }, [
         "deleteRight",
         "editor.action.insertLineBefore",
         "modalkeys.enterInsert"
