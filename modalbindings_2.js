@@ -17,7 +17,7 @@ function countSelectsLines(to, countnone, countN){
         to = 'down'
     }
     return {
-        if: "__count === undefined",
+        if: "!__count",
         then: countnone,
         else: [
             "modalkeys.cancelMultipleSelections",
