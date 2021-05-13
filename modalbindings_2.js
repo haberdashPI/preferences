@@ -569,8 +569,8 @@ module.exports = {keybindings: {
             then: { "selection-utilities.addNext": {}, repeat: '__count' } },
         { "modalkeys.enterMode": { mode: "selectedit" } },
     ],
-    "selectedit::\n": [ "selection-utilities.cancelSelection", { "modalkeys.enterMode": { mode: "normal" }} ],
-    "selectedit:: ": [ { "modalkeys.enterMode": { mode: "normal" }} ],
+    "selectedit:: ": [ "selection-utilities.cancelSelection", { "modalkeys.enterMode": { mode: "normal" }} ],
+    "selectedit::\n": [ { "modalkeys.enterMode": { mode: "normal" }} ],
 
     "selectedit::\"": { "selection-utilities.addNext": {}, repeat: '__count' },
     "selectedit::J": { "selection-utilities.addNext": {}, repeat: '__count' },
