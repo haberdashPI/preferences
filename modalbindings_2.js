@@ -297,8 +297,21 @@ module.exports = {keybindings: {
 
     "gy": countSelectsLines('down', "editor.action.joinLines"),
 
-    "~": "editor.action.transformToUppercase",
-    "`": "editor.action.transformToLowercase",
+    "~c": "extension.changeCase.camel",
+    "~U": "extension.changeCase.constant",
+    "~.": "extension.changeCase.dot",
+    "~-": "extension.changeCase.kebab",
+    "~L": "extension.changeCase.lower",
+    "~l": "extension.changeCase.lowerFirst",
+    "~ ": "extension.changeCase.no",
+    "~C": "extension.changeCase.pascal",
+    "~/": "extension.changeCase.path",
+    "~_": "extension.changeCase.snake",
+    "~~": "extension.changeCase.swap",
+    "~T": "extension.changeCase.title",
+    "~Y": "extension.changeCase.upper",
+    "~u": "extension.changeCase.upperFirst",
+    "`": "extension.toggleCase",
 
     // update numerical selection
     "+": [
