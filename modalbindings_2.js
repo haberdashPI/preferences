@@ -35,12 +35,12 @@ module.exports = {keybindings: {
 
     // basic movement
     "::using::cursorMove::": {
-        h: { to: 'left', select: "__mode !== 'normal'", value: '(__count || 1)' },
-        j: { to: 'down', by: 'wrappedLine', select: "__mode !== 'normal'", value: '(__count || 1)' },
-        k: { to: 'up', by: 'wrappedLine', select: "__mode !== 'normal'" , value: '(__count || 1)' },
-        l: { to: 'right', select: "__mode !== 'normal'", value: '(__count || 1)' },
-        gj: { to: 'down', by: 'line', select: "__mode !== 'normal'", value: '(__count || 1)' },
-        gk: { to: 'up', by: 'line', select: "__mode !== 'normal'", value: '(__count || 1)' },
+        h: { to: 'left', select: "__mode !== 'normal'", value: '__count' },
+        j: { to: 'down', by: 'wrappedLine', select: "__mode !== 'normal'", value: '__count' },
+        k: { to: 'up', by: 'wrappedLine', select: "__mode !== 'normal'" , value: '__count' },
+        l: { to: 'right', select: "__mode !== 'normal'", value: '__count' },
+        gj: { to: 'down', by: 'line', select: "__mode !== 'normal'", value: '__count' },
+        gk: { to: 'up', by: 'line', select: "__mode !== 'normal'", value: '__count' },
     },
 
     // line related movements
@@ -49,19 +49,19 @@ module.exports = {keybindings: {
     G:  "expandLineSelection",
     K: [
         "modalkeys.cancelMultipleSelections",
-        { "cursorMove": { to: 'up', by: 'wrappedLine', select: true, value: '(__count || 1)' } },
+        { "cursorMove": { to: 'up', by: 'wrappedLine', select: true, value: '__count' } },
         "expandLineSelection",
         "selection-utilities.activeAtStart"
     ],
     J: [
         "modalkeys.cancelMultipleSelections",
-        { "cursorMove": { to: 'down', by: 'wrappedLine', select: true, value: '(__count || 1)' } },
+        { "cursorMove": { to: 'down', by: 'wrappedLine', select: true, value: '__count' } },
         "expandLineSelection",
     ],
 
     "\\": [
         "modalkeys.cancelMultipleSelections",
-        { "cursorMove": { to: 'right', select: true, value: '(__count || 1)' } }
+        { "cursorMove": { to: 'right', select: true, value: '__count' } }
     ],
 
     // movements around regex units
@@ -330,14 +330,14 @@ module.exports = {keybindings: {
     "``": "extension.toggleCase",
 
     // update numerical selection
-    "+": [
+    "=": [
         {
             if: "__selections.length === 1",
             then: "editor.emmet.action.incrementNumberByOne",
             else: "extension.incrementSelection",
         },
     ],
-    "=": [
+    "+": [
         {
             if: "__selections.length === 1",
             then: "editor.emmet.action.decrementNumberByOne",
@@ -385,11 +385,13 @@ module.exports = {keybindings: {
         "editor.action.enterNormal"
     ]),
 
-    "x": [
+    x: [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: "right", select: true } },
         "editor.action.clipboardCutAction",
     ],
+
+    X: "modalkeys.replaceChar",
 
     // copy to clipboard
     y: countSelectsLines('down', [
