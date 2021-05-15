@@ -378,7 +378,6 @@ module.exports = {keybindings: {
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: "wrappedLineEnd", select: true } },
         "editor.action.clipboardCutAction",
-        "modalkeys.cancelMultipleSelections"
     ],
     [
         "editor.action.clipboardCutAction",
