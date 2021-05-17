@@ -130,3 +130,6 @@ checkout = git clone 'https://github.com/haberdashPI/bcmc-catalyst' 'bcmc-cataly
 
 [Documents/tools/vscode-modal-keys]
 checkout = git clone 'https://github.com/haberdashPI/vscode-modal-keys.git' 'vscode-modal-keys'
+
+[Documents/work/beacon/knowledge-base]
+checkout = git clone 'https://github.com/beacon-biosignals/knowledge-base' 'knowledge-base'
