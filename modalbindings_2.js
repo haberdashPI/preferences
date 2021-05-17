@@ -534,6 +534,8 @@ module.exports = {keybindings: {
     gr: countSelectsLines([ "git.stageSelectedRanges", "modalkeys.touchDocument", "modalkeys.cancelMultipleSelections" ]),
     gR: countSelectsLines([ "git.unstageSelectedRanges", "modalkeys.touchDocument", "modalkeys.cancelMultipleSelections" ]),
     gu: countSelectsLines(["git.revertSelectedRanges", "modalkeys.cancelMultipleSelections"]),
+    gl: "git.pull",
+    gs: "git.push",
     "'e": "editor.action.marker.next",
     "'E": "editor.action.marker.prev",
     "'d": "editor.action.dirtydiff.next",
