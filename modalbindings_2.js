@@ -558,6 +558,11 @@ module.exports = {keybindings: {
     // debugging
     gH: "editor.debug.action.showDebugHover",
     gb: "editor.debug.action.toggleBreakpoint",
+    gdb: "editor.debug.action.conditionalBreakpoint",
+    gdr: "workbench.action.debug.start",
+    gds: "workbench.action.debug.stepOver",
+    gdi: "workbench.action.debug.stepInto",
+    gdo: "workbench.action.debug.stepOut",
 
     //////////
     // bookmarks
