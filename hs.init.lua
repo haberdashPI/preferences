@@ -284,7 +284,7 @@ function showNumber(boxes)
 
   numberDisplays = {};
   for i, box in pairs(boxes) do
-    numberDisplays[i] = c.new({x=box.x+box.w/2-textWidth,y=box.y+box.h/2-textHeight,h=textHeight,w=textWidth}):appendElements({
+    numberDisplays[i] = c.new({x=box.x+box.w/2-textWidth + box.stack_index*(textWidth+2),y=box.y+box.h/2-textHeight,h=textHeight,w=textWidth}):appendElements({
     {type = "rectangle", type = "rectangle",
       roundedRectRadii = {xRadius = padding/4, yRadius = padding/4},
       withShadow = true,
@@ -322,6 +322,7 @@ function managedWindows(windows)
     if window.floating == 0 and window.minimized == 0 then
       j = j + 1
       results[j] = window.frame
+      results[j].stack_index = window["stack-index"]
       results[j].id = window.id
     end
   end
