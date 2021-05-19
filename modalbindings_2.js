@@ -181,7 +181,7 @@ module.exports = {keybindings: {
         acceptAfter: 1,
         backwards: false,
         selectTillMatch: true,
-        offset: 'exclusive',
+        offset: 'start',
         wrapAround: true
     }},
     T: { "modalkeys.search": {
@@ -189,7 +189,7 @@ module.exports = {keybindings: {
         acceptAfter: 1,
         backwards: true,
         selectTillMatch: true,
-        offset: 'exclusive',
+        offset: 'end',
         wrapAround: true
     }},
     s: { "modalkeys.search": {
