@@ -1,33 +1,11 @@
-[Documents/work/projects/bistable]
-checkout = git clone 'https://github.com/haberdashPI/bistable' 'bistable'
-
-[Documents/work/projects/german_track]
-checkout = git clone 'https://github.com/haberdashPI/german_track.git' 'german_track'
-
-[Documents/home/species]
-checkout = git clone 'https://github.com/haberdashPI/species.git' 'species'
-
 [Documents/tools/terminal-polyglot]
 checkout = git clone 'https://github.com/haberdashPI/terminal-polyglot' 'terminal-polyglot'
 
 [Documents/tools/vim-multi-repl]
 checkout = git clone 'https://github.com/haberdashPI/vim-multi-repl' 'vim-multi-repl'
 
-[Documents/work/writing/bistability_paper]
-checkout = git clone 'https://github.com/haberdashPI/bistability_paper' 'bistability_paper'
-
-[Documents/work/projects/ap_amount_speech]
-checkout = git clone 'https://github.com/haberdashPI/ap_amount_speech.git' 'ap_amount_speech'
-
 [Documents/tools/neurobehave-presentation]
 checkout = git clone 'https://github.com/haberdashPI/vscode-neurobehave-presentation.git' 'neurobehave-presentation'
-
-[Documents/work/projects/german_track_collection]
-checkout = git clone 'https://github.com/haberdashPI/german_track_collection' 'german_track_collection'
-
-[Documents/work/writing/academic_job_application]
-checkout = git clone 'https://github.com/haberdashPI/job_application' 'academic_job_application'
-
 
 [Documents/tools/matlab-in-julia]
 checkout = git clone 'https://github.com/haberdashPI/vscode-matlab-in-julia.git' 'matlab-in-julia'
@@ -35,29 +13,8 @@ checkout = git clone 'https://github.com/haberdashPI/vscode-matlab-in-julia.git'
 [Documents/work/writing/cv]
 checkout = git clone 'https://github.com/haberdashPI/CV.git' 'cv'
 
-[Documents/tools/IoSR_MatlabToolbox]
-checkout = git clone 'https://github.com/IoSR-Surrey/MatlabToolbox' 'IoSR_MatlabToolbox'
-
-[Documents/home/python-in-julia]
-checkout = git clone 'https://github.com/haberdashPI/vscode-python-in-julia.git' 'python-in-julia'
-
-[Documents/tools/clockify-priority]
-checkout = git clone 'https://github.com/haberdashPI/clockify-priorities.git' 'clockify-priority'
-
-[Documents/work/projects/ILDrandom]
-checkout = git clone 'https://github.com/haberdashPI/ILDrandom.git' 'ILDrandom'
-
 [Documents/tools/CorticalSpectralTemporalResponses]
 checkout = git clone 'https://github.com/haberdashPI/CorticalSpectralTemporalResponses.git' 'CorticalSpectralTemporalResponses'
-
-[Documents/work/projects/ap2]
-checkout = git clone 'https://github.com/haberdashPI/ap2.git' 'ap2'
-
-[Documents/work/projects/SignalOperators]
-checkout = git clone 'https://github.com/haberdashPI/SignalOperators.jl' 'SignalOperators'
-
-[Documents/work/writing/bwf_grant]
-checkout = git clone 'https://github.com/haberdashPI/bwf_grant.git' 'bwf_grant'
 
 [Documents/tools/LambdaFn]
 checkout = git clone 'https://github.com/haberdashPI/LambdaFn.jl' 'LambdaFn'
@@ -80,26 +37,11 @@ checkout = git clone 'https://github.com/haberdashPI/CategoricalArrays.jl' 'Cate
 [Documents/tools/LabRegistry]
 checkout = git clone 'https://github.com/haberdashPI/LabRegistry.jl' 'LabRegistry'
 
-[Documents/work/writing/top_down]
-checkout = git clone 'https://github.com/haberdashPI/top_down' 'top_down'
-
 [Documents/tools/selection-utilities]
 checkout = git clone 'https://github.com/haberdashPI/vscode-selection-utilities.git' 'selection-utilities'
 
-[Documents/work/projects/apamount]
-checkout = git clone 'https://github.com/haberdashPI/apamount.git' 'apamount'
-
-[Documents/work/projects/bistable_archive]
-checkout = git clone 'https://github.com/haberdashPI/bistable_archive.git' 'bistable_archive'
-
-[Documents/work/projects/SignalBase]
-checkout = git clone 'https://github.com/haberdashpi/SignalBase.jl' 'SignalBase'
-
 [Documents/notes]
 checkout = git clone 'https://github.com/haberdashPI/notes' 'notes'
-
-[Documents/work/writing/lincoln_lab_app]
-checkout = git clone 'https://github.com/haberdashPI/lincoln_lab_app.git' 'lincoln_lab_app'
 
 [Documents/work/projects/deep_learn_practice]
 checkout = git clone 'https://github.com/haberdashPI/deep_learn_practice.git' 'deep_learn_practice'
@@ -124,9 +66,6 @@ checkout = git clone 'https://github.com/haberdashPI/SignalBase.jl' 'SignalBase.
 
 [Documents/tools/vscode-selection-utilities]
 checkout = git clone 'https://github.com/haberdashPI/vscode-selection-utilities' 'vscode-selection-utilities'
-
-[Documents/home/bcmc-catalyst]
-checkout = git clone 'https://github.com/haberdashPI/bcmc-catalyst' 'bcmc-catalyst'
 
 [Documents/tools/vscode-modal-keys]
 checkout = git clone 'https://github.com/haberdashPI/vscode-modal-keys.git' 'vscode-modal-keys'
