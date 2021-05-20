@@ -13,21 +13,28 @@ Install:andUse("TextClipboardHistory", {
 -- Homerow keys to replace ↑ and ↓ in slack
 -- -----------------------------------------------------------------
 
-hs.hotkey.bind("ctrl", "j", function()
-  if hs.window.focusedWindow():application():bundleID() == "com.tinyspeck.slackmacgap" then
+navigate = {
+  hs.hotkey.new("ctrl", "j", function()
     hs.eventtap.keyStroke(nil, "down")
-  else
-    hs.eventtap.keyStroke("ctrl", "j")
-  end
+  end),
+  hs.hotkey.new("ctrl", "k", function()
+    hs.eventtap.keyStroke(nil, "up")
+  end),
+  hs.hotkey.new("ctrl", "l", function()
+    hs.eventtap.keyStroke(nil, "F6")
+  end),
+  hs.hotkey.new("ctrl", "h", function()
+    hs.eventtap.keyStroke("shift", "F6")
+  end),
+}
+
+slack = hs.window.filter.new("Slack")
+slack:subscribe(hs.window.filter.windowFocused, function()
+  for k,v in pairs(navigate) do v:enable() end
+end, function()
+  for k,v in pairs(navigate) do v:disable() end
 end)
 
-hs.hotkey.bind("ctrl", "k", function()
-  if hs.window.focusedWindow():application():bundleID() == "com.tinyspeck.slackmacgap" then
-    hs.eventtap.keyStroke(nil, "up")
-  else
-    hs.eventtap.keyStroke("ctrl", "k")
-  end
-end)
 -- Vim mode
 -- -----------------------------------------------------------------
 local VimMode = hs.loadSpoon('VimMode')
