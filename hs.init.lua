@@ -16,12 +16,16 @@ Install:andUse("TextClipboardHistory", {
 hs.hotkey.bind("ctrl", "j", function()
   if hs.window.focusedWindow():application():bundleID() == "com.tinyspeck.slackmacgap" then
     hs.eventtap.keyStroke(nil, "down")
+  else
+    hs.eventtap.keyStroke("ctrl", "j")
   end
 end)
 
 hs.hotkey.bind("ctrl", "k", function()
   if hs.window.focusedWindow():application():bundleID() == "com.tinyspeck.slackmacgap" then
     hs.eventtap.keyStroke(nil, "up")
+  else
+    hs.eventtap.keyStroke("ctrl", "k")
   end
 end)
 -- Vim mode
