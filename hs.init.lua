@@ -28,10 +28,13 @@ navigate = {
   end),
 }
 
-slack = hs.window.filter.new("Slack")
+slack = hs.window.filter.new('Slack')
 slack:subscribe(hs.window.filter.windowFocused, function()
+  hs.printf("Hotkeys enabled")
   for k,v in pairs(navigate) do v:enable() end
-end, function()
+end)
+slack:subscribe(hs.window.filter.windowUnfocused, function()
+  hs.printf("Hotkeys disabled")
   for k,v in pairs(navigate) do v:disable() end
 end)
 
