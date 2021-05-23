@@ -289,6 +289,11 @@ end
 function center()
   yabaif.send(function() end, 'window', '--grid', '9:15:3:2:9:5')
 end
+
+function middle()
+  yabaif.send(function() end, 'window', '--grid', '9:22:4:0:14:9')
+end
+
 function toggleDesktop()
   yabaif.send(function() end, 'space', '--toggle', 'show-desktop')
 end
@@ -483,7 +488,7 @@ function movetow:exited()
 end
 
 resizew = hs.hotkey.modal.new()
-wmk:bind('', 'c', function() resizew:enter() end)
+wmk:bind('', 'c', byMode{bsp=function() resizew:enter() end, float=middle})
 resizew:bind('', 'j', resizeDown)
 resizew:bind('', 'k', resizeUp)
 resizew:bind('', 'l', resizeRight)
