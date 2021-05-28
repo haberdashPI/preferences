@@ -551,6 +551,7 @@ module.exports = {keybindings: {
     "'gm": "workbench.action.minimizeOtherEditors",
     "'g=": "workbench.action.evenEditorWidths",
     gh: "editor.action.showHover",
+    gf: "extension.openFileFromPath",
     gg: "editor.action.revealDefinition",
     gG: "editor.action.revealDefinitionAside",
 
