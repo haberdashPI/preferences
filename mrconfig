@@ -133,3 +133,6 @@ checkout = git clone 'https://github.com/haberdashPI/vscode-modal-keys.git' 'vsc
 
 [Documents/work/beacon/knowledge-base]
 checkout = git clone 'https://github.com/beacon-biosignals/knowledge-base' 'knowledge-base'
+
+[Documents/home/rayden_gm_notes]
+checkout = git clone 'https://github.com/haberdashPI/rayden_gm_notes' 'rayden_gm_notes'
