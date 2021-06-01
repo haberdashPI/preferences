@@ -58,6 +58,18 @@ module.exports = {keybindings: {
         { "cursorMove": { to: 'down', by: 'wrappedLine', select: true, value: '__count' } },
         "expandLineSelection",
     ],
+    gK: [
+        "modalkeys.cancelMultipleSelections",
+        { "cursorMove": { to: 'up', by: 'line', select: true, value: '__count' } },
+        "expandLineSelection",
+        "selection-utilities.activeAtStart"
+    ],
+    gJ: [
+        "modalkeys.cancelMultipleSelections",
+        { "cursorMove": { to: 'down', by: 'line', select: true, value: '__count' } },
+        "expandLineSelection",
+    ],
+
 
     "\\": [
         "modalkeys.cancelMultipleSelections",
