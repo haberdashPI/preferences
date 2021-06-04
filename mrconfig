@@ -139,3 +139,6 @@ checkout = git clone 'https://github.com/haberdashPI/rayden_gm_notes' 'rayden_gm
 
 [Documents/work/reading/notes]
 checkout = git clone 'https://github.com/haberdashPI/reading_notes.git' 'notes'
+
+[Documents/work/beacon/infra]
+checkout = git clone 'https://github.com/beacon-biosignals/infra' 'infra'
