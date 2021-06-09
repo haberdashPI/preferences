@@ -473,8 +473,10 @@ module.exports = {keybindings: {
 
     // begin line below
     o: ["editor.action.insertLineAfter", "modalkeys.enterInsert"],
+    go: "editor.action.insertLineAfter",
     "visual::o": "selection-utilities.activeAtEnd",
     O: [ "editor.action.insertLineBefore", "modalkeys.enterInsert" ],
+    gO: "editor.action.insertLineBefore",
     "visual::O": "selection-utilities.activeAtStart",
 
     // line indent
