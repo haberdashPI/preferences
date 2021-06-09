@@ -336,7 +336,7 @@ module.exports = {keybindings: {
     "`/": "extension.changeCase.path",
     "`_": "extension.changeCase.snake",
     "`s": "extension.changeCase.swap",
-    "`T": "extension.changeCase.title",
+    "`t": "extension.changeCase.title",
     "`Y": "extension.changeCase.upper",
     "`u": "extension.changeCase.upperFirst",
     "``": "extension.toggleCase",
