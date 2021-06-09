@@ -261,6 +261,61 @@ module.exports = {keybindings: {
     "]": "vscode-select-by-indent.select-inner",
     "}": "vscode-select-by-indent.select-outer",
 
+    "u[": { "modalkeys.selectBetween": {
+        from: "[", to: "]",
+        inclusive: false,
+        caseSensitive: true,
+    }},
+    
+    "u(": { "modalkeys.selectBetween": {
+        from: "(", to: ")",
+        inclusive: false,
+        caseSensitive: true,
+    }},
+    
+    "u{": { "modalkeys.selectBetween": {
+        from: "{", to: "}",
+        inclusive: false,
+        caseSensitive: true,
+    }},
+
+    "u]": { "modalkeys.selectBetween": {
+        from: "[", to: "]",
+        inclusive: true,
+        caseSensitive: true,
+    }},
+    
+    "u)": { "modalkeys.selectBetween": {
+        from: "(", to: ")",
+        inclusive: true,
+        caseSensitive: true,
+    }},
+    
+    "u}": { "modalkeys.selectBetween": {
+        from: "{", to: "}",
+        inclusive: true,
+        caseSensitive: true,
+    }},
+
+    "uc": { "modalkeys.captureChar": {
+        acceptAfter: 1,
+        executeAfter: { "modalkeys.selectBetween": {
+            from: "__captured",
+            to: "__captured",
+            inclusive: false,
+            caseSensitive: true,
+        }},
+    }},
+
+    "uv": { "modalkeys.captureChar": {
+        acceptAfter: 1,
+        executeAfter: { "modalkeys.selectBetween": {
+            from: "__captured",
+            to: "__captured",
+            inclusive: true,
+            caseSensitive: true,
+        }},
+    }},
     ////////////////////////
     // selection modifiers
 
@@ -575,6 +630,7 @@ module.exports = {keybindings: {
     gb: "editor.debug.action.toggleBreakpoint",
     gdb: "editor.debug.action.conditionalBreakpoint",
     gdr: "workbench.action.debug.start",
+    gdc: "workbench.action.debug.continue",
     gds: "workbench.action.debug.stepOver",
     gdi: "workbench.action.debug.stepInto",
     gdo: "workbench.action.debug.stepOut",
