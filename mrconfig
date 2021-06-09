@@ -80,4 +80,4 @@ checkout = git clone 'https://github.com/haberdashPI/rayden_gm_notes' 'rayden_gm
 checkout = git clone 'https://github.com/haberdashPI/reading_notes.git' 'notes'
 
 [Documents/work/beacon/infra]
-checkout = git clone 'https://github.com/beacon-biosignals/infra' 'infra'
+checkout = git clone 'git@github.com:beacon-biosignals/infra.git' 'infra'
