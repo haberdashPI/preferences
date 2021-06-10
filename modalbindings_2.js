@@ -724,10 +724,28 @@ module.exports = {keybindings: {
     ...(Object.fromEntries(Array.from(":;'\",./?|\\=+-_*&^%$#@!`~").map(c =>
         ["syminsert::"+c, { "selection-utilities.insertAround": { before: c, after: c }}]
     ))),
+    "syminsert::o": "selection-utilities.activeAtEnd",
+    "syminsert::O": "selection-utilities.activeAtStart",
     "syminsert::x": { "selection-utilities.deleteAround": { count: "__count" }},
     "syminsert::d": { "selection-utilities.deleteAround": { count: "__count" }},
-    "syminsert::l": { "selection-utilities.adjustSelections": { dir: "forward", count: "__count" }},
-    "syminsert::h": { "selection-utilities.adjustSelections": { dir: "backward", count: "__count" }},
+    "syminsert::l": {
+        "if": "!__selection.isReversed",
+        "then": { "selection-utilities.adjustSelections": 
+            { dir: "forward", count: "__count" }
+        },
+        "else": { "selection-utilities.adjustSelections": 
+            { dir: "backward", count: "__count" }
+        },
+    },
+    "syminsert::h": {
+        "if": "!__selection.isReversed",
+        "then": { "selection-utilities.adjustSelections": 
+            { dir: "backward", count: "__count" }
+        },
+        "else": { "selection-utilities.adjustSelections": 
+            { dir: "forward", count: "__count" }
+        },
+    },
     "syminsert::{": { "selection-utilities.insertAround": { before: "{", after: "}" }},
     "syminsert::[": { "selection-utilities.insertAround": { before: "[", after: "]" }},
     "syminsert::(": { "selection-utilities.insertAround": { before: "(", after: ")" }},
