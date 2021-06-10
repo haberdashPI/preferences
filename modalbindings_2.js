@@ -684,10 +684,10 @@ module.exports = {keybindings: {
 
     "'x": { "selection-utilities.swapWithMemory": { register: "__count" } },
     "'n": { "selection-utilities.deleteLastSaved": { register: "__count" } },
-    "'\n": [
+    "'\n": countSelectsLines([
         "selection-utilities.splitByNewline",
         { "modalkeys.enterMode": { mode: "selectedit" } }
-    ],
+    ]),
     "'-": [
         { "selection-utilities.restoreAndClear": {register: "cancel"} },
         { if: "__selections.length > 1", then: { "modalkeys.enterMode": { mode: "selectedit" }}}
