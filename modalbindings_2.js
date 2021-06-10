@@ -265,36 +265,42 @@ module.exports = {keybindings: {
         from: "[", to: "]",
         inclusive: false,
         caseSensitive: true,
+        docScope: true
     }},
     
     "u(": { "modalkeys.selectBetween": {
         from: "(", to: ")",
         inclusive: false,
         caseSensitive: true,
+        docScope: true
     }},
     
     "u{": { "modalkeys.selectBetween": {
         from: "{", to: "}",
         inclusive: false,
         caseSensitive: true,
+        docScope: true
     }},
 
     "u]": { "modalkeys.selectBetween": {
         from: "[", to: "]",
         inclusive: true,
         caseSensitive: true,
+        docScope: true
     }},
     
     "u)": { "modalkeys.selectBetween": {
         from: "(", to: ")",
         inclusive: true,
         caseSensitive: true,
+        docScope: true
     }},
     
     "u}": { "modalkeys.selectBetween": {
         from: "{", to: "}",
         inclusive: true,
         caseSensitive: true,
+        docScope: true
     }},
 
     "uc": { "modalkeys.captureChar": {
@@ -304,6 +310,7 @@ module.exports = {keybindings: {
             to: "__captured",
             inclusive: false,
             caseSensitive: true,
+            docScope: true
         }},
     }},
 
@@ -314,6 +321,7 @@ module.exports = {keybindings: {
             to: "__captured",
             inclusive: true,
             caseSensitive: true,
+            docScope: true
         }},
     }},
     ////////////////////////
