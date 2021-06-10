@@ -708,4 +708,28 @@ module.exports = {keybindings: {
     "selectedit::ec": "selection-utilities.excludeBy",
     "selectedit::ir": "selection-utilities.includeByRegex",
     "selectedit::er": "selection-utilities.excludeByRegex",
+
+    ////////
+    // symmetric insertion (around selection)
+    ui: { "modalkeys.enterMode": { mode: "syminsert" } },
+    "syminsert::\n": { "modalkeys.enterMode": { mode: "normal" } },
+    "syminsert::i": { "modalkeys.captureChar": {
+        acceptAfter: 1,
+        executeAfter: { "selection-utilities.insertAround": {
+            before: "__captured",
+            after: "__captured",
+        }}
+    }},
+    "syminsert::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
+    ...(Object.fromEntries(Array.from(":;'\",./?|\\=+-_*&^%$#@!`~").map(c =>
+        ["syminsert::"+c, { "selection-utilities.insertAround": { before: c, after: c }}]
+    ))),
+    "syminsert::x": { "selection-utilities.deleteAround": { count: "__count" }},
+    "syminsert::d": { "selection-utilities.deleteAround": { count: "__count" }},
+    "syminsert::l": { "selection-utilities.adjustSelections": { dir: "forward", count: "__count" }},
+    "syminsert::h": { "selection-utilities.adjustSelections": { dir: "backward", count: "__count" }},
+    "syminsert::{": { "selection-utilities.insertAround": { before: "{", after: "}" }},
+    "syminsert::[": { "selection-utilities.insertAround": { before: "[", after: "]" }},
+    "syminsert::(": { "selection-utilities.insertAround": { before: "(", after: ")" }},
+    "syminsert::<": { "selection-utilities.insertAround": { before: "<", after: ">" }},
 }}
