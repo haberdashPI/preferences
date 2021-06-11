@@ -126,6 +126,11 @@ module.exports = {keybindings: {
         "q'S": { unit: "subsection", boundary: "both",  selectWhole: true, value: '-(__count || 1)' },
     },
 
+    // jupyter based cell selection
+    "'yc": ["jupyter.gotoNextCellInFile", "jupyter.selectCell"],
+    "'yC": ["jupyter.gotoPrevCellInFile", "jupyter.selectCell"],
+    uy: "jupyter.selectCell",
+
     // function arguments
     "::using::move-cursor-by-argument.move-by-argument": {
         ",w":  { value: "(__count || 1)",  boundary: "end", select:      true },
@@ -303,7 +308,7 @@ module.exports = {keybindings: {
         docScope: true
     }},
 
-    "uc": { "modalkeys.captureChar": {
+    uc: { "modalkeys.captureChar": {
         acceptAfter: 1,
         executeAfter: { "modalkeys.selectBetween": {
             from: "__captured",
@@ -314,7 +319,7 @@ module.exports = {keybindings: {
         }},
     }},
 
-    "uv": { "modalkeys.captureChar": {
+    uv: { "modalkeys.captureChar": {
         acceptAfter: 1,
         executeAfter: { "modalkeys.selectBetween": {
             from: "__captured",
@@ -324,6 +329,7 @@ module.exports = {keybindings: {
             docScope: true
         }},
     }},
+
     ////////////////////////
     // selection modifiers
 
