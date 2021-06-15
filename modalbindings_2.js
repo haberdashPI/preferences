@@ -694,6 +694,10 @@ module.exports = {keybindings: {
         "selection-utilities.splitByNewline",
         { "modalkeys.enterMode": { mode: "selectedit" } }
     ]),
+    "'*": [
+        "editor.action.selectHighlights",
+        { "modalkeys.enterMode": { mode: "selectedit" } },
+    ],
     "'-": [
         { "selection-utilities.restoreAndClear": {register: "cancel"} },
         { if: "__selections.length > 1", then: { "modalkeys.enterMode": { mode: "selectedit" }}}
