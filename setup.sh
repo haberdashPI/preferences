@@ -15,7 +15,7 @@ if [[ $OSTYPE == "linux-gnu"* ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     sudo apt-get install build-essential
     brew install bat # modern `less` alternative
-    brew install exa
+    brew install exa # modern `ls` alternative
     brew install asdf # manages language environments
     brew install fd # modern `find` alternative
     brew install gh # git hub CLI
