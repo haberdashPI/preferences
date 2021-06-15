@@ -68,3 +68,16 @@ ln -s ~/Documents/preferences/vimrc ~/.conf/nvim/init.vim
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 nvim --headless +silent +PlugInstall +qall
+
+# mr (myrepos) setup
+ln -s ~/Documents/mrconfig ~/.mrconfig
+mr update
+
+# julia setup
+asdf plugin-add julia https://github.com/rkyleg/asdf-julia.git
+asdf install julia 1.6.1
+asdf global julia 1.6.1
+asdf reshim
+julia -e 'using Pkg; Pkg.add(["OhMyREPL", "Revise", "TerminalPager", "Alert", "AlertPushover"])'
+mkdir -p ~/.julia/config
+ln -s ~/Documents/preferences/startup.jl ~/.julia/config/startup.jl
