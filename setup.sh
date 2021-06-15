@@ -70,7 +70,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 nvim --headless +silent +PlugInstall +qall
 
 # mr (myrepos) setup
-ln -s ~/Documents/mrconfig ~/.mrconfig
+ln -s ~/Documents/preferences/mrconfig ~/.mrconfig
 mr update
 
 # julia setup
