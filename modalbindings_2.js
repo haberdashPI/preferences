@@ -702,6 +702,14 @@ module.exports = {keybindings: {
         { "selection-utilities.restoreAndClear": {register: "cancel"} },
         { if: "__selections.length > 1", then: { "modalkeys.enterMode": { mode: "selectedit" }}}
     ],
+    "'K": [
+        "editor.action.insertCursorAbove",
+        { "modalkeys.enterMode": { mode: "selectedit" } },
+    ],
+    "'J": [
+        "editor.action.insertCursorBelow",
+        { "modalkeys.enterMode": { mode: "selectedit" } },
+    ],
 
     "selectedit::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
     "selectedit::O": "selection-utilities.activeAtStart",
