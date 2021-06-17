@@ -1,14 +1,14 @@
 [Documents/work/projects/jhs/bistable]
 checkout = git clone 'https://github.com/haberdashPI/bistable' 'bistable'
-skip = bash -c "[[ `hostname` = \'dlittle-*\' ]] && echo \"true\""
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/work/projects/jhs/german_track]
 checkout = git clone 'https://github.com/haberdashPI/german_track.git' 'german_track'
-skip = bash -c "[[ `hostname` = \'dlittle-*\' ]] && echo \"true\""
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/home/species]
 checkout = git clone 'https://github.com/haberdashPI/species.git' 'species'
-skip = bash -c "[[ `hostname` = \'dlittle-*\' ]] && echo \"true\""
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/tools/terminal-polyglot]
 checkout = git clone 'https://github.com/haberdashPI/terminal-polyglot' 'terminal-polyglot'
@@ -18,39 +18,40 @@ checkout = git clone 'https://github.com/haberdashPI/vim-multi-repl' 'vim-multi-
 
 [Documents/work/writing/jhs/bistability_paper]
 checkout = git clone 'https://github.com/haberdashPI/bistability_paper' 'bistability_paper'
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/work/projects/northwestern/ap_amount_speech]
 checkout = git clone 'https://github.com/haberdashPI/ap_amount_speech.git' 'ap_amount_speech'
-skip = bash -c "[[ `hostname` = \'dlittle-*\' ]] && echo \"true\""
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/tools/neurobehave-presentation]
 checkout = git clone 'https://github.com/haberdashPI/vscode-neurobehave-presentation.git' 'neurobehave-presentation'
 
 [Documents/work/projects/jhs/german_track_collection]
 checkout = git clone 'https://github.com/haberdashPI/german_track_collection' 'german_track_collection'
-skip = bash -c "[[ `hostname` = \'dlittle-*\' ]] && echo \"true\""
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/work/writing/jhs/academic_job_application]
 checkout = git clone 'https://github.com/haberdashPI/job_application' 'academic_job_application'
-skip = bash -c "[[ `hostname` = \'dlittle-*\' ]] && echo \"true\""
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/work/writing/cv]
 checkout = git clone 'https://github.com/haberdashPI/CV.git' 'cv'
 
 [Documents/work/projects/northwestern/ILDrandom]
 checkout = git clone 'https://github.com/haberdashPI/ILDrandom.git' 'ILDrandom'
-skip = bash -c "[[ `hostname` = \'dlittle-*\' ]] && echo \"true\""
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/tools/CorticalSpectralTemporalResponses]
 checkout = git clone 'https://github.com/haberdashPI/CorticalSpectralTemporalResponses.git' 'CorticalSpectralTemporalResponses'
 
 [Documents/work/projects/northwestern/ap2]
 checkout = git clone 'https://github.com/haberdashPI/ap2.git' 'ap2'
-skip = bash -c "[[ `hostname` = \'dlittle-*\' ]] && echo \"true\""
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/work/writing/jhs/bwf_grant]
 checkout = git clone 'https://github.com/haberdashPI/bwf_grant.git' 'bwf_grant'
-skip = bash -c "[[ `hostname` = \'dlittle-*\' ]] && echo \"true\""
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/tools/LambdaFn]
 checkout = git clone 'https://github.com/haberdashPI/LambdaFn.jl' 'LambdaFn'
@@ -66,21 +67,21 @@ checkout = git clone 'https://github.com/haberdashPI/vscode-move-cursor-by-argum
 
 [Documents/work/writing/jhs/top_down]
 checkout = git clone 'https://github.com/haberdashPI/top_down' 'top_down'
-skip = bash -c "[[ `hostname` = \'dlittle-*\' ]] && echo \"true\""
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/tools/selection-utilities]
 checkout = git clone 'https://github.com/haberdashPI/vscode-selection-utilities.git' 'selection-utilities'
 
 [Documents/work/projects/northwestern/apamount]
 checkout = git clone 'https://github.com/haberdashPI/apamount.git' 'apamount'
-skip = bash -c "[[ `hostname` = \'dlittle-*\' ]] && echo \"true\""
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/notes]
 checkout = git clone 'https://github.com/haberdashPI/notes' 'notes'
 
 [Documents/work/writing/jhs/lincoln_lab_app]
 checkout = git clone 'https://github.com/haberdashPI/lincoln_lab_app.git' 'lincoln_lab_app'
-skip = bash -c "[[ `hostname` = \'dlittle-*\' ]] && echo \"true\""
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/work/projects/deep_learn_practice]
 checkout = git clone 'https://github.com/haberdashPI/deep_learn_practice.git' 'deep_learn_practice'
@@ -108,20 +109,43 @@ checkout = git clone 'https://github.com/haberdashPI/vscode-selection-utilities'
 
 [Documents/home/bcmc-catalyst]
 checkout = git clone 'https://github.com/haberdashPI/bcmc-catalyst' 'bcmc-catalyst'
-skip = bash -c "[[ `hostname` = \'dlittle-*\' ]] && echo \"true\""
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/tools/vscode-modal-keys]
 checkout = git clone 'https://github.com/haberdashPI/vscode-modal-keys.git' 'vscode-modal-keys'
 
 [Documents/work/beacon/knowledge-base]
 checkout = git clone 'https://github.com/beacon-biosignals/knowledge-base' 'knowledge-base'
+skip = bash -c "[[ `hostname` != 'dlittle' ]]"
 
 [Documents/home/rayden_gm_notes]
 checkout = git clone 'https://github.com/haberdashPI/rayden_gm_notes' 'rayden_gm_notes'
-skip = bash -c "[[ `hostname` = \'dlittle-*\' ]] && echo \"true\""
+skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
 [Documents/work/reading/notes]
-checkout = git clone 'https://github.com/haberdashPI/reading_notes.git' 'notes'
+checkout = git clone 'git@github.com:haberdashPI/reading_notes.git' 'notes'
 
 [Documents/work/beacon/infra]
 checkout = git clone 'https://github.com/beacon-biosignals/infra' 'infra'
+skip = bash -c "[[ `hostname` != 'dlittle' ]]"
+
+[Documents/work/beacon/car-t]
+checkout = git clone 'https://github.com/beacon-biosignals/car-t' 'car-t'
+skip = bash -c "[[ `hostname` != 'dlittle' ]]"
+
+[Documents/work/beacon/data-map]
+checkout = git clone 'https://github.com/beacon-biosignals/data-map' 'data-map'
+skip = bash -c "[[ `hostname` != 'dlittle' ]]"
+
+[Documents/work/beacon/CatBoost.jl]
+checkout = git clone 'https://github.com/beacon-biosignals/CatBoost.jl' 'CatBoost.jl'
+skip = bash -c "[[ `hostname` != 'dlittle' ]]"
+
+[Documents/work/projects/idorsia-dosed/Dosed.jl]
+checkout = git clone 'git@github.com:beacon-biosignals/Dosed.jl.git' 'Dosed.jl'
+
+[Documents/work/projects/idorsia-dosed/SleepEvents]
+checkout = git clone 'git@github.com:beacon-biosignals/SleepEvents.git' 'SleepEvents'
+
+[Documents/work/projects/dosed]
+checkout = git clone 'git@github-haberdashpi:haberdashpi/dosed.git' 'dosed'
