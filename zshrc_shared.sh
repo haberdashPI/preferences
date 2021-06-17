@@ -13,6 +13,8 @@ alias ll="exa --long --group-directories-first"
 alias ls="exa"
 alias cat="bat"
 alias less="bat"
+alias aws-start-pet="aws ec2 start-instances --instance-ids i-03e53bd09cd27f10d --profile idorsia"
+alias aws-stop-pet="aws ec2 stop-instances --instance-ids i-03e53bd09cd27f10d --profile idorsia"
 
 function hdir(){
   pushd ~
