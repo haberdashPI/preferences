@@ -46,7 +46,7 @@ echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc.new
 cp ~/Documents/preferences/p10k.zsh ~/.p10k.zsh
 
 # ZSH config common across all my machines
-sed -i '/^source .*oh-my-zsh.sh/i source $HOME\/Documents\/preferences\/zshrc_shared.sh' ~/.zshrc.new
+sed -i '/^source .*oh-my-zsh.sh/c source $HOME\/Documents\/preferences\/zshrc_shared.sh' ~/.zshrc.new
 
 # plugins
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
