@@ -33,6 +33,7 @@ elif [[ $OSTYPE == "darwin"* ]]; then
     brew install gh    
 else
     echo "OS Not supported"
+    exit 1
 fi
 
 # Oh My ZSH and plugins
