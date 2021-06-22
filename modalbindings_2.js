@@ -409,6 +409,17 @@ module.exports = {keybindings: {
     "`Y": "extension.changeCase.upper",
     "`u": "extension.changeCase.upperFirst",
     "``": "extension.toggleCase",
+    "~": [
+        "modalkeys.cancelMultipleSelections",
+        { "cursorMove": { to: 'right', select: true, value: '__count' } },
+        {
+            "if": "__selectionstr == __selectionstr.toUpperCase()",
+            "then": "editor.action.transformToLowercase",
+            "else": "editor.action.transformToUppercase"
+        },
+        "modalkeys.cancelMultipleSelections",
+        "cursorLeft"
+    ],
 
     // update numerical selection
     "=": [
@@ -587,7 +598,7 @@ module.exports = {keybindings: {
     m: countSelectsLines('down', [
         {
             if: "__language == 'julia'",
-            then: "language-julia.executeCodeBlockOrSelection",
+            then: "language-julia.executeCodeBlockOrSelectionAndMove",
             else: {
                 if: "!__selection.isSingleLine",
                 then: "terminal-polyglot.send-block-text",
