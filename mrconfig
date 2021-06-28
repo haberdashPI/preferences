@@ -149,3 +149,6 @@ checkout = git clone 'git@github.com:beacon-biosignals/SleepEvents.git' 'SleepEv
 
 [Documents/work/projects/dosed]
 checkout = git clone 'git@github-haberdashpi:haberdashpi/dosed.git' 'dosed'
+
+[Documents/work/beacon/TimeSpans.jl]
+checkout = git clone 'https://github.com/beacon-biosignals/TimeSpans.jl' 'TimeSpans.jl'
