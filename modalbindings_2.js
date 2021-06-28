@@ -733,10 +733,10 @@ module.exports = {keybindings: {
     "selectedit::cc": "selection-utilities.createBy",
     "selectedit::cr": "selection-utilities.createByRegex",
     "selectedit::sr": "selection-utilities.splitByRegex",
-    "selectedit::ic": "selection-utilities.includeBy",
-    "selectedit::ec": "selection-utilities.excludeBy",
-    "selectedit::ir": "selection-utilities.includeByRegex",
-    "selectedit::er": "selection-utilities.excludeByRegex",
+    "selectedit::kc": "selection-utilities.includeBy",
+    "selectedit::rc": "selection-utilities.excludeBy",
+    "selectedit::kr": "selection-utilities.includeByRegex",
+    "selectedit::rr": "selection-utilities.excludeByRegex",
 
     ////////
     // symmetric insertion (around selection)
