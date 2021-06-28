@@ -744,18 +744,27 @@ module.exports = {keybindings: {
     "syminsert::\n": { "modalkeys.enterMode": { mode: "normal" } },
     "syminsert::i": { "modalkeys.captureChar": {
         acceptAfter: 1,
-        executeAfter: { "selection-utilities.insertAround": {
-            before: "__captured",
-            after: "__captured",
-        }}
+        executeAfter: [
+            { "selection-utilities.insertAround": {
+                before: "__captured",
+                after: "__captured",
+            }},
+            { "selection-utilities.adjustSelections": { dir: "forward" } }
+        ]
     }},
     "syminsert::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
     ...(Object.fromEntries(Array.from(":;'\",./?|\\=+-_*&^%$#@!`~").map(c =>
-        ["syminsert::"+c, { "selection-utilities.insertAround": { before: c, after: c }}]
+        ["syminsert::"+c, [
+            { "selection-utilities.insertAround": { before: c, after: c }},
+            { "selection-utilities.adjustSelections": { dir: "forward" } }
+        ]]
     ))),
     "syminsert::o": "selection-utilities.activeAtEnd",
     "syminsert::O": "selection-utilities.activeAtStart",
-    "syminsert::x": { "selection-utilities.deleteAround": { count: "__count" }},
+    "syminsert::x": [
+        { "selection-utilities.adjustSelections": { dir: "backward" } },
+        { "selection-utilities.deleteAround": { count: "__count" }}
+    ],
     "syminsert::d": { "selection-utilities.deleteAround": { count: "__count" }},
     "syminsert::l": {
         "if": "!__selection.isReversed",
@@ -775,8 +784,20 @@ module.exports = {keybindings: {
             { dir: "forward", count: "__count" }
         },
     },
-    "syminsert::{": { "selection-utilities.insertAround": { before: "{", after: "}" }},
-    "syminsert::[": { "selection-utilities.insertAround": { before: "[", after: "]" }},
-    "syminsert::(": { "selection-utilities.insertAround": { before: "(", after: ")" }},
-    "syminsert::<": { "selection-utilities.insertAround": { before: "<", after: ">" }},
+    "syminsert::{": [
+        { "selection-utilities.insertAround": { before: "{", after: "}" }},
+        { "selection-utilities.adjustSelections": { dir: "forward" } }
+    ],
+    "syminsert::[": [
+        { "selection-utilities.insertAround": { before: "[", after: "]" }},
+        { "selection-utilities.adjustSelections": { dir: "forward" } }
+    ],
+    "syminsert::(": [
+        { "selection-utilities.insertAround": { before: "(", after: ")" }},
+        { "selection-utilities.adjustSelections": { dir: "forward" } }
+    ],
+    "syminsert::<": [
+        { "selection-utilities.insertAround": { before: "<", after: ">" }},
+        { "selection-utilities.adjustSelections": { dir: "forward" } }
+    ],
 }}
