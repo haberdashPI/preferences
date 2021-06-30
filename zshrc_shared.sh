@@ -3,8 +3,10 @@ KEYTIMEOUT=1
 
 export JULIA_PKG_DEVDIR="${HOME}/Documents/tools"
 
-plugins=(git fzf z brew fd docker vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-interactive-cd asdf)
+plugins=(git fzf z brew fd docker zsh-vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-interactive-cd asdf)
 source $ZSH/oh-my-zsh.sh
+
+export ZVM_VI_EDITOR=nvim
 
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
