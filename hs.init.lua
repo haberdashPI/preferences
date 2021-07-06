@@ -1,5 +1,5 @@
 Install = hs.loadSpoon("SpoonInstall")
-yabaif = require('yabai')
+yabai = require('yabai')
 
 -- Clipboard history
 -- -----------------------------------------------------------------
@@ -48,7 +48,7 @@ vim:shouldDimScreenInNormalMode(false)
 
 function windowMode(fn)
   modestr = nil;
-  yabaif.send(function(data)
+  yabai.send(function(data)
     result = hs.json.decode(data)
     fn(result.type)
   end, "query", "--spaces","--space", "recent")
@@ -106,7 +106,7 @@ end
 
 function sendTo(n)
   return function()
-    yabaif.send(function() end, 'window','--space',tostring(n))
+    yabai.send(function() end, 'window','--space',tostring(n))
     hs.timer.doAfter(0.2, function()
       mash3(tostring(n))
       hs.timer.doAfter(0.2, function()
@@ -117,33 +117,33 @@ function sendTo(n)
 end
 
 function sendToNextDisplay()
-  yabaif.send(function(result)
+  yabai.send(function(result)
     if result ~= nil then
-      yabaif.send(function() end, 'window', '--display', 'first')
+      yabai.send(function() end, 'window', '--display', 'first')
     end
   end, 'window', '--display', 'next')
 end
 
 function sendToPreviousDisplay()
-  yabaif.send(function(result)
+  yabai.send(function(result)
     if result ~= nil then
-      yabaif.send(function() end, 'window', '--display', 'last')
+      yabai.send(function() end, 'window', '--display', 'last')
     end
   end, 'window', '--display', 'prev')
 end
 
 function focusNextDisplay()
-  yabaif.send(function(result)
+  yabai.send(function(result)
     if result ~= nil then
-      yabaif.send(function() end, 'display', '--focus', 'first')
+      yabai.send(function() end, 'display', '--focus', 'first')
     end
   end, 'display', '--focus', 'next')
 end
 
 function focusPreviousDisplay()
-  yabaif.send(function(result)
+  yabai.send(function(result)
     if result ~= nil then
-      yabaif.send(function() end,'display','--focus','last')
+      yabai.send(function() end,'display','--focus','last')
     end
   end,'display','--focus','prev')
 end
@@ -162,77 +162,77 @@ function byMode(modes)
   end
 end
 
-function floatLayout() yabaif.send(function() end,'config','layout', 'float') end
-function tileLayout() yabaif.send(function() end,'config','layout', 'bsp') end
-function toggleSplit() yabaif.send(function() end,'window','--toggle','split') end
-function toggleZoom() yabaif.send(function() end,'window','--toggle','zoom-fullscreen') end
-function rotateLayoutRight() yabaif.send(function() end,'space','--rotate','270') end
-function rotateLayoutLeft() yabaif.send(function() end,'space','--rotate','90') end
+function floatLayout() yabai.send(function() end,'config','layout', 'float') end
+function tileLayout() yabai.send(function() end,'config','layout', 'bsp') end
+function toggleSplit() yabai.send(function() end,'window','--toggle','split') end
+function toggleZoom() yabai.send(function() end,'window','--toggle','zoom-fullscreen') end
+function rotateLayoutRight() yabai.send(function() end,'space','--rotate','270') end
+function rotateLayoutLeft() yabai.send(function() end,'space','--rotate','90') end
 
 function focusNext()
-  yabaif.send(function(result)
+  yabai.send(function(result)
     if result ~= nil then
-      yabaif.send(function() end,'window','--focus', 'first')
+      yabai.send(function() end,'window','--focus', 'first')
     end
   end,'window','--focus','next')
 end
 
 function focusPrev()
-  yabaif.send(function(result)
+  yabai.send(function(result)
     if result ~= nil then
-      yabaif.send(function() end,'window','--focus', 'last')
+      yabai.send(function() end,'window','--focus', 'last')
     end
   end,'window','--focus','prev')
 end
 
 function shiftForward()
-  yabaif.send(function(result)
+  yabai.send(function(result)
     if result ~= nil then
-      yabaif.send(function() end,'window','--swap', 'first')
+      yabai.send(function() end,'window','--swap', 'first')
     end
   end,'window','--swap','next')
 end
 
 function shiftBackward()
-  yabaif.send(function(result)
+  yabai.send(function(result)
     if result ~= nil then
-      yabaif.send(function() end,'window','--swap', 'last')
+      yabai.send(function() end,'window','--swap', 'last')
     end
   end,'window','--swap','prev')
 end
 
 function warpForward()
-  yabaif.send(function(result)
+  yabai.send(function(result)
     if result ~= nil then
-      yabaif.send(function() end,'window','--warp', 'first')
+      yabai.send(function() end,'window','--warp', 'first')
     end
   end,'window','--warp','next')
 end
 
 function warpBackward()
-  yabaif.send(function(result)
+  yabai.send(function(result)
     if result ~= nil then
-      yabaif.send(function() end,'window','--warp', 'last')
+      yabai.send(function() end,'window','--warp', 'last')
     end
   end,'window','--warp','prev')
 end
 
 function nextWindowInStack()
-  yabaif.send(function(data)
+  yabai.send(function(data)
     if data ~= nil then
-      yabaif.send(function() end,'window', '--focus', 'stack.first')
+      yabai.send(function() end,'window', '--focus', 'stack.first')
     end
   end,'window','--focus', 'stack.next')
 end
 function prevWindowInStack()
-  yabaif.send(function(data)
+  yabai.send(function(data)
     if data ~= nil then
-      yabaif.send(function() end,'window', '--focus', 'stack.last')
+      yabai.send(function() end,'window', '--focus', 'stack.last')
     end
   end,'window','--focus', 'stack.prev')
 end
 function unstackWindow()
-  yabaif.send(function(data)
+  yabai.send(function(data)
     if data == nil then
       yabaf.send(function() end,'window', 'toggle', 'float')
     end
@@ -240,93 +240,93 @@ function unstackWindow()
 end
 
 function focusMain()
-  yabaif.send(function() end,'window','--focus', 'first')
+  yabai.send(function() end,'window','--focus', 'first')
 end
 function swapMain()
-  yabaif.send(function() end,'window','--swap', 'first')
+  yabai.send(function() end,'window','--swap', 'first')
 end
 function expandMain()
-  yabaif.send(function() end,'window','first', '--resize', 'bottom_right:100:100')
+  yabai.send(function() end,'window','first', '--resize', 'bottom_right:100:100')
 end
 function shrinkMain()
-  yabaif.send(function() end,'window','first', '--resize', 'bottom_right:-100:-100')
+  yabai.send(function() end,'window','first', '--resize', 'bottom_right:-100:-100')
 end
 function toggleFloat()
-  yabaif.send(function() end,'window','--toggle', 'float')
+  yabai.send(function() end,'window','--toggle', 'float')
 end
 function minimizeWindow() hs.window.focusedWindow():minimize() end
 function balanceSplits()
-  yabaif.send(function() end, 'space', '--balance')
+  yabai.send(function() end, 'space', '--balance')
 end
 function stackWindowNext()
-  yabaif.send(function(data)
+  yabai.send(function(data)
     if data ~= nil then
-      yabaif.send(function() end, 'window', '--stack', 'first')
+      yabai.send(function() end, 'window', '--stack', 'first')
     end
   end,'window', '--stack', 'next')
 end
 function stackWindowPrev()
-  yabaif.send(function(data)
+  yabai.send(function(data)
     if data ~= nil then
-      yabaif.send(function() end, 'window', '--stack', 'last')
+      yabai.send(function() end, 'window', '--stack', 'last')
     end
   end,'window', '--stack', 'prev')
 end
 
 function moveUp()
-  yabaif.send(function() end, 'window', '--move', 'rel:0:-100')
+  yabai.send(function() end, 'window', '--move', 'rel:0:-100')
 end
 function moveDown()
-  yabaif.send(function() end, 'window', '--move', 'rel:0:100')
+  yabai.send(function() end, 'window', '--move', 'rel:0:100')
 end
 function moveRight()
-  yabaif.send(function() end, 'window', '--move', 'rel:100:0')
+  yabai.send(function() end, 'window', '--move', 'rel:100:0')
 end
 function moveLeft()
-  yabaif.send(function() end, 'window', '--move', 'rel:-100:0')
+  yabai.send(function() end, 'window', '--move', 'rel:-100:0')
 end
 function resizeDown()
-  yabaif.send(function(data)
+  yabai.send(function(data)
     -- print("data: "..tostring(data))
     -- if data ~= nil then
-      yabaif.send(function() end, 'window', '--resize', 'top:0:100')
+      yabai.send(function() end, 'window', '--resize', 'top:0:100')
     -- end
   end, 'window', '--resize', 'bottom:0:100')
 end
 function resizeUp()
-  yabaif.send(function()
+  yabai.send(function()
     -- print("data: "..tostring(data))
     -- if data ~= nil then
-      yabaif.send(function() end, 'window', '--resize', 'top:0:-100')
+      yabai.send(function() end, 'window', '--resize', 'top:0:-100')
     -- end
   end, 'window', '--resize', 'bottom:0:-100')
 end
 function resizeRight()
-  yabaif.send(function()
+  yabai.send(function()
     -- print("data: "..tostring(data))
     -- if data ~= nil then
-      yabaif.send(function() end, 'window', '--resize', 'left:100:0')
+      yabai.send(function() end, 'window', '--resize', 'left:100:0')
     -- end
   end, 'window', '--resize', 'right:100:0')
 end
 function resizeLeft()
-  yabaif.send(function()
+  yabai.send(function()
     -- print("data: "..tostring(data))
     -- if data ~= nil then
-      yabaif.send(function() end, 'window', '--resize', 'left:-100:0')
+      yabai.send(function() end, 'window', '--resize', 'left:-100:0')
     -- end
   end, 'window', '--resize', 'right:-100:0')
 end
 function center()
-  yabaif.send(function() end, 'window', '--grid', '9:15:3:2:9:5')
+  yabai.send(function() end, 'window', '--grid', '9:15:3:2:9:5')
 end
 
 function middle()
-  yabaif.send(function() end, 'window', '--grid', '9:22:4:0:14:9')
+  yabai.send(function() end, 'window', '--grid', '9:22:4:0:14:9')
 end
 
 function toggleDesktop()
-  yabaif.send(function() end, 'space', '--toggle', 'show-desktop')
+  yabai.send(function() end, 'space', '--toggle', 'show-desktop')
 end
 
 numberDisplays = {};
@@ -395,7 +395,7 @@ function managedWindows(windows)
 end
 
 function showWindowNumbers()
-  yabaif.send(function(data)
+  yabai.send(function(data)
     print("Show window numbers")
     data = data:gsub("inf", "0")
     local success, result_err = pcall(function() return hs.json.decode(data) end)
@@ -410,11 +410,11 @@ function showWindowNumbers()
 end
 
 function focusOnWindow(n)
-  yabaif.send(function(data)
+  yabai.send(function(data)
     -- print(result)
     local result = hs.json.decode(data)
     local wins = managedWindows(result)
-    yabaif.send(function() end, 'window','--focus', wins[n].id)
+    yabai.send(function() end, 'window','--focus', wins[n].id)
   end,'query','--windows','--space','mouse')
 end
 
