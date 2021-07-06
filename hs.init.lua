@@ -116,6 +116,37 @@ function sendTo(n)
   end
 end
 
+function sendToNextDisplay()
+  yabaif.send(function(result)
+    if result ~= nil then
+      yabaif.send(function() end, 'window', '--display', 'first')
+    end
+  end, 'window', '--display', 'next')
+end
+
+function sendToPreviousDisplay()
+  yabaif.send(function(result)
+    if result ~= nil then
+      yabaif.send(function() end, 'window', '--display', 'last')
+    end
+  end, 'window', '--display', 'prev')
+end
+
+function focusNextDisplay()
+  yabaif.send(function(result)
+    if result ~= nil then
+      yabaif.send(function() end, 'display', '--focus', 'first')
+    end
+  end, 'display', '--focus', 'next')
+end
+
+function focusPreviousDisplay()
+  yabaif.send(function(result)
+    if result ~= nil then
+      yabaif.send(function() end,'display','--focus','last')
+    end
+  end,'display','--focus','prev')
+end
 
 function mash1(key) hs.eventtap.keyStroke({"alt", "shift"}, key) end
 function mash2(key) hs.eventtap.keyStroke({"alt", "shift", "ctrl"}, key) end
@@ -404,6 +435,9 @@ wmk:bind('', '[', prevWindowInStack)
 wmk:bind('', ']', nextWindowInStack)
 wmk:bind('', 'k', byMode{bsp=focusPrev, float=moveUp})
 wmk:bind('', 'j', byMode{bsp=focusNext, float=moveDown})
+wmk:bind('', '.', focusNextDisplay)
+wmk:bind('', ',', focusPreviousDisplay)
+
 wmk:bind('', 'h', byMode{bsp=shrinkMain, float=moveLeft})
 wmk:bind('', 'l', byMode{bsp=expandMain, float=moveRight})
 wmk:bind('', 'g', byMode{bsp=focusMain, float=center})
@@ -415,6 +449,8 @@ wmk:bind('shift', 'j', byMode{bsp=shiftForward, float=resizeDown})
 wmk:bind('shift', 'k', byMode{bsp=shiftBackward, float=resizeUp})
 wmk:bind('shift', 'l', byMode{bsp=warpForward, float=resizeRight})
 wmk:bind('shift', 'h', byMode{bsp=warpBackward, float=resizeLeft})
+wmk:bind('shift', '.', sendToNextDisplay)
+wmk:bind('shift', ',', sendToPreviousDisplay)
 wmk:bind('','m', minimizeWindow)
 wmk:bind('', ';', function()
   focusNext()
