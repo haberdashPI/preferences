@@ -753,12 +753,19 @@ module.exports = {keybindings: {
         ]
     }},
     "syminsert::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
-    ...(Object.fromEntries(Array.from(":;'\",./?|\\=+-_*&^%$#@!`~").map(c =>
+    ...(Object.fromEntries(Array.from(":;'\",./?|=+-_*&^%$#@!`~").map(c =>
         ["syminsert::"+c, [
             { "selection-utilities.insertAround": { before: c, after: c }},
             { "selection-utilities.adjustSelections": { dir: "forward" } }
         ]]
     ))),
+    'syminsert::\\"': [
+        { "selection-utilities.insertAround": { before: '\\"', after: '\\"' }},
+    ],
+    "syminsert::\\'": [
+        { "selection-utilities.insertAround": { before: "\\'", after: "\\'" }},
+    ],
+
     "syminsert::o": "selection-utilities.activeAtEnd",
     "syminsert::O": "selection-utilities.activeAtStart",
     "syminsert::x": [
