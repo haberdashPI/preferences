@@ -436,6 +436,8 @@ module.exports = {keybindings: {
             else: "extension.decrementSelection",
         },
     ],
+    "g=": "editor.emmet.action.incrementNumberByOne",
+    "g+": "editor.emmet.action.decrementNumberByOne",
 
     // check
     "^": "markdown-checkbox.markCheckbox",
