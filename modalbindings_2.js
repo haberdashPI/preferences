@@ -75,6 +75,10 @@ module.exports = {keybindings: {
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: 'right', select: true, value: '__count' } }
     ],
+    "|": [
+        "modalkeys.cancelMultipleSelections",
+        { "cursorMove": { to: 'left', select: true, value: '__count' } }
+    ],
 
     // movements around regex units
     "::using::selection-utilities.moveBy": {
