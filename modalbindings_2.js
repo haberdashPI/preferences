@@ -312,6 +312,31 @@ module.exports = {keybindings: {
         docScope: true
     }},
 
+    "uC,": { "modalkeys.selectBetween": {
+        from: "<", to: ">",
+        inclusive: false,
+        caseSensitive: true,
+        docScope: true
+    }},
+    "uC.": { "modalkeys.selectBetween": {
+        from: ">", to: "<",
+        inclusive: false,
+        caseSensitive: true,
+        docScope: true
+    }},
+    "uC<": { "modalkeys.selectBetween": {
+        from: "<", to: ">",
+        inclusive: true,
+        caseSensitive: true,
+        docScope: true
+    }},
+    "uC>": { "modalkeys.selectBetween": {
+        from: ">", to: "<",
+        inclusive: true,
+        caseSensitive: true,
+        docScope: true
+    }},
+
     uc: { "modalkeys.captureChar": {
         acceptAfter: 1,
         executeAfter: { "modalkeys.selectBetween": {
