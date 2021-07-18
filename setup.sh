@@ -77,8 +77,8 @@ mr update
 
 # julia setup
 asdf plugin-add julia https://github.com/rkyleg/asdf-julia.git
-asdf install julia 1.6.1
-asdf global julia 1.6.1
+asdf install julia 1.6.2
+asdf global julia 1.6.2
 asdf reshim
 julia -e 'using Pkg; Pkg.add(["OhMyREPL", "Revise", "TerminalPager", "Alert", "AlertPushover"])'
 mkdir -p ~/.julia/config
