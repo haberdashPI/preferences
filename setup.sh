@@ -15,6 +15,8 @@ if [[ $OSTYPE == "linux-gnu"* ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     sudo apt-get install build-essential
     brew install bat # modern `less` alternative
+    brew install dust # modern `du` alternative
+    brew install tldr # summarizes commands (shorter than `man`)
     brew install exa # modern `ls` alternative
     brew install asdf # manages language environments
     brew install fd # modern `find` alternative
@@ -27,6 +29,8 @@ elif [[ $OSTYPE == "darwin"* ]]; then
     brew install myrepos 
     brew install fzf 
     brew install bat 
+    brew install dust 
+    brew install tldr 
     brew install exa 
     brew install asdf 
     brew install fd 
