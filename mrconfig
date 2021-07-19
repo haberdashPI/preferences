@@ -162,3 +162,6 @@ skip = bash -c "[[ `hostname` != 'dlittle' ]]"
 [Documents/work/beacon/Onda.jl]
 checkout = git clone 'https://github.com/beacon-biosignals/Onda.jl' 'Onda.jl'
 skip = bash -c "[[ `hostname` != 'dlittle' ]]"
+
+[Documents/quick_notes]
+checkout = git clone 'https://github.com/haberdashPI/quick_notes' 'quick_notes'
