@@ -75,6 +75,11 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 nvim --headless +silent +PlugInstall +qall
 
+# git setup
+echo "[user]" >> ~/.gitconfig
+echo "    name = \"David F Little\"" >> ~/.gitconfig
+echo "    email = david.frank.little@gmail.com" >> ~/.gitconfig
+
 # mr (myrepos) setup
 ln -s ~/Documents/preferences/mrconfig ~/.mrconfig
 mr update
