@@ -760,10 +760,22 @@ module.exports = {keybindings: {
     "selectedit::k": { "selection-utilities.movePrimaryLeft": {}, repeat: '__count' },
     "selectedit::d": { "selection-utilities.deletePrimary": {}, repeat: '__count' },
     "selectedit::s\n": "selection-utilities.splitByNewline",
-    "selectedit::sc": "selection-utilities.splitBy",
-    "selectedit::/c": "selection-utilities.createBy",
-    "selectedit::/r": "selection-utilities.createByRegex",
+    "selectedit::ss": "selection-utilities.splitBy",
     "selectedit::sr": "selection-utilities.splitByRegex",
+    "selectedit::sc": { "modalkeys.captureChar": {
+        acceptAfter: 1,
+        executeAfter: [
+            { "selection-utilities.splitBy": { text: "__captured" } }
+        ]   
+    }},
+    "selectedit::/s": "selection-utilities.createBy",
+    "selectedit::/r": "selection-utilities.createByRegex",
+    "selectedit::/c": { "modalkeys.captureChar": {
+        acceptAfter: 1,
+        executeAfter: [
+            { "selection-utilities.splitBy": { text: "__captured" } }
+        ]   
+    }},
     "selectedit::kc": "selection-utilities.includeBy",
     "selectedit::rc": "selection-utilities.excludeBy",
     "selectedit::kr": "selection-utilities.includeByRegex",
