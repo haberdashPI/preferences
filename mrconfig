@@ -69,9 +69,6 @@ checkout = git clone 'https://github.com/haberdashPI/vscode-move-cursor-by-argum
 checkout = git clone 'https://github.com/haberdashPI/top_down' 'top_down'
 skip = bash -c "[[ `hostname` = 'dlittle' ]]"
 
-[Documents/tools/selection-utilities]
-checkout = git clone 'https://github.com/haberdashPI/vscode-selection-utilities.git' 'selection-utilities'
-
 [Documents/work/projects/northwestern/apamount]
 checkout = git clone 'https://github.com/haberdashPI/apamount.git' 'apamount'
 skip = bash -c "[[ `hostname` = 'dlittle' ]]"
