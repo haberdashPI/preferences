@@ -783,7 +783,8 @@ module.exports = {keybindings: {
 
     ////////
     // symmetric insertion (around selection)
-    ui: { "modalkeys.enterMode": { mode: "syminsert" } },
+    ", ": { "selection-utilities.insertAround": { before: " ", after: " " }},
+    "g'": { "modalkeys.enterMode": { mode: "syminsert" } },
     "syminsert::\n": { "modalkeys.enterMode": { mode: "normal" } },
     "syminsert::i": { "modalkeys.captureChar": {
         acceptAfter: 1,
