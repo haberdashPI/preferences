@@ -772,7 +772,7 @@ module.exports = {keybindings: {
     "selectedit::/c": { "modalkeys.captureChar": {
         acceptAfter: 1,
         executeAfter: [
-            { "selection-utilities.splitBy": { text: "__captured" } }
+            { "selection-utilities.createBy": { text: "__captured" } }
         ]   
     }},
     "selectedit::[c": "selection-utilities.includeBy",
