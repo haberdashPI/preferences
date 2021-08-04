@@ -614,6 +614,9 @@ module.exports = {keybindings: {
     "'.": "modalkeys.repeatLastUsedSelection",
     "g.": "modalkeys.repeatLastChange",
 
+    "q": { "modalkeys.toggleRecordingMacro": { register: "__count" } },
+    "Q": { "modalkeys.replayMacro": { register: "__count" } },
+
     /////////////
     // comment actions
     "g;":  countSelectsLines('down', [
