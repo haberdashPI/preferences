@@ -124,10 +124,6 @@ module.exports = {keybindings: {
         "u'A": { unit: "section",    boundary: "start", selectWhole: true, value: '-(__count || 1)' },
         "u's": { unit: "subsection", boundary: "start", selectWhole: true, value: '(__count || 1)'  },
         "u'S": { unit: "subsection", boundary: "start", selectWhole: true, value: '-(__count || 1)' },
-        "q'a": { unit: "section",    boundary: "both",  selectWhole: true, value: '(__count || 1)'  },
-        "q'A": { unit: "section",    boundary: "both",  selectWhole: true, value: '-(__count || 1)' },
-        "q's": { unit: "subsection", boundary: "both",  selectWhole: true, value: '(__count || 1)'  },
-        "q'S": { unit: "subsection", boundary: "both",  selectWhole: true, value: '-(__count || 1)' },
     },
 
     // jupyter based cell selection
@@ -779,10 +775,10 @@ module.exports = {keybindings: {
             { "selection-utilities.splitBy": { text: "__captured" } }
         ]   
     }},
-    "selectedit::kc": "selection-utilities.includeBy",
-    "selectedit::rc": "selection-utilities.excludeBy",
-    "selectedit::kr": "selection-utilities.includeByRegex",
-    "selectedit::rr": "selection-utilities.excludeByRegex",
+    "selectedit::[c": "selection-utilities.includeBy",
+    "selectedit::]c": "selection-utilities.excludeBy",
+    "selectedit::[r": "selection-utilities.includeByRegex",
+    "selectedit::]r": "selection-utilities.excludeByRegex",
 
     ////////
     // symmetric insertion (around selection)
