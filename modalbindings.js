@@ -156,7 +156,7 @@ module.exports = {keybindings: {
     "'gg": "cursorTopSelect",
 
     // search related
-    "/": "actions.find",
+    // "/": "actions.find",
     "*": [
         "actions.find",
         "editor.action.nextMatchFindAction",
@@ -173,9 +173,15 @@ module.exports = {keybindings: {
     ";": { "modalkeys.nextMatch": {}, repeat: "__count" },
     ",,": { "modalkeys.previousMatch": {}, repeat: "__count" },
 
-    "?": { "modalkeys.search": {
+    "/": { "modalkeys.search": {
         caseSensitive: true,
         backwards: false,
+        selectTillMatch: true,
+        wrapAround: true
+    } },
+    "?": { "modalkeys.search": {
+        caseSensitive: true,
+        backwards: true,
         selectTillMatch: true,
         wrapAround: true
     } },
@@ -612,6 +618,7 @@ module.exports = {keybindings: {
 
     "q": { "modalkeys.toggleRecordingMacro": { register: "__count" } },
     "Q": { "modalkeys.replayMacro": { register: "__count" } },
+    "'q": {"modalkeys.cancelRecordingMacro"},
 
     /////////////
     // comment actions
