@@ -618,7 +618,7 @@ module.exports = {keybindings: {
 
     "q": { "modalkeys.toggleRecordingMacro": { register: "__count" } },
     "Q": { "modalkeys.replayMacro": { register: "__count" } },
-    "'q": {"modalkeys.cancelRecordingMacro"},
+    "'q": "modalkeys.cancelRecordingMacro",
 
     /////////////
     // comment actions
