@@ -782,8 +782,8 @@ module.exports = {keybindings: {
             { "selection-utilities.createBy": { text: "__captured" } }
         ]   
     }},
-    "selectedit::[c": "selection-utilities.includeBy",
-    "selectedit::]c": "selection-utilities.excludeBy",
+    "selectedit::[s": "selection-utilities.includeBy",
+    "selectedit::]s": "selection-utilities.excludeBy",
     "selectedit::[r": "selection-utilities.includeByRegex",
     "selectedit::]r": "selection-utilities.excludeByRegex",
 
