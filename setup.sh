@@ -21,6 +21,7 @@ if [[ $OSTYPE == "linux-gnu"* ]]; then
     brew install asdf # manages language environments
     brew install fd # modern `find` alternative
     brew install gh # git hub CLI
+    brew install dust
 elif [[ $OSTYPE == "darwin"* ]]; then
     yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     brew install gpg 
@@ -35,6 +36,7 @@ elif [[ $OSTYPE == "darwin"* ]]; then
     brew install asdf 
     brew install fd 
     brew install gh    
+    brew install dust
 else
     echo "OS Not supported"
     exit 1
