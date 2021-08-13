@@ -168,8 +168,8 @@ module.exports = {keybindings: {
         "closeFindWidget"
     ],
 
-    n: { "editor.action.nextMatchFindAction": {}, repeat: "__count" },
-    N: { "editor.action.previousMatchFindAction": {}, repeat: "__count" },
+    "n": { "modalkeys.nextMatch": {}, repeat: "__count" },
+    "N": { "modalkeys.previousMatch": {}, repeat: "__count" },
     ";": { "modalkeys.nextMatch": {}, repeat: "__count" },
     ",,": { "modalkeys.previousMatch": {}, repeat: "__count" },
 
