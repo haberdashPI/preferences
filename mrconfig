@@ -162,3 +162,7 @@ checkout = git clone 'https://github.com/haberdashPI/quick_notes' 'quick_notes'
 [Documents/work/beacon/SleepEvents]
 checkout = git clone 'https://github.com/beacon-biosignals/SleepEvents' 'SleepEvents'
 skip = bash -c "[[ `hostname` != 'dlittle' ]]"
+
+[Documents/work/beacon/SeizureNet.jl]
+checkout = git clone 'https://github.com/beacon-biosignals/SeizureNet.jl' 'SeizureNet.jl'
+skip = bash -c "[[ `hostname` != 'dlittle' ]]"
