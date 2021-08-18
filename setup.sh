@@ -50,6 +50,19 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"\nfi\n'; cat ~/.zshrc; } > ~/.zshrc.new
 sed -i 's/ZSH_THEME=".*"/ZSH_THEME="powerlevel10k\/powerlevel10k"/g' ~/.zshrc.new
 echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc.new
+
+# julia install (override beacon defaults)
+echo "alias julia=\"/home/ubuntu/.asdf/shims/julia\"" >> ~/.zshrc.new
+if [[ $HOST == "dlittle" ]]; then
+    echo "
+    # julia_pod setup
+    export DOCKER_BUILDKIT=1 
+    export DOCKER_CLI_EXPERIMENTAL=enabled
+    export PRIVATE_REGISTRY_URL=\"https://github.com/beacon-biosignals/BeaconRegistry.git\"
+    export GITHUB_TOKEN_FILE=$HOME/.julia_pod_pat
+    " >> ~/.zshrc.new
+fi
+
 cp ~/Documents/preferences/p10k.zsh ~/.p10k.zsh
 
 # ZSH config common across all my machines
