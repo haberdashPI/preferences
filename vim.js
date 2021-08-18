@@ -141,6 +141,7 @@ module.exports = {
             "^": { to: 'wrappedLineFirstNonWhitespaceCharacter', select: '__mode == "visual"' },
             "g_": { to: 'wrappedLineLastNonWhitespaceCharacter', select: '__mode == "visual"' },
         },
+        "_": "cursorHomeSelect",
 
 // Moving to beginning or end of the file.
         gg: "cursorTop",
@@ -398,6 +399,15 @@ module.exports = {
                         then: "terminal-polyglot.send-block-text",
                         else: "terminal-polyglot.send-text"
                     },
+                },
+                "modalkeys.cancelMultipleSelections",
+                "modalkeys.touchDocument"
+            ],
+            ",;": [
+                {
+                    if: "!__selection.isSingleLine",
+                    then: "terminal-polyglot.send-block-text",
+                    else: "terminal-polyglot.send-text"
                 },
                 "modalkeys.cancelMultipleSelections",
                 "modalkeys.touchDocument"
