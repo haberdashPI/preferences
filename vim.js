@@ -434,8 +434,8 @@ module.exports = {
                     "$", "0", "G", "H", "M", "L", "%", "g_", "gg"].
                 map(k => [k, { "modalkeys.typeKeys": { keys: "v"+k } } ]))),
             ...aroundObjects({
-                w: { value: "k\W", regex: true },
-                p: { value: "(?<=\\r?\\n)\\s*\\r?\\n", regex: true },
+                w: { value: "\\W", regex: true },
+                p: { value: "^\\s*$", regex: true },
                 "(": { from: "(", to: ")" },
                 "{": { from: "{", to: "}" },
                 "[": { from: "[", to: "]" },
@@ -449,9 +449,9 @@ module.exports = {
         }
        }),
 
-       ...(Object.fromEntries(aroundObjects({
+       ...(Object.fromEntries(Object.entries(aroundObjects({
             w: { value: "\\W", regex: true },
-            p: { value: "(?<=\\r?\\n)\\s*\\r?\\n", regex: true },
+            p: { value: "^\\s*$", regex: true },
             "(": { from: "(", to: ")" },
             "{": { from: "{", to: "}" },
             "[": { from: "[", to: "]" },
@@ -461,9 +461,11 @@ module.exports = {
             "]": { from: "[", to: "]" },
             ">": { from: "<", to: ">" },
             ...(Object.fromEntries(["'", "\"", "`"].map(c => [c, c])))
-       }).map(([bind, command]) => {
+       })).map(([bind, command]) => {
            return ["visual::"+bind, command]
        }))),
+
+       gd: "editor.action.revealDefinition",
 
 // ## Searching
 
