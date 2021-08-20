@@ -26,6 +26,7 @@ alias less="bat --theme=GitHub"
 alias aws-start-pet="aws ec2 start-instances --instance-ids i-00fb057608149e842 --profile idorsia"
 alias aws-stop-pet="aws ec2 stop-instances --instance-ids i-00fb057608149e842 --profile idorsia"
 alias aws-sleep-pet="aws ec2 stop-instances --instance-ids i-00fb057608149e842 --profile idorsia --hibernate"
+alias aws-restart-pet="aws ec2 reboot-instances --instance-ids i-00fb057608149e842 --profile idorsia"
 
 function hdir(){
   pushd ~
