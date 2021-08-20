@@ -23,16 +23,20 @@
 // are familiar with vim. All concepts discussed here are introduced, at least
 // briefly, in the tutorial.
 
-// ## Functions
+// ## Operator Definitions
 
-// To begin with, we'll define some functions for use in our keybindings. Since
+// We start with the most important feature of a vim-like keymap: the verb-noun
+// format allowing a combinatorial set of commands. The verbs are called
+// operators and they do things to some portion of text. The nouns are called
+// objects and they define some region of text the operators modify. For
+// example delete a word you type <key>d</key> (for delete) and <key>w</key>
+// (for word). 
+
+// ### Functions
+
+// To begin with, we'll define to make defining the operators possible. Since
 // imported keybindings can be defined using javascript, this can help generalize
-// our bindings, allowing us to create many keybindings at once. In vim, the
-// cannonical use for this would be the operator/object combinations: e.g. to
-// delete a word you type <key>d</key> (for delete) and <key>w</key> (for word). This noun-verb
-// structure implies many possible shortcuts.
-
-// You can see these functions in use when [we define motions](#editing-with-motions)
+// our bindings, allowing us to create many keybindings at once. 
 
 /**
  * Creates a series of key mappings which select a region of text around
@@ -104,8 +108,133 @@ function operators(params){
     return result
 }
 
+/**
+ * Operator like behavior, but for objects that require the input of some number
+ * of characters before the operator can be executed. If we just used the format
+ * for `operators` above, the operator would execute before accepting input from
+ * the user. To capture user input first, we insert the operator in the
+ * `executeAfter` close of the search-like command (see docs for
+ * [`modalkeys.search`](../commands.html#incremental-search)).
+ */
+function searchOperators(params){
+    let result = {}
+    for(const [opkey, opcom] of Object.entries(params.operators)){
+        for(const [objkey, objcom] of Object.entries(params.objects)){
+            result["normal::"+opkey+objkey] = [
+                "modalkeys.cancelMultipleSelections", 
+                { ...objcom, executeAfter: opcom }
+            ]
+        }
+    }
+    return result
+}
+
+// Now that we've defined the functions that generator the operator, object
+// combinations, we need to define the individual operators and objects
+// themselves. We define some of these as variables because they need to be
+// re-used in several places 
+
+// ### Operators
+
+const operator_commands = {
+    d: "editor.action.clipboardCutAction",
+    y: [ "editor.action.clipboardCopyAction", "modalkeys.cancelMultipleSelections" ],
+    c: [
+        "deleteRight",
+        { if: "!__selection.isSingleLine", then: "editor.action.insertLineBefore" },
+        "modalkeys.enterInsert"
+    ],
+    ",.": [
+        {
+            if: "__language == 'julia'",
+            then: "language-julia.executeCodeBlockOrSelectionAndMove",
+            else: {
+                if: "!__selection.isSingleLine",
+                then: "terminal-polyglot.send-block-text",
+                else: "terminal-polyglot.send-text"
+            },
+        },
+        "modalkeys.cancelMultipleSelections",
+        "modalkeys.touchDocument"
+    ],
+    ",;": [
+        {
+            if: "!__selection.isSingleLine",
+            then: "terminal-polyglot.send-block-text",
+            else: "terminal-polyglot.send-text"
+        },
+        "modalkeys.cancelMultipleSelections",
+        "modalkeys.touchDocument"
+    ],
+    "<": ["editor.action.outdentLines", "modalkeys.cancelMultipleSelections" ],
+    ">": ["editor.action.indentLines", "modalkeys.cancelMultipleSelections" ]
+}
+
+// ### Objects
+
+const around_objects = {
+    w: { value: "\\W", regex: true },
+    p: { value: "^\\s*$", regex: true },
+    "(": { from: "(", to: ")" },
+    "{": { from: "{", to: "}" },
+    "[": { from: "[", to: "]" },
+    "<": { from: "<", to: ">" },
+    ")": { from: "(", to: ")" },
+    "}": { from: "{", to: "}" },
+    "]": { from: "[", to: "]" },
+    ">": { from: "<", to: ">" },
+    ...(Object.fromEntries(["'", "\"", "`"].map(c => [c, c])))
+}
+
+// ### Jump to a Character Objects
+
+// Advanced cursor motions in Vim include jump to character, which is especially powerful in
+// connection with editing commands. With this motion, we can apply edits up to or including a
+// specified character. The same motions work also as jump commands in normal mode. 
+
+// All of these keybindings are implemented using the [incremental
+// search](../doc_index.html#incremental-search) command, just the parameters are different for
+// each case. Basically we just perform either a forward or backward search and use the
+// "offset" option to determine where the cursor should land.
+
+const search_objects = {
+    f: {
+        "modalkeys.search": {
+            "acceptAfter": 1,
+            "offset": "inclusive",
+            "selectTillMatch": "__mode == 'visual'",
+        }
+    },
+    F: {
+        "modalkeys.search": {
+            "acceptAfter": 1,
+            "backwards": true,
+            "offset": "inclusive",
+            "selectTillMatch": "__mode == 'visual'",
+        }
+    },
+    t: {
+        "modalkeys.search": {
+            "acceptAfter": 1,
+            "offset": "exclusive",
+            "selectTillMatch": "__mode == 'visual'",
+        }
+    },
+    T: {
+        "modalkeys.search": {
+            "acceptAfter": 1,
+            "backwards": true,
+            "offset": "exclusive",
+            "selectTillMatch": "__mode == 'visual'",
+        }
+    },
+}
+
 // 
 // ## Game Plan
+
+// We've defined everything we need to define before-hand. Now we move to
+// actually creating the keymap.
 
 // We start with basic motion commands which are mostly straightforward to
 // implement. 
@@ -204,46 +333,10 @@ module.exports = {
 // bracket, but using it means that we are diverging from Vim's functionality.
         "%": "editor.action.jumpToBracket",
         "visual::%": "editor.action.smartSelect.expand",
-// ## Jump to a Character
 
-// Advanced cursor motions in Vim include jump to character, which is especially powerful in
-// connection with editing commands. With this motion, we can apply edits up to or including a
-// specified character. The same motions work also as jump commands in normal mode. 
-
-// All of these keybindings are implemented using the [incremental
-// search](../doc_index.html#incremental-search) command, just the parameters are different for
-// each case. Basically we just perform either a forward or backward search and use the
-// "offset" option to determine where the cursor should land.
-        f: {
-            "modalkeys.search": {
-                "acceptAfter": 1,
-                "offset": "inclusive",
-                "selectTillMatch": "__mode == 'visual'",
-            }
-        },
-        F: {
-            "modalkeys.search": {
-                "acceptAfter": 1,
-                "backwards": true,
-                "offset": "inclusive",
-                "selectTillMatch": "__mode == 'visual'",
-            }
-        },
-        t: {
-            "modalkeys.search": {
-                "acceptAfter": 1,
-                "offset": "exclusive",
-                "selectTillMatch": "__mode == 'visual'",
-            }
-        },
-        T: {
-            "modalkeys.search": {
-                "acceptAfter": 1,
-                "backwards": true,
-                "offset": "exclusive",
-                "selectTillMatch": "__mode == 'visual'",
-            }
-        },
+// ## Search Operators
+// Having defined the search operators above, we now insert them into the keymap
+        ...search_objects,
 
 // Repeating the motions can be done simply by calling `nextMatch` or
 // `previousMatch`.
@@ -382,39 +475,7 @@ module.exports = {
 // on the selection. It does not matter which editing command we run, all of them
 // can be mapped the same way.
        ...operators({
-        operators: {
-            d: "editor.action.clipboardCutAction",
-            y: [ "editor.action.clipboardCopyAction", "modalkeys.cancelMultipleSelections" ],
-            c: [
-                "deleteRight",
-                { if: "!__selection.isSingleLine", then: "editor.action.insertLineBefore" },
-                "modalkeys.enterInsert"
-            ],
-            ",.": [
-                {
-                    if: "__language == 'julia'",
-                    then: "language-julia.executeCodeBlockOrSelectionAndMove",
-                    else: {
-                        if: "!__selection.isSingleLine",
-                        then: "terminal-polyglot.send-block-text",
-                        else: "terminal-polyglot.send-text"
-                    },
-                },
-                "modalkeys.cancelMultipleSelections",
-                "modalkeys.touchDocument"
-            ],
-            ",;": [
-                {
-                    if: "!__selection.isSingleLine",
-                    then: "terminal-polyglot.send-block-text",
-                    else: "terminal-polyglot.send-text"
-                },
-                "modalkeys.cancelMultipleSelections",
-                "modalkeys.touchDocument"
-            ],
-            "<": ["editor.action.outdentLines", "modalkeys.cancelMultipleSelections" ],
-            ">": ["editor.action.indentLines", "modalkeys.cancelMultipleSelections" ]
-        },
+        operators: operators_commands,
         objects: {
             j: [
                 "modalkeys.cancelMultipleSelections",
@@ -440,38 +501,20 @@ module.exports = {
                 },
                 "expandLineSelection",
             ],
-            ...(Object.fromEntries(["f", "F", "t", "T", "w", "b", "e", "W", "B", "E", "^",
+            ...(Object.fromEntries(["w", "b", "e", "W", "B", "E", "^",
                     "$", "0", "G", "H", "M", "L", "%", "g_", "gg"].
                 map(k => [k, { "modalkeys.typeKeys": { keys: "v"+k } } ]))),
-            ...aroundObjects({
-                w: { value: "\\W", regex: true },
-                p: { value: "^\\s*$", regex: true },
-                "(": { from: "(", to: ")" },
-                "{": { from: "{", to: "}" },
-                "[": { from: "[", to: "]" },
-                "<": { from: "<", to: ">" },
-                ")": { from: "(", to: ")" },
-                "}": { from: "{", to: "}" },
-                "]": { from: "[", to: "]" },
-                ">": { from: "<", to: ">" },
-                ...(Object.fromEntries(["'", "\"", "`"].map(c => [c, c])))
-            }),
+            ...aroundObjects(around_objects),
         }
        }),
 
-       ...(Object.fromEntries(Object.entries(aroundObjects({
-            w: { value: "\\W", regex: true },
-            p: { value: "^\\s*$", regex: true },
-            "(": { from: "(", to: ")" },
-            "{": { from: "{", to: "}" },
-            "[": { from: "[", to: "]" },
-            "<": { from: "<", to: ">" },
-            ")": { from: "(", to: ")" },
-            "}": { from: "{", to: "}" },
-            "]": { from: "[", to: "]" },
-            ">": { from: "<", to: ">" },
-            ...(Object.fromEntries(["'", "\"", "`"].map(c => [c, c])))
-       })).map(([bind, command]) => {
+       ...searchOperators({
+            operators: operators_commands,
+            objects: search_objects,
+       }),
+
+       ...(Object.fromEntries(Object.entries(aroundObjects(around_objects)).
+            map(([bind, command]) => {
            return ["visual::"+bind, command]
        }))),
 
