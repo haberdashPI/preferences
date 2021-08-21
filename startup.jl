@@ -31,7 +31,7 @@ end
 end
 
 @static if gethostname() ∉ ["edgewater", "dlittle"]
-    @tryusing Alert alertREPL(5.0)
+    @tryusing Alert alert_REPL!(duration=5.0)
 else
     @tryusing Alert begin
         using AlertPushover
