@@ -122,11 +122,17 @@ function searchOperators(params){
         for(const [objkey, objcom] of Object.entries(params.objects)){
             result["normal::"+opkey+objkey] = [
                 "modalkeys.cancelMultipleSelections", 
-                { ...objcom, executeAfter: opcom }
+                executeAfter(objkey, opkey)
             ]
         }
     }
     return result
+}
+
+function executeAfter(command, after){
+    let command_name = Object.keys(command).filter(str => str !== "repeat")[0]
+    command[command_name] = { ...command[command_name], executeAfter: after }
+    return command
 }
 
 // Now that we've defined the functions that generator the operator, object
@@ -475,7 +481,7 @@ module.exports = {
 // on the selection. It does not matter which editing command we run, all of them
 // can be mapped the same way.
        ...operators({
-        operators: operators_commands,
+        operators: operator_commands,
         objects: {
             j: [
                 "modalkeys.cancelMultipleSelections",
@@ -509,7 +515,7 @@ module.exports = {
        }),
 
        ...searchOperators({
-            operators: operators_commands,
+            operators: operator_commands,
             objects: search_objects,
        }),
 
