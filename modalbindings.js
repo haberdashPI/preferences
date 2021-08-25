@@ -716,6 +716,7 @@ module.exports = {keybindings: {
     ],
     ",\"": { "modalkeys.enterMode": { mode: "selectedit" } },
     "selectedit:: ": [ "selection-utilities.cancelSelection", { "modalkeys.enterMode": { mode: "normal" }} ],
+    "selectedit::i": [  "selection-utilities.cancelMultipleSelections", { "modalkeys.enterMode": { mode: "insert" }} ],
     "selectedit::\n": [ { "modalkeys.enterMode": { mode: "normal" }} ],
 
     "selectedit::\"": { "selection-utilities.addNext": {}, repeat: '__count' },
