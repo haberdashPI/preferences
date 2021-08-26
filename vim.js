@@ -151,11 +151,20 @@ function executeAfter(command, after){
 const operator_commands = {
     d: "editor.action.clipboardCutAction",
     y: [ "editor.action.clipboardCopyAction", "modalkeys.cancelMultipleSelections" ],
-    c: [
-        "deleteRight",
-        { if: "!__selection.isSingleLine", then: "editor.action.insertLineBefore" },
-        "modalkeys.enterInsert"
-    ],
+    c: {
+        if: "!__selection.isSingleLine && __selection.end.character == 0 && __selection.start.character == 0",
+        // multi-line selection
+        then: [
+            "deleteRight",
+            "editor.action.insertLineBefore",
+            "modalkeys.enterInsert"
+        ],
+        // single line selection
+        else: [ 
+            "deleteRight",
+            "modalkeys.enterInsert"
+        ]
+    },
     ",.": [
         {
             if: "__language == 'julia'",
@@ -517,6 +526,8 @@ module.exports = {
                     "$", "0", "G", "H", "M", "L", "%", "g_", "gg"].
                 map(k => [k, { "modalkeys.typeKeys": { keys: "v"+k } } ]))),
             ...aroundObjects(around_objects),
+            "[": "vscode-select-by-indent.select-inner",
+            "{": "vscode-select-by-indent.select-outer",
         }
        }),
 
@@ -531,6 +542,7 @@ module.exports = {
        }))),
 
        gd: "editor.action.revealDefinition",
+       gq: "rewrap.rewrapComment",
 
 // ## Searching
 
