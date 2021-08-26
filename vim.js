@@ -122,7 +122,7 @@ function searchOperators(params){
         for(const [objkey, objcom] of Object.entries(params.objects)){
             result["normal::"+opkey+objkey] = [
                 "modalkeys.cancelMultipleSelections", 
-                executeAfter(objkey, opkey)
+                executeAfter(objcom, opcom),
             ]
         }
     }
@@ -131,8 +131,14 @@ function searchOperators(params){
 
 function executeAfter(command, after){
     let command_name = Object.keys(command).filter(str => str !== "repeat")[0]
-    command[command_name] = { ...command[command_name], executeAfter: after }
-    return command
+    return {
+        ...command,
+        [command_name]: {
+            ...command[command_name],
+            executeAfter: after,
+            selectTillMatch: true
+        }
+    }
 }
 
 // Now that we've defined the functions that generator the operator, object
