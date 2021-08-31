@@ -9,6 +9,7 @@ if [[ $OSTYPE == "linux-gnu"* ]]; then
     sudo apt -yq install neovim # cli editor of choice
     sudo apt -yq install myrepos # git multi-repo management
     sudo apt -yq install fzf # git multi-repo management
+    sudo apt -yq install jq # julia_pod depedency
 
     yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/ubuntu/.zprofile
@@ -54,8 +55,16 @@ echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc.new
 # julia install (override beacon defaults)
 echo "alias julia=\"/home/ubuntu/.asdf/shims/julia\"" >> ~/.zshrc.new
 if [[ $HOST == "dlittle" ]]; then
+    # julia_pod setup
+    git clone https://github.com/beacon-biosignals/julia_pod ~/bin/julia_pod
+    asdf install nodejs 16.8.0
+    asdf reshim
+    npm i -g devspace
+    sudo apt -yq install jq # julia_pod depedency
+
     echo "
     # julia_pod setup
+    export PATH=\$PATH:$HOME/bin/julia_pod/add_me_to_your_PATH
     export DOCKER_BUILDKIT=1 
     export DOCKER_CLI_EXPERIMENTAL=enabled
     export PRIVATE_REGISTRY_URL=\"https://github.com/beacon-biosignals/BeaconRegistry.git\"
