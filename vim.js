@@ -32,11 +32,22 @@
 // example delete a word you type <key>d</key> (for delete) and <key>w</key>
 // (for word). 
 
+// ### Required extensions
+
+// Unlike the tutorial, these settings are not self-contained and make use of a
+// variety of extensions to allow for a better set of features. You wil need the
+// following extensions for all bindings to work:
+
+// - [Quick and Simple Text Selection](https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select)
+// - [Selection Utilities](https://marketplace.visualstudio.com/items?itemName=haberdashPI.selection-utilities)
+// - [Select by Indent](https://marketplace.visualstudio.com/items?itemName=haberdashPI.vscode-select-by-indent)
+
 // ### Functions
 
-// To begin with, we'll define to make defining the operators possible. Since
-// imported keybindings can be defined using javascript, this can help generalize
-// our bindings, allowing us to create many keybindings at once. 
+// To begin with, we'll define some function to make creating the operators
+// easier. Since imported keybindings can be defined using javascript, this can
+// help generalize our bindings, allowing us to create many keybindings at once.
+// 
 
 /**
  * Creates a series of key mappings which select a region of text around
@@ -48,7 +59,7 @@
  * @returns a map of key: command pairings. Two per entry in `mappings`
  * (one for within `i` and one for around `a` the given bounds)
  */
-function aroundObjects(mappings){
+ function aroundObjects(mappings){
     return Object.fromEntries(Object.entries(mappings).map(([key, bounds]) => {
         return [
             ["a"+key, { "modalkeys.selectBetween": {
@@ -196,14 +207,6 @@ const operator_commands = {
 const around_objects = {
     w: { value: "\\W", regex: true },
     p: { value: "^\\s*$", regex: true },
-    "(": { from: "(", to: ")" },
-    "{": { from: "{", to: "}" },
-    "[": { from: "[", to: "]" },
-    "<": { from: "<", to: ">" },
-    ")": { from: "(", to: ")" },
-    "}": { from: "{", to: "}" },
-    "]": { from: "[", to: "]" },
-    ">": { from: "<", to: ">" },
     ...(Object.fromEntries(["'", "\"", "`"].map(c => [c, c])))
 }
 
@@ -317,7 +320,7 @@ module.exports = {
         "visual::b": { "cursorWordStartLeftSelect": {}, "repeat": "__count" },
         W: {
             "modalkeys.search": {
-                "text": "\\W+",
+                "text": "\\S+",
                 "offset": 'inclusive',
                 "regex": true,
                 "selectTillMatch": '__mode == "visual"',
@@ -327,7 +330,36 @@ module.exports = {
         },
         B: {
             "modalkeys.search": {
-                "text": "\\W+",
+                "text": "\\S+",
+                "offset": 'inclusive',
+                "regex": true,
+                "backwards": true,
+                "selectTillMatch": '__mode == "visual"',
+                "highlightMatches": false,
+            },
+            "repeat": '__count',
+        },
+
+// To jump paragraphs we just search for the first blank line. When moving
+// forward, we need to use `executeAfter` (which runs a command after search is
+// accepterd). We use this to move one extra character forward to get to the
+// actual empty line because of the way search works with newlines.
+        "}": {
+            "modalkeys.search": {
+                "text": "^\\s*$",
+                "offset": 'inclusive',
+                "regex": true,
+                "backwards": false,
+                "selectTillMatch": '__mode == "visual"',
+                "highlightMatches": false,
+                "executeAfter": { "cursorMove": 
+                    { to: 'right', select: '__mode == "visual"' } }
+            },
+            "repeat": '__count',
+        },
+        "{": {
+            "modalkeys.search": {
+                "text": "^\\s*$",
                 "offset": 'inclusive',
                 "regex": true,
                 "backwards": true,
@@ -522,6 +554,36 @@ module.exports = {
                 },
                 "expandLineSelection",
             ],
+            h: [
+                "modalkeys.cancelMultipleSelections",
+                {
+                    "cursorMove": {
+                        to: 'left',
+                        select: true,
+                        value: '__count'
+                    }
+                },
+                "expandLineSelection",
+            ],
+            l: [
+                "modalkeys.cancelMultipleSelections",
+                {
+                    "cursorMove": {
+                        to: 'right',
+                        select: true,
+                        value: '__count'
+                    }
+                },
+                "expandLineSelection",
+            ],
+            "i(": "extension.selectParenthesis",
+            "a(": "extension.selectParenthesisOuter",
+            "i[": "extension.selectSquareBrackets",
+            "a[": "extension.selectSquareBracketsOuter",
+            "i{": "extension.selectCurlyBrackets",
+            "a{": "extension.selectCurlyBracketsOuter",
+            "i<": "extension.selectAngleBrackets",
+            "a<": "extension.selectAngleBracketsOuter",
             ...(Object.fromEntries(["w", "b", "e", "W", "B", "E", "^",
                     "$", "0", "G", "H", "M", "L", "%", "g_", "gg"].
                 map(k => [k, { "modalkeys.typeKeys": { keys: "v"+k } } ]))),
@@ -540,6 +602,15 @@ module.exports = {
             map(([bind, command]) => {
            return ["visual::"+bind, command]
        }))),
+
+       "visual::i(": "extension.selectParenthesis",
+       "visual::a(": "extension.selectParenthesisOuter",
+       "visual::i[": "extension.selectSquareBrackets",
+       "visual::a[": "extension.selectSquareBracketsOuter",
+       "visual::i{": "extension.selectCurlyBrackets",
+       "visual::a{": "extension.selectCurlyBracketsOuter",
+       "visual::i<": "extension.selectAngleBrackets",
+       "visual::a<": "extension.selectAngleBracketsOuter",
 
        gd: "editor.action.revealDefinition",
        gq: "rewrap.rewrapComment",
