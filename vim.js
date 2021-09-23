@@ -34,9 +34,10 @@
 
 // ### Functions
 
-// To begin with, we'll define to make defining the operators possible. Since
-// imported keybindings can be defined using javascript, this can help generalize
-// our bindings, allowing us to create many keybindings at once. 
+// To begin with, we'll define some function to make creating the operators
+// easier. Since imported keybindings can be defined using javascript, this can
+// help generalize our bindings, allowing us to create many keybindings at once.
+// 
 
 /**
  * Creates a series of key mappings which select a region of text around
@@ -48,7 +49,7 @@
  * @returns a map of key: command pairings. Two per entry in `mappings`
  * (one for within `i` and one for around `a` the given bounds)
  */
-function aroundObjects(mappings){
+ function aroundObjects(mappings){
     return Object.fromEntries(Object.entries(mappings).map(([key, bounds]) => {
         return [
             ["a"+key, { "modalkeys.selectBetween": {
@@ -193,21 +194,18 @@ const operator_commands = {
 
 // ### Objects
 
+// #### Objects around delimeters
+
+// These objects are defined by the delimeters that surround them. Note
+// that these are purely textual, and do not handle nesting.
+
 const around_objects = {
     w: { value: "\\W", regex: true },
     p: { value: "^\\s*$", regex: true },
-    "(": { from: "(", to: ")" },
-    "{": { from: "{", to: "}" },
-    "[": { from: "[", to: "]" },
-    "<": { from: "<", to: ">" },
-    ")": { from: "(", to: ")" },
-    "}": { from: "{", to: "}" },
-    "]": { from: "[", to: "]" },
-    ">": { from: "<", to: ">" },
     ...(Object.fromEntries(["'", "\"", "`"].map(c => [c, c])))
 }
 
-// ### Jump to a Character Objects
+// #### Jump to a Character 
 
 // Advanced cursor motions in Vim include jump to character, which is especially powerful in
 // connection with editing commands. With this motion, we can apply edits up to or including a
@@ -266,9 +264,25 @@ const search_objects = {
 // (e.g. the `3` in 3l) to a given command.
 // - When in visual model, most of the commands are built to extend the selection
 
+// ### Required extensions
+
+// Unlike the tutorial, these settings are not self-contained and make use of a
+// variety of extensions to allow for a better set of features. You wil need the
+// following extensions for all bindings to work properly:
+
+// - [Quick and Simple Text Selection](https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select)
+// - [Selection Utilities](https://marketplace.visualstudio.com/items?itemName=haberdashPI.selection-utilities)
+// - [Select by Indent](https://marketplace.visualstudio.com/items?itemName=haberdashPI.vscode-select-by-indent)
+
+module.exports = {
+    "extensions": [
+        "dbankier.vscode-quick-select",
+        "haberdashpi.vscode-select-by-indent",
+        "haberdashpi.selection-utilities"
+    ],
+
 // ## Motions in Normal Mode
 // 
-module.exports = {
     "keybindings": {
 // Cursor can be advanced in a file with enter and space. These are not
 // technically motion commands but included for compatibility.
@@ -317,7 +331,7 @@ module.exports = {
         "visual::b": { "cursorWordStartLeftSelect": {}, "repeat": "__count" },
         W: {
             "modalkeys.search": {
-                "text": "\\W+",
+                "text": "\\S+",
                 "offset": 'inclusive',
                 "regex": true,
                 "selectTillMatch": '__mode == "visual"',
@@ -327,7 +341,36 @@ module.exports = {
         },
         B: {
             "modalkeys.search": {
-                "text": "\\W+",
+                "text": "\\S+",
+                "offset": 'inclusive',
+                "regex": true,
+                "backwards": true,
+                "selectTillMatch": '__mode == "visual"',
+                "highlightMatches": false,
+            },
+            "repeat": '__count',
+        },
+
+// To jump paragraphs we just search for the first blank line. When moving
+// forward, we need to use `executeAfter` (which runs a command after search is
+// accepterd). We use this to move one extra character forward to get to the
+// actual empty line because of the way search works with newlines.
+        "}": {
+            "modalkeys.search": {
+                "text": "^\\s*$",
+                "offset": 'inclusive',
+                "regex": true,
+                "backwards": false,
+                "selectTillMatch": '__mode == "visual"',
+                "highlightMatches": false,
+                "executeAfter": { "cursorMove": 
+                    { to: 'right', select: '__mode == "visual"' } }
+            },
+            "repeat": '__count',
+        },
+        "{": {
+            "modalkeys.search": {
+                "text": "^\\s*$",
                 "offset": 'inclusive',
                 "regex": true,
                 "backwards": true,
@@ -499,7 +542,6 @@ module.exports = {
         operators: operator_commands,
         objects: {
             j: [
-                "modalkeys.cancelMultipleSelections",
                 {
                     "cursorMove": {
                         to: 'down',
@@ -511,7 +553,6 @@ module.exports = {
                 "expandLineSelection",
             ],
             k: [
-                "modalkeys.cancelMultipleSelections",
                 {
                     "cursorMove": {
                         to: 'up',
@@ -522,10 +563,60 @@ module.exports = {
                 },
                 "expandLineSelection",
             ],
-            ...(Object.fromEntries(["w", "b", "e", "W", "B", "E", "^",
+            h: [
+                {
+                    "cursorMove": {
+                        to: 'left',
+                        select: true,
+                        value: '__count'
+                    }
+                },
+            ],
+            l: {
+                "cursorMove": {
+                    to: 'right',
+                    select: true,
+                    value: '__count'
+                }
+            },
+            "i(": "extension.selectParenthesis",
+            "a(": "extension.selectParenthesisOuter",
+            "i[": "extension.selectSquareBrackets",
+            "a[": "extension.selectSquareBracketsOuter", 
+            "i{": "extension.selectCurlyBrackets",
+            "a{": "extensiondselectCurlyBracketsOuter",
+            "i<": "extension.selectAngleBrackets",
+            "a<": "extension.selectAngleBracketsOuter",
+            ...(Object.fromEntries(["^",
                     "$", "0", "G", "H", "M", "L", "%", "g_", "gg"].
                 map(k => [k, { "modalkeys.typeKeys": { keys: "v"+k } } ]))),
             ...aroundObjects(around_objects),
+            // Word motions need to be repeated here: otherwise `__count`
+            // will be dropped and the motions won't accept numeric arguments
+            "w": { "cursorWordStartRightSelect": {}, "repeat": "__count" },
+            "e": { "cursorWordEndRightSelect": {}, "repeat": "__count" },
+            "b": { "cursorWordStartLeftSelect": {}, "repeat": "__count" },
+            W: {
+                "modalkeys.search": {
+                    "text": "\\S+",
+                    "offset": 'inclusive',
+                    "regex": true,
+                    "selectTillMatch": true,
+                    "highlightMatches": false,
+                },
+                "repeat": '__count',
+            },
+            B: {
+                "modalkeys.search": {
+                    "text": "\\S+",
+                    "offset": 'inclusive',
+                    "regex": true,
+                    "backwards": true,
+                    "selectTillMatch": true,
+                    "highlightMatches": false,
+                },
+                "repeat": '__count',
+            },
             "[": "vscode-select-by-indent.select-inner",
             "{": "vscode-select-by-indent.select-outer",
         }
@@ -540,6 +631,15 @@ module.exports = {
             map(([bind, command]) => {
            return ["visual::"+bind, command]
        }))),
+
+       "visual::i(": "extension.selectParenthesis",
+       "visual::a(": "extension.selectParenthesisOuter",
+       "visual::i[": "extension.selectSquareBrackets",
+       "visual::a[": "extension.selectSquareBracketsOuter",
+       "visual::i{": "extension.selectCurlyBrackets",
+       "visual::a{": "extension.selectCurlyBracketsOuter",
+       "visual::i<": "extension.selectAngleBrackets",
+       "visual::a<": "extension.selectAngleBracketsOuter",
 
        gd: "editor.action.revealDefinition",
        gq: "rewrap.rewrapComment",
@@ -556,13 +656,17 @@ module.exports = {
 // | `n`       | Select the next match
 // | `p`       | Select the previous match
 
-// **Note**: Searching commands work also with multiple cursors. As in Vim, search
-// wraps around if top or bottom of file is encountered.
+// **Note**: Searching commands work also with multiple cursors. As in Vim,
+// search wraps around if top or bottom of file is encountered. Note that we use
+// a separate register ("search") so that the state of the last search (for next
+// and previous matches) are different from the `modalkeys.search` commands that
+// are called to implement <key>f</key> and friends.
         "/": [
             {
                 "modalkeys.search": {
                     "caseSensitive": true,
-                    "wrapAround": true
+                    "wrapAround": true,
+                    "register": "search"
                 }
             }
         ],
@@ -570,11 +674,27 @@ module.exports = {
             "modalkeys.search": {
                 "backwards": true,
                 "caseSensitive": true,
-                "wrapAround": true
+                "wrapAround": true,
+                "register": "search"
             }
         },
-        n: "modalkeys.nextMatch",
-        N: "modalkeys.previousMatch",
+        n: { "modalkeys.nextMatch": {register: "search"}},
+        N: { "modalkeys.previousMatch": {register: "search"}},
+        "*": [
+            { "modalkeys.search": {
+                text: "__wordstr",
+                wrapAround: true,
+                register: "search"
+            }}
+        ],
+        "#": [
+            { "modalkeys.search": {
+                text: "__wordstr",
+                wrapAround: true,
+                backwards: true,
+                register: "search"
+            }}
+        ],
 // ## Miscellaneous Commands
 
 // Rest of the normal mode commands are not motion or editing commands, but do
