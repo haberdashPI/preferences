@@ -204,13 +204,18 @@ const operator_commands = {
 
 // ### Objects
 
+// #### Objects around delimeters
+
+// These objects are defined by the delimeters that surround them. Note
+// that these are purely textual, and do not handle nesting.
+
 const around_objects = {
     w: { value: "\\W", regex: true },
     p: { value: "^\\s*$", regex: true },
     ...(Object.fromEntries(["'", "\"", "`"].map(c => [c, c])))
 }
 
-// ### Jump to a Character Objects
+// #### Jump to a Character 
 
 // Advanced cursor motions in Vim include jump to character, which is especially powerful in
 // connection with editing commands. With this motion, we can apply edits up to or including a
@@ -531,7 +536,6 @@ module.exports = {
         operators: operator_commands,
         objects: {
             j: [
-                "modalkeys.cancelMultipleSelections",
                 {
                     "cursorMove": {
                         to: 'down',
@@ -543,7 +547,6 @@ module.exports = {
                 "expandLineSelection",
             ],
             k: [
-                "modalkeys.cancelMultipleSelections",
                 {
                     "cursorMove": {
                         to: 'up',
@@ -555,7 +558,6 @@ module.exports = {
                 "expandLineSelection",
             ],
             h: [
-                "modalkeys.cancelMultipleSelections",
                 {
                     "cursorMove": {
                         to: 'left',
@@ -563,31 +565,52 @@ module.exports = {
                         value: '__count'
                     }
                 },
-                "expandLineSelection",
             ],
-            l: [
-                "modalkeys.cancelMultipleSelections",
-                {
-                    "cursorMove": {
-                        to: 'right',
-                        select: true,
-                        value: '__count'
-                    }
-                },
-                "expandLineSelection",
-            ],
+            l: {
+                "cursorMove": {
+                    to: 'right',
+                    select: true,
+                    value: '__count'
+                }
+            },
             "i(": "extension.selectParenthesis",
             "a(": "extension.selectParenthesisOuter",
             "i[": "extension.selectSquareBrackets",
-            "a[": "extension.selectSquareBracketsOuter",
+            "a[": "extension.selectSquareBracketsOuter", 
             "i{": "extension.selectCurlyBrackets",
-            "a{": "extension.selectCurlyBracketsOuter",
+            "a{": "extensiondselectCurlyBracketsOuter",
             "i<": "extension.selectAngleBrackets",
             "a<": "extension.selectAngleBracketsOuter",
-            ...(Object.fromEntries(["w", "b", "e", "W", "B", "E", "^",
+            ...(Object.fromEntries(["^",
                     "$", "0", "G", "H", "M", "L", "%", "g_", "gg"].
                 map(k => [k, { "modalkeys.typeKeys": { keys: "v"+k } } ]))),
             ...aroundObjects(around_objects),
+            // Word motions need to be repeated here: otherwise `__count`
+            // will be dropped and the motions won't accept numeric arguments
+            "w": { "cursorWordStartRightSelect": {}, "repeat": "__count" },
+            "e": { "cursorWordEndRightSelect": {}, "repeat": "__count" },
+            "b": { "cursorWordStartLeftSelect": {}, "repeat": "__count" },
+            W: {
+                "modalkeys.search": {
+                    "text": "\\S+",
+                    "offset": 'inclusive',
+                    "regex": true,
+                    "selectTillMatch": true,
+                    "highlightMatches": false,
+                },
+                "repeat": '__count',
+            },
+            B: {
+                "modalkeys.search": {
+                    "text": "\\S+",
+                    "offset": 'inclusive',
+                    "regex": true,
+                    "backwards": true,
+                    "selectTillMatch": true,
+                    "highlightMatches": false,
+                },
+                "repeat": '__count',
+            },
             "[": "vscode-select-by-indent.select-inner",
             "{": "vscode-select-by-indent.select-outer",
         }
@@ -633,7 +656,8 @@ module.exports = {
             {
                 "modalkeys.search": {
                     "caseSensitive": true,
-                    "wrapAround": true
+                    "wrapAround": true,
+                    "register": "search"
                 }
             }
         ],
@@ -641,11 +665,12 @@ module.exports = {
             "modalkeys.search": {
                 "backwards": true,
                 "caseSensitive": true,
-                "wrapAround": true
+                "wrapAround": true,
+                "register": "search"
             }
         },
-        n: "modalkeys.nextMatch",
-        N: "modalkeys.previousMatch",
+        n: { "modalkeys.nextMatch": {register: "search"}},
+        N: { "modalkeys.previousMatch": {register: "search"}},
 // ## Miscellaneous Commands
 
 // Rest of the normal mode commands are not motion or editing commands, but do
