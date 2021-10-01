@@ -34,6 +34,13 @@ module.exports = {keybindings: {
     // motions
 
     // basic movement
+    "::doc::h": { kind: "select", label: "←", detail: "move left" },
+    "::doc::j": { kind: "select", label: '↓', detail: "move down" },
+    "::doc::k": { kind: "select", label: '↑', detail: "move up" },
+    "::doc::l": { kind: "select", label: '→', detail: "move right" },
+    "::doc::g": { kind: "leader", label: "actions", detail: "additional commands (mostly actions)" },
+    "::doc::gj": { kind: "select", label: 'unwrp ↓', detail: "Down unwrapped line" },
+    "::doc::gk": { kind: "select", label: 'unwrp ↑', detail: "Up unwrapped line"},
     "::using::cursorMove::": {
         h: { to: 'left', select: "__mode !== 'normal'", value: '__count' },
         j: { to: 'down', by: 'wrappedLine', select: "__mode !== 'normal'", value: '__count' },
@@ -44,26 +51,33 @@ module.exports = {keybindings: {
     },
 
     // line related movements
+    "::doc::H": { kind: "select", label: "start", detail: "start of line (alterantes between first non-whitepace, and first)" },
     H: "cursorHomeSelect",
+    "::doc::L": { kind: "select", label: "end", detail: "end of line" },
     L: { "cursorMove": { to: "wrappedLineEnd", select: true } },
+    "::doc::G": { kind: "select", label: "entire line", detail: "expand selection to entire line" },
     G:  "expandLineSelection",
+    "::doc::K": { kind: "select", label: "sel ↑", "select lines upwards" },    
     K: [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: 'up', by: 'wrappedLine', select: true, value: '__count' } },
         "expandLineSelection",
         "selection-utilities.activeAtStart"
     ],
+    "::doc::J": { kind: "select", label: "sel ↓", "select lines downwards" },    
     J: [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: 'down', by: 'wrappedLine', select: true, value: '__count' } },
         "expandLineSelection",
     ],
+    "::doc::gK": { kind: "select", label: 'unwrp sel ↑', detail: "select unwrapped lines upwards" },
     gK: [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: 'up', by: 'line', select: true, value: '__count' } },
         "expandLineSelection",
         "selection-utilities.activeAtStart"
     ],
+    "::doc::gJ": { kind: "select", label: 'unwrp sel ↓', detail: "select unwrapped lines downwards" },
     gJ: [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: 'down', by: 'line', select: true, value: '__count' } },
@@ -71,16 +85,37 @@ module.exports = {keybindings: {
     ],
 
 
+    "::doc::\\": { kind: "select", label: 'right character', detail: "select *just* the character to the right" },
     "\\": [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: 'right', select: true, value: '__count' } }
     ],
+    "::doc::\\": { kind: "select", label: 'left character', detail: "select *just* the character to the left" },
     "|": [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: 'left', select: true, value: '__count' } }
     ],
 
     // movements around regex units
+    "::doc::'": { kind: "leader", label: "selections", detail: "additional commands (mostly selection/view related)"},
+    "::doc::u": { kind: "modifier", label: "around", detail: "next selection command will move start of selection to surround the entire object (rather than extending to specified start/end point)" },
+    "::doc::w": { kind: "select", label: "subwrd →", detail: "next subword (camel/snake case)" },
+    "::doc::W": { kind: "select", label: "word →", detail: "next word"},
+    "::doc::e": { kind: "select", label: "word end →", detail: "next word end" },
+    "::doc::b": { kind: "select", label: "subwrd ←", detail: "previous subword (came/snake case)" },
+    "::doc::B": { kind: "select", label: "word ←", detail: "previous word" },
+    "::doc::E": { kind: "select", label: "word end ←", detail: "previous word end" },
+    "::doc::@": { kind: "select", label: "number →", detail: "next number" },
+    "::doc::#": { kind: "select", label: "number →", detail: "previous number" },
+    "::doc::';": { kind: "select", label: "comment →", detail: "next commented region" },
+    "::doc::':": { kind: "select", label: "comment ←", detail: "previous commented region" },
+    "::doc::p": { kind: "select", label: "pargrph →", detail: "next pagaraph" },
+    "::doc::P": { kind: "select", label: "pargrph ←", detail: "previous paragraph" },
+    "::doc::'a": { kind: "select", label: "sec →", detail: "next section" },
+    "::doc::'A": { kind: "select", label: "sec ←", detail: "previous section" },
+    "::doc::'s": { kind: "select", label: "subsec →", detail: "next subsection" },
+    "::doc::'S": { kind: "select", label: "subsec ←", detail: "previous subsection" },
+
     "::using::selection-utilities.moveBy": {
         // word-like
         w:     { unit: "subword", boundary: "start", select:      true, value:  '(__count || 1)' },
@@ -127,36 +162,49 @@ module.exports = {keybindings: {
     },
 
     // jupyter based cell selection
+    "::doc::'y": { kind: "select", label: "jupyter", detail: "jupyter related selection commands"},
+    "::doc::'yc": { kind: "select", label: "cell →", detail: "next jupyter cell"},
     "'yc": ["jupyter.gotoNextCellInFile", "jupyter.selectCell"],
+    "::doc::'yC": { kind: "select", label: "cell ←", detail: "previous jupyter cell"},
     "'yC": ["jupyter.gotoPrevCellInFile", "jupyter.selectCell"],
+    "::doc::uy": { kind: "select", label: "cell", detail: "select cel"},
     uy: "jupyter.selectCell",
 
     // function arguments
     "::using::move-cursor-by-argument.move-by-argument": {
+        "::doc::,w": { kind: "select", label: "arg →", detail: "Next function argument"},
         ",w":  { value: "(__count || 1)",  boundary: "end", select:      true },
+        "::doc::,b": { kind: "select", label: "arg ←", detail: "Previous function argument"},
         ",b":  { value: "-(__count || 1)", boundary: "start", select:      true },
+        "::doc::,W": { kind: "select", label: "arg(+,) →", detail: "Next function argument (and comma)"},
         ",W":  { value: "(__count || 1)",  boundary: "start", select:      true },
+        "::doc::,B": { kind: "select", label: "arg(+,) ←", detail: "Previous function argument (and comma)"},
         ",B":  { value: "-(__count || 1)", boundary: "end",   select:      true },
-        // "u,w": { value: "(__count || 1)",  boundary: "both", selectWhole: true },
-        // "u,b": { value: "-(__count || 1)", boundary: "both", selectWhole: true },
-        // "u,W": { value: "(__count || 1)",  boundary: "start", selectWhole: true },
-        // "u,B": { value: "-(__count || 1)", boundary: "end",   selectWhole: true },
+        "::doc::u.": { kind: 'select', label: "arg →", detail: "Around next argument"},
         "u.": { value: "(__count || 1)",  boundary: "both", selectWhole: true },
+        "::doc::u,": { kind: 'select', label: "arg ←", detail: "Around previous argument"},
         "u,": { value: "-(__count || 1)", boundary: "both", selectWhole: true },
+        "::doc::u>": { kind: 'select', label: "arg →", detail: "Around next argument (with comma)"},
         "u>": { value: "(__count || 1)",  boundary: "start", selectWhole: true },
+        "::doc::u<": { kind: 'select', label: "arg ←", detail: "Around previous argument (with comma)"},
         "u<": { value: "-(__count || 1)", boundary: "end",   selectWhole: true },
     },
 
     // generic, magic selection
+    "::doc::uu": { kind: 'select', label: "smart expand", detail: "Use VSCode's built-in smart expansion command"}},
     "uu": "editor.action.smartSelect.expand",
 
     // buffer related
+    "::doc::$": { kind: "select", label: "everything" },
     $: [ "editor.action.selectAll" ],
+    "::doc::'G": { kind: 'select', label: 'to document end'},
     "'G": "cursorBottomSelect",
+    "::doc::'gg": { kind: 'select', label: 'to document start'},
     "'gg": "cursorTopSelect",
 
     // search related
     // "/": "actions.find",
+    "::doc::": { kind: "select", label: "match →", detail: "Next match to object under cursor"},
     "*": [
         { "modalkeys.search": {
             text: "__wordstr",
@@ -164,6 +212,7 @@ module.exports = {keybindings: {
             register: "search"
         }}
     ],
+    "::doc::": { kind: "select", label: "match ←", detail: "Previous match to object under cursor"},
     "&": [
         { "modalkeys.search": {
             text: "__wordstr",
@@ -173,11 +222,12 @@ module.exports = {keybindings: {
         }}
     ],
 
+    "::doc::": { kind: "select", label: "search →", detail: "Next match to search term"},
     "n": { "modalkeys.nextMatch": {register: "search"}, repeat: "__count" },
+    "::doc::": { kind: "select", label: "search →", detail: "Previous match to search term"},
     "N": { "modalkeys.previousMatch": {register: "search"}, repeat: "__count" },
-    ";": { "modalkeys.nextMatch": {}, repeat: "__count" },
-    ",,": { "modalkeys.previousMatch": {}, repeat: "__count" },
 
+    "::doc::": { kind: "select", label: "search", detail: "Search forwards" },
     "/": { "modalkeys.search": {
         register: "search",
         caseSensitive: true,
@@ -185,6 +235,7 @@ module.exports = {keybindings: {
         selectTillMatch: true,
         wrapAround: true
     } },
+    "::doc::": { kind: "select", label: "search back", detail: "Search backward" },
     "?": { "modalkeys.search": {
         register: "search",
         caseSensitive: true,
@@ -192,6 +243,8 @@ module.exports = {keybindings: {
         selectTillMatch: true,
         wrapAround: true
     } },
+
+    "::doc::": { kind: "select", label: "find char", detail: "To next char (include char in selection)"},
     f: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 1,
@@ -199,6 +252,7 @@ module.exports = {keybindings: {
         selectTillMatch: true,
         wrapAround: true
     }},
+    "::doc::": { kind: "select", label: "find char back", detail: "To previous character (include char in selection)"},
     F: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 1,
@@ -206,6 +260,7 @@ module.exports = {keybindings: {
         selectTillMatch: true,
         wrapAround: true
     }},
+    "::doc::": { kind: "select", label: "find char", detail: "To next character (exclude char in selection)"},
     t: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 1,
@@ -214,6 +269,7 @@ module.exports = {keybindings: {
         offset: 'start',
         wrapAround: true
     }},
+    "::doc::": { kind: "select", label: "find char back", detail: "To previous character (exclude char in selection)"},
     T: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 1,
@@ -222,6 +278,7 @@ module.exports = {keybindings: {
         offset: 'end',
         wrapAround: true
     }},
+    "::doc::": { kind: "select", label: "find char pair", detail: "To next character pair"},
     s: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 2,
@@ -230,6 +287,7 @@ module.exports = {keybindings: {
         offset: 'start',
         wrapAround: true
     }},
+    "::doc::": { kind: "select", label: "char pair back", detail: "To previous character pair"},
     S: { "modalkeys.search": {
         casSensitive: true,
         acceptAfter: 2,
@@ -238,15 +296,21 @@ module.exports = {keybindings: {
         offset: 'start',
         wrapAround: true
     }},
+    ";": { "modalkeys.nextMatch": {}, repeat: "__count" },
+    ",,": { "modalkeys.previousMatch": {}, repeat: "__count" },
 
     ////////////////////////
     // more complex syntactic selections
 
     // "I": "select-indentation.expand-selection",
+    "::doc::%": { kind: 'select', lablel: 'to bracket', detail: "Move to matching bracket"},
     '%': "editor.action.jumpToBracket",
+    "::doc::''": {kind: 'select', label: 'in quotes', detail: "text within current quotes"},
     "''": "bracketeer.selectQuotesContent",
+    "::doc::'\"": {kind: 'select', label: 'around quotes', detail: "quotes and text within current quotes"},
     "'\"": ["bracketeer.selectQuotesContent", "bracketeer.selectQuotesContent"],
     // the below is a bit hacky; I want to add these commandsto my extension
+    "::doc::[": {kind: 'select', label: 'in parens', detail: 'text inside parents/brackets/braces'},
     "[": [
         {
             if: "!__selection.isEmpty",
@@ -259,6 +323,7 @@ module.exports = {keybindings: {
         },
         { "editor.action.selectToBracket": {"selectBrackets": false} }
     ],
+    "::doc::[": {kind: 'select', label: 'arnd parens', detail: 'parents/brackets/braces and their contents'},
     "{": [
         {
             if: "!__selection.isEmpty",
@@ -272,13 +337,19 @@ module.exports = {keybindings: {
         { "editor.action.selectToBracket": {"selectBrackets": true} }
     ],
 
+    "::doc::'<": { kind: 'select', label: 'in <>', detail: 'text inside angle brackets'},
     "'>": "extension.selectAngleBrackets",
+    "::doc::'<": { kind: 'select', label: 'in ><', detail: 'text inside tag pairs (e.g. <a>text</a>)'},
     "'<": "extension.selectInTag",
 
+    "::doc::']": {kind: 'select', label: 'indent and top', detail: 'all text at same indent and the unindent line just above it (ala python syntax)'},
     "']": "vscode-select-by-indent.select-outer-top-only",
+    "::doc::]": {kind: 'select', label: 'indent', detail: 'all text at same indent'},
     "]": "vscode-select-by-indent.select-inner",
+    "::doc::}": {kind: 'select', label: 'indent and surrounding', detail: 'all text at same indent along with the line above and below this (ala c-like synatx)'},
     "}": "vscode-select-by-indent.select-outer",
 
+    "::doc::u[": {kind: 'select', label: 'inside []', detail: 'inside first character pair `[]` (non syntactical, useful inside comments)'},
     "u[": { "modalkeys.selectBetween": {
         from: "[", to: "]",
         inclusive: false,
@@ -286,6 +357,7 @@ module.exports = {keybindings: {
         docScope: true
     }},
     
+    "::doc::u(": {kind: 'select', label: 'inside ()', detail: 'inside first character pair `()` (non syntactical, useful inside comments)'},
     "u(": { "modalkeys.selectBetween": {
         from: "(", to: ")",
         inclusive: false,
@@ -293,6 +365,7 @@ module.exports = {keybindings: {
         docScope: true
     }},
     
+    "::doc::u{": {kind: 'select', label: 'inside {}', detail: 'inside first character pair `{}` (non syntactical, useful inside comments)'},
     "u{": { "modalkeys.selectBetween": {
         from: "{", to: "}",
         inclusive: false,
@@ -300,21 +373,21 @@ module.exports = {keybindings: {
         docScope: true
     }},
 
-    "u]": { "modalkeys.selectBetween": {
+    "::doc::u[": {kind: 'select', label: 'around []', detail: 'around first character pair `[]` (non syntactical, useful inside comments)'},    "u]": { "modalkeys.selectBetween": {
         from: "[", to: "]",
         inclusive: true,
         caseSensitive: true,
         docScope: true
     }},
     
-    "u)": { "modalkeys.selectBetween": {
+    "::doc::u(": {kind: 'select', label: 'around ()', detail: 'around first character pair `()` (non syntactical, useful inside comments)'},    "u)": { "modalkeys.selectBetween": {
         from: "(", to: ")",
         inclusive: true,
         caseSensitive: true,
         docScope: true
     }},
     
-    "u}": { "modalkeys.selectBetween": {
+    "::doc::u{": {kind: 'select', label: 'around {}', detail: 'around first character pair `{}` (non syntactical, useful inside comments)'},    "u}": { "modalkeys.selectBetween": {
         from: "{", to: "}",
         inclusive: true,
         caseSensitive: true,
