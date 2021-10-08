@@ -609,6 +609,23 @@ module.exports = {keybindings: {
     ",g": "workbench.action.gotoLine",
 
     ///////////////////////
+    // windows
+    ",e|": "workbench.action.toggleSplitEditorInGroup",
+    ",ee": "workbench.action.focusOtherSideEditor",
+    ",el": "workbench.action.focusRightGroup",
+    ",eh": "workbench.action.focusLeftGroup",
+    ",ek": "workbench.action.focusAboveGroup",
+    ",ek": "workbench.action.focusBelowGroup",
+    ",ecl": "workbench.action.splitEditorRight",
+    ",etl": "workbench.action.splitEditorToRightGroup",
+    ",ech": "workbench.action.splitEditorLeft",
+    ",eth": "workbench.action.splitEditorToLeftGroup",
+    ",ecj": "workbench.action.splitEditorDown",
+    ",etj": "workbench.action.splitEditorToBelowGroup",
+    ",eck": "workbench.action.splitEditorUp",
+    ",etk": "workbench.action.splitEditorToAboveGroup",
+
+    ///////////////////////
     // history
 
     z: [ "undo", "modalkeys.cancelMultipleSelections", "modalkeys.untouchDocument", ],
