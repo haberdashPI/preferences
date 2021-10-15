@@ -617,13 +617,13 @@ module.exports = {keybindings: {
     ",ek": "workbench.action.focusAboveGroup",
     ",ek": "workbench.action.focusBelowGroup",
     ",ecl": "workbench.action.splitEditorRight",
-    ",etl": "workbench.action.splitEditorToRightGroup",
+    ",etl": "workbench.action.moveEditorToRightGroup",
     ",ech": "workbench.action.splitEditorLeft",
-    ",eth": "workbench.action.splitEditorToLeftGroup",
+    ",eth": "workbench.action.moveEditorToLeftGroup",
     ",ecj": "workbench.action.splitEditorDown",
-    ",etj": "workbench.action.splitEditorToBelowGroup",
+    ",etj": "workbench.action.moveEditorToBelowGroup",
     ",eck": "workbench.action.splitEditorUp",
-    ",etk": "workbench.action.splitEditorToAboveGroup",
+    ",etk": "workbench.action.moveEditorToAboveGroup",
 
     ///////////////////////
     // history
