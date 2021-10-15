@@ -32,6 +32,16 @@
 // example delete a word you type <key>d</key> (for delete) and <key>w</key>
 // (for word). 
 
+// ### Required extensions
+
+// Unlike the tutorial, these settings are not self-contained and make use of a
+// variety of extensions to allow for a better set of features. You wil need the
+// following extensions for all bindings to work:
+
+// - [Quick and Simple Text Selection](https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select)
+// - [Selection Utilities](https://marketplace.visualstudio.com/items?itemName=haberdashPI.selection-utilities)
+// - [Select by Indent](https://marketplace.visualstudio.com/items?itemName=haberdashPI.vscode-select-by-indent)
+
 // ### Functions
 
 // To begin with, we'll define some function to make creating the operators

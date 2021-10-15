@@ -158,28 +158,35 @@ module.exports = {keybindings: {
     // search related
     // "/": "actions.find",
     "*": [
-        "actions.find",
-        "editor.action.nextMatchFindAction",
-        "closeFindWidget"
+        { "modalkeys.search": {
+            text: "__wordstr",
+            wrapAround: true,
+            register: "search"
+        }}
     ],
     "&": [
-        "actions.find",
-        "editor.action.previousMatchFindAction",
-        "closeFindWidget"
+        { "modalkeys.search": {
+            text: "__wordstr",
+            wrapAround: true,
+            backwards: true,
+            register: "search"
+        }}
     ],
 
-    "n": { "modalkeys.nextMatch": {}, repeat: "__count" },
-    "N": { "modalkeys.previousMatch": {}, repeat: "__count" },
+    "n": { "modalkeys.nextMatch": {register: "search"}, repeat: "__count" },
+    "N": { "modalkeys.previousMatch": {register: "search"}, repeat: "__count" },
     ";": { "modalkeys.nextMatch": {}, repeat: "__count" },
     ",,": { "modalkeys.previousMatch": {}, repeat: "__count" },
 
     "/": { "modalkeys.search": {
+        register: "search",
         caseSensitive: true,
         backwards: false,
         selectTillMatch: true,
         wrapAround: true
     } },
     "?": { "modalkeys.search": {
+        register: "search",
         caseSensitive: true,
         backwards: true,
         selectTillMatch: true,

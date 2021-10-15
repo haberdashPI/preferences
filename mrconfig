@@ -174,3 +174,6 @@ skip = bash -c "[[ `hostname` != 'dlittle' ]]"
 [Documents/work/beacon/LegolasFlux.jl]
 checkout = git clone 'https://github.com/beacon-biosignals/LegolasFlux.jl' 'LegolasFlux.jl'
 skip = bash -c "[[ `hostname` != 'dlittle' ]]"
+
+[Documents/work/projects/ap2_new]
+checkout = git clone 'https://github.com/haberdashPI/ap2_new' 'ap2_new'
