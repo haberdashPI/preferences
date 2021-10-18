@@ -609,23 +609,6 @@ module.exports = {keybindings: {
     ",g": "workbench.action.gotoLine",
 
     ///////////////////////
-    // windows
-    ",e|": "workbench.action.toggleSplitEditorInGroup",
-    ",ee": "workbench.action.focusOtherSideEditor",
-    ",el": "workbench.action.focusRightGroup",
-    ",eh": "workbench.action.focusLeftGroup",
-    ",ek": "workbench.action.focusAboveGroup",
-    ",ek": "workbench.action.focusBelowGroup",
-    ",ecl": "workbench.action.splitEditorRight",
-    ",etl": "workbench.action.moveEditorToRightGroup",
-    ",ech": "workbench.action.splitEditorLeft",
-    ",eth": "workbench.action.moveEditorToLeftGroup",
-    ",ecj": "workbench.action.splitEditorDown",
-    ",etj": "workbench.action.moveEditorToBelowGroup",
-    ",eck": "workbench.action.splitEditorUp",
-    ",etk": "workbench.action.moveEditorToAboveGroup",
-
-    ///////////////////////
     // history
 
     z: [ "undo", "modalkeys.cancelMultipleSelections", "modalkeys.untouchDocument", ],
@@ -705,6 +688,21 @@ module.exports = {keybindings: {
     "'gb": { "revealLine": { lineNumber: '__line', at: 'bottom' } },
     "'gm": "workbench.action.minimizeOtherEditors",
     "'g=": "workbench.action.evenEditorWidths",
+    "'g|": "workbench.action.toggleSplitEditorInGroup",
+    "'ge": "workbench.action.focusOtherSideEditor",
+    "'gl": "workbench.action.focusRightGroup",
+    "'gh": "workbench.action.focusLeftGroup",
+    "'gk": "workbench.action.focusAboveGroup",
+    "'gk": "workbench.action.focusBelowGroup",
+    "'gcl": "workbench.action.splitEditorRight",
+    "'gtl": "workbench.action.moveEditorToRightGroup",
+    "'gch": "workbench.action.splitEditorLeft",
+    "'gth": "workbench.action.moveEditorToLeftGroup",
+    "'gcj": "workbench.action.splitEditorDown",
+    "'gtj": "workbench.action.moveEditorToBelowGroup",
+    "'gck": "workbench.action.splitEditorUp",
+    "'gtk": "workbench.action.moveEditorToAboveGroup",
+
     gh: "editor.action.showHover",
     gf: "extension.openFileFromPath",
     gg: "editor.action.revealDefinition",
