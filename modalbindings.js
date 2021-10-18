@@ -152,8 +152,7 @@ module.exports = {keybindings: {
 
     // buffer related
     $: [ "editor.action.selectAll" ],
-    "gG": "cursorBottomSelect",
-    "GG": "cursorBottomSelect",
+    "G": "cursorBottomSelect",
     "gg": "cursorTopSelect",
 
     // search related
