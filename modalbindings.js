@@ -683,9 +683,9 @@ module.exports = {keybindings: {
 
     /////////////
     // window manipulation
-    "'gc": { "revealLine": { lineNumber: '__line', at: 'center' } },
-    "'gt": { "revealLine": { lineNumber: '__line', at: 'top' } },
-    "'gb": { "revealLine": { lineNumber: '__line', at: 'bottom' } },
+    "'gg": { "revealLine": { lineNumber: '__line', at: 'center' } },
+    "'gK": { "revealLine": { lineNumber: '__line', at: 'top' } },
+    "'gJ": { "revealLine": { lineNumber: '__line', at: 'bottom' } },
     "'gm": "workbench.action.minimizeOtherEditors",
     "'g=": "workbench.action.evenEditorWidths",
     "'g|": "workbench.action.toggleSplitEditorInGroup",
@@ -693,14 +693,14 @@ module.exports = {keybindings: {
     "'gl": "workbench.action.focusRightGroup",
     "'gh": "workbench.action.focusLeftGroup",
     "'gk": "workbench.action.focusAboveGroup",
-    "'gk": "workbench.action.focusBelowGroup",
+    "'gj": "workbench.action.focusBelowGroup",
     "'gcl": "workbench.action.splitEditorRight",
-    "'gtl": "workbench.action.moveEditorToRightGroup",
     "'gch": "workbench.action.splitEditorLeft",
-    "'gth": "workbench.action.moveEditorToLeftGroup",
     "'gcj": "workbench.action.splitEditorDown",
-    "'gtj": "workbench.action.moveEditorToBelowGroup",
     "'gck": "workbench.action.splitEditorUp",
+    "'gtl": "workbench.action.moveEditorToRightGroup",
+    "'gth": "workbench.action.moveEditorToLeftGroup",
+    "'gtj": "workbench.action.moveEditorToBelowGroup",
     "'gtk": "workbench.action.moveEditorToAboveGroup",
 
     gh: "editor.action.showHover",
