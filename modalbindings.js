@@ -483,7 +483,7 @@ module.exports = {keybindings: {
     "ga": "selection-utilities.trimWhitespace",
 
     // brackets
-    "gd[":  "bracketeer.removeBrackets",
+    "gx[":  "bracketeer.removeBrackets",
     "gs[":  "bracketeer.swapBrackets",
     "gs'":  "bracketeer.swapQuotes",
     "gd'":  "bracketeer.removeQuotes",
