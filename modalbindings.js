@@ -152,8 +152,9 @@ module.exports = {keybindings: {
 
     // buffer related
     $: [ "editor.action.selectAll" ],
-    "'G": "cursorBottomSelect",
-    "'gg": "cursorTopSelect",
+    "gG": "cursorBottomSelect",
+    "GG": "cursorBottomSelect",
+    "gg": "cursorTopSelect",
 
     // search related
     // "/": "actions.find",
@@ -486,7 +487,7 @@ module.exports = {keybindings: {
     "gx[":  "bracketeer.removeBrackets",
     "gs[":  "bracketeer.swapBrackets",
     "gs'":  "bracketeer.swapQuotes",
-    "gd'":  "bracketeer.removeQuotes",
+    "gx'":  "bracketeer.removeQuotes",
     "gi(": [ "modalkeys.enterInsert", { "type": { text: "(" }, }, "modalkeys.enterNormal" ],
     "gi<": [ "modalkeys.enterInsert", { "type": { text: "<" }, }, "modalkeys.enterNormal" ],
     "gi`": [ "modalkeys.enterInsert", { "type": { text: "`" }, }, "modalkeys.enterNormal" ],
@@ -705,19 +706,19 @@ module.exports = {keybindings: {
 
     gh: "editor.action.showHover",
     gf: "extension.openFileFromPath",
-    gg: "editor.action.revealDefinition",
-    gG: "editor.action.revealDefinitionAside",
+    gd: "editor.action.revealDefinition",
+    gD: "editor.action.revealDefinitionAside",
 
     /////////
     // debugging
     gH: "editor.debug.action.showDebugHover",
     gb: "editor.debug.action.toggleBreakpoint",
-    gdb: "editor.debug.action.conditionalBreakpoint",
-    gdr: "workbench.action.debug.start",
-    gdc: "workbench.action.debug.continue",
-    gds: "workbench.action.debug.stepOver",
-    gdi: "workbench.action.debug.stepInto",
-    gdo: "workbench.action.debug.stepOut",
+    geb: "editor.debug.action.conditionalBreakpoint",
+    ger: "workbench.action.debug.start",
+    gec: "workbench.action.debug.continue",
+    ges: "workbench.action.debug.stepOver",
+    gei: "workbench.action.debug.stepInto",
+    geo: "workbench.action.debug.stepOut",
 
     //////////
     // bookmarks
@@ -726,7 +727,7 @@ module.exports = {keybindings: {
     "normal::'k": "vsc-labeled-bookmarks.navigateToPreviousBookmark",
     "visual::'j": "vsc-labeled-bookmarks.expandSelectionToNextBookmark",
     "visual::'k": ["vsc-labeled-bookmarks.expandSelectionToPreviousBookmark", "selection-utilities.activeAtStart"],
-    "gd ": "vsc-labeled-bookmarks.deleteBookmark",
+    "gx ": "vsc-labeled-bookmarks.deleteBookmark",
     "'#": "vsc-labeled-bookmarks.navigateToBookmark",
 
     ///////////////
