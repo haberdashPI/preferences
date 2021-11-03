@@ -314,6 +314,8 @@ set-option -g remain-on-exit on
 set -g update-environment "DISPLAY SSH_ASKPASS SSH_AGENT_PID \
                              SSH_CONNECTION WINDOWID XAUTHORITY"
 
+set-option -ga update-environment ' VSCODE_GIT_ASKPASS_NODE VSCODE_GIT_ASKPASS_MAIN VSCODE_IPC_HOOK_CLI PATH GIT_ASKPASS'
+
 # Use a symlink to look up SSH authentication
 setenv -g SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
 
