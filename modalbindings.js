@@ -600,8 +600,18 @@ module.exports = {keybindings: {
     "visual::O": "selection-utilities.activeAtStart",
 
     // line indent
-    ">": countSelectsLines('down', "editor.action.indentLines", ["editor.action.indentLines", "modalkeys.cancelMultipleSelections"]),
-    "<": countSelectsLines('down', "editor.action.outdentLines", ["editor.action.outdentLines", "modalkeys.cancelMultipleSelections"]),
+    ">": countSelectsLines('down', "editor.action.indentLines", [
+        "editor.action.indentLines", 
+        "modalkeys.cancelMultipleSelections"
+    ]),
+    "<": countSelectsLines('down', "editor.action.outdentLines", [
+        "editor.action.outdentLines", 
+        "modalkeys.cancelMultipleSelections"
+    ]),
+    "g>": countSelectsLines('down', "editor.action.formatSelection", [
+        "editor.action.formatSelection",
+        "modalkeys.cancelMultipleSelections"
+    ]),
 
     ",f": "workbench.action.quickOpen",
     ",r": "workbench.action.openRecent",
