@@ -57,14 +57,14 @@ module.exports = {keybindings: {
     L: { "cursorMove": { to: "wrappedLineEnd", select: true } },
     "::doc::G": { kind: "select", label: "entire line", detail: "expand selection to entire line" },
     G:  "expandLineSelection",
-    "::doc::K": { kind: "select", label: "sel ↑", "select lines upwards" },    
+    "::doc::K": { kind: "select", label: "sel ↑", detail: "select lines upwards" },    
     K: [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: 'up', by: 'wrappedLine', select: true, value: '__count' } },
         "expandLineSelection",
         "selection-utilities.activeAtStart"
     ],
-    "::doc::J": { kind: "select", label: "sel ↓", "select lines downwards" },    
+    "::doc::J": { kind: "select", label: "sel ↓", detail: "select lines downwards" },    
     J: [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: 'down', by: 'wrappedLine', select: true, value: '__count' } },
@@ -191,14 +191,14 @@ module.exports = {keybindings: {
     },
 
     // generic, magic selection
-    "::doc::uu": { kind: 'select', label: "smart expand", detail: "Use VSCode's built-in smart expansion command"}},
+    "::doc::uu": { kind: 'select', label: "smart expand", detail: "Use VSCode's built-in smart expansion command"},
     "uu": "editor.action.smartSelect.expand",
 
     // buffer related
     "::doc::$": { kind: "select", label: "everything" },
     $: [ "editor.action.selectAll" ],
-    "::doc::G": { kind: 'select', label: 'to document end'},
-    "G": "cursorBottomSelect",
+    "::doc::gG": { kind: 'select', label: 'to document end'},
+    "gG": "cursorBottomSelect",
     "::doc::'gg": { kind: 'select', label: 'to document start'},
     "'gg": "cursorTopSelect",
 
@@ -380,38 +380,45 @@ module.exports = {keybindings: {
         docScope: true
     }},
     
-    "::doc::u(": {kind: 'select', label: 'around ()', detail: 'around first character pair `()` (non syntactical, useful inside comments)'},    "u)": { "modalkeys.selectBetween": {
+    "::doc::u(": {kind: 'select', label: 'around ()', detail: 'around first character pair `()` (non syntactical, useful inside comments)'},    
+    "u)": { "modalkeys.selectBetween": {
         from: "(", to: ")",
         inclusive: true,
         caseSensitive: true,
         docScope: true
     }},
     
-    "::doc::u{": {kind: 'select', label: 'around {}', detail: 'around first character pair `{}` (non syntactical, useful inside comments)'},    "u}": { "modalkeys.selectBetween": {
+    "::doc::u{": {kind: 'select', label: 'around {}', detail: 'around first character pair `{}` (non syntactical, useful inside comments)'},    
+    "u}": { "modalkeys.selectBetween": {
         from: "{", to: "}",
         inclusive: true,
         caseSensitive: true,
         docScope: true
     }},
 
+    "::doc::uC": {kind: 'select', label: 'between pair (special)', detail: 'around a pair of characters (non syntactical, useful inside comments)' },  
+    "::doc::uC,": {kind: 'select', label: 'inside <>', detail: 'inside first character pair `<>` (non syntactical, useful inside comments)'},    
     "uC,": { "modalkeys.selectBetween": {
         from: "<", to: ">",
         inclusive: false,
         caseSensitive: true,
         docScope: true
     }},
+    "::doc::uC,": {kind: 'select', label: 'inside ><', detail: 'inside first character pair `><` (non syntactical, useful inside comments)'},    
     "uC.": { "modalkeys.selectBetween": {
         from: ">", to: "<",
         inclusive: false,
         caseSensitive: true,
         docScope: true
     }},
+    "::doc::uC<": {kind: 'select', label: 'around <>', detail: 'around first character pair `<>` (non syntactical, useful inside comments)'},    
     "uC<": { "modalkeys.selectBetween": {
         from: "<", to: ">",
         inclusive: true,
         caseSensitive: true,
         docScope: true
     }},
+    "::doc::uC,": {kind: 'select', label: 'around ><', detail: 'around first character pair `><` (non syntactical, useful inside comments)'},    
     "uC>": { "modalkeys.selectBetween": {
         from: ">", to: "<",
         inclusive: true,
@@ -419,6 +426,7 @@ module.exports = {keybindings: {
         docScope: true
     }},
 
+    "::doc::uc": {kind: 'select', label: 'between pair', detail: 'between two instances of any character, exclusive of the pair (non syntatical, useful inside comments)'},
     uc: { "modalkeys.captureChar": {
         acceptAfter: 1,
         executeAfter: { "modalkeys.selectBetween": {
@@ -430,6 +438,7 @@ module.exports = {keybindings: {
         }},
     }},
 
+    "::doc::uv": {kind: 'select', label: 'around pair', detail: 'between two instance of any character, inclusive of the pair (non syntatical, useful inside comments)'},
     uv: { "modalkeys.captureChar": {
         acceptAfter: 1,
         executeAfter: { "modalkeys.selectBetween": {
