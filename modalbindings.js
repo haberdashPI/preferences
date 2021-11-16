@@ -197,8 +197,8 @@ module.exports = {keybindings: {
     // buffer related
     "::doc::$": { kind: "select", label: "everything" },
     $: [ "editor.action.selectAll" ],
-    "::doc::'G": { kind: 'select', label: 'to document end'},
-    "'G": "cursorBottomSelect",
+    "::doc::G": { kind: 'select', label: 'to document end'},
+    "G": "cursorBottomSelect",
     "::doc::'gg": { kind: 'select', label: 'to document start'},
     "'gg": "cursorTopSelect",
 
@@ -556,10 +556,10 @@ module.exports = {keybindings: {
     "ga": "selection-utilities.trimWhitespace",
 
     // brackets
-    "gd[":  "bracketeer.removeBrackets",
+    "gx[":  "bracketeer.removeBrackets",
     "gs[":  "bracketeer.swapBrackets",
     "gs'":  "bracketeer.swapQuotes",
-    "gd'":  "bracketeer.removeQuotes",
+    "gx'":  "bracketeer.removeQuotes",
     "gi(": [ "modalkeys.enterInsert", { "type": { text: "(" }, }, "modalkeys.enterNormal" ],
     "gi<": [ "modalkeys.enterInsert", { "type": { text: "<" }, }, "modalkeys.enterNormal" ],
     "gi`": [ "modalkeys.enterInsert", { "type": { text: "`" }, }, "modalkeys.enterNormal" ],
@@ -673,8 +673,18 @@ module.exports = {keybindings: {
     "visual::O": "selection-utilities.activeAtStart",
 
     // line indent
-    ">": countSelectsLines('down', "editor.action.indentLines", ["editor.action.indentLines", "modalkeys.cancelMultipleSelections"]),
-    "<": countSelectsLines('down', "editor.action.outdentLines", ["editor.action.outdentLines", "modalkeys.cancelMultipleSelections"]),
+    ">": countSelectsLines('down', "editor.action.indentLines", [
+        "editor.action.indentLines", 
+        "modalkeys.cancelMultipleSelections"
+    ]),
+    "<": countSelectsLines('down', "editor.action.outdentLines", [
+        "editor.action.outdentLines", 
+        "modalkeys.cancelMultipleSelections"
+    ]),
+    "g>": countSelectsLines('down', "editor.action.formatSelection", [
+        "editor.action.formatSelection",
+        "modalkeys.cancelMultipleSelections"
+    ]),
 
     ",f": "workbench.action.quickOpen",
     ",r": "workbench.action.openRecent",
@@ -756,26 +766,41 @@ module.exports = {keybindings: {
 
     /////////////
     // window manipulation
-    "'gc": { "revealLine": { lineNumber: '__line', at: 'center' } },
-    "'gt": { "revealLine": { lineNumber: '__line', at: 'top' } },
-    "'gb": { "revealLine": { lineNumber: '__line', at: 'bottom' } },
+    "'gg": { "revealLine": { lineNumber: '__line', at: 'center' } },
+    "'gK": { "revealLine": { lineNumber: '__line', at: 'top' } },
+    "'gJ": { "revealLine": { lineNumber: '__line', at: 'bottom' } },
     "'gm": "workbench.action.minimizeOtherEditors",
     "'g=": "workbench.action.evenEditorWidths",
+    "'g|": "workbench.action.toggleSplitEditorInGroup",
+    "'ge": "workbench.action.focusOtherSideEditor",
+    "'gl": "workbench.action.focusRightGroup",
+    "'gh": "workbench.action.focusLeftGroup",
+    "'gk": "workbench.action.focusAboveGroup",
+    "'gj": "workbench.action.focusBelowGroup",
+    "'gcl": "workbench.action.splitEditorRight",
+    "'gch": "workbench.action.splitEditorLeft",
+    "'gcj": "workbench.action.splitEditorDown",
+    "'gck": "workbench.action.splitEditorUp",
+    "'gtl": "workbench.action.moveEditorToRightGroup",
+    "'gth": "workbench.action.moveEditorToLeftGroup",
+    "'gtj": "workbench.action.moveEditorToBelowGroup",
+    "'gtk": "workbench.action.moveEditorToAboveGroup",
+
     gh: "editor.action.showHover",
     gf: "extension.openFileFromPath",
-    gg: "editor.action.revealDefinition",
-    gG: "editor.action.revealDefinitionAside",
+    gd: "editor.action.revealDefinition",
+    gD: "editor.action.revealDefinitionAside",
 
     /////////
     // debugging
     gH: "editor.debug.action.showDebugHover",
     gb: "editor.debug.action.toggleBreakpoint",
-    gdb: "editor.debug.action.conditionalBreakpoint",
-    gdr: "workbench.action.debug.start",
-    gdc: "workbench.action.debug.continue",
-    gds: "workbench.action.debug.stepOver",
-    gdi: "workbench.action.debug.stepInto",
-    gdo: "workbench.action.debug.stepOut",
+    geb: "editor.debug.action.conditionalBreakpoint",
+    ger: "workbench.action.debug.start",
+    gec: "workbench.action.debug.continue",
+    ges: "workbench.action.debug.stepOver",
+    gei: "workbench.action.debug.stepInto",
+    geo: "workbench.action.debug.stepOut",
 
     //////////
     // bookmarks
@@ -784,7 +809,7 @@ module.exports = {keybindings: {
     "normal::'k": "vsc-labeled-bookmarks.navigateToPreviousBookmark",
     "visual::'j": "vsc-labeled-bookmarks.expandSelectionToNextBookmark",
     "visual::'k": ["vsc-labeled-bookmarks.expandSelectionToPreviousBookmark", "selection-utilities.activeAtStart"],
-    "gd ": "vsc-labeled-bookmarks.deleteBookmark",
+    "gx ": "vsc-labeled-bookmarks.deleteBookmark",
     "'#": "vsc-labeled-bookmarks.navigateToBookmark",
 
     ///////////////

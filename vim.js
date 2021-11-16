@@ -32,16 +32,6 @@
 // example delete a word you type <key>d</key> (for delete) and <key>w</key>
 // (for word). 
 
-// ### Required extensions
-
-// Unlike the tutorial, these settings are not self-contained and make use of a
-// variety of extensions to allow for a better set of features. You wil need the
-// following extensions for all bindings to work:
-
-// - [Quick and Simple Text Selection](https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select)
-// - [Selection Utilities](https://marketplace.visualstudio.com/items?itemName=haberdashPI.selection-utilities)
-// - [Select by Indent](https://marketplace.visualstudio.com/items?itemName=haberdashPI.vscode-select-by-indent)
-
 // ### Functions
 
 // To begin with, we'll define some function to make creating the operators
@@ -274,9 +264,29 @@ const search_objects = {
 // (e.g. the `3` in 3l) to a given command.
 // - When in visual model, most of the commands are built to extend the selection
 
+// ### Required extensions
+
+// Unlike the tutorial, these settings are not self-contained and make use of a
+// variety of extensions to allow for a better set of features. You wil need the
+// following extensions for all bindings to work properly:
+
+// - [Quick and Simple Text Selection](https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select)
+// - [Selection Utilities](https://marketplace.visualstudio.com/items?itemName=haberdashPI.selection-utilities)
+// - [Select by Indent](https://marketplace.visualstudio.com/items?itemName=haberdashPI.vscode-select-by-indent)
+
+// Because we've listed these extensions below, ModalKeys will check for these
+// extensions when you import this preset, and give you the option to install
+// the extensions.
+
+module.exports = {
+    "extensions": [
+        "dbankier.vscode-quick-select",
+        "haberdashpi.vscode-select-by-indent",
+        "haberdashpi.selection-utilities"
+    ],
+
 // ## Motions in Normal Mode
 // 
-module.exports = {
     "keybindings": {
 // Cursor can be advanced in a file with enter and space. These are not
 // technically motion commands but included for compatibility.
@@ -650,8 +660,11 @@ module.exports = {
 // | `n`       | Select the next match
 // | `p`       | Select the previous match
 
-// **Note**: Searching commands work also with multiple cursors. As in Vim, search
-// wraps around if top or bottom of file is encountered.
+// **Note**: Searching commands work also with multiple cursors. As in Vim,
+// search wraps around if top or bottom of file is encountered. Note that we use
+// a separate register ("search") so that the state of the last search (for next
+// and previous matches) are different from the `modalkeys.search` commands that
+// are called to implement <key>f</key> and friends.
         "/": [
             {
                 "modalkeys.search": {
@@ -671,6 +684,21 @@ module.exports = {
         },
         n: { "modalkeys.nextMatch": {register: "search"}},
         N: { "modalkeys.previousMatch": {register: "search"}},
+        "*": [
+            { "modalkeys.search": {
+                text: "__wordstr",
+                wrapAround: true,
+                register: "search"
+            }}
+        ],
+        "#": [
+            { "modalkeys.search": {
+                text: "__wordstr",
+                wrapAround: true,
+                backwards: true,
+                register: "search"
+            }}
+        ],
 // ## Miscellaneous Commands
 
 // Rest of the normal mode commands are not motion or editing commands, but do
