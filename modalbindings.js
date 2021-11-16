@@ -199,8 +199,8 @@ module.exports = {keybindings: {
     $: [ "editor.action.selectAll" ],
     "::doc::gG": { kind: 'select', label: 'to document end'},
     "gG": "cursorBottomSelect",
-    "::doc::'gg": { kind: 'select', label: 'to document start'},
-    "'gg": "cursorTopSelect",
+    "::doc::gg": { kind: 'select', label: 'to document start'},
+    "gg": "cursorTopSelect",
 
     // search related
     // "/": "actions.find",
