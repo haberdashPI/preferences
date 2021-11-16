@@ -5,7 +5,7 @@ export JULIA_PKG_DEVDIR="${HOME}/Documents/tools"
 
 export ZVM_INIT_MODE=sourcing
 
-plugins=(git z brew fd docker zsh-vi-mode fzf zsh-autosuggestions zsh-syntax-highlighting zsh-interactive-cd asdf)
+plugins+=(z brew fd docker zsh-vi-mode fzf zsh-autosuggestions zsh-syntax-highlighting zsh-interactive-cd asdf)
 source $ZSH/oh-my-zsh.sh
 
 export ZVM_VI_EDITOR=nvim
@@ -49,6 +49,7 @@ function fdir(){
   exa --long --group-directories-first
 }
 
+source $HOME/.pushovervars
 
 bindkey -s '\eh' 'bdir\n'
 bindkey -s '\ek' 'udir\n'

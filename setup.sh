@@ -54,10 +54,12 @@ echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc.new
 
 # julia install (override beacon defaults)
 echo "alias julia=\"/home/ubuntu/.asdf/shims/julia\"" >> ~/.zshrc.new
-if [[ $HOST == "dlittle" ]]; then
+# if [[ $HOST == "dlittle" ]]; then
     # julia_pod setup
     git clone https://github.com/beacon-biosignals/julia_pod ~/bin/julia_pod
+    asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git 
     asdf install nodejs 16.8.0
+    asdf global nodejs 16.8.0
     asdf reshim
     npm i -g devspace
     sudo apt -yq install jq # julia_pod depedency
@@ -70,7 +72,7 @@ if [[ $HOST == "dlittle" ]]; then
     export PRIVATE_REGISTRY_URL=\"https://github.com/beacon-biosignals/BeaconRegistry.git\"
     export GITHUB_TOKEN_FILE=$HOME/.julia_pod_pat
     " >> ~/.zshrc.new
-fi
+# fi
 
 cp ~/Documents/preferences/p10k.zsh ~/.p10k.zsh
 
@@ -94,8 +96,8 @@ ln -s ~/Documents/preferences/tmux.conf.local .tmux.conf.local
 ln -s ~/Documents/preferences/ssh_rc ~/.ssh/rc
 
 # neo vim
-mkdir -p ~/.conf/nvim
-ln -s ~/Documents/preferences/vimrc ~/.conf/nvim/init.vim
+mkdir -p ~/.config/nvim
+ln -s ~/Documents/preferences/vimrc ~/.config/nvim/init.vim
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 nvim --headless +silent +PlugInstall +qall
@@ -111,8 +113,8 @@ mr update
 
 # julia setup
 asdf plugin-add julia https://github.com/rkyleg/asdf-julia.git
-asdf install julia 1.6.2
-asdf global julia 1.6.2
+asdf install julia 1.6.3
+asdf global julia 1.6.3
 asdf reshim
 julia -e 'using Pkg; Pkg.add(["OhMyREPL", "Revise", "TerminalPager", "Alert", "AlertPushover"])'
 mkdir -p ~/.julia/config
