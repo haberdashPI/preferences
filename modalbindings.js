@@ -38,7 +38,7 @@ module.exports = {keybindings: {
     "::doc::j": { kind: "select", label: '↓', detail: "move down" },
     "::doc::k": { kind: "select", label: '↑', detail: "move up" },
     "::doc::l": { kind: "select", label: '→', detail: "move right" },
-    "::doc::g": { kind: "leader", label: "actions", detail: "additional commands (mostly actions)" },
+    "::doc::g": { kind: "leader", label: "leader (actions)", detail: "additional commands (mostly actions)" },
     "::doc::gj": { kind: "select", label: 'unwrp ↓', detail: "Down unwrapped line" },
     "::doc::gk": { kind: "select", label: 'unwrp ↑', detail: "Up unwrapped line"},
     "::using::cursorMove::": {
@@ -171,6 +171,7 @@ module.exports = {keybindings: {
     uy: "jupyter.selectCell",
 
     // function arguments
+    "::doc::,": { kind: "leader", label: "leader (extended)", detail: "a miscellaneous list of additonal commands" },
     "::using::move-cursor-by-argument.move-by-argument": {
         "::doc::,w": { kind: "select", label: "arg →", detail: "Next function argument"},
         ",w":  { value: "(__count || 1)",  boundary: "end", select:      true },
@@ -303,7 +304,7 @@ module.exports = {keybindings: {
     // more complex syntactic selections
 
     // "I": "select-indentation.expand-selection",
-    "::doc::%": { kind: 'select', lablel: 'to bracket', detail: "Move to matching bracket"},
+    "::doc::%": { kind: 'select', label: 'to bracket', detail: "Move to matching bracket"},
     '%': "editor.action.jumpToBracket",
     "::doc::''": {kind: 'select', label: 'in quotes', detail: "text within current quotes"},
     "''": "bracketeer.selectQuotesContent",
@@ -453,28 +454,38 @@ module.exports = {keybindings: {
     ////////////////////////
     // selection modifiers
 
+    "::doc::R": {kind: "select", label: 'expand to non-whitespace', detail: 'select full line(s), and trim external whitespace'},
     R: [ "expandLineSelection", "selection-utilities.trimSelectionWhitespace" ],
+    "::doc::visual::R": {kind: "modify select", label: 'trim whitespace', detail: 'shrink selection to avoid external whitespace'},
     "visual::R":  "selection-utilities.trimSelectionWhitespace" ,
+    "::doc::U": {kind: "modify select", label: 'narrow to subword', detail: "Narrow current selection so it starts and stops at a subword (e.g. 'snake' in snake_case)"},
     U: { "selection-utilities.narrowTo": { unit: "subident", boundary: "both", } },
 
+    "::doc::r": {kind: "modify select", label: 'clear', detail: "Clear the current selection"},
     r: "modalkeys.cancelMultipleSelections",
+    "::doc:: ": {kind: "mode", label: 'hold', detail: "Start visual mode (enabling selection)"},
     " ": "modalkeys.enableSelection",
 
     ///////////////////////////////////////////////////////
     // actions
 
     // insert/append text
+    "::doc::": {kind: "mode", label: 'insert', detail: "Switch to insert mode" },
     i: [ "modalkeys.cancelMultipleSelections", "modalkeys.enterInsert" ],
+    "::doc::": {kind: "mode", label: 'append', detail: "Switch to insert mode, moving cursor to end of current character" },
     a: [ "modalkeys.cancelMultipleSelections", { if: "__char != ''", then: "cursorRight" }, "modalkeys.enterInsert"],
 
+    "::doc::": {kind: "mode", label: 'insert start', detail: "Switch to insert mode, moving cursor to start of line" },
     I: [
         { "cursorMove": { to: "wrappedLineFirstNonWhitespaceCharacter", select: false } },
         "modalkeys.enterInsert",
     ],
 
+    "::doc::": {kind: "mode", label: 'append eol', detail: "Switch to insert mode, moving cursor to end of line" },
     A: [ { "cursorMove": { to: "wrappedLineEnd", select: false } }, "modalkeys.enterInsert", ],
 
     // change
+    "::doc::": {kind: "mode", label: 'change', detail: "Delete all selected text and move to insert mode"},
     c: countSelectsLines('down', {
         if: "!__selection.isSingleLine && __selection.end.character == 0 && __selection.start.character == 0",
         // multi-line selection
@@ -501,6 +512,7 @@ module.exports = {keybindings: {
         "modalkeys.enterInsert"
     ]),
 
+    "::doc::": {kind: "mode", label: 'change to eol', detail: "Delete all text from here to end of line, and switch to insert mode"},
     C: countSelectsLines('up', [
         "modalkeys.cancelMultipleSelections",
         "deleteAllRight",
@@ -512,23 +524,41 @@ module.exports = {keybindings: {
         "modalkeys.enterInsert"
     ]),
 
+    "::doc::": {kind: "action", label: 'join', detail: "Remove newline between current and next line"},
     "gy": countSelectsLines('down', "editor.action.joinLines"),
 
+    "::doc::`": {kind: "action", label: 'swap', detail: "Swap the style of a identifier (e.g. to camel case to snake case)"},
+    "::doc::`c": {kind: "action", label: 'camel', detail: "Swap style to lower camel case (`camelCase`)"},
     "`c": "extension.changeCase.camel",
+    "::doc::`U": {kind: "action", label: 'constant', detail: "Swap style to constant (`IS_CONSTANT`)"},
     "`U": "extension.changeCase.constant",
+    "::doc::`.": {kind: "action", label: 'dot', detail: "Swap style to dot case (`dot.case`)"},
     "`.": "extension.changeCase.dot",
+    "::doc::`-": {kind: "action", label: 'kebab', detail: "Swap style to kebab case (`kebab-case`)"},
     "`-": "extension.changeCase.kebab",
+    "::doc::`L": {kind: "action", label: 'all lower', detail: "Swap all to lower case"},
     "`L": "extension.changeCase.lower",
+    "::doc::`l": {kind: "action", label: 'first lower', detail: "Swap first letter to lower case"},
     "`l": "extension.changeCase.lowerFirst",
+    "::doc::` ": {kind: "action", label: 'spaces', detail: "Swap to spaces (`camelCase` -> `camel case`)"},
     "` ": "extension.changeCase.no",
+    "::doc::`C": {kind: "action", label: 'Camel', detail: "Swap to uper camel case (`CamelCase`)"},
     "`C": "extension.changeCase.pascal",
+    "::doc::`/": {kind: "action", label: 'path', detail: "Swap to 'path' case (`path/case`)"},
     "`/": "extension.changeCase.path",
+    "::doc::`_": {kind: "action", label: 'snake', detail: "Swap to snake case (`snake_case`)"},
     "`_": "extension.changeCase.snake",
+    "::doc::`s": {kind: "action", label: 'swap', detail: "Swap upper and lower case letters"},
     "`s": "extension.changeCase.swap",
+    "::doc::`s": {kind: "action", label: 'title', detail: "Swap to title case (all words have first upper case letter)"},
     "`t": "extension.changeCase.title",
+    "::doc::`s": {kind: "action", label: 'all upper', detail: "Swap to use all upper case letters"},
     "`Y": "extension.changeCase.upper",
+    "::doc::`s": {kind: "action", label: 'first upper', detail: "Swap first character to upper case"},
     "`u": "extension.changeCase.upperFirst",
+    "::doc::`s": {kind: "action", label: 'first upper', detail: "Toggle through all possible cases"},
     "``": "extension.toggleCase",
+    "::doc::~": {kind: "action", label: 'swap character', detail: "Swap case of character under the curser"},
     "~": [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: 'right', select: true, value: '__count' } },
@@ -542,6 +572,7 @@ module.exports = {keybindings: {
     ],
 
     // update numerical selection
+    "::doc::=": {kind: "action", label: 'inc #', detail: "Increment a number by 1 (increases increment for subsequent selections)"},
     "=": [
         {
             if: "__selections.length === 1",
@@ -549,6 +580,7 @@ module.exports = {keybindings: {
             else: "extension.incrementSelection",
         },
     ],
+    "::doc::+": {kind: "action", label: 'dec #', detail: "Decrement a number by 1 (increases increment for subsequent selections)"},
     "+": [
         {
             if: "__selections.length === 1",
@@ -556,38 +588,58 @@ module.exports = {keybindings: {
             else: "extension.decrementSelection",
         },
     ],
+    "::doc::g=": {kind: "action", label: 'inc all #', detail: "Increment all numbers by 1"},
     "g=": "editor.emmet.action.incrementNumberByOne",
+    "::doc::g+": {kind: "action", label: 'dec all #', detail: "Decrement all numbers by 1"},
     "g+": "editor.emmet.action.decrementNumberByOne",
 
     // check
+    "::doc::^": {kind: "action", label: 'toggle check', detail: "Toggle a markdown checkbox"},
     "^": "markdown-checkbox.markCheckbox",
 
+    "::doc::": {kind: "action", label: 'trim white', detail: "Delete all external whitespace (left and right edges)"},
     "ga": "selection-utilities.trimWhitespace",
 
     // brackets
+    "::doc::gx": {kind: "action", label: 'remove pair', detail: "Delete a pairing (e.g. `()`)"},
+    "::doc::gx[": {kind: "action", label: 'parens/brackets', detail: "Removes pairs that start with `[`, `(` or `{`"},
     "gx[":  "bracketeer.removeBrackets",
+    "::doc::gs": {kind: "action", label: 'swap pair', detail: "Change between different kinds of pairs (e.g. `(` to `{`)"},
+    "::doc::gs[": {kind: "action", label: 'parens/brackets', detail: "Swap between `[`, `(` and `{`"},
     "gs[":  "bracketeer.swapBrackets",
+    "::doc::gs'": {kind: "action", label: 'quotes', detail: "Change between different quotes"},
     "gs'":  "bracketeer.swapQuotes",
+    "::doc::gx'": {kind: "action", label: 'quotes', detail: "Removes quotes (', \" or `)"},
     "gx'":  "bracketeer.removeQuotes",
+    "::doc::gi": {kind: "action", label: 'insert pair', detail: "Insert a pairing (e.g. ()) around a selection"},
+    "::doc::gi(": {kind: "action", label: 'paren', detail: "Insert parenthesis around selection"},
     "gi(": [ "modalkeys.enterInsert", { "type": { text: "(" }, }, "modalkeys.enterNormal" ],
+    "::doc::gi(": {kind: "action", label: 'paren', detail: "Insert parenthesis around selection"},
     "gi<": [ "modalkeys.enterInsert", { "type": { text: "<" }, }, "modalkeys.enterNormal" ],
+    "::doc::gi`": {kind: "action", label: 'ticks', detail: "Insert ticks (``) around selection"},
     "gi`": [ "modalkeys.enterInsert", { "type": { text: "`" }, }, "modalkeys.enterNormal" ],
+    "::doc::gi\"": {kind: "action", label: 'dbl quotes', detail: "Insert quotes (\"\") around selection"},
     "gi\"": [ "modalkeys.enterInsert", { "type": { "text": "\"" }, }, "modalkeys.enterNormal" ],
+    "::doc::gi'": {kind: "action", label: 'sgl quotes', detail: "Insert singel quotes ('') around selection"},
     "gi'": [ "modalkeys.enterInsert", { "type": { text: "'" }, }, "modalkeys.enterNormal" ],
+    "::doc::gi*": {kind: "action", label: 'start', detail: "Insert stars (**) around selection"},
     "gi*": [ "modalkeys.enterInsert", { "type": { text: "*" }, }, "modalkeys.enterNormal" ],
-    // "'i2*": [ "modalkeys.enterInsert", { "type": { text: "**" }, }, "modalkeys.enterNormal" ],
+    "::doc::gi{": {kind: "action", label: 'curly', detail: "Insert curly brackets ({}) around selection"},
     "gi{": [ "modalkeys.enterInsert", { "type": { text: "{" }, }, "modalkeys.enterNormal" ],
+    "::doc::gi[": {kind: "action", label: 'square', detail: "Insert square brackets ([]) around selection"},
     "gi[": [ "modalkeys.enterInsert", { "type": { text: "[" }, }, "modalkeys.enterNormal" ],
 
     /////////////
     // clipboard actions
 
     // cut to clipboard
+    "::doc::d": {kind: "action", label: "delete", detail: "Delete selection and save to paste buffer"},
     d: countSelectsLines('down', [
         "editor.action.clipboardCutAction",
         "modalkeys.enterNormal"
     ]),
 
+    "::doc::d": {kind: "action", label: "delete to eol", detail: "Delete from cursor to end of line"},
     D: countSelectsLines('up', [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: "wrappedLineEnd", select: true } },
@@ -598,20 +650,24 @@ module.exports = {keybindings: {
         "editor.action.enterNormal"
     ]),
 
+    "::doc::x": {kind: "action", label: "delete char", detail: "delete the character under the cursor"},
     x: [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: "right", select: true } },
         "editor.action.clipboardCutAction",
     ],
 
+    "::doc::X": {kind: "action", label: "replace char", detail: "replace the character under the cursor"},
     X: "modalkeys.replaceChar",
 
     // copy to clipboard
+    "::doc::y": {kind: "action", label: "copy", detail: "copy selected text to clipboard"},
     y: countSelectsLines('down', [
         "editor.action.clipboardCopyAction", "modalkeys.cancelMultipleSelections",
     ]),
 
     // copy line to clipboard
+    "::doc::Y": {kind: "action", label: "copy (eol/up)", detail: "without a count: copy to end of line; with a count: copy this and the previous N lines"},
     Y: countSelectsLines('up', [
         { "cursorMove": { to: "wrappedLineEnd", select: true } },
         "editor.action.clipboardCopyAction",
@@ -622,6 +678,7 @@ module.exports = {keybindings: {
     ]),
 
     // paste after
+    "::doc::v": {kind: "action", label: "paste after", detail: "Paste the next after the cursor/selection"},
     v: [
         {
             if: "!__selection.isEmpty",
@@ -638,6 +695,7 @@ module.exports = {keybindings: {
     ],
 
     // paste before
+    "::doc::V": {kind: "action", label: "paste before", detail: "Paste the next before the cursor/selection"},
     V: [
         {
             if: "!__selection.isEmpty",
@@ -650,13 +708,16 @@ module.exports = {keybindings: {
     ],
 
     // paste and replace
+    "::doc::gV": {kind: "action", label: "paste replace", detail: "Paste, replacing the selected text"},
     "gV": "editor.action.clipboardPasteAction",
 
     // paste from history
+    "::doc::gv": {kind: "action", label: "paste history", detail: "Paste from clipboard history"},
     "gv": "clipboard-manager.editor.pickAndPaste" ,
 
 
     // paste lines below
+    "::doc::,v": {kind: "action", label: "paste after line", detail: "Paste text after current line"},
     ",v": [
         "expandLineSelection",
         "selection-utilities.activeAtEnd",
@@ -665,6 +726,7 @@ module.exports = {keybindings: {
     ],
 
     // paste lines above
+    "::doc::,V": {kind: "action", label: "paste before line", detail: "Paste text before current line"},
     ",V": [
         "expandLineSelection",
         "selection-utilities.activeAtStart",
@@ -674,59 +736,85 @@ module.exports = {keybindings: {
 
 
     // begin line below
+    "::doc::o": {kind: "mode", label: "open below", detail: "open a line below current line and enter insert"},
     o: ["editor.action.insertLineAfter", "modalkeys.enterInsert"],
+    "::doc::go": {kind: "action", label: "open below", detail: "open a line below current line"},
     go: "editor.action.insertLineAfter",
+    "::doc::visual::o": {kind: "mode", label: "open below", detail: "open a line below current selection and enter insert"},
     "visual::o": "selection-utilities.activeAtEnd",
+    "::doc::O": {kind: "mode", label: "open above", detail: "open a line above current line and enter insert"},
     O: [ "editor.action.insertLineBefore", "modalkeys.enterInsert" ],
+    "::doc::gO": {kind: "action", label: "open above", detail: "open a line above current line"},
     gO: "editor.action.insertLineBefore",
+    "::doc::visual::o": {kind: "mode", label: "open before", detail: "open a line above current selection and enter insert"},
     "visual::O": "selection-utilities.activeAtStart",
 
     // line indent
+    "::doc::>": {kind: "action", label: "indent", detail: "Indent lines"},
     ">": countSelectsLines('down', "editor.action.indentLines", [
         "editor.action.indentLines", 
         "modalkeys.cancelMultipleSelections"
     ]),
+    "::doc::>": {kind: "action", label: "deindent", detail: "Deindent lines"},
     "<": countSelectsLines('down', "editor.action.outdentLines", [
         "editor.action.outdentLines", 
         "modalkeys.cancelMultipleSelections"
     ]),
+    "::doc::>": {kind: "action", label: "format", detail: "Format code"},
     "g>": countSelectsLines('down', "editor.action.formatSelection", [
         "editor.action.formatSelection",
         "modalkeys.cancelMultipleSelections"
     ]),
 
+    "::doc::,f": {kind: "action", label: "open file", detail: "Open file using quick open"},
     ",f": "workbench.action.quickOpen",
+    "::doc::,r": {kind: "action", label: "open recent", detail: "Open recent file"},
     ",r": "workbench.action.openRecent",
+    "::doc:::": {kind: "action", label: "command", detail: "Show the VSCode command palette"},
     ":": "workbench.action.showCommands",
+    "::doc::,g": {kind: "action", label: "goto line", detail: "Use VSCode goto line command"},
     ",g": "workbench.action.gotoLine",
 
     ///////////////////////
     // history
 
+    "::doc::z": {kind: "history", label: "undo", detail: "VSCode Undo"},
     z: [ "undo", "modalkeys.cancelMultipleSelections", "modalkeys.untouchDocument", ],
+    "::doc::Z": {kind: "history", label: "undo", detail: "VSCode Redo"},
     Z: [ "redo", "modalkeys.cancelMultipleSelections", "modalkeys.untouchDocument", ],
+    "::doc::-": {kind: "history", label: "cursor undo", detail: "VSCode Cursor Undo"},
     "-": "cursorUndo",
+    "::doc::_": {kind: "history", label: "cursor redo", detail: "VSCode Cursor Redo"},
     "_": "cursorRedo",
 
+    "::doc::.": {kind: "history", label: "repeat", detail: "repeat last sentence (last selection and action pair)"},
     ".": [
         "modalkeys.repeatLastUsedSelection",
         "modalkeys.repeatLastChange",
     ],
+    "::doc::.": {kind: "history", label: "repeat select", detail: "repeat last used selection (last selection followed by action pair)"},
     "'.": "modalkeys.repeatLastUsedSelection",
+    "::doc::g.": {kind: "history", label: "repeat action", detail: "repeat last action"},
     "g.": "modalkeys.repeatLastChange",
 
+    "::doc::q": {kind: "history", label: "record macro", detail: "toggle macro recording (use count to label it)"},
     "q": { "modalkeys.toggleRecordingMacro": { register: "__count" } },
+    "::doc::Q": {kind: "history", label: "record macro", detail: "replay the macro (specify which macro using a count)"},
     "Q": { "modalkeys.replayMacro": { register: "__count" } },
+    "::doc::'q": {kind: "history", label: "cancel record", detail: "stop recording a macro (don't save it)"},
     "'q": "modalkeys.cancelRecordingMacro",
 
     /////////////
     // comment actions
+    "::doc::g;": {kind: "action", label: "comment →", detail: "select next comment"},
     "g;":  countSelectsLines('down', [
         "editor.action.commentLine", "modalkeys.cancelMultipleSelections",
     ]),
+    "::doc::g:": {kind: "action", label: "comment ←", detail: "select previous comment"},
     "g:":  countSelectsLines('down', [
         "editor.action.blockComment", "modalkeys.cancelMultipleSelections",
     ]),
+    "::doc::gq": {kind: "action", label: "wrap", detail: "wrap text, preserving commenting"},
     "gq": "rewrap.rewrapComment",
 
     /////////////
