@@ -847,6 +847,7 @@ keybindings: {
 
     /////////////
     // terminal actions
+    "::doc::m": {kind: "action", label: "to repl", detail: "send selection (or line) to a terminal (usually containing a REPL), use langauge specific extension when available"},
     m: countSelectsLines('down', [
         {
             if: "__language == 'julia'",
@@ -860,6 +861,7 @@ keybindings: {
         "modalkeys.cancelMultipleSelections",
         "modalkeys.touchDocument"
     ]),
+    "::doc::m": {kind: "action", label: "to repl (v2)", detail: "send selection (or line) to a terminal (usually containing a REPL), do not use language specific extensions when available"},
     M: countSelectsLines('down', [
         {
             if: "!__selection.isSingleLine",
@@ -869,6 +871,7 @@ keybindings: {
         "modalkeys.cancelMultipleSelections",
         "modalkeys.touchDocument"
     ]),
+    "::doc::gm": {kind: "action", label: "to repl (v3)", detail: "send selection (or line) to a terminal (usually containing a REPL), do not use language specific extensions when available, do not use bracketed paste mode."},
     gm: countSelectsLines('down', [
         "terminal-polyglot.send-text",
         "modalkeys.cancelMultipleSelections",
@@ -939,14 +942,19 @@ keybindings: {
 
     ///////////////
     // selection modifiers
+    "::doc::selectedit::\"": { kind: "mode", label: "select-edit", detail: "Enter a mode where you can edit and manipulate (possibly multiple) selections with ease. Entering the mode also adds a new cursor for the next match to the word under the curosr (or selection). You can use the count to ask multiple matches to be added. (You can use `,\"` to avoid adding any cursors)."},
     '"': [
         { if: "__selections.length <= 1",
             then: { "selection-utilities.addNext": {}, repeat: '__count' } },
         { "modalkeys.enterMode": { mode: "selectedit" } },
     ],
+    "::doc::selectedit::\"": { kind: "mode", label: "select-edit", detail: "Enter a mode where you can edit and manipulate (possibly multiple) selections with ease. No additional cursors will be added when entering the mode with this command. "},
     ",\"": { "modalkeys.enterMode": { mode: "selectedit" } },
+    "::doc::selectedit:: ": { kind: "modifier", label: 'mode', detail: "return to a signle selection and return to normal mode"},
     "selectedit:: ": [ "selection-utilities.cancelSelection", { "modalkeys.enterMode": { mode: "normal" }} ],
+    "::doc::selectedit:: ": { kind: "modifier", label: 'mode', detail: "insert mode at cursor"},
     "selectedit::i": [  "selection-utilities.cancelMultipleSelections", { "modalkeys.enterMode": { mode: "insert" }} ],
+    "::doc::selectedit::\n": { kind: "modifier", label: 'mode', detail: "return to normal mode"},
     "selectedit::\n": [ { "modalkeys.enterMode": { mode: "normal" }} ],
 
     "selectedit::\"": { "selection-utilities.addNext": {}, repeat: '__count' },
@@ -993,7 +1001,9 @@ keybindings: {
     "selectedit::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
     "selectedit::O": "selection-utilities.activeAtStart",
     "selectedit::o": "selection-utilities.activeAtEnd",
+    "::doc::selectedit::j": { kind: "modifier", label: "→ sel", detail: "make the next selection primary; primary selections determine from where you add cursors, what cursor you delete, and where the cursor goes when you clear or save selections" },
     "selectedit::j": { "selection-utilities.movePrimaryRight": {}, repeat: '__count' },
+    "::doc::selectedit::k": { kind: "modifier", label: "← sel", detail: "make the previous selection primary; primary selections determine from where you add cursors, what cursor you delete, and where the cursor goes when you clear or save selections" },
     "selectedit::k": { "selection-utilities.movePrimaryLeft": {}, repeat: '__count' },
     "selectedit::d": { "selection-utilities.deletePrimary": {}, repeat: '__count' },
     "selectedit::s\n": "selection-utilities.splitByNewline",
