@@ -29,7 +29,35 @@ function countSelectsLines(to, countnone, countN){
     }
 }
 
-module.exports = {keybindings: {
+module.exports = {
+extensions: [
+    "dbankier.vscode-quick-select",
+    "haberdashpi.vscode-select-by-indent",
+    "haberdashpi.selection-utilities",
+    "haberdashpi.move-cursor-by-argument",
+    "pustelto.bracketeer",
+    "wmaurer.change-case",
+    "pranshuagrawal.toggle-case",
+    "albymor.increment-selection",
+    "pkief.markdown-checkbox",
+    "edgardmessias.clipboard-manager",
+    "stkb.rewrap",
+    "haberdashpi.terminal-polyglot",
+    "jack89ita.open-file-from-path",
+    "koalamer.labeled-bookmarks",
+],
+
+docColors: {
+    'select': 1,
+    'modifier': 3,
+    'count': 5,
+    'action': 8,
+    'history': 10,
+    'mode': 12,
+    'leader': 16,
+},
+
+keybindings: {
     /////////////
     // motions
 
@@ -456,12 +484,12 @@ module.exports = {keybindings: {
 
     "::doc::R": {kind: "select", label: 'expand to non-whitespace', detail: 'select full line(s), and trim external whitespace'},
     R: [ "expandLineSelection", "selection-utilities.trimSelectionWhitespace" ],
-    "::doc::visual::R": {kind: "modify select", label: 'trim whitespace', detail: 'shrink selection to avoid external whitespace'},
+    "::doc::visual::R": {kind: "modifier", label: 'trim whitespace', detail: 'shrink selection to avoid external whitespace'},
     "visual::R":  "selection-utilities.trimSelectionWhitespace" ,
-    "::doc::U": {kind: "modify select", label: 'narrow to subword', detail: "Narrow current selection so it starts and stops at a subword (e.g. 'snake' in snake_case)"},
+    "::doc::U": {kind: "modifier", label: 'narrow to subword', detail: "Narrow current selection so it starts and stops at a subword (e.g. 'snake' in snake_case)"},
     U: { "selection-utilities.narrowTo": { unit: "subident", boundary: "both", } },
 
-    "::doc::r": {kind: "modify select", label: 'clear', detail: "Clear the current selection"},
+    "::doc::r": {kind: "modifier", label: 'clear', detail: "Clear the current selection"},
     r: "modalkeys.cancelMultipleSelections",
     "::doc:: ": {kind: "mode", label: 'hold', detail: "Start visual mode (enabling selection)"},
     " ": "modalkeys.enableSelection",
@@ -470,22 +498,22 @@ module.exports = {keybindings: {
     // actions
 
     // insert/append text
-    "::doc::": {kind: "mode", label: 'insert', detail: "Switch to insert mode" },
+    "::doc::i": {kind: "mode", label: 'insert', detail: "Switch to insert mode" },
     i: [ "modalkeys.cancelMultipleSelections", "modalkeys.enterInsert" ],
-    "::doc::": {kind: "mode", label: 'append', detail: "Switch to insert mode, moving cursor to end of current character" },
+    "::doc::a": {kind: "mode", label: 'append', detail: "Switch to insert mode, moving cursor to end of current character" },
     a: [ "modalkeys.cancelMultipleSelections", { if: "__char != ''", then: "cursorRight" }, "modalkeys.enterInsert"],
 
-    "::doc::": {kind: "mode", label: 'insert start', detail: "Switch to insert mode, moving cursor to start of line" },
+    "::doc::I": {kind: "mode", label: 'insert start', detail: "Switch to insert mode, moving cursor to start of line" },
     I: [
         { "cursorMove": { to: "wrappedLineFirstNonWhitespaceCharacter", select: false } },
         "modalkeys.enterInsert",
     ],
 
-    "::doc::": {kind: "mode", label: 'append eol', detail: "Switch to insert mode, moving cursor to end of line" },
+    "::doc::A": {kind: "mode", label: 'append eol', detail: "Switch to insert mode, moving cursor to end of line" },
     A: [ { "cursorMove": { to: "wrappedLineEnd", select: false } }, "modalkeys.enterInsert", ],
 
     // change
-    "::doc::": {kind: "mode", label: 'change', detail: "Delete all selected text and move to insert mode"},
+    "::doc::c": {kind: "mode", label: 'change', detail: "Delete all selected text and move to insert mode"},
     c: countSelectsLines('down', {
         if: "!__selection.isSingleLine && __selection.end.character == 0 && __selection.start.character == 0",
         // multi-line selection
@@ -512,7 +540,7 @@ module.exports = {keybindings: {
         "modalkeys.enterInsert"
     ]),
 
-    "::doc::": {kind: "mode", label: 'change to eol', detail: "Delete all text from here to end of line, and switch to insert mode"},
+    "::doc::C": {kind: "mode", label: 'change to eol', detail: "Delete all text from here to end of line, and switch to insert mode"},
     C: countSelectsLines('up', [
         "modalkeys.cancelMultipleSelections",
         "deleteAllRight",
@@ -524,7 +552,7 @@ module.exports = {keybindings: {
         "modalkeys.enterInsert"
     ]),
 
-    "::doc::": {kind: "action", label: 'join', detail: "Remove newline between current and next line"},
+    "::doc::gy": {kind: "action", label: 'join', detail: "Remove newline between current and next line"},
     "gy": countSelectsLines('down', "editor.action.joinLines"),
 
     "::doc::`": {kind: "action", label: 'swap', detail: "Swap the style of a identifier (e.g. to camel case to snake case)"},
