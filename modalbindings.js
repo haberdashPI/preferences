@@ -667,7 +667,7 @@ keybindings: {
         "modalkeys.enterNormal"
     ]),
 
-    "::doc::d": {kind: "action", label: "delete to eol", detail: "Delete from cursor to end of line"},
+    "::doc::D": {kind: "action", label: "delete to eol", detail: "Delete from cursor to end of line"},
     D: countSelectsLines('up', [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: "wrappedLineEnd", select: true } },
@@ -820,16 +820,16 @@ keybindings: {
         "modalkeys.repeatLastUsedSelection",
         "modalkeys.repeatLastChange",
     ],
-    "::doc::.": {kind: "history", label: "repeat select", detail: "repeat last used selection (last selection followed by action pair)"},
+    "::doc::'.": {kind: "history", label: "repeat select", detail: "repeat last used selection (last selection followed by action pair)"},
     "'.": "modalkeys.repeatLastUsedSelection",
     "::doc::g.": {kind: "history", label: "repeat action", detail: "repeat last action"},
     "g.": "modalkeys.repeatLastChange",
 
-    "::doc::q": {kind: "history", label: "record macro", detail: "toggle macro recording (use count to label it)"},
+    "::doc::q": {kind: "history", label: "record", detail: "toggle macro recording (use count to label it), use `'q` to cancel recording"},
     "q": { "modalkeys.toggleRecordingMacro": { register: "__count" } },
-    "::doc::Q": {kind: "history", label: "record macro", detail: "replay the macro (specify which macro using a count)"},
+    "::doc::Q": {kind: "history", label: "replay", detail: "replay the macro (specify which macro using a count)"},
     "Q": { "modalkeys.replayMacro": { register: "__count" } },
-    "::doc::'q": {kind: "history", label: "cancel record", detail: "stop recording a macro (don't save it)"},
+    "::doc::'q": {kind: "history", label: "cancel recording", detail: "stop recording a macro (don't save it)"},
     "'q": "modalkeys.cancelRecordingMacro",
 
     /////////////
