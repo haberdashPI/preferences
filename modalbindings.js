@@ -957,42 +957,57 @@ keybindings: {
     "::doc::selectedit::\n": { kind: "modifier", label: 'mode', detail: "return to normal mode"},
     "selectedit::\n": [ { "modalkeys.enterMode": { mode: "normal" }} ],
 
+    "::doc::selectedit::\"": { kind: "modifier", label: "add →", detail: "add cursor at the next match to the primary cursor's text" },
     "selectedit::\"": { "selection-utilities.addNext": {}, repeat: '__count' },
+    "::doc::selectedit::J": { kind: "modifier", label: "add →", detail: "add cursor at the next match to the primary cursor's text" },
     "selectedit::J": { "selection-utilities.addNext": {}, repeat: '__count' },
+    "::doc::selectedit::K": { kind: "modifier", label: "add ←", detail: "add cursor at the previous match to the primary cursor's text" },
     "selectedit::K": { "selection-utilities.addPrev": {}, repeat: '__count' },
+    "::doc::selectedit::gj": { kind: "modifier", label: "skip →", detail: "move primary cursor to the next match of the primary cursor's text" },
     "selectedit::gj":  { "selection-utilities.skipNext": {}, repeat: '__count' },
+    "::doc::selectedit::gk": { kind: "modifier", label: "skip →", detail: "move primary cursor to the previous match of the primary cursor's text" },
     "selectedit::gk": { "selection-utilities.skipPrev": {}, repeat: '__count' },
 
-
+    "::doc::selectedit::=": { kind: "action", label: "align ←", detail: "align selections left"},
     "selectedit::=": "selection-utilities.alignSelectionsLeft",
+    "::doc::selectedit::+": { kind: "action", label: "align ←", detail: "align selections right"},
     "selectedit::+": "selection-utilities.alignSelectionsRight",
+    "::doc::'c": { kind: "modifier", label: "save sel", detail: "save all selections to the default register. Use a count to specify an alternate register"},
     "'c": [
         { "selection-utilities.appendToMemory": { register: "__count" } },
         "modalkeys.cancelMultipleSelections", "modalkeys.enterNormal"
     ],
+    "::doc::'v": { kind: "modifier", label: "load sel", detail: "load previously saved selections in the default register. Use a count to specify an alternate register"},
     "'v": [
         { "selection-utilities.restoreAndClear": { register: "__count" } },
         { if: "__selections.length > 1", then: { "modalkeys.enterMode": { mode: "selectedit" }}}
     ],
 
+    "::doc::'x": { kind: "modifier", label: "exchange sel", detail: "exchange selections: with no saved seleciton, saves the seleciton, with saved selections exchanges text of current selections with those of the saved selections (number of selections must match). Use a count to specify an alternate register."},
     "'x": { "selection-utilities.swapWithMemory": { register: "__count" } },
+    "::doc::'n": { kind: "modifier", label: "rem saved sel", detail: "remove the most recently saved selection from the list of saved selections"},
     "'n": { "selection-utilities.deleteLastSaved": { register: "__count" } },
+    "::doc::'\n": { kind: "modifier", label: "split sel", detail: "split selection into multiple selections by new line charactesr"},
     "'\n": countSelectsLines([
         "selection-utilities.splitByNewline",
         { "modalkeys.enterMode": { mode: "selectedit" } }
     ]),
+    "::doc::'*": { kind: "modifier", label: "sel all", detail: "create a selection for every match of the current word (or selection)"},
     "'*": [
         "editor.action.selectHighlights",
         { "modalkeys.enterMode": { mode: "selectedit" } },
     ],
+    "::doc::'-": { kind: "modifier", label: "sel all", detail: "restore the most recently cleared selection"},
     "'-": [
         { "selection-utilities.restoreAndClear": {register: "cancel"} },
         { if: "__selections.length > 1", then: { "modalkeys.enterMode": { mode: "selectedit" }}}
     ],
+    "::doc::'K": { kind: "modifier", label: "insert sel ↑", detail: "insert cursor on line above"},
     "'K": [
         { "editor.action.insertCursorAbove": {}, repeat: '__count' },
         { "modalkeys.enterMode": { mode: "selectedit" } },
     ],
+    "::doc::'J": { kind: "modifier", label: "insert sel ↓", detail: "insert cursor on line below"},
     "'J": [
         { "editor.action.insertCursorBelow": {}, repeat: '__count' },
         { "modalkeys.enterMode": { mode: "selectedit" }},
