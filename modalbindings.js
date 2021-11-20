@@ -50,10 +50,11 @@ extensions: [
 docKinds: [
     { name: 'select',   description: "Select commands move the cursor and/or selections." },
     { name: 'modifier', description: "Modifier commands manipulate selections in various ways" },
-    { name: 'count',    description: "Counts serve as prefix arguments to other commands, and usually determine how many times to repeat the commnad, unless otherwise specified." },
+    { name: 'window',   description: "Window commands change window layout/focus" },
     { name: 'action',   description: "Actions do something with the current line or the selected text (e.g. delete it). Typically, in the absence of a selection, an action will modify an entire line, and a count argument indicates the number of lines (e.g. 3d deletes this line and the next 3 lines)." },
     { name: 'history',  description: "History commands modify or use the history of executed commands, in some way." },
     { name: 'mode',     description: "Mode commands change the key mode, possibly completely changing what all of the keys do." },
+    { name: 'count',    description: "Counts serve as prefix arguments to other commands, and usually determine how many times to repeat the commnad, unless otherwise specified." },
     { name: 'leader',   description: "Leaders serve as prefixes to an entire list of key commands" }
 ],
 
@@ -118,7 +119,7 @@ keybindings: {
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: 'right', select: true, value: '__count' } }
     ],
-    "::doc::\\": { kind: "select", label: 'left character', detail: "select *just* the character to the left" },
+    "::doc::|": { kind: "select", label: 'left character', detail: "select *just* the character to the left" },
     "|": [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: 'left', select: true, value: '__count' } }
@@ -233,7 +234,7 @@ keybindings: {
 
     // search related
     // "/": "actions.find",
-    "::doc::": { kind: "select", label: "match →", detail: "Next match to object under cursor"},
+    "::doc::*": { kind: "select", label: "match →", detail: "Next match to object under cursor"},
     "*": [
         { "modalkeys.search": {
             text: "__wordstr",
@@ -241,7 +242,7 @@ keybindings: {
             register: "search"
         }}
     ],
-    "::doc::": { kind: "select", label: "match ←", detail: "Previous match to object under cursor"},
+    "::doc::&": { kind: "select", label: "match ←", detail: "Previous match to object under cursor"},
     "&": [
         { "modalkeys.search": {
             text: "__wordstr",
@@ -251,12 +252,12 @@ keybindings: {
         }}
     ],
 
-    "::doc::": { kind: "select", label: "search →", detail: "Next match to search term"},
+    "::doc::n": { kind: "select", label: "search →", detail: "Next match to search term"},
     "n": { "modalkeys.nextMatch": {register: "search"}, repeat: "__count" },
-    "::doc::": { kind: "select", label: "search →", detail: "Previous match to search term"},
+    "::doc::N": { kind: "select", label: "search →", detail: "Previous match to search term"},
     "N": { "modalkeys.previousMatch": {register: "search"}, repeat: "__count" },
 
-    "::doc::": { kind: "select", label: "search", detail: "Search forwards" },
+    "::doc::/": { kind: "select", label: "search", detail: "Search forwards" },
     "/": { "modalkeys.search": {
         register: "search",
         caseSensitive: true,
@@ -264,7 +265,7 @@ keybindings: {
         selectTillMatch: true,
         wrapAround: true
     } },
-    "::doc::": { kind: "select", label: "search back", detail: "Search backward" },
+    "::doc::?": { kind: "select", label: "search back", detail: "Search backward" },
     "?": { "modalkeys.search": {
         register: "search",
         caseSensitive: true,
@@ -273,7 +274,7 @@ keybindings: {
         wrapAround: true
     } },
 
-    "::doc::": { kind: "select", label: "find char", detail: "To next char (include char in selection)"},
+    "::doc::f": { kind: "select", label: "find char", detail: "To next char (include char in selection)"},
     f: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 1,
@@ -281,7 +282,7 @@ keybindings: {
         selectTillMatch: true,
         wrapAround: true
     }},
-    "::doc::": { kind: "select", label: "find char back", detail: "To previous character (include char in selection)"},
+    "::doc::F": { kind: "select", label: "find char back", detail: "To previous character (include char in selection)"},
     F: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 1,
@@ -289,7 +290,7 @@ keybindings: {
         selectTillMatch: true,
         wrapAround: true
     }},
-    "::doc::": { kind: "select", label: "find char", detail: "To next character (exclude char in selection)"},
+    "::doc::t": { kind: "select", label: "find char", detail: "To next character (exclude char in selection)"},
     t: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 1,
@@ -298,7 +299,7 @@ keybindings: {
         offset: 'start',
         wrapAround: true
     }},
-    "::doc::": { kind: "select", label: "find char back", detail: "To previous character (exclude char in selection)"},
+    "::doc::T": { kind: "select", label: "find char back", detail: "To previous character (exclude char in selection)"},
     T: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 1,
@@ -307,7 +308,7 @@ keybindings: {
         offset: 'end',
         wrapAround: true
     }},
-    "::doc::": { kind: "select", label: "find char pair", detail: "To next character pair"},
+    "::doc::s": { kind: "select", label: "find char pair", detail: "To next character pair"},
     s: { "modalkeys.search": {
         caseSensitive: true,
         acceptAfter: 2,
@@ -316,7 +317,7 @@ keybindings: {
         offset: 'start',
         wrapAround: true
     }},
-    "::doc::": { kind: "select", label: "char pair back", detail: "To previous character pair"},
+    "::doc::S": { kind: "select", label: "char pair back", detail: "To previous character pair"},
     S: { "modalkeys.search": {
         casSensitive: true,
         acceptAfter: 2,
@@ -325,8 +326,10 @@ keybindings: {
         offset: 'start',
         wrapAround: true
     }},
+    "::doc::;": {kind: "select", label: "→ match", detail: "Repeat search motion forwards (for `f`, `t`, etc...)"},
     ";": { "modalkeys.nextMatch": {}, repeat: "__count" },
-    ",,": { "modalkeys.previousMatch": {}, repeat: "__count" },
+    "::doc:::": {kind: "select", label: "← match", detail: "Repeat search motion backwards (for `f`, `t`, etc...)"},
+    ":": { "modalkeys.previousMatch": {}, repeat: "__count" },
 
     ////////////////////////
     // more complex syntactic selections
@@ -352,7 +355,7 @@ keybindings: {
         },
         { "editor.action.selectToBracket": {"selectBrackets": false} }
     ],
-    "::doc::[": {kind: 'select', label: 'arnd parens', detail: 'parents/brackets/braces and their contents'},
+    "::doc::{": {kind: 'select', label: 'arnd parens', detail: 'parents/brackets/braces and their contents'},
     "{": [
         {
             if: "!__selection.isEmpty",
@@ -783,12 +786,12 @@ keybindings: {
         "editor.action.indentLines", 
         "modalkeys.cancelMultipleSelections"
     ]),
-    "::doc::>": {kind: "action", label: "deindent", detail: "Deindent lines"},
+    "::doc::<": {kind: "action", label: "deindent", detail: "Deindent lines"},
     "<": countSelectsLines('down', "editor.action.outdentLines", [
         "editor.action.outdentLines", 
         "modalkeys.cancelMultipleSelections"
     ]),
-    "::doc::>": {kind: "action", label: "format", detail: "Format code"},
+    "::doc::g>": {kind: "action", label: "format", detail: "Format code"},
     "g>": countSelectsLines('down', "editor.action.formatSelection", [
         "editor.action.formatSelection",
         "modalkeys.cancelMultipleSelections"
@@ -798,8 +801,8 @@ keybindings: {
     ",f": "workbench.action.quickOpen",
     "::doc::,r": {kind: "action", label: "open recent", detail: "Open recent file"},
     ",r": "workbench.action.openRecent",
-    "::doc:::": {kind: "action", label: "command", detail: "Show the VSCode command palette"},
-    ":": "workbench.action.showCommands",
+    "::doc::,,": {kind: "action", label: "command", detail: "Show the VSCode command palette"},
+    ",,": "workbench.action.showCommands",
     "::doc::,g": {kind: "action", label: "goto line", detail: "Use VSCode goto line command"},
     ",g": "workbench.action.gotoLine",
 
@@ -861,7 +864,7 @@ keybindings: {
         "modalkeys.cancelMultipleSelections",
         "modalkeys.touchDocument"
     ]),
-    "::doc::m": {kind: "action", label: "to repl (v2)", detail: "send selection (or line) to a terminal (usually containing a REPL), do not use language specific extensions when available"},
+    "::doc::M": {kind: "action", label: "to repl (v2)", detail: "send selection (or line) to a terminal (usually containing a REPL), do not use language specific extensions when available"},
     M: countSelectsLines('down', [
         {
             if: "!__selection.isSingleLine",
