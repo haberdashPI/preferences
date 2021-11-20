@@ -880,64 +880,114 @@ keybindings: {
 
     ///////////////////
     // git/version control
+    "::doc::gr": {kind: "action", label: "git stage", detail: "stage changes for commit"},
     gr: countSelectsLines([ "git.stageSelectedRanges", "modalkeys.touchDocument", "modalkeys.cancelMultipleSelections" ]),
+    "::doc::gr": {kind: "action", label: "git unstage", detail: "unstage changes for commit"},
     gR: countSelectsLines([ "git.unstageSelectedRanges", "modalkeys.touchDocument", "modalkeys.cancelMultipleSelections" ]),
+    "::doc::gu": {kind: "action", label: "git revert", detail: "revert uncommited changes"},
     gu: countSelectsLines(["git.revertSelectedRanges", "modalkeys.cancelMultipleSelections"]),
+    "::doc::gl": {kind: "action", label: "git pull", detail: "pull changes from remote"},
     gl: "git.pull",
+    "::doc::gp": {kind: "action", label: "git push", detail: "push changes to remote"},
     gp: "git.push",
+    "::doc::'e": {kind: "select", label: "error →", detail: "move to next error"},
     "'e": "editor.action.marker.next",
+    "::doc::'E": {kind: "select", label: "error ←", detail: "move to previous error"},
     "'E": "editor.action.marker.prev",
+    "::doc::'d": {kind: "select", label: "diff →", detail: "move to and show next change"},
     "'d": "editor.action.dirtydiff.next",
+    "::doc::'D": {kind: "select", label: "diff ←", detail: "move to and show previous change"},
     "'D": "editor.action.dirtydiff.previous",
+    "::doc::'f": {kind: "select", label: "change →", detail: "move to next change"},
     "'f": "workbench.action.editor.nextChange",
+    "::doc::'F": {kind: "select", label: "change ←", detail: "move to previous change"},
     "'F": "workbench.action.editor.previousChange",
 
     /////////////
     // window manipulation
+    "::doc::'g": {kind: "leader", label: "window", detail: "additional, window-manipulation related commands"},
+    "::doc::'gg": {kind: "window", label: "center", detail: "center window at primary cursor position"},
     "'gg": { "revealLine": { lineNumber: '__line', at: 'center' } },
+    "::doc::'gK": {kind: "window", label: "top", detail: "center window so that primary cursor is at the top"},
     "'gK": { "revealLine": { lineNumber: '__line', at: 'top' } },
+    "::doc::'gJ": {kind: "window", label: "bottom", detail: "center window so that primary cursor is at the bottom"},
     "'gJ": { "revealLine": { lineNumber: '__line', at: 'bottom' } },
+    "::doc::'gm": {kind: "window", label: "max", detail: "minimize size of all other windows"},
     "'gm": "workbench.action.minimizeOtherEditors",
+    "::doc::'g=": {kind: "window", label: "equal", detail: "equalzize size of all windows"},
     "'g=": "workbench.action.evenEditorWidths",
+    "::doc::'g|": {kind: "window", label: "split", detail: "toggle split editor view"},
     "'g|": "workbench.action.toggleSplitEditorInGroup",
+    "::doc::'ge": {kind: "window", label: "split →", detail: "move to other side of editor split"},
     "'ge": "workbench.action.focusOtherSideEditor",
+    "::doc::'gl": {kind: "window", label: "→", detail: "move focus to window to the right"},
     "'gl": "workbench.action.focusRightGroup",
+    "::doc::'gh": {kind: "window", label: "←", detail: "move focus to window to the left"},
     "'gh": "workbench.action.focusLeftGroup",
+    "::doc::'gk": {kind: "window", label: "↑", detail: "move focus to window above"},
     "'gk": "workbench.action.focusAboveGroup",
+    "::doc::'gj": {kind: "window", label: "↓", detail: "move focus to window below"},
     "'gj": "workbench.action.focusBelowGroup",
+    "::doc::'gc": {kind: "window", label: "create", detail: "create new window of editor in given direction"},
+    "::doc::'gcl": {kind: "window", label: "→", detail: "create new window of editor to left"},
     "'gcl": "workbench.action.splitEditorRight",
+    "::doc::'gch": {kind: "window", label: "←", detail: "create new window of editor to left"},
     "'gch": "workbench.action.splitEditorLeft",
+    "::doc::'gcj": {kind: "window", label: "↓", detail: "create new window of editor below"},
     "'gcj": "workbench.action.splitEditorDown",
+    "::doc::'gck": {kind: "window", label: "↑", detail: "create new window of editor above"},
     "'gck": "workbench.action.splitEditorUp",
+    "::doc::'gc": {kind: "window", label: "create", detail: "move editor to window in given direction"},
+    "::doc::'gtl": {kind: "window", label: "→", detail: "move editor to window to left"},
     "'gtl": "workbench.action.moveEditorToRightGroup",
+    "::doc::'gth": {kind: "window", label: "←", detail: "move editor to window to left"},
     "'gth": "workbench.action.moveEditorToLeftGroup",
+    "::doc::'gtj": {kind: "window", label: "↓", detail: "move editor to window below"},
     "'gtj": "workbench.action.moveEditorToBelowGroup",
+    "::doc::'gtk": {kind: "window", label: "↑", detail: "move editor to window above"},
     "'gtk": "workbench.action.moveEditorToAboveGroup",
 
+    "::doc::gh": {kind: "window", label: "hover", detail: "show the hover view"},
     gh: "editor.action.showHover",
+    "::doc::gf": {kind: "window", label: "open", detail: "open the file name under the cursor"},
     gf: "extension.openFileFromPath",
+    "::doc::gd": {kind: "window", label: "go to", detail: "go to the definition of symbol under curosr"},
     gd: "editor.action.revealDefinition",
+    "::doc::gd": {kind: "window", label: "go to (aside)", detail: "go to the definition of symbol under curosr in an editor to the side"},
     gD: "editor.action.revealDefinitionAside",
 
     /////////
     // debugging
+    "::doc::gH": {kind: "window", label: "debug hover", detail: "show the debug hover view"},
     gH: "editor.debug.action.showDebugHover",
+    "::doc::gb": {kind: "action", label: "breakpt.", detail: "toggle debug breakpoint"},
     gb: "editor.debug.action.toggleBreakpoint",
+    "::doc::ge": {kind: "leader", label: "debug", detail: "additional debug actions"},
     geb: "editor.debug.action.conditionalBreakpoint",
+    "::doc::ger": {kind: "action", label: "start", detail: "start debugging"},
     ger: "workbench.action.debug.start",
+    "::doc::gec": {kind: "action", label: "continue", detail: "continue debugging"},
     gec: "workbench.action.debug.continue",
-    ges: "workbench.action.debug.stepOver",
-    gei: "workbench.action.debug.stepInto",
-    geo: "workbench.action.debug.stepOut",
+    "::doc::gej": {kind: "action", label: "next", detail: "debug: step over next line"},
+    gej: "workbench.action.debug.stepOver",
+    "::doc::gel": {kind: "action", label: "into", detail: "debug: step into next line"},
+    gel: "workbench.action.debug.stepInto",
+    "::doc::gek": {kind: "action", label: "out", detail: "debug: step out"},
+    gek: "workbench.action.debug.stepOut",
 
     //////////
     // bookmarks
+    "::doc::g ": {kind: "action", label: "mark", detail: "toggle bookmark at given line (use 'j, 'k and '# to navigate bookmarks)"},
     "g ": "vsc-labeled-bookmarks.toggleBookmark",
+    "::doc::'j ": {kind: "action", label: "mark ↓", detail: "move to next bookmark"},
     "normal::'j": "vsc-labeled-bookmarks.navigateToNextBookmark",
+    "::doc::'k ": {kind: "action", label: "mark ↓", detail: "move to previous bookmark"},
     "normal::'k": "vsc-labeled-bookmarks.navigateToPreviousBookmark",
     "visual::'j": "vsc-labeled-bookmarks.expandSelectionToNextBookmark",
     "visual::'k": ["vsc-labeled-bookmarks.expandSelectionToPreviousBookmark", "selection-utilities.activeAtStart"],
+    "::doc::g ": {kind: "action", label: "mark", detail: "remove bookmark (use quick selection)"},
     "gx ": "vsc-labeled-bookmarks.deleteBookmark",
+    "::doc::'#": {kind: "action", label: "nav marks", detail: "reveal quick selection to move to a bookmark"},
     "'#": "vsc-labeled-bookmarks.navigateToBookmark",
 
     ///////////////
@@ -953,7 +1003,7 @@ keybindings: {
     "::doc::selectedit:: ": { kind: "modifier", label: 'mode', detail: "return to a signle selection and return to normal mode"},
     "selectedit:: ": [ "selection-utilities.cancelSelection", { "modalkeys.enterMode": { mode: "normal" }} ],
     "::doc::selectedit::i": { kind: "modifier", label: 'mode', detail: "insert mode at cursor"},
-    "selectedit::i": [  "selection-utilities.cancelMultipleSelections", { "modalkeys.enterMode": { mode: "insert" }} ],
+    "selectedit::i": [ "modalKeys.enterNormal", "selection-utilities.cancelMultipleSelections", "modalKeys.enterInsert" ],
     "::doc::selectedit::\n": { kind: "modifier", label: 'mode', detail: "return to normal mode"},
     "selectedit::\n": [ { "modalkeys.enterMode": { mode: "normal" }} ],
 
@@ -1013,41 +1063,64 @@ keybindings: {
         { "modalkeys.enterMode": { mode: "selectedit" }},
     ],
 
+    "::doc::selectedit::r": { kind: "mode", label: "reset", detail: "collapse all selections to single curosr, and return to normal mode" },
     "selectedit::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
+    "::doc::selectedit::O": { kind: "modifier", label: "active ←", detail: "move active to start" },
     "selectedit::O": "selection-utilities.activeAtStart",
+    "::doc::selectedit::o": { kind: "modifier", label: "active →", detail: "move active to end" },
     "selectedit::o": "selection-utilities.activeAtEnd",
     "::doc::selectedit::j": { kind: "modifier", label: "→ sel", detail: "make the next selection primary; primary selections determine from where you add cursors, what cursor you delete, and where the cursor goes when you clear or save selections" },
     "selectedit::j": { "selection-utilities.movePrimaryRight": {}, repeat: '__count' },
     "::doc::selectedit::k": { kind: "modifier", label: "← sel", detail: "make the previous selection primary; primary selections determine from where you add cursors, what cursor you delete, and where the cursor goes when you clear or save selections" },
     "selectedit::k": { "selection-utilities.movePrimaryLeft": {}, repeat: '__count' },
+    "::doc::selectedit::d": { kind: "modifier", label: "del. sel", detail: "remove the primary selection" },
     "selectedit::d": { "selection-utilities.deletePrimary": {}, repeat: '__count' },
+    "::doc::selectedit::s": { kind: "modifier", label: "split", detail: "split the selection by a specified marker"},
+    "::doc::selectedit::s\n": { kind: "modifier", label: "newline", detail: "split by newlines"},
     "selectedit::s\n": "selection-utilities.splitByNewline",
+    "::doc::selectedit::ss": { kind: "modifier", label: "string", detail: "split by a given string"},
     "selectedit::ss": "selection-utilities.splitBy",
+    "::doc::selectedit::sr": { kind: "modifier", label: "regex", detail: "split by a given regular expression"},
     "selectedit::sr": "selection-utilities.splitByRegex",
+    "::doc::selectedit::sc": { kind: "modifier", label: "character", detail: "split by a given character"},
     "selectedit::sc": { "modalkeys.captureChar": {
         acceptAfter: 1,
         executeAfter: [
             { "selection-utilities.splitBy": { text: "__captured" } }
         ]   
     }},
+    "::doc::selectedit::/": { kind: "modifier", label: "create", detail: "create a set of selections by the specified marker that all fall within the current set of selections"},
+    "::doc::selectedit::/s": { kind: "modifier", label: "string", detail: "create selections of given string scoped to the current selections"},
     "selectedit::/s": "selection-utilities.createBy",
+    "::doc::selectedit::/r": { kind: "modifier", label: "regex", detail: "create selections of given regular expression scoped to the current selections"},
     "selectedit::/r": "selection-utilities.createByRegex",
+    "::doc::selectedit::/c": { kind: "modifier", label: "character", detail: "create selections of given character scoped to the current selections"},
     "selectedit::/c": { "modalkeys.captureChar": {
         acceptAfter: 1,
         executeAfter: [
             { "selection-utilities.createBy": { text: "__captured" } }
         ]   
     }},
+    "::doc::selectedit::[": { kind: "modifier", label: "include by", detail: "Include all selections that contain a given marker"},
+    "::doc::selectedit::]": { kind: "modifier", label: "exclude by", detail: "Exclude all selections that contain a given marker"},
+    "::doc::selectedit::[s": { kind: "modifier", label: "string", detail: "Include all selections that contain a given string"},
     "selectedit::[s": "selection-utilities.includeBy",
+    "::doc::selectedit::]s": { kind: "modifier", label: "string", detail: "Exclude all selections that contain a given string"},
     "selectedit::]s": "selection-utilities.excludeBy",
+    "::doc::selectedit::[r": { kind: "modifier", label: "regex", detail: "Include all selections that contain a given regular expression"},
     "selectedit::[r": "selection-utilities.includeByRegex",
+    "::doc::selectedit::]r": { kind: "modifier", label: "regex", detail: "Exclude all selections that contain a given regular expression"},
     "selectedit::]r": "selection-utilities.excludeByRegex",
 
     ////////
     // symmetric insertion (around selection)
+    "::doc::, ": { kind: "action", label: "spaces around", detail: "insert spaces around current selections"},
     ", ": { "selection-utilities.insertAround": { before: " ", after: " " }},
+    "::doc::g'": {kind: "mode", label: "symmetric insert", detail: "Move to symmetric insert mode: in this mode there are a variety of operations (inserts, deletions) that can be performed at both the start and end of a selection."},
     "g'": { "modalkeys.enterMode": { mode: "syminsert" } },
+    "::doc::syminsert::\n": {kind: "mode", label: "normal", detail: "Return to normal mode"},
     "syminsert::\n": { "modalkeys.enterMode": { mode: "normal" } },
+    "::doc::syminsert::i": {kind: "action", label: "insert char", detail: "insert the given character on both sides of selections"},
     "syminsert::i": { "modalkeys.captureChar": {
         acceptAfter: 1,
         executeAfter: [
@@ -1058,13 +1131,19 @@ keybindings: {
             { "selection-utilities.adjustSelections": { dir: "forward" } }
         ]
     }},
+    "::doc::syminsert::r": {kind: "mode", label: "enter normal", detail: "reset selections and enter normal mode"},
     "syminsert::r": [ "modalkeys.enterNormal", "modalkeys.cancelMultipleSelections" ],
     ...(Object.fromEntries(Array.from(":;'\",./?|=+-_*&^%$#@!`~").map(c =>
-        ["syminsert::"+c, [
-            { "selection-utilities.insertAround": { before: c, after: c }},
-            { "selection-utilities.adjustSelections": { dir: "forward" } }
-        ]]
+        ["::doc::syminsert::"+c, {kind: "action", label: "insert "+c, detail: "insert a "+c+" on both sides of selections"}]
     ))),
+    ...(Object.fromEntries(Array.from(":;'\",./?|=+-_*&^%$#@!`~").map(c =>
+         ["syminsert::"+c, [
+             { "selection-utilities.insertAround": { before: c, after: c }},
+             { "selection-utilities.adjustSelections": { dir: "forward" } }
+         ]]
+    ))),
+    "::doc::symisert::\\": {kind: "action", label: "escaped", detail: "surround selections with an escaped character"},
+    // TODO: use capture mode
     'syminsert::\\"': [
         { "selection-utilities.insertAround": { before: '\\"', after: '\\"' }},
     ],
