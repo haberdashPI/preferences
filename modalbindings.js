@@ -67,7 +67,7 @@ keybindings: {
     "::doc::j": { kind: "select", label: '↓', detail: "move down" },
     "::doc::k": { kind: "select", label: '↑', detail: "move up" },
     "::doc::l": { kind: "select", label: '→', detail: "move right" },
-    "::doc::g": { kind: "leader", label: "leader (actions)", detail: "additional commands (mostly actions)" },
+    "::doc::g": { kind: "leader", label: "more actions", detail: "additional commands (mostly actions)" },
     "::doc::gj": { kind: "select", label: 'unwrp ↓', detail: "Down unwrapped line" },
     "::doc::gk": { kind: "select", label: 'unwrp ↑', detail: "Up unwrapped line"},
     "::using::cursorMove::": {
@@ -84,7 +84,7 @@ keybindings: {
     H: "cursorHomeSelect",
     "::doc::L": { kind: "select", label: "end", detail: "end of line" },
     L: { "cursorMove": { to: "wrappedLineEnd", select: true } },
-    "::doc::G": { kind: "select", label: "entire line", detail: "expand selection to entire line" },
+    "::doc::G": { kind: "select", label: "expand", detail: "expand selections to full lines" },
     G:  "expandLineSelection",
     "::doc::K": { kind: "select", label: "sel ↑", detail: "select lines upwards" },    
     K: [
@@ -126,7 +126,7 @@ keybindings: {
     ],
 
     // movements around regex units
-    "::doc::'": { kind: "leader", label: "selections", detail: "additional commands (mostly selection/view related)"},
+    "::doc::'": { kind: "leader", label: "more select", detail: "additional commands (mostly selection/view related)"},
     "::doc::u": { kind: "modifier", label: "around", detail: "next selection command will move start of selection to surround the entire object (rather than extending to specified start/end point)" },
     "::doc::w": { kind: "select", label: "subwrd →", detail: "next subword (camel/snake case)" },
     "::doc::W": { kind: "select", label: "word →", detail: "next word"},
@@ -134,7 +134,7 @@ keybindings: {
     "::doc::b": { kind: "select", label: "subwrd ←", detail: "previous subword (came/snake case)" },
     "::doc::B": { kind: "select", label: "word ←", detail: "previous word" },
     "::doc::E": { kind: "select", label: "word end ←", detail: "previous word end" },
-    "::doc::@": { kind: "select", label: "number →", detail: "next number" },
+    "::doc::@": { kind: "select", label: "number ←", detail: "next number" },
     "::doc::#": { kind: "select", label: "number →", detail: "previous number" },
     "::doc::';": { kind: "select", label: "comment →", detail: "next commented region" },
     "::doc::':": { kind: "select", label: "comment ←", detail: "previous commented region" },
@@ -142,8 +142,8 @@ keybindings: {
     "::doc::P": { kind: "select", label: "pargrph ←", detail: "previous paragraph" },
     "::doc::'a": { kind: "select", label: "sec →", detail: "next section" },
     "::doc::'A": { kind: "select", label: "sec ←", detail: "previous section" },
-    "::doc::'s": { kind: "select", label: "subsec →", detail: "next subsection" },
-    "::doc::'S": { kind: "select", label: "subsec ←", detail: "previous subsection" },
+    "::doc::(": { kind: "select", label: "subsec →", detail: "next subsection" },
+    "::doc::)": { kind: "select", label: "subsec ←", detail: "previous subsection" },
 
     "::using::selection-utilities.moveBy": {
         // word-like
@@ -182,12 +182,12 @@ keybindings: {
         uP:  { unit: "paragraph",  boundary: "start",  selectWhole: true, value: '-(__count || 1)' },
         "'a":  { unit: "section",    boundary: "start", select:      true, value: '(__count || 1)'  },
         "'A":  { unit: "section",    boundary: "start", select:      true, value: '-(__count || 1)' },
-        "'s":  { unit: "subsection", boundary: "start", select:      true, value: '(__count || 1)'  },
-        "'S":  { unit: "subsection", boundary: "start", select:      true, value: '-(__count || 1)' },
+        ")":  { unit: "subsection", boundary: "start", select:      true, value: '(__count || 1)'  },
+        "(":  { unit: "subsection", boundary: "start", select:      true, value: '-(__count || 1)' },
         "u'a": { unit: "section",    boundary: "start", selectWhole: true, value: '(__count || 1)'  },
         "u'A": { unit: "section",    boundary: "start", selectWhole: true, value: '-(__count || 1)' },
-        "u's": { unit: "subsection", boundary: "start", selectWhole: true, value: '(__count || 1)'  },
-        "u'S": { unit: "subsection", boundary: "start", selectWhole: true, value: '-(__count || 1)' },
+        "u)": { unit: "subsection", boundary: "start", selectWhole: true, value: '(__count || 1)'  },
+        "u(": { unit: "subsection", boundary: "start", selectWhole: true, value: '-(__count || 1)' },
     },
 
     // jupyter based cell selection
@@ -200,7 +200,7 @@ keybindings: {
     uy: "jupyter.selectCell",
 
     // function arguments
-    "::doc::,": { kind: "leader", label: "leader (extended)", detail: "a miscellaneous list of additonal commands" },
+    "::doc::,": { kind: "leader", label: "leader (misc)", detail: "a miscellaneous list of additonal commands" },
     "::using::move-cursor-by-argument.move-by-argument": {
         "::doc::,w": { kind: "select", label: "arg →", detail: "Next function argument"},
         ",w":  { value: "(__count || 1)",  boundary: "end", select:      true },
@@ -225,11 +225,11 @@ keybindings: {
     "uu": "editor.action.smartSelect.expand",
 
     // buffer related
-    "::doc::$": { kind: "select", label: "everything" },
+    "::doc::$": { kind: "select", label: "all", detail: "Select the entire document" },
     $: [ "editor.action.selectAll" ],
-    "::doc::gG": { kind: 'select', label: 'to document end'},
+    "::doc::gG": { kind: 'select', label: 'doc end'},
     "gG": "cursorBottomSelect",
-    "::doc::gg": { kind: 'select', label: 'to document start'},
+    "::doc::gg": { kind: 'select', label: 'doc start'},
     "gg": "cursorTopSelect",
 
     // search related
@@ -369,16 +369,16 @@ keybindings: {
         { "editor.action.selectToBracket": {"selectBrackets": true} }
     ],
 
-    "::doc::'<": { kind: 'select', label: 'in <>', detail: 'text inside angle brackets'},
+    "::doc::'>": { kind: 'select', label: 'in <>', detail: 'text inside angle brackets'},
     "'>": "extension.selectAngleBrackets",
     "::doc::'<": { kind: 'select', label: 'in ><', detail: 'text inside tag pairs (e.g. <a>text</a>)'},
     "'<": "extension.selectInTag",
 
-    "::doc::']": {kind: 'select', label: 'indent and top', detail: 'all text at same indent and the unindent line just above it (ala python syntax)'},
+    "::doc::']": {kind: 'select', label: 'indent+top', detail: 'all text at same indent and the unindent line just above it (ala python syntax)'},
     "']": "vscode-select-by-indent.select-outer-top-only",
-    "::doc::]": {kind: 'select', label: 'indent', detail: 'all text at same indent'},
+    "::doc::]": {kind: 'select', label: 'inside indent', detail: 'all text at same indent'},
     "]": "vscode-select-by-indent.select-inner",
-    "::doc::}": {kind: 'select', label: 'indent and surrounding', detail: 'all text at same indent along with the line above and below this (ala c-like synatx)'},
+    "::doc::}": {kind: 'select', label: 'around indent', detail: 'all text at same indent along with the line above and below this (ala c-like synatx)'},
     "}": "vscode-select-by-indent.select-outer",
 
     "::doc::u[": {kind: 'select', label: 'inside []', detail: 'inside first character pair `[]` (non syntactical, useful inside comments)'},
@@ -485,7 +485,7 @@ keybindings: {
     ////////////////////////
     // selection modifiers
 
-    "::doc::R": {kind: "select", label: 'expand to non-whitespace', detail: 'select full line(s), and trim external whitespace'},
+    "::doc::R": {kind: "select", label: 'expand no wht', detail: 'select full line(s), and trim external whitespace'},
     R: [ "expandLineSelection", "selection-utilities.trimSelectionWhitespace" ],
     "::doc::visual::R": {kind: "modifier", label: 'trim whitespace', detail: 'shrink selection to avoid external whitespace'},
     "visual::R":  "selection-utilities.trimSelectionWhitespace" ,
@@ -988,9 +988,9 @@ keybindings: {
     "normal::'k": "vsc-labeled-bookmarks.navigateToPreviousBookmark",
     "visual::'j": "vsc-labeled-bookmarks.expandSelectionToNextBookmark",
     "visual::'k": ["vsc-labeled-bookmarks.expandSelectionToPreviousBookmark", "selection-utilities.activeAtStart"],
-    "::doc::g ": {kind: "action", label: "mark", detail: "remove bookmark (use quick selection)"},
+    "::doc::gx ": {kind: "action", label: "mark", detail: "remove bookmark (use quick selection)"},
     "gx ": "vsc-labeled-bookmarks.deleteBookmark",
-    "::doc::'#": {kind: "action", label: "nav marks", detail: "reveal quick selection to move to a bookmark"},
+    "::doc::'#": {kind: "select", label: "nav marks", detail: "reveal quick selection to move to a bookmark"},
     "'#": "vsc-labeled-bookmarks.navigateToBookmark",
 
     ///////////////
@@ -1036,7 +1036,7 @@ keybindings: {
         { if: "__selections.length > 1", then: { "modalkeys.enterMode": { mode: "selectedit" }}}
     ],
 
-    "::doc::'x": { kind: "modifier", label: "exchange sel", detail: "exchange selections: with no saved seleciton, saves the seleciton, with saved selections exchanges text of current selections with those of the saved selections (number of selections must match). Use a count to specify an alternate register."},
+    "::doc::'x": { kind: "modifier", label: "exchange sel", detail: "exchange selections: with no saved selection, saves the selection, with saved selections exchanges text of current selections with those of the saved selections (number of selections must match). Use a count to specify an alternate register."},
     "'x": { "selection-utilities.swapWithMemory": { register: "__count" } },
     "::doc::'n": { kind: "modifier", label: "rem saved sel", detail: "remove the most recently saved selection from the list of saved selections"},
     "'n": { "selection-utilities.deleteLastSaved": { register: "__count" } },
@@ -1147,20 +1147,27 @@ keybindings: {
     ))),
     "::doc::symisert::\\": {kind: "action", label: "escaped", detail: "surround selections with an escaped character"},
     // TODO: use capture mode
+    "::doc::syminsert::\\\"": {kind: "action", label: "quote", detail: "surround by escaped double quote"},
     'syminsert::\\"': [
         { "selection-utilities.insertAround": { before: '\\"', after: '\\"' }},
     ],
+    "::doc::syminsert::\\'": {kind: "action", label: "quote", detail: "surround by escaped single quote"},
     "syminsert::\\'": [
         { "selection-utilities.insertAround": { before: "\\'", after: "\\'" }},
     ],
 
+    "::doc::syminsert::o": { kind: "modifier", label: "active →", detail: "move active to end" },
     "syminsert::o": "selection-utilities.activeAtEnd",
+    "::doc::syminsert::O": { kind: "modifier", label: "active ←", detail: "move active to start" },
     "syminsert::O": "selection-utilities.activeAtStart",
+    "::doc::syminsert::x": { kind: "action", label: "delete", detail: "delete the first and last character of the selection, adjusting the selection"},
     "syminsert::x": [
         { "selection-utilities.adjustSelections": { dir: "backward" } },
         { "selection-utilities.deleteAround": { count: "__count" }}
     ],
+    "::doc::syminsert::d": { kind: "action", label: "delete", detail: "delete the characters just before the first and last character of the selection"},
     "syminsert::d": { "selection-utilities.deleteAround": { count: "__count" }},
+    "::doc::syminsert::l": { kind: "modifier", label: "sel →", detail: "shrink/grow selections in direction that's rightwards from cursor"},
     "syminsert::l": {
         "if": "!__selection.isReversed",
         "then": { "selection-utilities.adjustSelections": 
@@ -1170,6 +1177,7 @@ keybindings: {
             { dir: "backward", count: "__count" }
         },
     },
+    "::doc::syminsert::h": { kind: "modifier", label: "sel ←", detail: "shrink/grow selections in direction that's leftwards from cursor"},
     "syminsert::h": {
         "if": "!__selection.isReversed",
         "then": { "selection-utilities.adjustSelections": 
@@ -1179,18 +1187,22 @@ keybindings: {
             { dir: "forward", count: "__count" }
         },
     },
+    "::doc::syminsert::{": { kind: "action", label: "insert {}",  detail: "Insert curly brackets around selection"},
     "syminsert::{": [
         { "selection-utilities.insertAround": { before: "{", after: "}" }},
         { "selection-utilities.adjustSelections": { dir: "forward" } }
     ],
+    "::doc::syminsert::[": { kind: "action", label: "insert []",  detail: "Insert square brackets around selection"},
     "syminsert::[": [
         { "selection-utilities.insertAround": { before: "[", after: "]" }},
         { "selection-utilities.adjustSelections": { dir: "forward" } }
     ],
+    "::doc::syminsert::(": { kind: "action", label: "insert ()",  detail: "Insert parentheses around selection"},
     "syminsert::(": [
         { "selection-utilities.insertAround": { before: "(", after: ")" }},
         { "selection-utilities.adjustSelections": { dir: "forward" } }
     ],
+    "::doc::syminsert::<": { kind: "action", label: "insert <>",  detail: "Insert karrats around selection"},
     "syminsert::<": [
         { "selection-utilities.insertAround": { before: "<", after: ">" }},
         { "selection-utilities.adjustSelections": { dir: "forward" } }
