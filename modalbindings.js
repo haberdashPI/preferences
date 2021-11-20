@@ -942,17 +942,17 @@ keybindings: {
 
     ///////////////
     // selection modifiers
-    "::doc::selectedit::\"": { kind: "mode", label: "select-edit", detail: "Enter a mode where you can edit and manipulate (possibly multiple) selections with ease. Entering the mode also adds a new cursor for the next match to the word under the curosr (or selection). You can use the count to ask multiple matches to be added. (You can use `,\"` to avoid adding any cursors)."},
+    "::doc::\"": { kind: "mode", label: "select-edit", detail: "Enter a mode where you can edit and manipulate (possibly multiple) selections with ease. Entering the mode also adds a new cursor for the next match to the word under the curosr (or selection). You can use the count to ask multiple matches to be added. (You can use `,\"` to avoid adding any cursors)."},
     '"': [
         { if: "__selections.length <= 1",
             then: { "selection-utilities.addNext": {}, repeat: '__count' } },
         { "modalkeys.enterMode": { mode: "selectedit" } },
     ],
-    "::doc::selectedit::\"": { kind: "mode", label: "select-edit", detail: "Enter a mode where you can edit and manipulate (possibly multiple) selections with ease. No additional cursors will be added when entering the mode with this command. "},
+    "::doc::,\"": { kind: "mode", label: "select-edit", detail: "Enter a mode where you can edit and manipulate (possibly multiple) selections with ease. No additional cursors will be added when entering the mode with this command. "},
     ",\"": { "modalkeys.enterMode": { mode: "selectedit" } },
     "::doc::selectedit:: ": { kind: "modifier", label: 'mode', detail: "return to a signle selection and return to normal mode"},
     "selectedit:: ": [ "selection-utilities.cancelSelection", { "modalkeys.enterMode": { mode: "normal" }} ],
-    "::doc::selectedit:: ": { kind: "modifier", label: 'mode', detail: "insert mode at cursor"},
+    "::doc::selectedit::i": { kind: "modifier", label: 'mode', detail: "insert mode at cursor"},
     "selectedit::i": [  "selection-utilities.cancelMultipleSelections", { "modalkeys.enterMode": { mode: "insert" }} ],
     "::doc::selectedit::\n": { kind: "modifier", label: 'mode', detail: "return to normal mode"},
     "selectedit::\n": [ { "modalkeys.enterMode": { mode: "normal" }} ],
