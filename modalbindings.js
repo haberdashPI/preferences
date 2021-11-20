@@ -126,14 +126,22 @@ keybindings: {
     ],
 
     // movements around regex units
+    // TODO: there are more word commands to document (e.g.. using `u`)
     "::doc::'": { kind: "leader", label: "more select", detail: "additional commands (mostly selection/view related)"},
-    "::doc::u": { kind: "modifier", label: "around", detail: "next selection command will move start of selection to surround the entire object (rather than extending to specified start/end point)" },
+    "::doc::u": { kind: "leader", label: "around", detail: "selection commands that move start and end of a selection to surround the entire object (rather than extending to specified start/end point)" },
+    "::doc::u'": { kind: "leader", label: "more select", detail: "additional selections"},
     "::doc::w": { kind: "select", label: "subwrd →", detail: "next subword (camel/snake case)" },
     "::doc::W": { kind: "select", label: "word →", detail: "next word"},
     "::doc::e": { kind: "select", label: "word end →", detail: "next word end" },
     "::doc::b": { kind: "select", label: "subwrd ←", detail: "previous subword (came/snake case)" },
     "::doc::B": { kind: "select", label: "word ←", detail: "previous word" },
     "::doc::E": { kind: "select", label: "word end ←", detail: "previous word end" },
+    "::doc::uw": { kind: "select", label: "subwrd →", detail: "select entire subword with and trailing whitespace (camel/snake case)" },
+    "::doc::uW": { kind: "select", label: "word →", detail: "select entire word and trailing whitespace"},
+    "::doc::ue": { kind: "select", label: "word end →", detail: "select entire word (no whitespace)" },
+    "::doc::ub": { kind: "select", label: "subwrd ←", detail: "select previous subword and trailing whitespace (came/snake case)" },
+    "::doc::uB": { kind: "select", label: "word ←", detail: "select previous word and trailing whitespace" },
+    "::doc::uE": { kind: "select", label: "word end ←", detail: "select previous word (no whitespace)" },    
     "::doc::@": { kind: "select", label: "number ←", detail: "next number" },
     "::doc::#": { kind: "select", label: "number →", detail: "previous number" },
     "::doc::';": { kind: "select", label: "comment →", detail: "next commented region" },
@@ -144,6 +152,13 @@ keybindings: {
     "::doc::'A": { kind: "select", label: "sec ←", detail: "previous section" },
     "::doc::(": { kind: "select", label: "subsec →", detail: "next subsection" },
     "::doc::)": { kind: "select", label: "subsec ←", detail: "previous subsection" },
+    "::doc::up": { kind: "select", label: "pargrph →", detail: "next pagaraph" },
+    "::doc::uP": { kind: "select", label: "pargrph ←", detail: "previous paragraph" },
+    "::doc::u'a": { kind: "select", label: "sec →", detail: "next section" },
+    "::doc::u'A": { kind: "select", label: "sec ←", detail: "previous section" },
+    "::doc::u(": { kind: "select", label: "subsec →", detail: "next subsection" },
+    "::doc::u)": { kind: "select", label: "subsec ←", detail: "previous subsection" },
+
 
     "::using::selection-utilities.moveBy": {
         // word-like
@@ -159,7 +174,6 @@ keybindings: {
         B:     { unit: "word",    boundary: "start", select:      true, value: '-(__count || 1)' },
         uB:    { unit: "word",    boundary: "start", selectWhole: true, value: '-(__count || 1)' },
         E:     { unit: "word",    boundary: "end",   select:      true, value: '-(__count || 1)' },
-        uE:    { unit: "word",    boundary: "end",   selectWhole: true, value: '-(__count || 1)' },
         "'w":  { unit: "WORD",    boundary: "start", select:      true, value:  "(__count || 1)" },
         "u'w": { unit: "WORD",    boundary: "start", selectWhole: true, value:  "(__count || 1)" },
         "u'e": { unit: "WORD",    boundary: "both",  selectWhole: true, value:  "(__count || 1)" },
@@ -670,7 +684,7 @@ keybindings: {
         "modalkeys.enterNormal"
     ]),
 
-    "::doc::D": {kind: "action", label: "delete to eol", detail: "Delete from cursor to end of line"},
+    "::doc::D": {kind: "action", label: "delete (eol/up)", detail: "without count: Delete from cursor to end of line; with count: Delete from current line up `count` number of keys."},
     D: countSelectsLines('up', [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: "wrappedLineEnd", select: true } },
