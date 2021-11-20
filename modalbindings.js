@@ -47,15 +47,15 @@ extensions: [
     "koalamer.labeled-bookmarks",
 ],
 
-docColors: {
-    'select': 1,
-    'modifier': 3,
-    'count': 5,
-    'action': 8,
-    'history': 10,
-    'mode': 12,
-    'leader': 16,
-},
+docKinds: [
+    { name: 'select',   description: "Select commands move the cursor and/or selections." },
+    { name: 'modifier', description: "Modifier commands manipulate selections in various ways" },
+    { name: 'count',    description: "Counts serve as prefix arguments to other commands, and usually determine how many times to repeat the commnad, unless otherwise specified." },
+    { name: 'action',   description: "Actions do something with the current line or the selected text (e.g. delete it). Typically, in the absence of a selection, an action will modify an entire line, and a count argument indicates the number of lines (e.g. 3d deletes this line and the next 3 lines)." },
+    { name: 'history',  description: "History commands modify or use the history of executed commands, in some way." },
+    { name: 'mode',     description: "Mode commands change the key mode, possibly completely changing what all of the keys do." },
+    { name: 'leader',   description: "Leaders serve as prefixes to an entire list of key commands" }
+],
 
 keybindings: {
     /////////////
