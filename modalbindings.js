@@ -51,7 +51,7 @@ docKinds: [
     { name: 'select',   description: "Select commands move the cursor and/or selections." },
     { name: 'modifier', description: "Modifier commands manipulate selections in various ways" },
     { name: 'window',   description: "Window commands change window layout/focus" },
-    { name: 'action',   description: "Actions do something with the current line or the selected text (e.g. delete it). Typically, in the absence of a selection, an action will modify an entire line, and a count argument indicates the number of lines (e.g. 3d deletes this line and the next 3 lines)." },
+    { name: 'action',   description: "Actions do something with the selected text (e.g. delete it). Unless otherwise noted, in the absence of a selection, an action will modify an entire line, and a count argument indicates the number of lines (e.g. 3d deletes this line and the next 3 lines)." },
     { name: 'history',  description: "History commands modify or use the history of executed commands, in some way." },
     { name: 'mode',     description: "Mode commands change the key mode, possibly completely changing what all of the keys do." },
     { name: 'count',    description: "Counts serve as prefix arguments to other commands, and usually determine how many times to repeat the commnad, unless otherwise specified." },
@@ -126,7 +126,6 @@ keybindings: {
     ],
 
     // movements around regex units
-    // TODO: there are more word commands to document (e.g.. using `u`)
     "::doc::'": { kind: "leader", label: "more select", detail: "additional commands (mostly selection/view related)"},
     "::doc::u": { kind: "leader", label: "around", detail: "selection commands that move start and end of a selection to surround the entire object (rather than extending to specified start/end point)" },
     "::doc::u'": { kind: "leader", label: "more select", detail: "additional selections"},
@@ -138,10 +137,10 @@ keybindings: {
     "::doc::E": { kind: "select", label: "word end ←", detail: "previous word end" },
     "::doc::uw": { kind: "select", label: "subwrd →", detail: "select entire subword with and trailing whitespace (camel/snake case)" },
     "::doc::uW": { kind: "select", label: "word →", detail: "select entire word and trailing whitespace"},
-    "::doc::ue": { kind: "select", label: "word end →", detail: "select entire word (no whitespace)" },
+    "::doc::ue": { kind: "select", label: "in word →", detail: "select entire word (no whitespace)" },
     "::doc::ub": { kind: "select", label: "subwrd ←", detail: "select previous subword and trailing whitespace (came/snake case)" },
     "::doc::uB": { kind: "select", label: "word ←", detail: "select previous word and trailing whitespace" },
-    "::doc::uE": { kind: "select", label: "word end ←", detail: "select previous word (no whitespace)" },    
+    "::doc::uE": { kind: "select", label: "in word ←", detail: "select previous word (no whitespace)" },    
     "::doc::@": { kind: "select", label: "number ←", detail: "next number" },
     "::doc::#": { kind: "select", label: "number →", detail: "previous number" },
     "::doc::';": { kind: "select", label: "comment →", detail: "next commented region" },
@@ -158,28 +157,33 @@ keybindings: {
     "::doc::u'A": { kind: "select", label: "sec ←", detail: "previous section" },
     "::doc::u(": { kind: "select", label: "subsec →", detail: "next subsection" },
     "::doc::u)": { kind: "select", label: "subsec ←", detail: "previous subsection" },
+    "::doc::'w": { kind: "select", label: "WORD →", detail: "next WORD; e.g. contiguous non-whitespace region"},
+    "::doc::'b": { kind: "select", label: "WORD ←", detail: "previous WORD; e.g. contiguous non-whitespace region"},
+    "::doc::'e": { kind: "select", label: "WORD end →", detail: "to end of WORD; e.g. contiguous non-whitespace region"},
+    "::doc::u'w": { kind: "select", label: "WORD →", detail: "select entire WORD and trailing whitespace; a WORD is a contiguous non-whitespace region" },
+    "::doc::u'e": { kind: "select", label: "WORD →", detail: "select entire WORD; a WORD is a contiguous non-whitespace region" },
 
 
     "::using::selection-utilities.moveBy": {
         // word-like
-        w:     { unit: "subword", boundary: "start", select:      true, value:  '(__count || 1)' },
-        uw:    { unit: "subword", boundary: "start", selectWhole: true, value:  '(__count || 1)' },
-        ue:    { unit: "subword", boundary: "both",  selectWhole: true, value:  '(__count || 1)' },
-        W:     { unit: "word",    boundary: "start", select:      true, value:  '(__count || 1)' },
-        uW:    { unit: "word",    boundary: "start", selectWhole: true, value:  '(__count || 1)' },
-        uE:    { unit: "word",    boundary: "both",  selectWhole: true, value:  '(__count || 1)' },
-        e:     { unit: "word",    boundary: "end",   select:      true, value:  '(__count || 1)' },
+        w:     { unit: "subword", boundary: "start", select:      true, value: ' (__count || 1)' },
+        uw:    { unit: "subword", boundary: "start", selectWhole: true, value: ' (__count || 1)' },
+        ue:    { unit: "word",    boundary: "both",  selectWhole: true, value: ' (__count || 1)' },
+        W:     { unit: "word",    boundary: "start", select:      true, value: ' (__count || 1)' },
+        uW:    { unit: "word",    boundary: "start", selectWhole: true, value: ' (__count || 1)' },
+        uE:    { unit: "word",    boundary: "both",  selectWhole: true, value: '-(__count || 1)' },
+        e:     { unit: "subword", boundary: "end",   select:      true, value: ' (__count || 1)' },
         b:     { unit: "subword", boundary: "start", select:      true, value: '-(__count || 1)' },
         ub:    { unit: "subword", boundary: "start", selectWhole: true, value: '-(__count || 1)' },
         B:     { unit: "word",    boundary: "start", select:      true, value: '-(__count || 1)' },
         uB:    { unit: "word",    boundary: "start", selectWhole: true, value: '-(__count || 1)' },
         E:     { unit: "word",    boundary: "end",   select:      true, value: '-(__count || 1)' },
-        "'w":  { unit: "WORD",    boundary: "start", select:      true, value:  "(__count || 1)" },
-        "u'w": { unit: "WORD",    boundary: "start", selectWhole: true, value:  "(__count || 1)" },
-        "u'e": { unit: "WORD",    boundary: "both",  selectWhole: true, value:  "(__count || 1)" },
+        "'w":  { unit: "WORD",    boundary: "start", select:      true, value: " (__count || 1)" },
         "'b":  { unit: "WORD",    boundary: "start", select:      true, value: "-(__count || 1)" },
+        "'e":  { unit: "WORD",    boundary: "end",   select:      true, value: "-(__count || 1)" },
+        "u'w": { unit: "WORD",    boundary: "start", selectWhole: true, value: " (__count || 1)" },
+        "u'e": { unit: "WORD",    boundary: "both",  selectWhole: true, value: " (__count || 1)" },
         "u'b": { unit: "WORD",    boundary: "start", selectWhole: true, value: "-(__count || 1)" },
-        "u'e": { unit: "WORD",    boundary: "both",  selectWhole: true, value: "-(__count || 1)" },
 
         // numbers
         "@": { value: '-(__count || 1)', unit: "integer", boundary: "both", selectWhole: true } ,
@@ -206,11 +210,11 @@ keybindings: {
 
     // jupyter based cell selection
     "::doc::'y": { kind: "select", label: "jupyter", detail: "jupyter related selection commands"},
-    "::doc::'yc": { kind: "select", label: "cell →", detail: "next jupyter cell"},
+    "::doc::'yc": { kind: "select", label: "cell →", detail: "next jupyter notebook cell"},
     "'yc": ["jupyter.gotoNextCellInFile", "jupyter.selectCell"],
-    "::doc::'yC": { kind: "select", label: "cell ←", detail: "previous jupyter cell"},
+    "::doc::'yC": { kind: "select", label: "cell ←", detail: "previous jupyter notebook cell"},
     "'yC": ["jupyter.gotoPrevCellInFile", "jupyter.selectCell"],
-    "::doc::uy": { kind: "select", label: "cell", detail: "select cel"},
+    "::doc::uy": { kind: "select", label: "cell", detail: "select a jyputer notebook cell"},
     uy: "jupyter.selectCell",
 
     // function arguments
@@ -572,7 +576,7 @@ keybindings: {
     "::doc::gy": {kind: "action", label: 'join', detail: "Remove newline between current and next line"},
     "gy": countSelectsLines('down', "editor.action.joinLines"),
 
-    "::doc::`": {kind: "action", label: 'swap', detail: "Swap the style of a identifier (e.g. to camel case to snake case)"},
+    "::doc::`": {kind: "action", label: 'swap', detail: "Swap the style of the current selection or the identifier under the cursor (e.g. from camelCase to snake_case)"},
     "::doc::`c": {kind: "action", label: 'camel', detail: "Swap style to lower camel case (`camelCase`)"},
     "`c": "extension.changeCase.camel",
     "::doc::`U": {kind: "action", label: 'constant', detail: "Swap style to constant (`IS_CONSTANT`)"},
@@ -595,15 +599,15 @@ keybindings: {
     "`_": "extension.changeCase.snake",
     "::doc::`s": {kind: "action", label: 'swap', detail: "Swap upper and lower case letters"},
     "`s": "extension.changeCase.swap",
-    "::doc::`s": {kind: "action", label: 'title', detail: "Swap to title case (all words have first upper case letter)"},
+    "::doc::`t": {kind: "action", label: 'title', detail: "Swap to title case (all words have first upper case letter)"},
     "`t": "extension.changeCase.title",
-    "::doc::`s": {kind: "action", label: 'all upper', detail: "Swap to use all upper case letters"},
+    "::doc::`Y": {kind: "action", label: 'all upper', detail: "Swap to use all upper case letters"},
     "`Y": "extension.changeCase.upper",
-    "::doc::`s": {kind: "action", label: 'first upper', detail: "Swap first character to upper case"},
+    "::doc::`u": {kind: "action", label: 'first upper', detail: "Swap first character to upper case"},
     "`u": "extension.changeCase.upperFirst",
-    "::doc::`s": {kind: "action", label: 'first upper', detail: "Toggle through all possible cases"},
+    "::doc::``": {kind: "action", label: 'first upper', detail: "Toggle through all possible cases"},
     "``": "extension.toggleCase",
-    "::doc::~": {kind: "action", label: 'swap character', detail: "Swap case of character under the curser"},
+    "::doc::~": {kind: "action", label: 'swap char', detail: "Swap case of character under the curser"},
     "~": [
         "modalkeys.cancelMultipleSelections",
         { "cursorMove": { to: 'right', select: true, value: '__count' } },
@@ -864,7 +868,7 @@ keybindings: {
 
     /////////////
     // terminal actions
-    "::doc::m": {kind: "action", label: "to repl", detail: "send selection (or line) to a terminal (usually containing a REPL), use langauge specific extension when available"},
+    "::doc::m": {kind: "action", label: "to repl", detail: "send text to a terminal (usually containing a REPL); use langauge specific extensions when available and put the pasted code into a block (when defined)."},
     m: countSelectsLines('down', [
         {
             if: "__language == 'julia'",
@@ -878,7 +882,7 @@ keybindings: {
         "modalkeys.cancelMultipleSelections",
         "modalkeys.touchDocument"
     ]),
-    "::doc::M": {kind: "action", label: "to repl (v2)", detail: "send selection (or line) to a terminal (usually containing a REPL), do not use language specific extensions when available"},
+    "::doc::M": {kind: "action", label: "to repl (v2)", detail: "send text to a terminal (usually containing a REPL), placing in a block when defined."},
     M: countSelectsLines('down', [
         {
             if: "!__selection.isSingleLine",
@@ -888,7 +892,7 @@ keybindings: {
         "modalkeys.cancelMultipleSelections",
         "modalkeys.touchDocument"
     ]),
-    "::doc::gm": {kind: "action", label: "to repl (v3)", detail: "send selection (or line) to a terminal (usually containing a REPL), do not use language specific extensions when available, do not use bracketed paste mode."},
+    "::doc::gm": {kind: "action", label: "to repl (v3)", detail: "send text to a terminal (usually containing a REPL)."},
     gm: countSelectsLines('down', [
         "terminal-polyglot.send-text",
         "modalkeys.cancelMultipleSelections",
@@ -1064,7 +1068,7 @@ keybindings: {
         "editor.action.selectHighlights",
         { "modalkeys.enterMode": { mode: "selectedit" } },
     ],
-    "::doc::'-": { kind: "modifier", label: "sel all", detail: "restore the most recently cleared selection"},
+    "::doc::'-": { kind: "modifier", label: "restore sel", detail: "restore the most recently cleared selection"},
     "'-": [
         { "selection-utilities.restoreAndClear": {register: "cancel"} },
         { if: "__selections.length > 1", then: { "modalkeys.enterMode": { mode: "selectedit" }}}

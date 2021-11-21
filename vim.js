@@ -285,18 +285,41 @@ module.exports = {
         "haberdashpi.selection-utilities"
     ],
 
+// ## Command Kinds
+// These document the categories of commands our bindings will defined. They
+// Determine the color coding of keys in the visual documentation.
+    "docKinds": [
+        { name: 'motion',   description: "Select commands move the cursor and/or selections." },
+        { name: 'action', description: "Modifier commands manipulate selections in various ways" },
+        { name: 'history',  description: "History commands modify or use the history of executed commands, in some way." },
+        { name: 'mode',     description: "Mode commands change the key mode, possibly completely changing what all of the keys do." },
+        { name: 'count',    description: "Counts serve as prefix arguments to other commands, and usually determine how many times to repeat the commnad, unless otherwise specified." },
+        { name: 'leader',   description: "Leaders serve as prefixes to an entire list of key commands" }
+    ],
+
 // ## Motions in Normal Mode
 // 
     "keybindings": {
 // Cursor can be advanced in a file with enter and space. These are not
 // technically motion commands but included for compatibility.
+        "::don::\n": { kind: 'motion', label: '↓', detail: 'move down' },
         "\n": [
             "cursorDown",
             { "cursorMove": { "to": "wrappedLineFirstNonWhitespaceCharacter" } }
         ],
+        "::doc:: ": { kind: 'motion', label: '→', detail: 'move right' },
         " ": "cursorRight",
 // Move cursor up/down/left/right.
-        "::using::cursorMove": {
+    "::doc::h": { kind: "motion", label: "←", detail: "move left" },
+    "::doc::j": { kind: "motion", label: '↓', detail: "cove down" },
+    "::doc::k": { kind: "motion", label: '↑', detail: "move up" },
+    "::doc::l": { kind: "motion", label: '→', detail: "move right" },
+    "::doc::0": { kind: "motion", label: 'sol', detail: "move to start of line" },
+    "::doc::$": { kind: "motion", label: 'sol', detail: "move to end of line" },
+    "::doc::^": { kind: "motion", label: 'first nonwht', detail: "move to first non-whitespace character on line"},
+    "::doc::g": { kind: "leader", label: 'extended', detail: "various extended commands" },
+    "::doc::g_": { kind: "motion", label: 'first nonwht', detail: "move to first non-whitespace character on line"},
+    "::using::cursorMove": {
             "h": { to: 'left', select: '__mode == "visual"', value: '__count' },
             "j": { to: 'down', select: '__mode == "visual"', value: '__count' },
             "k": { to: 'up', select: '__mode == "visual"', value: '__count' },
@@ -309,15 +332,20 @@ module.exports = {
             "^": { to: 'wrappedLineFirstNonWhitespaceCharacter', select: '__mode == "visual"' },
             "g_": { to: 'wrappedLineLastNonWhitespaceCharacter', select: '__mode == "visual"' },
         },
-        "_": "cursorHomeSelect",
+    "::doc::": { kind: 'motion', label: 'sel first nonwht', detail: 'select to first non-whitespace' },
+    "_": "cursorHomeSelect",
 
 // Moving to beginning or end of the file.
+        "::doc::gg": { kind: "motion", label: 'doc start', detail: 'move to top of document'},
         gg: "cursorTop",
         "visual::gg": "cursorTopSelect",
+        "::doc::G": { kind: "motion", label: 'doc end', detail: 'move to bottom of document'},
         G: "cursorBottom",
         "visual::G": "cursorBottomSelect",
 // Switch to next and previous tab.
+        "::doc::gt": { kind: "window", label: 'tab →', detail: 'show next editor tab'},
         gt: "workbench.action.nextEditor",
+        "::doc::gT": { kind: "window", label: 'tab ←', detail: 'show previous editor tab'},
         gT: "workbench.action.previousEditor",
 // The logic of separating words is bit different in VS Code and Vim, so we will
 // not aim to immitate Vim exaclty. If that's something you want, you might
@@ -327,12 +355,16 @@ module.exports = {
 // <key>B</key> move past all non-space characters, and are implemented using the
 // search command, with appropriate options. To handling of count arguments, we use
 // the `repeat` option.
+        "::doc::w": { kind: 'motion', label: 'word →', detail: 'move to next word start'},
         w: { "cursorWordStartRight": {}, "repeat": "__count" },
         "visual::w": { "cursorWordStartRightSelect": {}, "repeat": "__count" },
+        "::doc::e": { kind: 'motion', label: 'word →', detail: 'move to next word end'},
         e: { "cursorWordEndRight": {}, "repeat": "__count" },
         "visual::e": { "cursorWordEndRightSelect": {}, "repeat": "__count" },
+        "::doc::b": { kind: 'motion', label: 'word ←', detail: 'move to previous word start'},
         b: { "cursorWordStartLeft": {}, "repeat": "__count" },
         "visual::b": { "cursorWordStartLeftSelect": {}, "repeat": "__count" },
+        "::doc::W": { kind: 'motion', label: 'WORD →', detail: 'move to next WORD start; a WORD is a continguous group of non-whitespace characters'},
         W: {
             "modalkeys.search": {
                 "text": "\\S+",
@@ -343,6 +375,7 @@ module.exports = {
             },
             "repeat": '__count',
         },
+        "::doc::B": { kind: 'motion', label: 'WORD →', detail: 'move to previous WORD start; a WORD is a continguous group of non-whitespace characters'},
         B: {
             "modalkeys.search": {
                 "text": "\\S+",
@@ -359,6 +392,7 @@ module.exports = {
 // forward, we need to use `executeAfter` (which runs a command after search is
 // accepterd). We use this to move one extra character forward to get to the
 // actual empty line because of the way search works with newlines.
+        "::doc::}": { kind: 'motion', label: 'paragraph →', detail: 'move to next paragraph'},
         "}": {
             "modalkeys.search": {
                 "text": "^\\s*$",
@@ -372,6 +406,7 @@ module.exports = {
             },
             "repeat": '__count',
         },
+        "::doc::{": { kind: 'motion', label: 'paragraph →', detail: 'move to previous paragraph'},
         "{": {
             "modalkeys.search": {
                 "text": "^\\s*$",
@@ -385,8 +420,11 @@ module.exports = {
         },
 // Moving cursor to the top, middle, and bottom of the screen is mapped to
 // <key>H</key> (high), <key>M</key> (middle), and <key>L</key> (low) keys.
+        "::doc::H": { kind: 'motion', label: 'view top', detail: "move cursor so it is at the top of the viewport" },
         H: { "cursorMove": { to: 'viewPortTop', select: '__mode == "visual"' } },
+        "::doc::M": { kind: 'motion', label: 'view center', detail: "move cursor so it is at the center of the viewport" },
         M: { "cursorMove": { to: 'viewPortCenter', select: '__mode == "visual"' } },
+        "::doc::L": { kind: 'motion', label: 'view bottom', detail: "move cursor so it is at the bottom of the viewport" },
         L: { "cursorMove": { to: 'viewPortBottom', select: '__mode == "visual"' } },
 // Move to matching bracket command is somewhat challenging to implement
 // consistently in VS Code. This is due to the problem that there are no commands
@@ -399,7 +437,9 @@ module.exports = {
 // visual mode we use the `smartSelect.expand` command, which is *roughly*
 // equivlaent. In many cases, it is more useful motion than jumping to a matching
 // bracket, but using it means that we are diverging from Vim's functionality.
+        "::doc::%": { kind: 'motion', label: 'to bracket', detail: 'move cursor to the match bracket' },
         "%": "editor.action.jumpToBracket",
+        "::doc::visual::%": { kind: 'motion', label: 'expand', detail: 'expand selection intelligently, use VSCode smart expand' },
         "visual::%": "editor.action.smartSelect.expand",
 
 // ## Search Operators
@@ -408,7 +448,9 @@ module.exports = {
 
 // Repeating the motions can be done simply by calling `nextMatch` or
 // `previousMatch`.
+        "::doc::;": { kind: "motion", label: "repeat motion →", detail: "Repeating a searching motion (e.g. `f`)"},
         ";": "modalkeys.nextMatch",
+        "::doc::;": { kind: "motion", label: "repeat motion ←", detail: "Repeating a searching motion (e.g. `f`) backwards"},
         ",,": "modalkeys.previousMatch",
 // ## Switching between Modes
 
