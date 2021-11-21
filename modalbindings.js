@@ -63,67 +63,75 @@ keybindings: {
     // motions
 
     // basic movement
-    "::doc::h": { kind: "select", label: "←", detail: "move left" },
-    "::doc::j": { kind: "select", label: '↓', detail: "move down" },
-    "::doc::k": { kind: "select", label: '↑', detail: "move up" },
-    "::doc::l": { kind: "select", label: '→', detail: "move right" },
-    "::doc::g": { kind: "leader", label: "more actions", detail: "additional commands (mostly actions)" },
-    "::doc::gj": { kind: "select", label: 'unwrp ↓', detail: "Down unwrapped line" },
-    "::doc::gk": { kind: "select", label: 'unwrp ↑', detail: "Up unwrapped line"},
+    g: { doc: { kind: "leader", label: "more actions", detail: "additional commands (mostly actions)" } },
     "::using::cursorMove::": {
-        h: { to: 'left', select: "__mode !== 'normal'", value: '__count' },
-        j: { to: 'down', by: 'wrappedLine', select: "__mode !== 'normal'", value: '__count' },
-        k: { to: 'up', by: 'wrappedLine', select: "__mode !== 'normal'" , value: '__count' },
-        l: { to: 'right', select: "__mode !== 'normal'", value: '__count' },
-        gj: { to: 'down', by: 'line', select: "__mode !== 'normal'", value: '__count' },
-        gk: { to: 'up', by: 'line', select: "__mode !== 'normal'", value: '__count' },
+        h: { to: 'left', select: "__mode !== 'normal'", value: '__count', 
+             doc: { kind: "select", label: "←", detail: "move left" } },
+        j: { to: 'down', by: 'wrappedLine', select: "__mode !== 'normal'", value: '__count', 
+             doc: { kind: "select", label: '↓', detail: "move down" } },
+        k: { to: 'up', by: 'wrappedLine', select: "__mode !== 'normal'" , value: '__count', 
+             doc: { kind: "select", label: '↑', detail: "move up" } },
+        l: { to: 'right', select: "__mode !== 'normal'", value: '__count', 
+             doc: { kind: "select", label: '→', detail: "move right" } },
+        gj: { to: 'down', by: 'line', select: "__mode !== 'normal'", value: '__count', 
+             doc: { kind: "select", label: 'unwrp ↓', detail: "Down unwrapped line" } },
+        gk: { to: 'up', by: 'line', select: "__mode !== 'normal'", value: '__count', 
+             doc: { kind: "select", label: 'unwrp ↑', detail: "Up unwrapped line"} },
     },
 
     // line related movements
-    "::doc::H": { kind: "select", label: "start", detail: "start of line (alterantes between first non-whitepace, and first)" },
-    H: "cursorHomeSelect",
-    "::doc::L": { kind: "select", label: "end", detail: "end of line" },
-    L: { "cursorMove": { to: "wrappedLineEnd", select: true } },
-    "::doc::G": { kind: "select", label: "expand", detail: "expand selections to full lines" },
-    G:  "expandLineSelection",
-    "::doc::K": { kind: "select", label: "sel ↑", detail: "select lines upwards" },    
-    K: [
-        "modalkeys.cancelMultipleSelections",
-        { "cursorMove": { to: 'up', by: 'wrappedLine', select: true, value: '__count' } },
-        "expandLineSelection",
-        "selection-utilities.activeAtStart"
-    ],
-    "::doc::J": { kind: "select", label: "sel ↓", detail: "select lines downwards" },    
-    J: [
-        "modalkeys.cancelMultipleSelections",
-        { "cursorMove": { to: 'down', by: 'wrappedLine', select: true, value: '__count' } },
-        "expandLineSelection",
-    ],
-    "::doc::gK": { kind: "select", label: 'unwrp sel ↑', detail: "select unwrapped lines upwards" },
-    gK: [
-        "modalkeys.cancelMultipleSelections",
-        { "cursorMove": { to: 'up', by: 'line', select: true, value: '__count' } },
-        "expandLineSelection",
-        "selection-utilities.activeAtStart"
-    ],
-    "::doc::gJ": { kind: "select", label: 'unwrp sel ↓', detail: "select unwrapped lines downwards" },
-    gJ: [
-        "modalkeys.cancelMultipleSelections",
-        { "cursorMove": { to: 'down', by: 'line', select: true, value: '__count' } },
-        "expandLineSelection",
-    ],
+    H: { "cursorHomeSelect": {}, doc: { kind: "select", label: "start", detail: "start of line (alterantes between first non-whitepace, and first)" } },
+    L: { "cursorMove": { to: "wrappedLineEnd", select: true }, doc: { kind: "select", label: "end", detail: "end of line" } },
+    G:  { "expandLineSelection": {}, doc: { kind: "select", label: "expand", detail: "expand selections to full lines" } },
+    K: { 
+        seq: [
+            "modalkeys.cancelMultipleSelections",
+            { "cursorMove": { to: 'up', by: 'wrappedLine', select: true, value: '__count' } },
+            "expandLineSelection",
+            "selection-utilities.activeAtStart"
+        ],
+        doc: { kind: "select", label: "sel ↑", detail: "select lines upwards" }
+    },
+    J: { 
+        seq: [
+            "modalkeys.cancelMultipleSelections",
+            { "cursorMove": { to: 'down', by: 'wrappedLine', select: true, value: '__count' } },
+            "expandLineSelection",
+        ],
+        doc: { kind: "select", label: "sel ↓", detail: "select lines downwards" }
+    },
+    gK: { 
+        seq: [
+            "modalkeys.cancelMultipleSelections",
+            { "cursorMove": { to: 'up', by: 'line', select: true, value: '__count' } },
+            "expandLineSelection",
+            "selection-utilities.activeAtStart"
+        ],
+        doc: { kind: "select", label: 'unwrp sel ↑', detail: "select unwrapped lines upwards" }
+    },
+    gJ: { 
+        seq: [
+            "modalkeys.cancelMultipleSelections",
+            { "cursorMove": { to: 'down', by: 'line', select: true, value: '__count' } },
+            "expandLineSelection",
+        ],
+        doc: { kind: "select", label: 'unwrp sel ↓', detail: "select unwrapped lines downwards" }
+    },
 
-
-    "::doc::\\": { kind: "select", label: 'right character', detail: "select *just* the character to the right" },
-    "\\": [
-        "modalkeys.cancelMultipleSelections",
-        { "cursorMove": { to: 'right', select: true, value: '__count' } }
-    ],
-    "::doc::|": { kind: "select", label: 'left character', detail: "select *just* the character to the left" },
-    "|": [
-        "modalkeys.cancelMultipleSelections",
-        { "cursorMove": { to: 'left', select: true, value: '__count' } }
-    ],
+    "\\": {
+        seq: [
+            "modalkeys.cancelMultipleSelections",
+            { "cursorMove": { to: 'right', select: true, value: '__count' } }
+        ],
+        doc: { kind: "select", label: 'right character', detail: "select *just* the character to the right" }
+    },
+    "|": {
+        seq: [
+            "modalkeys.cancelMultipleSelections",
+            { "cursorMove": { to: 'left', select: true, value: '__count' } }
+        ],
+        doc: { kind: "select", label: 'left character', detail: "select *just* the character to the left" }
+    },
 
     // movements around regex units
     "::doc::'": { kind: "leader", label: "more select", detail: "additional commands (mostly selection/view related)"},
