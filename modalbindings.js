@@ -163,7 +163,6 @@ keybindings: {
     "::doc::u'w": { kind: "select", label: "WORD →", detail: "select entire WORD and trailing whitespace; a WORD is a contiguous non-whitespace region" },
     "::doc::u'e": { kind: "select", label: "WORD →", detail: "select entire WORD; a WORD is a contiguous non-whitespace region" },
 
-
     "::using::selection-utilities.moveBy": {
         // word-like
         w:     { unit: "subword", boundary: "start", select:      true, value: ' (__count || 1)' },
@@ -218,7 +217,7 @@ keybindings: {
     uy: "jupyter.selectCell",
 
     // function arguments
-    "::doc::,": { kind: "leader", label: "leader (misc)", detail: "a miscellaneous list of additonal commands" },
+    "::doc::,": { kind: "leader", label: "window (mostly)", detail: "additional commands, mostly related to changes to the editor/view/window" },
     "::using::move-cursor-by-argument.move-by-argument": {
         "::doc::,w": { kind: "select", label: "arg →", detail: "Next function argument"},
         ",w":  { value: "(__count || 1)",  boundary: "end", select:      true },
@@ -399,6 +398,13 @@ keybindings: {
     "::doc::}": {kind: 'select', label: 'around indent', detail: 'all text at same indent along with the line above and below this (ala c-like synatx)'},
     "}": "vscode-select-by-indent.select-outer",
 
+    "::doc::u`": {kind: 'select', label: 'inside ``', detail: 'inside first character pair `` (non syntactical, useful inside comments)'},
+    "u`": { "modalkeys.selectBetween": {
+        from: "`", to: "`",
+        inclusive: false,
+        caseSensitive: true,
+        docScope: true
+    }},
     "::doc::u[": {kind: 'select', label: 'inside []', detail: 'inside first character pair `[]` (non syntactical, useful inside comments)'},
     "u[": { "modalkeys.selectBetween": {
         from: "[", to: "]",
@@ -498,10 +504,10 @@ keybindings: {
     ////////////////////////
     // selection modifiers
 
-    "::doc::R": {kind: "select", label: 'expand no wht', detail: 'select full line(s), and trim external whitespace'},
-    R: [ "expandLineSelection", "selection-utilities.trimSelectionWhitespace" ],
-    "::doc::visual::R": {kind: "modifier", label: 'trim whitespace', detail: 'shrink selection to avoid external whitespace'},
-    "visual::R":  "selection-utilities.trimSelectionWhitespace" ,
+    "::doc::normal::R": {kind: "select", label: 'expand no wht', detail: 'select full line(s), and trim external whitespace'},
+    "normal::R": [ "expandLineSelection", "selection-utilities.trimSelectionWhitespace" ],
+    "::doc::R": {kind: "modifier", label: 'trim whitespace', detail: 'shrink selection to avoid external whitespace'},
+    "R": "selection-utilities.trimSelectionWhitespace" ,
     "::doc::U": {kind: "modifier", label: 'narrow to subword', detail: "Narrow current selection so it starts and stops at a subword (e.g. 'snake' in snake_case)"},
     U: { "selection-utilities.narrowTo": { unit: "subident", boundary: "both", } },
 
@@ -600,7 +606,7 @@ keybindings: {
     "`Y": "extension.changeCase.upper",
     "::doc::`u": {kind: "action", label: 'first upper', detail: "Swap first character to upper case"},
     "`u": "extension.changeCase.upperFirst",
-    "::doc::``": {kind: "action", label: 'first upper', detail: "Toggle through all possible cases"},
+    "::doc::``": {kind: "action", label: 'toggle', detail: "Toggle through all possible cases"},
     "``": "extension.toggleCase",
     "::doc::~": {kind: "action", label: 'swap char', detail: "Swap case of character under the curser"},
     "~": [
@@ -701,8 +707,8 @@ keybindings: {
         "editor.action.clipboardCutAction",
     ],
 
-    "::doc::X": {kind: "action", label: "replace char", detail: "replace the character under the cursor"},
-    X: "modalkeys.replaceChar",
+    "::doc::,r": {kind: "action", label: "replace char", detail: "replace the character under the cursor"},
+    ",r": "modalkeys.replaceChar",
 
     // copy to clipboard
     "::doc::y": {kind: "action", label: "copy", detail: "copy selected text to clipboard"},
@@ -810,13 +816,13 @@ keybindings: {
         "modalkeys.cancelMultipleSelections"
     ]),
 
-    "::doc::,f": {kind: "action", label: "open file", detail: "Open file using quick open"},
+    "::doc::,f": {kind: "window", label: "open file", detail: "Open file using quick open"},
     ",f": "workbench.action.quickOpen",
-    "::doc::,r": {kind: "action", label: "open recent", detail: "Open recent file"},
-    ",r": "workbench.action.openRecent",
+    "::doc::,R": {kind: "window", label: "open recent", detail: "Open recent file"},
+    ",R": "workbench.action.openRecent",
     "::doc::,,": {kind: "action", label: "command", detail: "Show the VSCode command palette"},
     ",,": "workbench.action.showCommands",
-    "::doc::,g": {kind: "action", label: "goto line", detail: "Use VSCode goto line command"},
+    "::doc::,g": {kind: "window", label: "goto line", detail: "Use VSCode goto line command"},
     ",g": "workbench.action.gotoLine",
 
     ///////////////////////
@@ -910,9 +916,9 @@ keybindings: {
     ",e": "editor.action.marker.next",
     "::doc::,E": {kind: "select", label: "error ←", detail: "move to previous error"},
     ",E": "editor.action.marker.prev",
-    "::doc::,d": {kind: "select", label: "diff →", detail: "move to and show next change"},
+    "::doc::,d": {kind: "window", label: "diff →", detail: "move to and show next change"},
     ",d": "editor.action.dirtydiff.next",
-    "::doc::,D": {kind: "select", label: "diff ←", detail: "move to and show previous change"},
+    "::doc::,D": {kind: "window", label: "diff ←", detail: "move to and show previous change"},
     ",D": "editor.action.dirtydiff.previous",
     "::doc::'d": {kind: "select", label: "change →", detail: "move to next change"},
     "'d": "workbench.action.editor.nextChange",
@@ -996,7 +1002,7 @@ keybindings: {
     "g ": "vsc-labeled-bookmarks.toggleBookmark",
     "::doc::'j ": { kind: "action", label: "mark ↓", detail: "move to next bookmark" },
     "normal::'j": "vsc-labeled-bookmarks.navigateToNextBookmark",
-    "::doc::'k ": { kind: "action", label: "mark ↓", detail: "move to previous bookmark" },
+    "::doc::'k ": { kind: "action", label: "mark ↑", detail: "move to previous bookmark" },
     "normal::'k": "vsc-labeled-bookmarks.navigateToPreviousBookmark",
     "visual::'j": "vsc-labeled-bookmarks.expandSelectionToNextBookmark",
     "visual::'k": ["vsc-labeled-bookmarks.expandSelectionToPreviousBookmark", "selection-utilities.activeAtStart"],
