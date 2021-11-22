@@ -98,12 +98,25 @@
 function operators(params){
     let result = {}
     for(const [opkey, opcom] of Object.entries(params.operators)){
-        for(const [objkey, objcom] of Object.entries(params.objects)){
-            result["normal::"+opkey + objkey] = 
-                ["modalkeys.cancelMultipleSelections", objcom, opcom]
+        let docmatch = opkey.match(/^::doc::(.*)/)
+        if(docmatch){
+            result["::doc::normal::"+docmatch[1]] = opcom;
+            result["::doc::visual::"+docmatch[1]] = opcom;
+        }else{
+            result["::doc::normal::"+opkey+opkey] = { kind: "motion", label: 'line', detail: "repeating an operator performs the action on an entire line"}
             result["normal::"+opkey+opkey] =
                 ["modalkeys.cancelMultipleSelections", "expandLineSelection", opcom]
-            result["visual::"+opkey] = opcom
+                result["visual::"+opkey] = opcom
+            
+            for(const [objkey, objcom] of Object.entries(params.objects)){
+                let docmatch = objkey.match(/^::doc::(.*)/)
+                if(docmatch){
+                    result["::doc::normal::"+opekey + docmatch[1]] = objcom
+                }else{
+                    result["normal::"+opkey + objkey] = 
+                        ["modalkeys.cancelMultipleSelections", objcom, opcom]
+                }
+            }
         }
     }
     return result
@@ -150,8 +163,11 @@ function executeAfter(command, after){
 // ### Operators
 
 const operator_commands = {
+    "::doc::d": { kind: "operator", label: "delete", detail: "delete text and store it in the clipboard (e.g. copy)" },
     d: "editor.action.clipboardCutAction",
+    "::doc::y": { kind: "operator", label: "copy", detail: "copy the text to clipboard" },
     y: [ "editor.action.clipboardCopyAction", "modalkeys.cancelMultipleSelections" ],
+    "::doc::c": { kind: "operator", label: "change", detail: "delete text and switch to insert mode" },
     c: {
         if: "!__selection.isSingleLine && __selection.end.character == 0 && __selection.start.character == 0",
         // multi-line selection
@@ -166,8 +182,10 @@ const operator_commands = {
             "modalkeys.enterInsert"
         ]
     },
+    "::doc::,.": { kind: "operator", label: "repl", detail: "send text to REPL; use language specific extension if available" },
     ",.": [
         {
+            // TODO: add other languages here
             if: "__language == 'julia'",
             then: "language-julia.executeCodeBlockOrSelectionAndMove",
             else: {
@@ -179,6 +197,7 @@ const operator_commands = {
         "modalkeys.cancelMultipleSelections",
         "modalkeys.touchDocument"
     ],
+    "::doc::,.": { kind: "operator", label: "repl", detail: "send text to REPL" },
     ",;": [
         {
             if: "!__selection.isSingleLine",
@@ -188,7 +207,9 @@ const operator_commands = {
         "modalkeys.cancelMultipleSelections",
         "modalkeys.touchDocument"
     ],
+    "::doc::<": { kind: "operator", label: "indent", detail: "indent text by current file's indent size" },
     "<": ["editor.action.outdentLines", "modalkeys.cancelMultipleSelections" ],
+    "::doc::<": { kind: "operator", label: "dedent", detail: "deindent text by current file's indent size" },
     ">": ["editor.action.indentLines", "modalkeys.cancelMultipleSelections" ]
 }
 
@@ -282,7 +303,8 @@ module.exports = {
     "extensions": [
         "dbankier.vscode-quick-select",
         "haberdashpi.vscode-select-by-indent",
-        "haberdashpi.selection-utilities"
+        "haberdashpi.selection-utilities",
+        "haberdashpi.terminal-polyglot"
     ],
 
 // ## Command Kinds
@@ -290,10 +312,11 @@ module.exports = {
 // Determine the color coding of keys in the visual documentation.
     "docKinds": [
         { name: 'motion',   description: "Select commands move the cursor and/or selections." },
-        { name: 'action', description: "Modifier commands manipulate selections in various ways" },
+        { name: 'operator', description: "Operators are actions that take motions as suffix arguments (e.g. to delete (`d`) a word (`w`) you would type `dw`). If you wish to perform the operator action over a single line, you hit the operator key twice. In visual mode, an operator performs it's action over the selected text." },
         { name: 'history',  description: "History commands modify or use the history of executed commands, in some way." },
         { name: 'mode',     description: "Mode commands change the key mode, possibly completely changing what all of the keys do." },
         { name: 'count',    description: "Counts serve as prefix arguments to other commands, and usually determine how many times to repeat the commnad, unless otherwise specified." },
+        { name: 'window',   description: "Window commands manipulate the window in some way." },
         { name: 'leader',   description: "Leaders serve as prefixes to an entire list of key commands" }
     ],
 
@@ -587,6 +610,7 @@ module.exports = {
        ...operators({
         operators: operator_commands,
         objects: {
+            "::doc::j": { kind: 'motion', label: '↓', detail: 'operate over this line and `count` number of lines down' },
             j: [
                 {
                     "cursorMove": {
@@ -598,6 +622,7 @@ module.exports = {
                 },
                 "expandLineSelection",
             ],
+            "::doc::k": { kind: 'motion', label: '↑', detail: 'operate over this line and `count` number of lines up' },
             k: [
                 {
                     "cursorMove": {
@@ -609,6 +634,7 @@ module.exports = {
                 },
                 "expandLineSelection",
             ],
+            "::doc::h": { kind: 'motion', label: '←', detail: 'operate over this line and `count` number of characters to the left' },
             h: [
                 {
                     "cursorMove": {
@@ -618,6 +644,7 @@ module.exports = {
                     }
                 },
             ],
+            "::doc::l": { kind: 'motion', label: '→', detail: 'operate over this line and `count` number of characters to the right' },
             l: {
                 "cursorMove": {
                     to: 'right',
