@@ -111,7 +111,7 @@ function operators(params){
             for(const [objkey, objcom] of Object.entries(params.objects)){
                 let docmatch = objkey.match(/^::doc::(.*)/)
                 if(docmatch){
-                    result["::doc::normal::"+opekey + docmatch[1]] = objcom
+                    result["::doc::normal::"+opkey + docmatch[1]] = objcom
                 }else{
                     result["normal::"+opkey + objkey] = 
                         ["modalkeys.cancelMultipleSelections", objcom, opcom]
@@ -325,7 +325,7 @@ module.exports = {
     "keybindings": {
 // Cursor can be advanced in a file with enter and space. These are not
 // technically motion commands but included for compatibility.
-        "::don::\n": { kind: 'motion', label: '↓', detail: 'move down' },
+        "::doc::\n": { kind: 'motion', label: '↓', detail: 'move down' },
         "\n": [
             "cursorDown",
             { "cursorMove": { "to": "wrappedLineFirstNonWhitespaceCharacter" } }
@@ -652,13 +652,23 @@ module.exports = {
                     value: '__count'
                 }
             },
+            "::doc::i": { kind: 'leader', label: 'inside pair', detail: 'motions within an area, exclusive of the area\'s boundaries'},
+            "::doc::i(": { kind: 'motion', label: "parens", detail: 'operate inside parentheses' },
             "i(": "extension.selectParenthesis",
+            "::doc::a": { kind: 'leader', label: 'around pair', detail: 'motions within an area, inclusive of the area\'s boundaries'},
+            "::doc::a(": { kind: 'motion', label: "parens", detail: 'operate around parentheses' },
             "a(": "extension.selectParenthesisOuter",
+            "::doc::i[": { kind: 'motion', label: "braces", detail: 'operate inside braces' },
             "i[": "extension.selectSquareBrackets",
+            "::doc::a[": { kind: 'motion', label: "braces", detail: 'operate around braces' },
             "a[": "extension.selectSquareBracketsOuter", 
+            "::doc::i{": { kind: 'motion', label: "brackets", detail: 'operate inside brackets' },
             "i{": "extension.selectCurlyBrackets",
+            "::doc::a{": { kind: 'motion', label: "brackets", detail: 'operate around brackets' },
             "a{": "extensiondselectCurlyBracketsOuter",
+            "::doc::i<": { kind: 'motion', label: "caret", detail: 'operate inside caret' },
             "i<": "extension.selectAngleBrackets",
+            "::doc::a<": { kind: 'motion', label: "caret", detail: 'operate around caret' },
             "a<": "extension.selectAngleBracketsOuter",
             ...(Object.fromEntries(["^",
                     "$", "0", "G", "H", "M", "L", "%", "g_", "gg"].
