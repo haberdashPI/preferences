@@ -478,13 +478,16 @@ module.exports = {
 // ## Switching between Modes
 
 // Next, we define keybindings that switch between normal, insert, and visual mode:
+        "::doc::normal::i": { kind: "mode", label: "insert", detail: "switch to insert mode" },
         "normal::i": "modalkeys.enterInsert",
+        "::doc::I": { kind: "mode", label: "insert sol", detail: "move to non-whitespace start of line and switch to insert mode" },
         I: [
             "cursorHome",
             "modalkeys.enterInsert"
         ],
 // The `a` has to check if the cursor is at the end of line. If so, we don't move
 // right because that would move to next line.
+        "::doc::normal::a": { kind: "mode", label: "append", detail: "start insert mode after the current character" },
         "normal::a": [
             {
                 "if": "__char == ''",
@@ -492,14 +495,17 @@ module.exports = {
             },
             "modalkeys.enterInsert"
         ],
+        "::doc::normal::A": { kind: "mode", label: "append eol", detail: "move to end of line and switch to insert mode" },
         A: [
             "cursorEnd",
             "modalkeys.enterInsert"
         ],
+        "::doc::normal::o": { kind: "mode", label: "open below", detail: "create a line below this one and start insert mode" },
         o: [
             "editor.action.insertLineAfter",
             "modalkeys.enterInsert"
         ],
+        "::doc::normal::o": { kind: "mode", label: "open above", detail: "create a line above this one and start insert mode" },
         O: [
             "editor.action.insertLineBefore",
             "modalkeys.enterInsert"
