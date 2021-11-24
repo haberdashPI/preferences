@@ -167,11 +167,11 @@ keybindings: {
         // word-like
         w:     { unit: "subword", boundary: "start", select:      true, value: ' (__count || 1)' },
         uw:    { unit: "subword", boundary: "start", selectWhole: true, value: ' (__count || 1)' },
-        ue:    { unit: "word",    boundary: "both",  selectWhole: true, value: ' (__count || 1)' },
+        ue:    { unit: "subword", boundary: "both",  selectWhole: true, value: ' (__count || 1)' },
         W:     { unit: "word",    boundary: "start", select:      true, value: ' (__count || 1)' },
         uW:    { unit: "word",    boundary: "start", selectWhole: true, value: ' (__count || 1)' },
-        uE:    { unit: "word",    boundary: "both",  selectWhole: true, value: '-(__count || 1)' },
-        e:     { unit: "subword", boundary: "end",   select:      true, value: ' (__count || 1)' },
+        uE:    { unit: "word",    boundary: "both",  selectWhole: true, value: ' (__count || 1)' },
+        e:     { unit: "word",    boundary: "end",   select:      true, value: ' (__count || 1)' },
         b:     { unit: "subword", boundary: "start", select:      true, value: '-(__count || 1)' },
         ub:    { unit: "subword", boundary: "start", selectWhole: true, value: '-(__count || 1)' },
         B:     { unit: "word",    boundary: "start", select:      true, value: '-(__count || 1)' },
@@ -927,8 +927,8 @@ keybindings: {
 
     /////////////
     // window manipulation
-    "::doc::,z": { kind: "window", label: "center", detail: "center window at primary cursor position" },
-    ",z": { "revealLine": { lineNumber: '__line', at: 'center' } },
+    "::doc::,>": { kind: "window", label: "center", detail: "center window at primary cursor position" },
+    ",>": { "revealLine": { lineNumber: '__line', at: 'center' } },
     "::doc::,K": { kind: "window", label: "top", detail: "center window so that primary cursor is at the top" },
     ",K": { "revealLine": { lineNumber: '__line', at: 'top' } },
     "::doc::,J": { kind: "window", label: "bottom", detail: "center window so that primary cursor is at the bottom" },
@@ -967,6 +967,8 @@ keybindings: {
     ",mj": "workbench.action.moveEditorToBelowGroup",
     "::doc::,mk": { kind: "window", label: "↑", detail: "move editor to window above" },
     ",mk": "workbench.action.moveEditorToAboveGroup",
+    "::doc::,x": { kind: "window", label: "close pane", detail: "close the given group of editors"},
+    ",x": "workbench.action.closeEditorsInGroup",
 
     "::doc::gh": { kind: "window", label: "hover", detail: "show the hover view" },
     gh: "editor.action.showHover",
