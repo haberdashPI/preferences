@@ -313,6 +313,7 @@ module.exports = {
     "docKinds": [
         { name: 'motion',   description: "Select commands move the cursor and/or selections." },
         { name: 'operator', description: "Operators are actions that take motions as suffix arguments (e.g. to delete (`d`) a word (`w`) you would type `dw`). If you wish to perform the operator action over a single line, you hit the operator key twice. In visual mode, an operator performs it's action over the selected text." },
+        { name: 'action',   description: "Actions do something (usually to the text of a document)."},
         { name: 'history',  description: "History commands modify or use the history of executed commands, in some way." },
         { name: 'mode',     description: "Mode commands change the key mode, possibly completely changing what all of the keys do." },
         { name: 'count',    description: "Counts serve as prefix arguments to other commands, and usually determine how many times to repeat the commnad, unless otherwise specified." },
@@ -338,7 +339,7 @@ module.exports = {
     "::doc::k": { kind: "motion", label: '↑', detail: "move up" },
     "::doc::l": { kind: "motion", label: '→', detail: "move right" },
     "::doc::0": { kind: "motion", label: 'sol', detail: "move to start of line" },
-    "::doc::$": { kind: "motion", label: 'sol', detail: "move to end of line" },
+    "::doc::$": { kind: "motion", label: 'eol', detail: "move to end of line" },
     "::doc::^": { kind: "motion", label: 'first nonwht', detail: "move to first non-whitespace character on line"},
     "::doc::g": { kind: "leader", label: 'extended', detail: "various extended commands" },
     "::doc::g_": { kind: "motion", label: 'first nonwht', detail: "move to first non-whitespace character on line"},
@@ -513,6 +514,8 @@ module.exports = {
 // Note that visual mode works a little differently than in vim. We don't
 // seek to mimc visual mode particularly. Basically, we just toggle a switch that allows the
 // motion commands to extend and create selections.
+        "::doc::normal::v": { kind: "mode", label: "visual", detail: "start visual-selection mode" },
+        "::doc::visual::v": { kind: 'mode', label: 'clear selection', detail: "clear selection and return to normal mode" }, 
         v: "modalkeys.toggleSelection",
 // ## Editing in Normal Mode
 
@@ -523,8 +526,11 @@ module.exports = {
 
 // <key>x</key> and <key>X</key> commands do exactly what <key>Delete</key> and
 // <key>Backspace</key> keys do.
-        x: "deleteRight",
-        X: "deleteLeft",
+        "::doc::x": { kind: "action", label: "del char →", detail: "delete character to right" },
+        x: { "deleteRight": {}, repeat: '__count' },
+        "::doc::X": { kind: "action", label: "del char ←", detail: "delete character to left" },
+        X: { "deleteLeft": {}, repeat: '__count' },
+        "::doc::r": { kind: "action", label: "replace", detail: "replace a single character" },
         r: "modalkeys.replaceChar",
 // Deleting in Vim always copies the deleted text into clipboard, so we do that
 // as well. If you are wondering why we don't use VS Code's cut command, it has a
