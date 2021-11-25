@@ -904,7 +904,7 @@ keybindings: {
     // git/version control
     "::doc::gr": {kind: "action", label: "git stage", detail: "stage changes for commit"},
     gr: countSelectsLines([ "git.stageSelectedRanges", "modalkeys.touchDocument", "modalkeys.cancelMultipleSelections" ]),
-    "::doc::gr": {kind: "action", label: "git unstage", detail: "unstage changes for commit"},
+    "::doc::gR": {kind: "action", label: "git unstage", detail: "unstage changes for commit"},
     gR: countSelectsLines([ "git.unstageSelectedRanges", "modalkeys.touchDocument", "modalkeys.cancelMultipleSelections" ]),
     "::doc::gu": {kind: "action", label: "git revert", detail: "revert uncommited changes"},
     gu: countSelectsLines(["git.revertSelectedRanges", "modalkeys.cancelMultipleSelections"]),
