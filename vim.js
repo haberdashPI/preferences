@@ -187,8 +187,8 @@ const operator_commands = {
             "modalkeys.enterInsert"
         ]
     },
-    "::doc::,.": { kind: "operator", label: "repl", detail: "send text to REPL; use language specific extension if available" },
-    ",.": [
+    "::doc::z.": { kind: "operator", label: "repl", detail: "send text to REPL; use language specific extension if available" },
+    "z.": [
         {
             // TODO: add other languages here
             if: "__language == 'julia'",
@@ -202,8 +202,8 @@ const operator_commands = {
         "modalkeys.cancelMultipleSelections",
         "modalkeys.touchDocument"
     ],
-    "::doc::,.": { kind: "operator", label: "repl", detail: "send text to REPL" },
-    ",;": [
+    "::doc::z;": { kind: "operator", label: "repl", detail: "send text to REPL" },
+    "z;": [
         {
             if: "!__selection.isSingleLine",
             then: "terminal-polyglot.send-block-text",
@@ -543,7 +543,7 @@ module.exports = {
             "editor.action.insertLineAfter",
             "modalkeys.enterInsert"
         ],
-        "::doc::normal::o": { kind: "mode", label: "open above", detail: "create a line above this one and start insert mode" },
+        "::doc::normal::O": { kind: "mode", label: "open above", detail: "create a line above this one and start insert mode" },
         O: [
             "editor.action.insertLineBefore",
             "modalkeys.enterInsert"
@@ -834,7 +834,7 @@ module.exports = {
 // a separate register ("search") so that the state of the last search (for next
 // and previous matches) are different from the `modalkeys.search` commands that
 // are called to implement <key>f</key> and friends.
-       "::doc::/": { kind: "motion", name: "search →", detail: "search forwards for text; all following characters that you type are included in the search. You must hit enter to complete entry." },
+       "::doc::/": { kind: "motion", label: "search →", detail: "search forwards for text; all following characters that you type are included in the search. You must hit enter to complete entry." },
         "/": [
             {
                 "modalkeys.search": {
@@ -906,6 +906,8 @@ module.exports = {
 // it has been changed. There is no way to get around this in VS Code.
         "::doc:::": { kind: "action", label: "command", detail: "open VSCode command palette" },
         ":": "workbench.action.showCommands",
+        "::doc::z": { kind: "mode", label: "window", detail: "some window related commands" },
+        "::doc::Z": { kind: "mode", label: "window", detail: "some window related commands" },
         "::doc::zz": { kind: "action", label: "center window", detail: "center view on cursor" },
         zz: { "revealLine": { lineNumber: '__line', at: 'center' } },
         "::doc::zz": { kind: "action", label: "center window", detail: "center view on cursor" },
