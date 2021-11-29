@@ -411,10 +411,22 @@ module.exports = {
         e: { "cursorWordEndRight": {}, "repeat": "__count" },
         "visual::e": { "cursorWordEndRightSelect": {}, "repeat": "__count" },
         "::doc::b": { kind: 'motion', label: 'word ←', detail: 'move to previous word start'},
-        b: { "cursorWordStartLeft": {}, "repeat": "__count" },
+        b: { "cursorWordStartLeft": {}, "repeat": "__count"    },
         "visual::b": { "cursorWordStartLeftSelect": {}, "repeat": "__count" },
         "::doc::W": { kind: 'motion', label: 'WORD →', detail: 'move to next WORD start; a WORD is a continguous group of non-whitespace characters'},
         W: {
+            "modalkeys.search": {
+                "text": "\\s+",
+                "offset": 'exclusive',
+                "regex": true,
+                "selectTillMatch": '__mode == "visual"',
+                "highlightMatches": false,
+                "executeAfter": { cursorMove: { to: 'right', select: '__mode == "visual"' } }
+            },
+            "repeat": '__count',
+        },
+        "::doc::E": { kind: 'motion', label: 'WORD end →', detail: 'move to next WORD end; a WORD is a continguous group of non-whitespace characters'},
+        E: {
             "modalkeys.search": {
                 "text": "\\S+",
                 "offset": 'inclusive',
@@ -715,7 +727,7 @@ module.exports = {
             "::doc::i{": { kind: 'motion', label: "brackets", detail: 'operate inside brackets' },
             "i{": "extension.selectCurlyBrackets",
             "::doc::a{": { kind: 'motion', label: "brackets", detail: 'operate around brackets' },
-            "a{": "extensiondselectCurlyBracketsOuter",
+            "a{": "extension.selectCurlyBracketsOuter",
             "::doc::i<": { kind: 'motion', label: "caret", detail: 'operate inside caret' },
             "i<": "extension.selectAngleBrackets",
             "::doc::a<": { kind: 'motion', label: "caret", detail: 'operate around caret' },
@@ -828,33 +840,53 @@ module.exports = {
                 "modalkeys.search": {
                     "caseSensitive": true,
                     "wrapAround": true,
-                    "register": "search"
+                    "register": "search",
+                    "selectTillMatch": "mode == 'visual'"
                 }
             }
         ],
-        "::doc::?": { kind: "motion", name: "search ←", detail: "search backwards for text; all following characters that you type are included in the search. You must hit enter to complete entry." },
+        "::doc::?": { kind: "motion", label: "search ←", detail: "search backwards for text; all following characters that you type are included in the search. You must hit enter to complete entry." },
         "?": {
             "modalkeys.search": {
                 "backwards": true,
                 "caseSensitive": true,
                 "wrapAround": true,
-                "register": "search"
+                "register": "search",
+                "selectTillMatch": "mode == 'visual'"
             }
         },
-        n: { "modalkeys.nextMatch": {register: "search"}},
-        N: { "modalkeys.previousMatch": {register: "search"}},
-        "*": [
+        "::doc::n": { kind: "motion", label: "search →", detail: "go to the next search match" },
+        n: { "modalkeys.nextMatch": {register: "search", selectTillMatch: "mode == 'visual'"}},
+        "::doc::N": { kind: "motion", label: "search ←", detail: "go to the previous search match" },
+        N: { "modalkeys.previousMatch": {register: "search", selectTillMatch: "mode == 'visual'" } },
+        "::doc::*": { kind: "motion", label: "match →", detail: "go to next match of object under cursor (or current selection)"},
+        "normal::*": [
             { "modalkeys.search": {
                 text: "__wordstr",
                 wrapAround: true,
                 register: "search"
             }}
         ],
-        "#": [
+        "visual::*": [
+            { "modalkeys.search": {
+                text: "__selectstr",
+                wrapAround: true,
+                register: "search"
+            }}
+        ],
+        "::doc::#": { kind: "motion", label: "match ←", detail: "go to previous match of object under cursor (or current selection)"},
+        "normal::#": [
             { "modalkeys.search": {
                 text: "__wordstr",
                 wrapAround: true,
                 backwards: true,
+                register: "search"
+            }}
+        ],
+        "visual::#": [
+            { "modalkeys.search": {
+                text: "__selectstr",
+                wrapAround: true,
                 register: "search"
             }}
         ],
@@ -872,12 +904,20 @@ module.exports = {
 
 // Note that <key>Z</key><key>Q</key> command still asks to save the file, if
 // it has been changed. There is no way to get around this in VS Code.
+        "::doc:::": { kind: "action", label: "command", detail: "open VSCode command palette" },
         ":": "workbench.action.showCommands",
+        "::doc::zz": { kind: "action", label: "center window", detail: "center view on cursor" },
         zz: { "revealLine": { lineNumber: '__line', at: 'center' } },
+        "::doc::zz": { kind: "action", label: "center window", detail: "center view on cursor" },
+        zt: { "revealLine": { lineNumber: '__line', at: 'top' } },
+        "::doc::zz": { kind: "action", label: "center window", detail: "center view on cursor" },
+        zb: { "revealLine": { lineNumber: '__line', at: 'bottom' } },
+        "::doc::zz": { kind: "action", label: "save and close", detail: "save and close active editor" },
         ZZ: [
             "workbench.action.files.save",
             "workbench.action.closeActiveEditor"
         ],
+        "::doc::ZQ": { kind: "action", label: "close", detail: "close active editor" },
         ZQ: "workbench.action.closeActiveEditor"
     },
 }
