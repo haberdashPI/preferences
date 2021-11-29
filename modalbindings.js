@@ -1002,9 +1002,9 @@ keybindings: {
     // bookmarks
     "::doc::g ": { kind: "action", label: "mark", detail: "toggle bookmark at given line (use 'j, 'k and '# to navigate bookmarks)" },
     "g ": "vsc-labeled-bookmarks.toggleBookmark",
-    "::doc::'j ": { kind: "action", label: "mark ↓", detail: "move to next bookmark" },
+    "::doc::'j": { kind: "action", label: "mark ↓", detail: "move to next bookmark" },
     "normal::'j": "vsc-labeled-bookmarks.navigateToNextBookmark",
-    "::doc::'k ": { kind: "action", label: "mark ↑", detail: "move to previous bookmark" },
+    "::doc::'k": { kind: "action", label: "mark ↑", detail: "move to previous bookmark" },
     "normal::'k": "vsc-labeled-bookmarks.navigateToPreviousBookmark",
     "visual::'j": "vsc-labeled-bookmarks.expandSelectionToNextBookmark",
     "visual::'k": ["vsc-labeled-bookmarks.expandSelectionToPreviousBookmark", "selection-utilities.activeAtStart"],
