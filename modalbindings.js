@@ -435,13 +435,14 @@ keybindings: {
         docScope: true
     }},
 
-    "::doc::uC": {kind: 'select', label: 'between pair (special)', detail: 'around a pair of characters (non syntactical, useful inside comments)' },  
+    "::doc::uC(": {kind: 'select', label: 'inside ()', detail: 'inside first pair of `()` (non syntactical, useful inside comments)' },  
     "uC(": { "modalkeys.selectBetween": {
         from: "(", to: ")",
         inclusive: false,
         caseSensitive: true,
         docScope: true
     }},
+    "::doc::uC)": {kind: 'select', label: 'around ()', detail: 'around first pair of `()` (non syntactical, useful inside comments)' },  
     "uC)": { "modalkeys.selectBetween": {
         from: "(", to: ")",
         inclusive: false,
