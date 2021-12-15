@@ -874,7 +874,7 @@ keybindings: {
     m: countSelectsLines('down', [
         {
             if: "__language == 'julia'",
-            then: "language-julia.executeJuliaCodeInREPL",
+            then: ["expandLineSelection", "language-julia.executeCodeBlockOrSelectionAndMove"],
             else: {
                 if: "!__selection.isSingleLine",
                 then: "terminal-polyglot.send-block-text",
