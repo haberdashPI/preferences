@@ -648,7 +648,7 @@ keybindings: {
     "::doc::^": {kind: "action", label: 'toggle check', detail: "Toggle a markdown checkbox"},
     "^": "markdown-checkbox.markCheckbox",
 
-    "::doc::": {kind: "action", label: 'trim white', detail: "Delete all external whitespace (left and right edges)"},
+    "::doc::ga": {kind: "action", label: 'trim white', detail: "Delete all external whitespace of a selection (left and right edges)"},
     "ga": "selection-utilities.trimWhitespace",
 
     // brackets
@@ -874,7 +874,11 @@ keybindings: {
     m: countSelectsLines('down', [
         {
             if: "__language == 'julia'",
-            then: ["expandLineSelection", "language-julia.executeCodeBlockOrSelectionAndMove"],
+            then: {
+                if: "__selection.isEmpty",
+                then: ["expandLineSelection", "language-julia.executeCodeBlockOrSelectionAndMove"],
+                else: "language-julia.executeCodeBlockOrSelectionAndMove"
+            },
             else: {
                 if: "!__selection.isSingleLine",
                 then: "terminal-polyglot.send-block-text",
