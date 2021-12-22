@@ -1,3 +1,23 @@
+// # Larkin Keybindings
+//
+// This set of keybindings provides a comprehensive and well tested set of
+// bindings that I use in my daily work. It serves as an example of a fully
+// customized set of keybindings, and demonstrates the full capabilities of
+// ModalKeys.
+
+// The basic logic of these commands follow that of Kakoune: motions generally
+// cause some region of text to be selected, and then actions modify these
+// selections. This is the inverse of vim's motions (`wd` instead of `dw`). This
+// integrates well with many of the existing VSCode extesions which operate on
+// selections. 
+
+// These bindings are named after the middle name of my first child.
+
+// ## Counts to select lines
+
+// One common shortcut I use is that you can specify a range of lines for an
+// action using just a number. E.g. 3d deletes three lines of text.
+
 /**
  * Extend a command to support a count argument. The command is assumed to change or alter
  * selected text so that when you specify a count for that command it can be used to select
@@ -11,7 +31,7 @@
  * @returns combined command to handle all `__count` values and properly select the right
  * number of lines.
  */
-function countSelectsLines(to, countnone, countN){
+ function countSelectsLines(to, countnone, countN){
     if(!countnone){
         countnone = to
         to = 'down'
@@ -29,6 +49,9 @@ function countSelectsLines(to, countnone, countN){
     }
 }
 
+// I use quite a few extensions in my everday use, and all of them have commands
+// set up in my keybindings:
+
 module.exports = {
 extensions: [
     "dbankier.vscode-quick-select",
@@ -40,12 +63,14 @@ extensions: [
     "pranshuagrawal.toggle-case",
     "albymor.increment-selection",
     "pkief.markdown-checkbox",
-    "anjali.clipboard-history",
+    "edgardmessias.clipboard-manager",
     "stkb.rewrap",
     "haberdashpi.terminal-polyglot",
     "jack89ita.open-file-from-path",
     "koalamer.labeled-bookmarks",
 ],
+
+// ## The Actual Keybindings
 
 docKinds: [
     { name: 'select',   description: "Select commands move the cursor and/or selections." },
@@ -59,8 +84,7 @@ docKinds: [
 ],
 
 keybindings: {
-    /////////////
-    // motions
+    // ### Motions
 
     // basic movement
     "::doc::h": { kind: "select", label: "←", detail: "move left" },
@@ -250,7 +274,6 @@ keybindings: {
     "gg": "cursorTopSelect",
 
     // search related
-    // "/": "actions.find",
     "::doc::*": { kind: "select", label: "match →", detail: "Next match to object under cursor"},
     "*": [
         { "modalkeys.search": {
@@ -348,10 +371,8 @@ keybindings: {
     "::doc:::": {kind: "select", label: "← match", detail: "Repeat search motion backwards (for `f`, `t`, etc...)"},
     ":": { "modalkeys.previousMatch": {}, repeat: "__count" },
 
-    ////////////////////////
-    // more complex syntactic selections
+    // ### more complex syntactic selections
 
-    // "I": "select-indentation.expand-selection",
     "::doc::%": { kind: 'select', label: 'to bracket', detail: "Move to matching bracket"},
     '%': "editor.action.jumpToBracket",
     "::doc::''": {kind: 'select', label: 'in quotes', detail: "text within current quotes"},
@@ -502,8 +523,7 @@ keybindings: {
         }},
     }},
 
-    ////////////////////////
-    // selection modifiers
+    // ### Selection Modifiers
 
     "::doc::normal::R": {kind: "select", label: 'expand no wht', detail: 'select full line(s), and trim external whitespace'},
     "normal::R": [ "expandLineSelection", "selection-utilities.trimSelectionWhitespace" ],
@@ -517,10 +537,9 @@ keybindings: {
     "::doc:: ": {kind: "mode", label: 'hold', detail: "Start visual mode (enabling selection)"},
     " ": "modalkeys.enableSelection",
 
-    ///////////////////////////////////////////////////////
-    // actions
+    // ### Actions
 
-    // insert/append text
+    // #### Insert/append text
     "::doc::i": {kind: "mode", label: 'insert', detail: "Switch to insert mode" },
     i: [ "modalkeys.cancelMultipleSelections", "modalkeys.enterInsert" ],
     "::doc::a": {kind: "mode", label: 'append', detail: "Switch to insert mode, moving cursor to end of current character" },
@@ -535,7 +554,7 @@ keybindings: {
     "::doc::A": {kind: "mode", label: 'append eol', detail: "Switch to insert mode, moving cursor to end of line" },
     A: [ { "cursorMove": { to: "wrappedLineEnd", select: false } }, "modalkeys.enterInsert", ],
 
-    // change
+    // #### Text Changes
     "::doc::c": {kind: "mode", label: 'change', detail: "Delete all selected text and move to insert mode"},
     c: countSelectsLines('down', {
         if: "!__selection.isSingleLine && __selection.end.character == 0 && __selection.start.character == 0",
@@ -622,7 +641,7 @@ keybindings: {
         "cursorLeft"
     ],
 
-    // update numerical selection
+    // #### Update numerical selections
     "::doc::=": {kind: "action", label: 'inc #', detail: "Increment a number by 1 (increases increment for subsequent selections)"},
     "=": [
         {
@@ -644,14 +663,15 @@ keybindings: {
     "::doc::g+": {kind: "action", label: 'dec all #', detail: "Decrement all numbers by 1"},
     "g+": "editor.emmet.action.decrementNumberByOne",
 
-    // check
+    // #### Checkmarks
     "::doc::^": {kind: "action", label: 'toggle check', detail: "Toggle a markdown checkbox"},
     "^": "markdown-checkbox.markCheckbox",
 
-    "::doc::ga": {kind: "action", label: 'trim white', detail: "Delete all external whitespace of a selection (left and right edges)"},
+    // #### Whitespace
+    "::doc::ga": {kind: "action", label: 'trim white', detail: "Delete all external whitespace (left and right edges)"},
     "ga": "selection-utilities.trimWhitespace",
 
-    // brackets
+    // #### Brackets
     "::doc::gx": {kind: "action", label: 'remove pair', detail: "Delete a pairing (e.g. `()`)"},
     "::doc::gx[": {kind: "action", label: 'parens/brackets', detail: "Removes pairs that start with `[`, `(` or `{`"},
     "gx[":  "bracketeer.removeBrackets",
@@ -680,10 +700,8 @@ keybindings: {
     "::doc::gi[": {kind: "action", label: 'square', detail: "Insert square brackets ([]) around selection"},
     "gi[": [ "modalkeys.enterInsert", { "type": { text: "[" }, }, "modalkeys.enterNormal" ],
 
-    /////////////
-    // clipboard actions
+    // #### Clipboard 
 
-    // cut to clipboard
     "::doc::d": {kind: "action", label: "delete", detail: "Delete selection and save to paste buffer"},
     d: countSelectsLines('down', [
         "editor.action.clipboardCutAction",
@@ -711,13 +729,11 @@ keybindings: {
     "::doc::,r": {kind: "action", label: "replace char", detail: "replace the character under the cursor"},
     ",r": "modalkeys.replaceChar",
 
-    // copy to clipboard
     "::doc::y": {kind: "action", label: "copy", detail: "copy selected text to clipboard"},
     y: countSelectsLines('down', [
         "editor.action.clipboardCopyAction", "modalkeys.cancelMultipleSelections",
     ]),
 
-    // copy line to clipboard
     "::doc::Y": {kind: "action", label: "copy (eol/up)", detail: "without a count: copy to end of line; with a count: copy this and the previous N lines"},
     Y: countSelectsLines('up', [
         { "cursorMove": { to: "wrappedLineEnd", select: true } },
@@ -728,7 +744,6 @@ keybindings: {
         "modalkeys.cancelMultipleSelections"
     ]),
 
-    // paste after
     "::doc::v": {kind: "action", label: "paste after", detail: "Paste the next after the cursor/selection"},
     v: [
         {
@@ -745,7 +760,6 @@ keybindings: {
         "editor.action.clipboardPasteAction",
     ],
 
-    // paste before
     "::doc::V": {kind: "action", label: "paste before", detail: "Paste the next before the cursor/selection"},
     V: [
         {
@@ -758,16 +772,13 @@ keybindings: {
         "editor.action.clipboardPasteAction",
     ],
 
-    // paste and replace
     "::doc::gV": {kind: "action", label: "paste replace", detail: "Paste, replacing the selected text"},
     "gV": "editor.action.clipboardPasteAction",
 
-    // paste from history
     "::doc::gv": {kind: "action", label: "paste history", detail: "Paste from clipboard history"},
     "gv": "clipboard-manager.editor.pickAndPaste" ,
 
 
-    // paste lines below
     "::doc::,v": {kind: "action", label: "paste after line", detail: "Paste text after current line"},
     ",v": [
         "expandLineSelection",
@@ -776,7 +787,6 @@ keybindings: {
         "editor.action.clipboardPasteAction",
     ],
 
-    // paste lines above
     "::doc::,V": {kind: "action", label: "paste before line", detail: "Paste text before current line"},
     ",V": [
         "expandLineSelection",
@@ -786,7 +796,7 @@ keybindings: {
     ],
 
 
-    // begin line below
+    // #### begin line below
     "::doc::o": {kind: "mode", label: "open below", detail: "open a line below current line and enter insert"},
     o: ["editor.action.insertLineAfter", "modalkeys.enterInsert"],
     "::doc::go": {kind: "action", label: "open below", detail: "open a line below current line"},
@@ -800,7 +810,7 @@ keybindings: {
     "::doc::visual::o": {kind: "mode", label: "open before", detail: "open a line above current selection and enter insert"},
     "visual::O": "selection-utilities.activeAtStart",
 
-    // line indent
+    // #### line indent
     "::doc::>": {kind: "action", label: "indent", detail: "Indent lines"},
     ">": countSelectsLines('down', "editor.action.indentLines", [
         "editor.action.indentLines", 
@@ -817,6 +827,7 @@ keybindings: {
         "modalkeys.cancelMultipleSelections"
     ]),
 
+    // ### File/window related
     "::doc::,f": {kind: "window", label: "open file", detail: "Open file using quick open"},
     ",f": "workbench.action.quickOpen",
     "::doc::,R": {kind: "window", label: "open recent", detail: "Open recent file"},
@@ -826,8 +837,7 @@ keybindings: {
     "::doc::,g": {kind: "window", label: "goto line", detail: "Use VSCode goto line command"},
     ",g": "workbench.action.gotoLine",
 
-    ///////////////////////
-    // history
+    // ### History
 
     "::doc::z": {kind: "history", label: "undo", detail: "VSCode Undo"},
     z: [ "undo", "modalkeys.cancelMultipleSelections", "modalkeys.untouchDocument", ],
@@ -855,8 +865,7 @@ keybindings: {
     "::doc::'q": {kind: "history", label: "cancel recording", detail: "stop recording a macro (don't save it)"},
     "'q": "modalkeys.cancelRecordingMacro",
 
-    /////////////
-    // comment actions
+    // ### Comments 
     "::doc::g;": {kind: "action", label: "comment →", detail: "select next comment"},
     "g;":  countSelectsLines('down', [
         "editor.action.commentLine", "modalkeys.cancelMultipleSelections",
@@ -868,8 +877,7 @@ keybindings: {
     "::doc::gq": {kind: "action", label: "wrap", detail: "wrap text, preserving commenting"},
     "gq": "rewrap.rewrapComment",
 
-    /////////////
-    // terminal actions
+    // ### terminal actions
     "::doc::m": {kind: "action", label: "to repl", detail: "send text to a terminal (usually containing a REPL); use langauge specific extensions when available and put the pasted code into a block (when defined)."},
     m: countSelectsLines('down', [
         {
@@ -905,8 +913,7 @@ keybindings: {
         "modalkeys.touchDocument"
     ]),
 
-    ///////////////////
-    // git/version control
+    // ### git/version control
     "::doc::gr": {kind: "action", label: "git stage", detail: "stage changes for commit"},
     gr: countSelectsLines([ "git.stageSelectedRanges", "modalkeys.touchDocument", "modalkeys.cancelMultipleSelections" ]),
     "::doc::gR": {kind: "action", label: "git unstage", detail: "unstage changes for commit"},
@@ -930,8 +937,7 @@ keybindings: {
     "::doc::'D": {kind: "select", label: "change ←", detail: "move to previous change"},
     "'D": "workbench.action.editor.previousChange",
 
-    /////////////
-    // window manipulation
+    // ### window manipulation
     "::doc::,>": { kind: "window", label: "center", detail: "center window at primary cursor position" },
     ",>": { "revealLine": { lineNumber: '__line', at: 'center' } },
     "::doc::,K": { kind: "window", label: "top", detail: "center window so that primary cursor is at the top" },
@@ -984,8 +990,7 @@ keybindings: {
     "::doc::gD": { kind: "window", label: "go to (aside)", detail: "go to the definition of symbol under curosr in an editor to the side" },
     gD: "editor.action.revealDefinitionAside",
 
-    /////////
-    // debugging
+    // ### Debugging
     "::doc::gH": { kind: "window", label: "debug hover", detail: "show the debug hover view" },
     gH: "editor.debug.action.showDebugHover",
     "::doc::gb": { kind: "action", label: "breakpt.", detail: "toggle debug breakpoint" },
@@ -1003,8 +1008,7 @@ keybindings: {
     "::doc::gek": { kind: "action", label: "out", detail: "debug: step out" },
     gek: "workbench.action.debug.stepOut",
 
-    //////////
-    // bookmarks
+    // ### bookmarks
     "::doc::g ": { kind: "action", label: "mark", detail: "toggle bookmark at given line (use 'j, 'k and '# to navigate bookmarks)" },
     "g ": "vsc-labeled-bookmarks.toggleBookmark",
     "::doc::'j": { kind: "action", label: "mark ↓", detail: "move to next bookmark" },
@@ -1018,8 +1022,15 @@ keybindings: {
     "::doc::'#": { kind: "select", label: "nav marks", detail: "reveal quick selection to move to a bookmark" },
     "'#": "vsc-labeled-bookmarks.navigateToBookmark",
 
-    ///////////////
-    // selection modifiers
+    // ### Selection Modifiers and Selection Editing
+    //
+    // A varitey of the following commands use something called "select-edit" mode. This
+    // mode enables a variety of handy selection manipulations that are demoed
+    // in the [Selection Utilities
+    // extesion](https://github.com/haberdashPI/vscode-selection-utilities). The
+    // mode is normally started when you create multiple selections from a
+    // matched word using `"`, much as Ctrl/Cmd-D works in VSCode.
+
     "::doc::\"": { kind: "mode", label: "select-edit", detail: "Enter a mode where you can edit and manipulate (possibly multiple) selections with ease. Entering the mode also adds a new cursor for the next match to the word under the curosr (or selection). You can use the count to ask multiple matches to be added. (You can use `,\"` to avoid adding any cursors)."},
     '"': [
         { if: "__selections.length <= 1",
@@ -1140,8 +1151,11 @@ keybindings: {
     "::doc::selectedit::]r": { kind: "modifier", label: "regex", detail: "Exclude all selections that contain a given regular expression"},
     "selectedit::]r": "selection-utilities.excludeByRegex",
 
-    ////////
-    // symmetric insertion (around selection)
+    // ### Symmetric insertion (around selection)
+    // Symmetric insertion, which is defined by a series of commands in
+    // [Selection Utilities](https://github.com/haberdashPI/vscode-selection-utilities)
+    // allows insertion of characters on both sides of a selection.
+
     "::doc::, ": { kind: "action", label: "spaces around", detail: "insert spaces around current selections"},
     ", ": { "selection-utilities.insertAround": { before: " ", after: " " }},
     "::doc::g'": {kind: "mode", label: "symmetric insert", detail: "Move to symmetric insert mode: in this mode there are a variety of operations (inserts, deletions) that can be performed at both the start and end of a selection."},
