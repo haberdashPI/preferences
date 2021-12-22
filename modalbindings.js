@@ -40,7 +40,7 @@ extensions: [
     "pranshuagrawal.toggle-case",
     "albymor.increment-selection",
     "pkief.markdown-checkbox",
-    "edgardmessias.clipboard-manager",
+    "anjali.clipboard-history",
     "stkb.rewrap",
     "haberdashpi.terminal-polyglot",
     "jack89ita.open-file-from-path",

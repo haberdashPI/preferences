@@ -1,3 +1,4 @@
+# code: language=bash
 # Add the location of this directory as an environment variable
 # in VSCode's terminal preferences called BAT_CONFIG_PATH pointing
 # to this file.
@@ -8,7 +9,7 @@
 
 # Specify desired highlighting theme (e.g. "TwoDark"). Run `bat --list-themes`
 # for a list of all available themes
---theme="GitHub"
+# --theme="GitHub"
 
 # Enable this to use italic text on the terminal. This is not supported on all
 # terminal emulators (like tmux, by default):
