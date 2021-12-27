@@ -23,10 +23,10 @@ alias matlab="matlab -nodesktop -nosplash"
 alias ll="exa --long --group-directories-first"
 alias ls="exa"
 alias less="bat --theme=GitHub"
-alias aws-start-pet="aws ec2 start-instances --instance-ids i-098f4655c326af67f --profile idorsia"
-alias aws-stop-pet="aws ec2 stop-instances --instance-ids i-098f4655c326af67f --profile idorsia"
-alias aws-sleep-pet="aws ec2 stop-instances --instance-ids i-098f4655c326af67f --profile idorsia --hibernate"
-alias aws-restart-pet="aws ec2 reboot-instances --instance-ids i-098f4655c326af67f --profile idorsia"
+alias aws-start-pet="aws ec2 start-instances --instance-ids i-098f4655c326af67f --profile dlittle"
+alias aws-stop-pet="aws ec2 stop-instances --instance-ids i-098f4655c326af67f --profile dlittle"
+alias aws-sleep-pet="aws ec2 stop-instances --instance-ids i-098f4655c326af67f --profile dlittle --hibernate"
+alias aws-restart-pet="aws ec2 reboot-instances --instance-ids i-098f4655c326af67f --profile dlittle"
 
 function hdir(){
   pushd ~
@@ -49,7 +49,9 @@ function fdir(){
   exa --long --group-directories-first
 }
 
-source $HOME/.pushovervars
+if [ -e $HOME/.pushovervars ]; then
+  source $HOME/.pushovervars
+fi
 
 bindkey -s '\eh' 'bdir\n'
 bindkey -s '\ek' 'udir\n'
