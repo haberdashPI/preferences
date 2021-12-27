@@ -456,6 +456,7 @@ keybindings: {
         docScope: true
     }},
 
+    "::doc::uC": {kind: 'select', label: 'between bracket pair', detail: 'around/inside some bracket pairs' },
     "::doc::uC(": {kind: 'select', label: 'inside ()', detail: 'inside first pair of `()` (non syntactical, useful inside comments)' },  
     "uC(": { "modalkeys.selectBetween": {
         from: "(", to: ")",
