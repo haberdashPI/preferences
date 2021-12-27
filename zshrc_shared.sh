@@ -49,7 +49,7 @@ function fdir(){
   exa --long --group-directories-first
 }
 
-if [ -e $HOME/.pushovervars ]; then
+if [[ -f ${+HOME/.pushovervars} ]]; then
   source $HOME/.pushovervars
 fi
 
