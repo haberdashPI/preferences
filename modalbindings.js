@@ -169,6 +169,8 @@ keybindings: {
     "::doc::#": { kind: "select", label: "number →", detail: "previous number" },
     "::doc::';": { kind: "select", label: "comment →", detail: "next commented region" },
     "::doc::':": { kind: "select", label: "comment ←", detail: "previous commented region" },
+    "::doc::,;": { kind: "select", label: "blk commt →", detail: "next block commented region" },
+    "::doc::,:": { kind: "select", label: "blk commt ←", detail: "previous block commented region" },
     "::doc::p": { kind: "select", label: "pargrph →", detail: "next pagaraph" },
     "::doc::P": { kind: "select", label: "pargrph ←", detail: "previous paragraph" },
     "::doc::')": { kind: "select", label: "sec →", detail: "next section" },
@@ -215,6 +217,8 @@ keybindings: {
         // comments
         "';": { unit: "comment", boundary: "both", selectWhole: true, value: '(__count || 1)'},
         "':": { unit: "comment", boundary: "both", selectWhole: true, value: '-(__count || 1)'},
+        ",;": { unit: "block_comment", boundary: "both", selectWhole: true, value: '(__count || 1)'},
+        ",:": { unit: "block_comment", boundary: "both", selectWhole: true, value: '-(__count || 1)'},
 
         // paragraphs and sections
         p:     { unit: "paragraph",  boundary: "start", select:    true, value: '(__count || 1)'  },
