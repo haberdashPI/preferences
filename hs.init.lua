@@ -220,6 +220,7 @@ end
 function nextWindowInStack()
   yabai.send(function(data)
     if data ~= nil then
+      print(data)
       yabai.send(function() end,'window', '--focus', 'stack.first')
     end
   end,'window','--focus', 'stack.next')
@@ -227,16 +228,10 @@ end
 function prevWindowInStack()
   yabai.send(function(data)
     if data ~= nil then
+      print(data)
       yabai.send(function() end,'window', '--focus', 'stack.last')
     end
   end,'window','--focus', 'stack.prev')
-end
-function unstackWindow()
-  yabai.send(function(data)
-    if data == nil then
-      yabaf.send(function() end,'window', 'toggle', 'float')
-    end
-  end,'window', '--toggle', 'float')
 end
 
 function focusMain()
@@ -259,18 +254,11 @@ function balanceSplits()
   yabai.send(function() end, 'space', '--balance')
 end
 function stackWindowNext()
-  yabai.send(function(data)
-    if data ~= nil then
-      yabai.send(function() end, 'window', '--stack', 'first')
-    end
-  end,'window', '--stack', 'next')
+  yabai.send(function() end, 'window', '--stack', 'next')
 end
+
 function stackWindowPrev()
-  yabai.send(function(data)
-    if data ~= nil then
-      yabai.send(function() end, 'window', '--stack', 'last')
-    end
-  end,'window', '--stack', 'prev')
+  yabai.send(function() end, 'window', '--stack', 'prev')
 end
 
 function moveUp()
@@ -423,7 +411,6 @@ wmk:bind('', 'a', function() focusMain(); tileLayout(); showModeDisplay(0) end)
 wmk:bind('', 's', function() floatLayout(); showModeDisplay(0) end)
 wmk:bind('shift', '6', stackWindowPrev)
 wmk:bind('shift', '5', stackWindowNext)
-wmk:bind('shift', '-', unstackWindow)
 wmk:bind('', 'd', toggleSplit)
 wmk:bind('shift', 'D', toggleDesktop)
 wmk:bind('', 'v', toggleFloat)
