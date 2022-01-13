@@ -22,7 +22,6 @@ bindkey '\e;' autosuggest-accept
 alias matlab="matlab -nodesktop -nosplash"
 alias ll="exa --long --group-directories-first"
 alias ls="exa"
-alias less="bat --theme=GitHub"
 alias aws-start-pet="aws ec2 start-instances --instance-ids i-098f4655c326af67f --profile dlittle"
 alias aws-stop-pet="aws ec2 stop-instances --instance-ids i-098f4655c326af67f --profile dlittle"
 alias aws-sleep-pet="aws ec2 stop-instances --instance-ids i-098f4655c326af67f --profile dlittle --hibernate"
