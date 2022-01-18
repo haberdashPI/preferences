@@ -371,7 +371,8 @@ function managedWindows(windows)
     return results
   end
   for i, window in pairs(windows) do
-    if window.floating == 0 and window.minimized == 0 then
+    if (not window["is-floating"]) and (not window["is-minimized"]) then
+      print("Including non floating non minimized window")
       j = j + 1
       results[j] = window.frame
       results[j].stack_index = window["stack-index"]
