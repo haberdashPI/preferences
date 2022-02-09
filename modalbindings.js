@@ -55,9 +55,9 @@
 module.exports = {
 extensions: [
     "dbankier.vscode-quick-select",
-    "haberdashpi.vscode-select-by-indent",
-    "haberdashpi.selection-utilities",
-    "haberdashpi.move-cursor-by-argument",
+    "haberdashPI.vscode-select-by-indent",
+    "haberdashPI.selection-utilities",
+    "haberdashPI.move-cursor-by-argument",
     "pustelto.bracketeer",
     "wmaurer.change-case",
     "pranshuagrawal.toggle-case",
@@ -65,7 +65,7 @@ extensions: [
     "pkief.markdown-checkbox",
     "edgardmessias.clipboard-manager",
     "stkb.rewrap",
-    "haberdashpi.terminal-polyglot",
+    "haberdashPI.terminal-polyglot",
     "jack89ita.open-file-from-path",
     "koalamer.labeled-bookmarks",
 ],
@@ -510,6 +510,54 @@ keybindings: {
         executeAfter: { "modalkeys.selectBetween": {
             from: "__captured",
             to: "__captured",
+            inclusive: false,
+            caseSensitive: true,
+            docScope: true
+        }},
+    }},
+
+    "::doc::uz": {kind: 'select', label: 'in 2char pair ex.', detail: 'between two sets of characters pairs (four total chars), exclusive of the pair; for example, select bob in the string [{bob}] by typing uz[{}]'},
+    uz: { "modalkeys.captureChar": {
+        acceptAfter: 4,
+        executeAfter: { "modalkeys.selectBetween": {
+            from: "__captured.slice(0,2)",
+            to: "__captured.slice(2,4)",
+            inclusive: false,
+            caseSensitive: true,
+            docScope: true
+        }},
+    }},
+
+    "::doc::uZ": {kind: 'select', label: 'in 2char pair in.', detail: 'between two sets of characters pairs (four total chars), inclusive of the pair; for example, select the string [{bob}] by typing uz[{}]'},
+    uZ: { "modalkeys.captureChar": {
+        acceptAfter: 4,
+        executeAfter: { "modalkeys.selectBetween": {
+            from: "__captured.slice(0,2)",
+            to: "__captured.slice(2,4)",
+            inclusive: true,
+            caseSensitive: true,
+            docScope: true
+        }},
+    }},
+
+    "::doc::ux": {kind: 'select', label: 'btwn chars ex.', detail: 'between two distinct characters, exclusive of the pair'},
+    ux: { "modalkeys.captureChar": {
+        acceptAfter: 2,
+        executeAfter: { "modalkeys.selectBetween": {
+            from: "__captured[0]",
+            to: "__captured[1]",
+            inclusive: false,
+            caseSensitive: true,
+            docScope: true
+        }},
+    }},
+
+    "::doc::uX": {kind: 'select', label: 'btwn chars inc.', detail: 'between two distinct characters, inclusive of the pair'},
+    uX: { "modalkeys.captureChar": {
+        acceptAfter: 2,
+        executeAfter: { "modalkeys.selectBetween": {
+            from: "__captured[0]",
+            to: "__captured[1]",
             inclusive: false,
             caseSensitive: true,
             docScope: true
