@@ -205,7 +205,7 @@ keybindings: {
         E:     { unit: "word",    boundary: "end",   select:      true, value: '-(__count || 1)' },
         "'w":  { unit: "WORD",    boundary: "start", select:      true, value: " (__count || 1)" },
         "'b":  { unit: "WORD",    boundary: "start", select:      true, value: "-(__count || 1)" },
-        "'e":  { unit: "WORD",    boundary: "end",   select:      true, value: "-(__count || 1)" },
+        "'e":  { unit: "WORD",    boundary: "end",   select:      true, value: " (__count || 1)" },
         "u'w": { unit: "WORD",    boundary: "start", selectWhole: true, value: " (__count || 1)" },
         "u'e": { unit: "WORD",    boundary: "both",  selectWhole: true, value: " (__count || 1)" },
         "u'b": { unit: "WORD",    boundary: "start", selectWhole: true, value: "-(__count || 1)" },
