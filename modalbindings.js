@@ -475,6 +475,34 @@ keybindings: {
         caseSensitive: true,
         docScope: true
     }},
+    "::doc::uC[": {kind: 'select', label: 'inside []', detail: 'inside first pair of `[]` (non syntactical, useful inside comments)' },  
+    "uC[": { "modalkeys.selectBetween": {
+        from: "[", to: "]",
+        inclusive: false,
+        caseSensitive: true,
+        docScope: true
+    }},
+    "::doc::uC]": {kind: 'select', label: 'around []', detail: 'around first pair of `[]` (non syntactical, useful inside comments)' },  
+    "uC]": { "modalkeys.selectBetween": {
+        from: "[", to: "]",
+        inclusive: false,
+        caseSensitive: true,
+        docScope: true
+    }},
+    "::doc::uC{": {kind: 'select', label: 'inside {}', detail: 'inside first pair of `{}` (non syntactical, useful inside comments)' },  
+    "uC{": { "modalkeys.selectBetween": {
+        from: "{", to: "}",
+        inclusive: false,
+        caseSensitive: true,
+        docScope: true
+    }},
+    "::doc::uC}": {kind: 'select', label: 'around {}', detail: 'around first pair of `{}` (non syntactical, useful inside comments)' },  
+    "uC}": { "modalkeys.selectBetween": {
+        from: "{", to: "}",
+        inclusive: false,
+        caseSensitive: true,
+        docScope: true
+    }},
     "::doc::uC,": {kind: 'select', label: 'inside <>', detail: 'inside first character pair `<>` (non syntactical, useful inside comments)'},    
     "uC.": { "modalkeys.selectBetween": {
         from: "<", to: ">",
@@ -900,6 +928,14 @@ keybindings: {
     "-": "cursorUndo",
     "::doc::_": {kind: "history", label: "cursor redo", detail: "VSCode Cursor Redo"},
     "_": "cursorRedo",
+    "::doc::g-": {kind: "history", label: "nav ←", detail: "Go back in navigation history (e.g. goto definition)"},
+    "g-": "workbench.action.navigateBackInNavigationLocations",
+    "::doc::g_": {kind: "history", label: "nav →", detail: "Go forward in navigation history (e.g. goto definition)"},
+    "g_": "workbench.action.navigateForwardInNavigationLocations",
+    "::doc::'-": {kind: "history", label: "edit hist ←", detail: "Go back in edit history (e.g. goto definition)"},
+    "'-": "workbench.action.navigateBackInEditLocations",
+    "::doc::'_": {kind: "history", label: "edit hist →", detail: "Go forward in edit history (e.g. goto definition)"},
+    "'_": "workbench.action.navigateForwardInEditLocations",
 
     "::doc::.": {kind: "history", label: "repeat", detail: "repeat last sentence (last selection and action pair)"},
     ".": [
@@ -1155,8 +1191,8 @@ keybindings: {
         "editor.action.selectHighlights",
         { "modalkeys.enterMode": { mode: "selectedit" } },
     ],
-    "::doc::'-": { kind: "modifier", label: "restore sel", detail: "restore the most recently cleared selection"},
-    "'-": [
+    "::doc::,-": { kind: "modifier", label: "restore sel", detail: "restore the most recently cleared selection"},
+    ",-": [
         { "selection-utilities.restoreAndClear": {register: "cancel"} },
         { if: "__selections.length > 1", then: { "modalkeys.enterMode": { mode: "selectedit" }}}
     ],
