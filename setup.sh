@@ -53,13 +53,12 @@ sed -i 's/ZSH_THEME=".*"/ZSH_THEME="powerlevel10k\/powerlevel10k"/g' ~/.zshrc.ne
 echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc.new
 
 # julia install (override beacon defaults)
-echo "alias julia=\"/home/ubuntu/.asdf/shims/julia\"" >> ~/.zshrc.new
-# if [[ $HOST == "dlittle" ]]; then
+if [[ $HOST == "dlittle" ]]; then
     # julia_pod setup
     git clone https://github.com/beacon-biosignals/julia_pod ~/bin/julia_pod
     asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git 
-    asdf install nodejs 16.8.0
-    asdf global nodejs 16.8.0
+    asdf install nodejs latest
+    asdf global nodejs latest
     asdf reshim
     npm i -g devspace
     sudo apt -yq install jq # julia_pod depedency
@@ -72,7 +71,7 @@ echo "alias julia=\"/home/ubuntu/.asdf/shims/julia\"" >> ~/.zshrc.new
     export PRIVATE_REGISTRY_URL=\"https://github.com/beacon-biosignals/BeaconRegistry.git\"
     export GITHUB_TOKEN_FILE=$HOME/.julia_pod_pat
     " >> ~/.zshrc.new
-# fi
+fi
 
 cp ~/Documents/preferences/p10k.zsh ~/.p10k.zsh
 
@@ -112,10 +111,9 @@ ln -s ~/Documents/preferences/mrconfig ~/.mrconfig
 mr update
 
 # julia setup
-asdf plugin-add julia https://github.com/rkyleg/asdf-julia.git
-asdf install julia 1.6.3
-asdf global julia 1.6.3
-asdf reshim
+brew install juliaup
+juliaup add release
+juliaup default release
 julia -e 'using Pkg; Pkg.add(["OhMyREPL", "Revise", "TerminalPager", "Alert", "AlertPushover"])'
 mkdir -p ~/.julia/config
 ln -s ~/Documents/preferences/startup.jl ~/.julia/config/startup.jl
