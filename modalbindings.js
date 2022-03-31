@@ -967,8 +967,8 @@ keybindings: {
     "gq": "rewrap.rewrapComment",
 
     // ### terminal actions
-    "::doc::m": {kind: "action", label: "to repl", detail: "send text to a terminal (usually containing a REPL); use langauge specific extensions when available and put the pasted code into a block (when defined)."},
-    m: countSelectsLines('down', [
+    "::doc::M": {kind: "action", label: "to repl", detail: "send text to a terminal (usually containing a REPL); use langauge specific extensions when available and put the pasted code into a block (when defined)."},
+    M: countSelectsLines('down', [
         {
             if: "__language == 'julia'",
             then: {
@@ -985,8 +985,8 @@ keybindings: {
         "modalkeys.cancelMultipleSelections",
         "modalkeys.touchDocument"
     ]),
-    "::doc::M": {kind: "action", label: "to repl (v2)", detail: "send text to a terminal (usually containing a REPL), placing in a block when defined."},
-    M: countSelectsLines('down', [
+    "::doc::m": {kind: "action", label: "to repl (v2)", detail: "send text to a terminal (usually containing a REPL), placing in a block when defined."},
+    m: countSelectsLines('down', [
         {
             if: "!__selection.isSingleLine",
             then: "terminal-polyglot.send-block-text",
