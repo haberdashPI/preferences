@@ -20,14 +20,14 @@ end
 @tryusing OhMyREPL enable_autocomplete_brackets(false)
 @tryusing Revise
 @tryusing TerminalPager begin
-    TerminalPager.set_keybinding('j', :down)
-    TerminalPager.set_keybinding('J', :fastdown)
-    TerminalPager.set_keybinding('k', :up)
-    TerminalPager.set_keybinding('K', :fastup)
-    TerminalPager.set_keybinding('h', :left)
-    TerminalPager.set_keybinding('H', :fastleft)
-    TerminalPager.set_keybinding('l', :right)
-    TerminalPager.set_keybinding('L', :fastright)
+    TerminalPager.set_keybinding("j", :down)
+    TerminalPager.set_keybinding("j", :fastdown, shift=true)
+    TerminalPager.set_keybinding("k", :up)
+    TerminalPager.set_keybinding("k", :fastup, shift=true)
+    TerminalPager.set_keybinding("h", :left)
+    TerminalPager.set_keybinding("h", :fastleft, shift=true)
+    TerminalPager.set_keybinding("l", :right)
+    TerminalPager.set_keybinding("l", :fastright, shift=true)
 end
 
 @static if gethostname() ∉ ["edgewater", "dlittle"]
