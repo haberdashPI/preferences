@@ -37,7 +37,12 @@ elif [[ $OSTYPE == "darwin"* ]]; then
     brew install asdf 
     brew install fd 
     brew install gh    
+    brew install jq
+    brew install koekeishiya/formulae/skhd
+    brew install koekeishiya/formulae/yabai
     brew install dust
+    brew tap homebrew/cask-fonts
+    brew install --cask font-sauce-code-pro-nerd-font
 else
     echo "OS Not supported"
     exit 1
@@ -48,7 +53,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 # p10k theme
 { echo 'if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"\nfi\n'; cat ~/.zshrc; } > ~/.zshrc.new
+source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"; fi'; cat ~/.zshrc; } > ~/.zshrc.new
 sed -i 's/ZSH_THEME=".*"/ZSH_THEME="powerlevel10k\/powerlevel10k"/g' ~/.zshrc.new
 echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc.new
 
@@ -62,7 +67,7 @@ if [[ $HOST == "dlittle" ]]; then
     asdf reshim
     npm i -g devspace
     sudo apt -yq install jq # julia_pod depedency
-
+    
     echo "
     # julia_pod setup
     export PATH=\$PATH:$HOME/bin/julia_pod/add_me_to_your_PATH

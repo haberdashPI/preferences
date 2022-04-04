@@ -46,6 +46,9 @@ vim:bindHotKeys({ enter = {{'ctrl'}, '\\'} })
 vim:enableBetaFeature('block_cursor_overlay')
 vim:shouldDimScreenInNormalMode(false)
 
+-- Yabai command
+-- -----------------------------------------------------------------
+
 function windowMode(fn)
   modestr = nil;
   yabai.send(function(data)
@@ -121,6 +124,7 @@ function sendToNextDisplay()
     if result ~= nil then
       yabai.send(function() end, 'window', '--display', 'first')
     end
+    focusNextDisplay()
   end, 'window', '--display', 'next')
 end
 
@@ -129,22 +133,28 @@ function sendToPreviousDisplay()
     if result ~= nil then
       yabai.send(function() end, 'window', '--display', 'last')
     end
+    focusPreviousDisplay()
   end, 'window', '--display', 'prev')
 end
 
+function focusWindow()
+  yabai.send(function() end, 'window', '--focus', 'first')
+end
 function focusNextDisplay()
   yabai.send(function(result)
     if result ~= nil then
-      yabai.send(function() end, 'display', '--focus', 'first')
+      yabai.send(focusWindow, 'display', '--focus', 'first')
     end
+    focusWindow()
   end, 'display', '--focus', 'next')
 end
 
 function focusPreviousDisplay()
   yabai.send(function(result)
     if result ~= nil then
-      yabai.send(function() end,'display','--focus','last')
+      yabai.send(focusWindow,'display','--focus','last')
     end
+    focusWindow()
   end,'display','--focus','prev')
 end
 
@@ -234,6 +244,9 @@ function prevWindowInStack()
   end,'window','--focus', 'stack.prev')
 end
 
+function focusRecent()
+  yabai.send(function() end,'window','--focus', 'recent')
+end
 function focusMain()
   yabai.send(function() end,'window','--focus', 'first')
 end
@@ -432,6 +445,7 @@ wmk:bind('', 'g', byMode{bsp=focusMain, float=center})
 wmk:bind('', 'tab', focusNext)
 wmk:bind('shift', 'tab', focusPrev)
 wmk:bind('shift', 'g', swapMain)
+wmk:bind('', '\\', focusRecent)
 
 wmk:bind('shift', 'j', byMode{bsp=shiftForward, float=resizeDown})
 wmk:bind('shift', 'k', byMode{bsp=shiftBackward, float=resizeUp})
