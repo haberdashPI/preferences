@@ -1,13 +1,42 @@
 # code: language=bash
-:: default : spacebar -m config background_color 0xaa222222 && spacebar -m config foreground_color 0xaa888888 && spacebar -m config center_shell_command 'echo ""'
-:: yabai : spacebar -m config background_color 0xaa229922 && spacebar -m config foreground_color 0xaaeeeeee && spacebar -m config center_shell on && spacebar -m config center_shell_command 'echo "yabai"'
+:: default : spacebar -m config background_color 0xaa222222 &; \
+    spacebar -m config foreground_color 0xaa888888 &; \
+    spacebar -m config center_shell_command 'echo ""' &; \
+    hs -A -c 'hideWindowNumbers()'
+
+############################
+# slack navigation
+
+ctrl - j [ 
+    "Slack" : skhd -k 0x7D
+    *       ~
+]
+ctrl - k [
+    "Slack" : skhd -k 0x7E
+    *       ~
+]
+ctrl - l [
+    "Slack" : skhd -k 0x61
+    *       ~
+]
+ctrl - h [
+    "Slack" : skhd -k 'shift - 0x61'
+    *       ~
+]
+
+############################
+# yabai window manipulation
+:: yabai : spacebar -m config background_color 0xeeeeeeee &; \
+    spacebar -m config foreground_color 0xff111111 &; \
+    spacebar -m config center_shell on &; \
+    hs -A -c 'hideWindowNumbers()' &; \
+    spacebar -m config center_shell_command 'echo "yabai"' 
+    
 ctrl - 0x29 ; yabai # semicolon
 yabai < return ; default
 yabai < escape ; default
 
-# 0x18 = `=`
-yabai < 0x18 : yabai -m space --balance
-
+# navigate windows
 yabai < j : yabai -m window --focus next || yabai -m window --focus first
 yabai < 0x29  : (yabai -m window --focus next || yabai -m window --focus first) && skhd -k "return"
 yabai < 0x27  : (yabai -m window --focus prev || yabai -m window --focus last) && skhd -k "return"
@@ -16,6 +45,72 @@ yabai < h : yabai -m window first --resize bottom_right:-100:-100
 yabai < l : yabai -m window first --resize bottom_right:100:100
 yabai < g : yabai -m window --focus first
 
+# navigate / move to spaces
+yabai < 1 : skhd -k "ctrl - 1"
+yabai < 2 : skhd -k "ctrl - 2"
+yabai < 3 : skhd -k "ctrl - 3"
+yabai < 4 : skhd -k "ctrl - 4"
+yabai < 5 : skhd -k "ctrl - 5"
+yabai < 6 : skhd -k "ctrl - 6"
+
+:: moveto : spacebar -m config background_color 0xeeeeeeee &; \
+    spacebar -m config foreground_color 0xff111111 &; \
+    spacebar -m config center_shell on &; \
+    spacebar -m config center_shell_command 'echo "move to: "' 
+
+yabai < t ; moveto
+moveto < return ; yabai
+moveto < escape ; default
+moveto < 1 : yabai -m window --space 1 && skhd -k "return" && skhd -k "ctrl - 1" 
+moveto < 2 : yabai -m window --space 2 && skhd -k "return" && skhd -k "ctrl - 2" 
+moveto < 3 : yabai -m window --space 3 && skhd -k "return" && skhd -k "ctrl - 3" 
+moveto < 4 : yabai -m window --space 4 && skhd -k "return" && skhd -k "ctrl - 4" 
+moveto < 5 : yabai -m window --space 5 && skhd -k "return" && skhd -k "ctrl - 5" 
+moveto < 6 : yabai -m window --space 6 && skhd -k "return" && skhd -k "ctrl - 6" 
+
+# move to windows by number
+:: jumpto : spacebar -m config background_color 0xeeeeeeee &; \
+     spacebar -m config foreground_color 0xff111111 &; \
+     spacebar -m config center_shell on &; \
+     spacebar -m config center_shell_command 'echo "jump to: "' &; \
+     hs -A -c 'showWindowNumbers()'
+
+yabai < w ; jumpto
+jumpto < return ; yabai
+jumpto < escape ; default
+jumpto < shift - 1 : hs -A -c 'focusOnWindow(1)' && skhd -k 'return'
+jumpto < shift - 2 : hs -A -c 'focusOnWindow(2)' && skhd -k 'return'
+jumpto < shift - 3 : hs -A -c 'focusOnWindow(3)' && skhd -k 'return'
+jumpto < shift - 4 : hs -A -c 'focusOnWindow(4)' && skhd -k 'return'
+jumpto < shift - 5 : hs -A -c 'focusOnWindow(5)' && skhd -k 'return'
+jumpto < shift - 6 : hs -A -c 'focusOnWindow(6)' && skhd -k 'return'
+jumpto < shift - 7 : hs -A -c 'focusOnWindow(7)' && skhd -k 'return'
+jumpto < shift - 8 : hs -A -c 'focusOnWindow(8)' && skhd -k 'return'
+jumpto < shift - 9 : hs -A -c 'focusOnWindow(9)' && skhd -k 'return'
+jumpto < 1 : hs -A -c 'focusOnWindow(1)' && skhd -k 'escape'
+jumpto < 2 : hs -A -c 'focusOnWindow(2)' && skhd -k 'escape'
+jumpto < 3 : hs -A -c 'focusOnWindow(3)' && skhd -k 'escape'
+jumpto < 4 : hs -A -c 'focusOnWindow(4)' && skhd -k 'escape'
+jumpto < 5 : hs -A -c 'focusOnWindow(5)' && skhd -k 'escape'
+jumpto < 6 : hs -A -c 'focusOnWindow(6)' && skhd -k 'escape'
+jumpto < 7 : hs -A -c 'focusOnWindow(7)' && skhd -k 'escape'
+jumpto < 8 : hs -A -c 'focusOnWindow(8)' && skhd -k 'escape'
+jumpto < 9 : hs -A -c 'focusOnWindow(9)' && skhd -k 'escape'
+
+# move to display (alternative)
+# 0x2F = .
+moveto < 0x2F : cur_window=$(yabai -m query --windows --window | jq '.id') && \
+                    (yabai -m window --display next || yabai -m window --display first) && \
+                    yabai -m window --focus ${cur_window}
+
+# 0x2B = ,
+moveto < 0x2B : cur_window=$(yabai -m query --windows --window | jq '.id') && \
+                    (yabai -m window --display prev || yabai -m window --display last) && \
+                    yabai -m window --focus ${cur_window}
+
+# re-arrange windows
+# 0x18 = `=`
+yabai < 0x18 : yabai -m space --balance
 yabai < d : yabai -m window --toggle split
 yabai < f : yabai -m window --toggle zoom-fullscreen
 yabai < r : yabai -m space --rotate 270
@@ -26,13 +121,7 @@ yabai < shift - k : yabai -m window --swap prev || yabai -m window --swap last
 yabai < shift - l : yabai -m window --warp next || yabai -m window --warp first
 yabai < shift - h : yabai -m window --warp prev || yabai -m window --warp last
 
-yabai < 1 : skhd -k "ctrl - 1"
-yabai < 2 : skhd -k "ctrl - 2"
-yabai < 3 : skhd -k "ctrl - 3"
-yabai < 4 : skhd -k "ctrl - 4"
-yabai < 5 : skhd -k "ctrl - 5"
-yabai < 6 : skhd -k "ctrl - 6"
-
+# navigate / move to displays
 # 0x2F = .
 yabai < 0x2F : yabai -m display --focus next || yabai -m display --focus first
 yabai < shift - 0x2F : cur_window=$(yabai -m query --windows --window | jq '.id') && \
@@ -44,15 +133,4 @@ yabai < 0x2B : yabai -m display --focus prev || yabai -m display --focus last
 yabai < shift - 0x2B : cur_window=$(yabai -m query --windows --window | jq '.id') && \
                     (yabai -m window --display prev || yabai -m window --display last) && \
                     yabai -m window --focus ${cur_window}
-
-:: moveto : spacebar -m config background_color 0xaa229922 && spacebar -m config foreground_color 0xaaeeeeee && spacebar -m config center_shell on && spacebar -m config center_shell_command 'echo "to screen"'
-yabai < t ; moveto
-moveto < return ; yabai
-moveto < escape ; default
-moveto < 1 : yabai -m window --space 1 && skhd -k "return" && skhd -k "ctrl - 1" 
-moveto < 2 : yabai -m window --space 2 && skhd -k "return" && skhd -k "ctrl - 2" 
-moveto < 3 : yabai -m window --space 3 && skhd -k "return" && skhd -k "ctrl - 3" 
-moveto < 4 : yabai -m window --space 4 && skhd -k "return" && skhd -k "ctrl - 4" 
-moveto < 5 : yabai -m window --space 5 && skhd -k "return" && skhd -k "ctrl - 5" 
-moveto < 6 : yabai -m window --space 6 && skhd -k "return" && skhd -k "ctrl - 6" 
 

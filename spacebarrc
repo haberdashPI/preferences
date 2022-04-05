@@ -1,9 +1,10 @@
 # code: language=bash
 spacebar -m config background_color 0xaa222222
 spacebar -m config center_shell on
-spacebar -m config height 40
+spacebar -m config center_shell_command 'echo "hello!"'
+spacebar -m config height 30
 spacebar -m config title off
 spacebar -m config space_icon_strip ◼︎ ◼︎ ◼︎ ◼︎ ● ●
 spacebar -m config clock off
 spacebar -m config power off
-spacebar -m config text_font "Helvetica:Bold:18.0"
+spacebar -m config text_font "Helvetica:Bold:12.0"

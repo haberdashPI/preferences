@@ -1,5 +1,7 @@
 Install = hs.loadSpoon("SpoonInstall")
 yabai = require('yabai')
+require('hs.ipc')
+hs.ipc.cliInstall()
 
 -- Clipboard history
 -- -----------------------------------------------------------------
@@ -9,34 +11,6 @@ Install:andUse("TextClipboardHistory", {
   hotkeys = { toggle_clipboard = { { "cmd", "shift" }, "v" } },
   start = true,
 })
-
--- Homerow keys to replace ↑ and ↓ in slack
--- -----------------------------------------------------------------
-
-navigate = {
-  hs.hotkey.new("ctrl", "j", function()
-    hs.eventtap.keyStroke(nil, "down")
-  end),
-  hs.hotkey.new("ctrl", "k", function()
-    hs.eventtap.keyStroke(nil, "up")
-  end),
-  hs.hotkey.new("ctrl", "l", function()
-    hs.eventtap.keyStroke(nil, "F6")
-  end),
-  hs.hotkey.new("ctrl", "h", function()
-    hs.eventtap.keyStroke("shift", "F6")
-  end),
-}
-
-slack = hs.window.filter.new('Slack')
-slack:subscribe(hs.window.filter.windowFocused, function()
-  hs.printf("Hotkeys enabled")
-  for k,v in pairs(navigate) do v:enable() end
-end)
-slack:subscribe(hs.window.filter.windowUnfocused, function()
-  hs.printf("Hotkeys disabled")
-  for k,v in pairs(navigate) do v:disable() end
-end)
 
 -- Vim mode
 -- -----------------------------------------------------------------
@@ -56,7 +30,7 @@ function windowMode(fn)
     fn(result.type)
   end, "query", "--spaces","--space", "recent")
 end
-wmk = hs.hotkey.modal.new('ctrl', ';')
+-- wmk = hs.hotkey.modal.new('ctrl', ';')
 c = require("hs.canvas")
 modeDisplay = nil
 function showModeDisplay(d,text)
@@ -91,247 +65,262 @@ function clearModeDisplay(d)
   modeDisplay = nil
 end
 
-function wmk:entered()
-  showModeDisplay(0.25)
-end
-function wmk:exited()
-  clearModeDisplay(0.25)
-end
+-- function wmk:entered()
+--   showModeDisplay(0.25)
+-- end
+-- function wmk:exited()
+--   clearModeDisplay(0.25)
+-- end
 
-function goTo(n)
-  return function()
-    mash3(tostring(n))
-    hs.timer.doAfter(0.2, function()
-      showModeDisplay(0)
-    end)
-  end
-end
+-- function goTo(n)
+--   return function()
+--     mash3(tostring(n))
+--     hs.timer.doAfter(0.2, function()
+--       showModeDisplay(0)
+--     end)
+--   end
+-- end
 
-function sendTo(n)
-  return function()
-    yabai.send(function() end, 'window','--space',tostring(n))
-    hs.timer.doAfter(0.2, function()
-      mash3(tostring(n))
-      hs.timer.doAfter(0.2, function()
-        wmk:enter()
-      end)
-    end)
-  end
-end
+-- function sendTo(n)
+--   return function()
+--     yabai.send(function() end, 'window','--space',tostring(n))
+--     hs.timer.doAfter(0.2, function()
+--       mash3(tostring(n))
+--       hs.timer.doAfter(0.2, function()
+--         wmk:enter()
+--       end)
+--     end)
+--   end
+-- end
 
-function sendToNextDisplay()
-  yabai.send(function(result)
-    if result ~= nil then
-      yabai.send(function() end, 'window', '--display', 'first')
-    end
-    focusNextDisplay()
-  end, 'window', '--display', 'next')
-end
+-- function sendToNextDisplay()
+--   yabai.send(function(result)
+--     if result ~= nil then
+--       yabai.send(function() end, 'window', '--display', 'first')
+--     end
+--     focusNextDisplay()
+--   end, 'window', '--display', 'next')
+-- end
 
-function sendToPreviousDisplay()
-  yabai.send(function(result)
-    if result ~= nil then
-      yabai.send(function() end, 'window', '--display', 'last')
-    end
-    focusPreviousDisplay()
-  end, 'window', '--display', 'prev')
-end
+-- function sendToPreviousDisplay()
+--   yabai.send(function(result)
+--     if result ~= nil then
+--       yabai.send(function() end, 'window', '--display', 'last')
+--     end
+--     focusPreviousDisplay()
+--   end, 'window', '--display', 'prev')
+-- end
 
-function focusWindow()
-  yabai.send(function() end, 'window', '--focus', 'first')
-end
-function focusNextDisplay()
-  yabai.send(function(result)
-    if result ~= nil then
-      yabai.send(focusWindow, 'display', '--focus', 'first')
-    end
-    focusWindow()
-  end, 'display', '--focus', 'next')
-end
+-- function focusWindow()
+--   yabai.send(function() end, 'window', '--focus', 'first')
+-- end
+-- function focusNextDisplay()
+--   yabai.send(function(result)
+--     if result ~= nil then
+--       yabai.send(focusWindow, 'display', '--focus', 'first')
+--     end
+--     focusWindow()
+--   end, 'display', '--focus', 'next')
+-- end
 
-function focusPreviousDisplay()
-  yabai.send(function(result)
-    if result ~= nil then
-      yabai.send(focusWindow,'display','--focus','last')
-    end
-    focusWindow()
-  end,'display','--focus','prev')
-end
+-- function focusPreviousDisplay()
+--   yabai.send(function(result)
+--     if result ~= nil then
+--       yabai.send(focusWindow,'display','--focus','last')
+--     end
+--     focusWindow()
+--   end,'display','--focus','prev')
+-- end
 
-function mash1(key) hs.eventtap.keyStroke({"alt", "shift"}, key) end
-function mash2(key) hs.eventtap.keyStroke({"alt", "shift", "ctrl"}, key) end
-function mash3(key) hs.eventtap.keyStroke({"ctrl"}, key) end
+-- function mash1(key) hs.eventtap.keyStroke({"alt", "shift"}, key) end
+-- function mash2(key) hs.eventtap.keyStroke({"alt", "shift", "ctrl"}, key) end
+-- function mash3(key) hs.eventtap.keyStroke({"ctrl"}, key) end
 
--- yabai = "/usr/local/bin/yabai "
-rg = "/usr/local/bin/rg "
-function byMode(modes)
-  return function()
-    windowMode(function(mode)
-      modes[mode]()
-    end)
-  end
-end
+-- -- yabai = "/usr/local/bin/yabai "
+-- rg = "/usr/local/bin/rg "
+-- function byMode(modes)
+--   return function()
+--     windowMode(function(mode)
+--       modes[mode]()
+--     end)
+--   end
+-- end
 
-function floatLayout() yabai.send(function() end,'config','layout', 'float') end
-function tileLayout() yabai.send(function() end,'config','layout', 'bsp') end
-function toggleSplit() yabai.send(function() end,'window','--toggle','split') end
-function toggleZoom() yabai.send(function() end,'window','--toggle','zoom-fullscreen') end
-function rotateLayoutRight() yabai.send(function() end,'space','--rotate','270') end
-function rotateLayoutLeft() yabai.send(function() end,'space','--rotate','90') end
+-- function floatLayout() yabai.send(function() end,'config','layout', 'float') end
+-- function tileLayout() yabai.send(function() end,'config','layout', 'bsp') end
+-- function toggleSplit() yabai.send(function() end,'window','--toggle','split') end
+-- function toggleZoom() yabai.send(function() end,'window','--toggle','zoom-fullscreen') end
+-- function rotateLayoutRight() yabai.send(function() end,'space','--rotate','270') end
+-- function rotateLayoutLeft() yabai.send(function() end,'space','--rotate','90') end
 
-function focusNext()
-  yabai.send(function(result)
-    if result ~= nil then
-      yabai.send(function() end,'window','--focus', 'first')
-    end
-  end,'window','--focus','next')
-end
+-- function focusNext()
+--   yabai.send(function(result)
+--     if result ~= nil then
+--       yabai.send(function() end,'window','--focus', 'first')
+--     end
+--   end,'window','--focus','next')
+-- end
 
-function focusPrev()
-  yabai.send(function(result)
-    if result ~= nil then
-      yabai.send(function() end,'window','--focus', 'last')
-    end
-  end,'window','--focus','prev')
-end
+-- function focusPrev()
+--   yabai.send(function(result)
+--     if result ~= nil then
+--       yabai.send(function() end,'window','--focus', 'last')
+--     end
+--   end,'window','--focus','prev')
+-- end
 
-function shiftForward()
-  yabai.send(function(result)
-    if result ~= nil then
-      yabai.send(function() end,'window','--swap', 'first')
-    end
-  end,'window','--swap','next')
-end
+-- function shiftForward()
+--   yabai.send(function(result)
+--     if result ~= nil then
+--       yabai.send(function() end,'window','--swap', 'first')
+--     end
+--   end,'window','--swap','next')
+-- end
 
-function shiftBackward()
-  yabai.send(function(result)
-    if result ~= nil then
-      yabai.send(function() end,'window','--swap', 'last')
-    end
-  end,'window','--swap','prev')
-end
+-- function shiftBackward()
+--   yabai.send(function(result)
+--     if result ~= nil then
+--       yabai.send(function() end,'window','--swap', 'last')
+--     end
+--   end,'window','--swap','prev')
+-- end
 
-function warpForward()
-  yabai.send(function(result)
-    if result ~= nil then
-      yabai.send(function() end,'window','--warp', 'first')
-    end
-  end,'window','--warp','next')
-end
+-- function warpForward()
+--   yabai.send(function(result)
+--     if result ~= nil then
+--       yabai.send(function() end,'window','--warp', 'first')
+--     end
+--   end,'window','--warp','next')
+-- end
 
-function warpBackward()
-  yabai.send(function(result)
-    if result ~= nil then
-      yabai.send(function() end,'window','--warp', 'last')
-    end
-  end,'window','--warp','prev')
-end
+-- function warpBackward()
+--   yabai.send(function(result)
+--     if result ~= nil then
+--       yabai.send(function() end,'window','--warp', 'last')
+--     end
+--   end,'window','--warp','prev')
+-- end
 
-function nextWindowInStack()
-  yabai.send(function(data)
-    if data ~= nil then
-      print(data)
-      yabai.send(function() end,'window', '--focus', 'stack.first')
-    end
-  end,'window','--focus', 'stack.next')
-end
-function prevWindowInStack()
-  yabai.send(function(data)
-    if data ~= nil then
-      print(data)
-      yabai.send(function() end,'window', '--focus', 'stack.last')
-    end
-  end,'window','--focus', 'stack.prev')
-end
+-- function nextWindowInStack()
+--   yabai.send(function(data)
+--     if data ~= nil then
+--       print(data)
+--       yabai.send(function() end,'window', '--focus', 'stack.first')
+--     end
+--   end,'window','--focus', 'stack.next')
+-- end
+-- function prevWindowInStack()
+--   yabai.send(function(data)
+--     if data ~= nil then
+--       print(data)
+--       yabai.send(function() end,'window', '--focus', 'stack.last')
+--     end
+--   end,'window','--focus', 'stack.prev')
+-- end
 
-function focusRecent()
-  yabai.send(function() end,'window','--focus', 'recent')
-end
-function focusMain()
-  yabai.send(function() end,'window','--focus', 'first')
-end
-function swapMain()
-  yabai.send(function() end,'window','--swap', 'first')
-end
-function expandMain()
-  yabai.send(function() end,'window','first', '--resize', 'bottom_right:100:100')
-end
-function shrinkMain()
-  yabai.send(function() end,'window','first', '--resize', 'bottom_right:-100:-100')
-end
-function toggleFloat()
-  yabai.send(function() end,'window','--toggle', 'float')
-end
-function minimizeWindow() hs.window.focusedWindow():minimize() end
-function balanceSplits()
-  yabai.send(function() end, 'space', '--balance')
-end
-function stackWindowNext()
-  yabai.send(function() end, 'window', '--stack', 'next')
-end
+-- function focusRecent()
+--   yabai.send(function() end,'window','--focus', 'recent')
+-- end
+-- function focusMain()
+--   yabai.send(function() end,'window','--focus', 'first')
+-- end
+-- function swapMain()
+--   yabai.send(function() end,'window','--swap', 'first')
+-- end
+-- function expandMain()
+--   yabai.send(function() end,'window','first', '--resize', 'bottom_right:100:100')
+-- end
+-- function shrinkMain()
+--   yabai.send(function() end,'window','first', '--resize', 'bottom_right:-100:-100')
+-- end
+-- function toggleFloat()
+--   yabai.send(function() end,'window','--toggle', 'float')
+-- end
+-- function minimizeWindow() hs.window.focusedWindow():minimize() end
+-- function balanceSplits()
+--   yabai.send(function() end, 'space', '--balance')
+-- end
+-- function stackWindowNext()
+--   yabai.send(function() end, 'window', '--stack', 'next')
+-- end
 
-function stackWindowPrev()
-  yabai.send(function() end, 'window', '--stack', 'prev')
-end
+-- function stackWindowPrev()
+--   yabai.send(function() end, 'window', '--stack', 'prev')
+-- end
 
-function moveUp()
-  yabai.send(function() end, 'window', '--move', 'rel:0:-100')
-end
-function moveDown()
-  yabai.send(function() end, 'window', '--move', 'rel:0:100')
-end
-function moveRight()
-  yabai.send(function() end, 'window', '--move', 'rel:100:0')
-end
-function moveLeft()
-  yabai.send(function() end, 'window', '--move', 'rel:-100:0')
-end
-function resizeDown()
-  yabai.send(function(data)
-    -- print("data: "..tostring(data))
-    -- if data ~= nil then
-      yabai.send(function() end, 'window', '--resize', 'top:0:100')
-    -- end
-  end, 'window', '--resize', 'bottom:0:100')
-end
-function resizeUp()
-  yabai.send(function()
-    -- print("data: "..tostring(data))
-    -- if data ~= nil then
-      yabai.send(function() end, 'window', '--resize', 'top:0:-100')
-    -- end
-  end, 'window', '--resize', 'bottom:0:-100')
-end
-function resizeRight()
-  yabai.send(function()
-    -- print("data: "..tostring(data))
-    -- if data ~= nil then
-      yabai.send(function() end, 'window', '--resize', 'left:100:0')
-    -- end
-  end, 'window', '--resize', 'right:100:0')
-end
-function resizeLeft()
-  yabai.send(function()
-    -- print("data: "..tostring(data))
-    -- if data ~= nil then
-      yabai.send(function() end, 'window', '--resize', 'left:-100:0')
-    -- end
-  end, 'window', '--resize', 'right:-100:0')
-end
-function center()
-  yabai.send(function() end, 'window', '--grid', '9:15:3:2:9:5')
-end
+-- function moveUp()
+--   yabai.send(function() end, 'window', '--move', 'rel:0:-100')
+-- end
+-- function moveDown()
+--   yabai.send(function() end, 'window', '--move', 'rel:0:100')
+-- end
+-- function moveRight()
+--   yabai.send(function() end, 'window', '--move', 'rel:100:0')
+-- end
+-- function moveLeft()
+--   yabai.send(function() end, 'window', '--move', 'rel:-100:0')
+-- end
+-- function resizeDown()
+--   yabai.send(function(data)
+--     -- print("data: "..tostring(data))
+--     -- if data ~= nil then
+--       yabai.send(function() end, 'window', '--resize', 'top:0:100')
+--     -- end
+--   end, 'window', '--resize', 'bottom:0:100')
+-- end
+-- function resizeUp()
+--   yabai.send(function()
+--     -- print("data: "..tostring(data))
+--     -- if data ~= nil then
+--       yabai.send(function() end, 'window', '--resize', 'top:0:-100')
+--     -- end
+--   end, 'window', '--resize', 'bottom:0:-100')
+-- end
+-- function resizeRight()
+--   yabai.send(function()
+--     -- print("data: "..tostring(data))
+--     -- if data ~= nil then
+--       yabai.send(function() end, 'window', '--resize', 'left:100:0')
+--     -- end
+--   end, 'window', '--resize', 'right:100:0')
+-- end
+-- function resizeLeft()
+--   yabai.send(function()
+--     -- print("data: "..tostring(data))
+--     -- if data ~= nil then
+--       yabai.send(function() end, 'window', '--resize', 'left:-100:0')
+--     -- end
+--   end, 'window', '--resize', 'right:-100:0')
+-- end
+-- function center()
+--   yabai.send(function() end, 'window', '--grid', '9:15:3:2:9:5')
+-- end
 
-function middle()
-  yabai.send(function() end, 'window', '--grid', '9:22:4:0:14:9')
-end
+-- function middle()
+--   yabai.send(function() end, 'window', '--grid', '9:22:4:0:14:9')
+-- end
 
-function toggleDesktop()
-  yabai.send(function() end, 'space', '--toggle', 'show-desktop')
-end
+-- function toggleDesktop()
+--   yabai.send(function() end, 'space', '--toggle', 'show-desktop')
+-- end
 
 numberDisplays = {};
-function clearNumberDisplay()
+function showWindowNumbers()
+  yabai.send(function(data)
+    print("Show window numbers")
+    data = data:gsub("inf", "0")
+    local success, result_err = pcall(function() return hs.json.decode(data) end)
+    if not success then
+      print("Parsing error: "..result_err)
+    else
+      local win = managedWindows(result_err)
+      showNumber(win)
+    end
+  end,'query','--windows','--space','mouse')
+  -- filter floating and minimized windows
+end
+
+function hideWindowNumbers()
   if not (numberDisplays == nil) then
     for _, display in pairs(numberDisplays) do
       display:delete()
@@ -339,8 +328,20 @@ function clearNumberDisplay()
     numberDisplays = nil;
   end
 end
+
+function focusOnWindow(n)
+  yabai.send(function(data)
+    -- print(result)
+    local result = hs.json.decode(data)
+    local wins = managedWindows(result)
+    yabai.send(function() 
+      hideWindowNumbers()
+    end, 'window','--focus', wins[n].id)
+  end,'query','--windows','--space','mouse')
+end
+
 function showNumber(boxes)
-  clearNumberDisplay();
+  hideWindowNumbers();
   local frame = hs.screen.mainScreen():frame()
   local height = 110
   local padding = 24
@@ -396,153 +397,129 @@ function managedWindows(windows)
   return results
 end
 
-function showWindowNumbers()
-  yabai.send(function(data)
-    print("Show window numbers")
-    data = data:gsub("inf", "0")
-    local success, result_err = pcall(function() return hs.json.decode(data) end)
-    if not success then
-      print("Parsing error: "..result_err)
-    else
-      local win = managedWindows(result_err)
-      showNumber(win)
-    end
-  end,'query','--windows','--space','mouse')
-  -- filter floating and minimized windows
-end
+-- wmk:bind('', '=', balanceSplits)
+-- wmk:bind('', 'a', function() focusMain(); tileLayout(); showModeDisplay(0) end)
+-- wmk:bind('', 's', function() floatLayout(); showModeDisplay(0) end)
+-- wmk:bind('shift', '6', stackWindowPrev)
+-- wmk:bind('shift', '5', stackWindowNext)
+-- wmk:bind('', 'd', toggleSplit)
+-- wmk:bind('shift', 'D', toggleDesktop)
+-- wmk:bind('', 'v', toggleFloat)
+-- wmk:bind('', 'f', toggleZoom)
+-- wmk:bind('', 'r', rotateLayoutRight)
+-- wmk:bind('shift', 'r', rotateLayoutLeft)
 
-function focusOnWindow(n)
-  yabai.send(function(data)
-    -- print(result)
-    local result = hs.json.decode(data)
-    local wins = managedWindows(result)
-    yabai.send(function() end, 'window','--focus', wins[n].id)
-  end,'query','--windows','--space','mouse')
-end
+-- wmk:bind('', '[', prevWindowInStack)
+-- wmk:bind('', ']', nextWindowInStack)
+-- wmk:bind('', 'k', byMode{bsp=focusPrev, float=moveUp})
+-- wmk:bind('', 'j', byMode{bsp=focusNext, float=moveDown})
+-- wmk:bind('', '.', focusNextDisplay)
+-- wmk:bind('', ',', focusPreviousDisplay)
 
-wmk:bind('', '=', balanceSplits)
-wmk:bind('', 'a', function() focusMain(); tileLayout(); showModeDisplay(0) end)
-wmk:bind('', 's', function() floatLayout(); showModeDisplay(0) end)
-wmk:bind('shift', '6', stackWindowPrev)
-wmk:bind('shift', '5', stackWindowNext)
-wmk:bind('', 'd', toggleSplit)
-wmk:bind('shift', 'D', toggleDesktop)
-wmk:bind('', 'v', toggleFloat)
-wmk:bind('', 'f', toggleZoom)
-wmk:bind('', 'r', rotateLayoutRight)
-wmk:bind('shift', 'r', rotateLayoutLeft)
+-- wmk:bind('', 'h', byMode{bsp=shrinkMain, float=moveLeft})
+-- wmk:bind('', 'l', byMode{bsp=expandMain, float=moveRight})
+-- wmk:bind('', 'g', byMode{bsp=focusMain, float=center})
+-- wmk:bind('', 'tab', focusNext)
+-- wmk:bind('shift', 'tab', focusPrev)
+-- wmk:bind('shift', 'g', swapMain)
+-- wmk:bind('', '\\', focusRecent)
 
-wmk:bind('', '[', prevWindowInStack)
-wmk:bind('', ']', nextWindowInStack)
-wmk:bind('', 'k', byMode{bsp=focusPrev, float=moveUp})
-wmk:bind('', 'j', byMode{bsp=focusNext, float=moveDown})
-wmk:bind('', '.', focusNextDisplay)
-wmk:bind('', ',', focusPreviousDisplay)
+-- wmk:bind('shift', 'j', byMode{bsp=shiftForward, float=resizeDown})
+-- wmk:bind('shift', 'k', byMode{bsp=shiftBackward, float=resizeUp})
+-- wmk:bind('shift', 'l', byMode{bsp=warpForward, float=resizeRight})
+-- wmk:bind('shift', 'h', byMode{bsp=warpBackward, float=resizeLeft})
+-- wmk:bind('shift', '.', sendToNextDisplay)
+-- wmk:bind('shift', ',', sendToPreviousDisplay)
+-- wmk:bind('','m', minimizeWindow)
+-- wmk:bind('', ';', function()
+--   focusNext()
+--   wmk:exit()
+-- end)
+-- wmk:bind('ctrl', ';', function()
+--   focusNext()
+--   wmk:exit()
+-- end)
+-- wmk:bind('', "'", function()
+--   focusPrev()
+--   wmk:exit()
+-- end)
+-- wmk:bind('ctrl', "'", function()
+--   focusPrev()
+--   wmk:exit()
+-- end)
+-- wmk:bind('shift', 'w', function() hs.window.focusedWindow():close() end)
 
-wmk:bind('', 'h', byMode{bsp=shrinkMain, float=moveLeft})
-wmk:bind('', 'l', byMode{bsp=expandMain, float=moveRight})
-wmk:bind('', 'g', byMode{bsp=focusMain, float=center})
-wmk:bind('', 'tab', focusNext)
-wmk:bind('shift', 'tab', focusPrev)
-wmk:bind('shift', 'g', swapMain)
-wmk:bind('', '\\', focusRecent)
+-- for i=1,9 do
+--   wmk:bind('', tostring(i), goTo(i))
+-- end
 
-wmk:bind('shift', 'j', byMode{bsp=shiftForward, float=resizeDown})
-wmk:bind('shift', 'k', byMode{bsp=shiftBackward, float=resizeUp})
-wmk:bind('shift', 'l', byMode{bsp=warpForward, float=resizeRight})
-wmk:bind('shift', 'h', byMode{bsp=warpBackward, float=resizeLeft})
-wmk:bind('shift', '.', sendToNextDisplay)
-wmk:bind('shift', ',', sendToPreviousDisplay)
-wmk:bind('','m', minimizeWindow)
-wmk:bind('', ';', function()
-  focusNext()
-  wmk:exit()
-end)
-wmk:bind('ctrl', ';', function()
-  focusNext()
-  wmk:exit()
-end)
-wmk:bind('', "'", function()
-  focusPrev()
-  wmk:exit()
-end)
-wmk:bind('ctrl', "'", function()
-  focusPrev()
-  wmk:exit()
-end)
-wmk:bind('shift', 'w', function() hs.window.focusedWindow():close() end)
+-- sendtok = hs.hotkey.modal.new()
+-- wmk:bind('', 't', function() sendtok:enter() end)
+-- for i=1,9 do
+--   sendtok:bind('', tostring(i), function()
+--     wmk:exit()
+--     sendtok:exit()
+--     sendTo(i)()
+--   end)
+-- end
+-- sendtok:bind('', 'escape', function()
+--   sendtok:exit()
+--   wmk:enter()
+-- end)
+-- function sendtok:entered()
+--   wmk:exit()
+--   showModeDisplay(0.25, "Sending to screen: ")
+-- end
 
-for i=1,9 do
-  wmk:bind('', tostring(i), goTo(i))
-end
+-- movetow = hs.hotkey.modal.new()
+-- wmk:bind('', 'w', function() movetow:enter() end)
+-- for i=1,9 do
+--   movetow:bind('', tostring(i), function()
+--     wmk:exit()
+--     movetow:exit()
+--     focusOnWindow(i)
+--   end)
+--   movetow:bind('shift', tostring(i), function()
+--     movetow:exit()
+--     wmk:enter()
+--     focusOnWindow(i)
+--   end)
+-- end
+-- movetow:bind('', 'escape', function()
+--   movetow:exit()
+--   wmk:exit()
+-- end)
+-- movetow:bind('', 'return', function()
+--   movetow:exit()
+--   wmk:enter()
+-- end)
+-- function movetow:entered()
+--   wmk:exit()
+--   showWindowNumbers()
+--   showModeDisplay(0.25, "Focus on window: ")
+-- end
+-- function movetow:exited()
+--   hideWindowNumbers()()
+-- end
 
-sendtok = hs.hotkey.modal.new()
-wmk:bind('', 't', function() sendtok:enter() end)
-for i=1,9 do
-  sendtok:bind('', tostring(i), function()
-    wmk:exit()
-    sendtok:exit()
-    sendTo(i)()
-  end)
-end
-sendtok:bind('', 'escape', function()
-  sendtok:exit()
-  wmk:enter()
-end)
-function sendtok:entered()
-  wmk:exit()
-  showModeDisplay(0.25, "Sending to screen: ")
-end
+-- resizew = hs.hotkey.modal.new()
+-- wmk:bind('', 'c', byMode{bsp=function() resizew:enter() end, float=middle})
+-- resizew:bind('', 'j', resizeDown)
+-- resizew:bind('', 'k', resizeUp)
+-- resizew:bind('', 'l', resizeRight)
+-- resizew:bind('', 'h', resizeLeft)
+-- resizew:bind('', 'escape', function()
+--   resizew:exit()
+--   wmk:exit()
+-- end)
+-- resizew:bind('', 'return', function()
+--   resizew:exit()
+--   wmk:enter()
+-- end)
+-- function resizew:entered()
+--   wmk:exit()
+--   showModeDisplay(0.25, "Resize focused window")
+-- end
 
-movetow = hs.hotkey.modal.new()
-wmk:bind('', 'w', function() movetow:enter() end)
-for i=1,9 do
-  movetow:bind('', tostring(i), function()
-    wmk:exit()
-    movetow:exit()
-    focusOnWindow(i)
-  end)
-  movetow:bind('shift', tostring(i), function()
-    movetow:exit()
-    wmk:enter()
-    focusOnWindow(i)
-  end)
-end
-movetow:bind('', 'escape', function()
-  movetow:exit()
-  wmk:exit()
-end)
-movetow:bind('', 'return', function()
-  movetow:exit()
-  wmk:enter()
-end)
-function movetow:entered()
-  wmk:exit()
-  showWindowNumbers()
-  showModeDisplay(0.25, "Focus on window: ")
-end
-function movetow:exited()
-  clearNumberDisplay()
-end
-
-resizew = hs.hotkey.modal.new()
-wmk:bind('', 'c', byMode{bsp=function() resizew:enter() end, float=middle})
-resizew:bind('', 'j', resizeDown)
-resizew:bind('', 'k', resizeUp)
-resizew:bind('', 'l', resizeRight)
-resizew:bind('', 'h', resizeLeft)
-resizew:bind('', 'escape', function()
-  resizew:exit()
-  wmk:exit()
-end)
-resizew:bind('', 'return', function()
-  resizew:exit()
-  wmk:enter()
-end)
-function resizew:entered()
-  wmk:exit()
-  showModeDisplay(0.25, "Resize focused window")
-end
-
-wmk:bind('', 'return', function() wmk:exit() end)
-wmk:bind('', 'escape', function() wmk:exit() end)
+-- wmk:bind('', 'return', function() wmk:exit() end)
+-- wmk:bind('', 'escape', function() wmk:exit() end)
