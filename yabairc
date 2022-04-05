@@ -6,7 +6,7 @@ yabai -m config window_palcement second_child
 yabai -m rule --add app="^iTerm2" sticky=on layer=above manage=off
 
 SPACEBAR_HEIGHT=$(spacebar -m config height)
-yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
+yabai -m config external_bar all:0:$SPACEBAR_HEIGHT
 
 yabai -m config top_padding    15
 yabai -m config bottom_padding 15

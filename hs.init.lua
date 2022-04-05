@@ -67,20 +67,20 @@ function showNumber(boxes)
   local frame = hs.screen.mainScreen():frame()
   local height = 110
   local padding = 24
-  local textHeight = 50;
-  local textWidth = 30*2;
+  local textHeight = 150;
+  local textWidth = 120;
 
   numberDisplays = {};
   for i, box in pairs(boxes) do
     numberDisplays[i] = c.new({x=box.x+box.w/2-textWidth + box.stack_index*(textWidth+2),y=box.y+box.h/2-textHeight,h=textHeight,w=textWidth}):appendElements({
     {type = "rectangle", type = "rectangle",
-      roundedRectRadii = {xRadius = padding/4, yRadius = padding/4},
-      withShadow = true,
-      padding = 10.0,
-      fillColor = { alpha = 0.7, green = 0.0, red = 1.0, blue = 0.0},
+      -- roundedRectRadii = {xRadius = padding/4, yRadius = padding/4},
+      -- withShadow = true,
+      padding = 20.0,
+      fillColor = { alpha = 1.0, green = 0.0, red = 1.0, blue = 0.0},
       strokeWidth = 1.0, strokeColor = { alpha = 1.0, green = 0.25, red = 0.25, blue = 0.25}},
     {action = "fill", type = "text", fillColor = { red = 1.0, green = 1.0, blue = 1.0},
-      text = tostring(i), frame = {x = padding, y = (textHeight-padding)*0.5, w = "80%", h = "80%"}, textSize = (textHeight - padding)*0.8}
+      text = tostring(i), frame = {x = 1.5*padding, y = textHeight*0.25-padding, w = "80%", h = "80%"}, textSize = textHeight*0.8 - padding}
     })
     numberDisplays[i]:show();
   end

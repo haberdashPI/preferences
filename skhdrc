@@ -98,27 +98,26 @@ moveto < 6 : yabai -m window --space 6 && skhd -k "return" && skhd -k "ctrl - 6"
      hs -A -c 'showWindowNumbers()'
 
 yabai < w ; jumpto
-jumpto < shift - return ; yabai
+jumpto < escape ; yabai
 jumpto < return ; default
-jumpto < escape ; default
-jumpto < shift - 1 : hs -A -c 'focusOnWindow(1)' && skhd -k 'shift - return'
-jumpto < shift - 2 : hs -A -c 'focusOnWindow(2)' && skhd -k 'shift - return'
-jumpto < shift - 3 : hs -A -c 'focusOnWindow(3)' && skhd -k 'shift - return'
-jumpto < shift - 4 : hs -A -c 'focusOnWindow(4)' && skhd -k 'shift - return'
-jumpto < shift - 5 : hs -A -c 'focusOnWindow(5)' && skhd -k 'shift - return'
-jumpto < shift - 6 : hs -A -c 'focusOnWindow(6)' && skhd -k 'shift - return'
-jumpto < shift - 7 : hs -A -c 'focusOnWindow(7)' && skhd -k 'shift - return'
-jumpto < shift - 8 : hs -A -c 'focusOnWindow(8)' && skhd -k 'shift - return'
-jumpto < shift - 9 : hs -A -c 'focusOnWindow(9)' && skhd -k 'shift - return'
-jumpto < 1 : hs -A -c 'focusOnWindow(1)' && skhd -k 'escape'
-jumpto < 2 : hs -A -c 'focusOnWindow(2)' && skhd -k 'escape'
-jumpto < 3 : hs -A -c 'focusOnWindow(3)' && skhd -k 'escape'
-jumpto < 4 : hs -A -c 'focusOnWindow(4)' && skhd -k 'escape'
-jumpto < 5 : hs -A -c 'focusOnWindow(5)' && skhd -k 'escape'
-jumpto < 6 : hs -A -c 'focusOnWindow(6)' && skhd -k 'escape'
-jumpto < 7 : hs -A -c 'focusOnWindow(7)' && skhd -k 'escape'
-jumpto < 8 : hs -A -c 'focusOnWindow(8)' && skhd -k 'escape'
-jumpto < 9 : hs -A -c 'focusOnWindow(9)' && skhd -k 'escape'
+jumpto < shift - 1 : hs -A -c 'focusOnWindow(1)' && skhd -k 'escape'
+jumpto < shift - 2 : hs -A -c 'focusOnWindow(2)' && skhd -k 'escape'
+jumpto < shift - 3 : hs -A -c 'focusOnWindow(3)' && skhd -k 'escape'
+jumpto < shift - 4 : hs -A -c 'focusOnWindow(4)' && skhd -k 'escape'
+jumpto < shift - 5 : hs -A -c 'focusOnWindow(5)' && skhd -k 'escape'
+jumpto < shift - 6 : hs -A -c 'focusOnWindow(6)' && skhd -k 'escape'
+jumpto < shift - 7 : hs -A -c 'focusOnWindow(7)' && skhd -k 'escape'
+jumpto < shift - 8 : hs -A -c 'focusOnWindow(8)' && skhd -k 'escape'
+jumpto < shift - 9 : hs -A -c 'focusOnWindow(9)' && skhd -k 'escape'
+jumpto < 1 : hs -A -c 'focusOnWindow(1)' && skhd -k 'return'
+jumpto < 2 : hs -A -c 'focusOnWindow(2)' && skhd -k 'return'
+jumpto < 3 : hs -A -c 'focusOnWindow(3)' && skhd -k 'return'
+jumpto < 4 : hs -A -c 'focusOnWindow(4)' && skhd -k 'return'
+jumpto < 5 : hs -A -c 'focusOnWindow(5)' && skhd -k 'return'
+jumpto < 6 : hs -A -c 'focusOnWindow(6)' && skhd -k 'return'
+jumpto < 7 : hs -A -c 'focusOnWindow(7)' && skhd -k 'return'
+jumpto < 8 : hs -A -c 'focusOnWindow(8)' && skhd -k 'return'
+jumpto < 9 : hs -A -c 'focusOnWindow(9)' && skhd -k 'return'
 jumpto < j : yabai -m window --focus south
 jumpto < k : yabai -m window --focus north
 jumpto < h : yabai -m window --focus west
