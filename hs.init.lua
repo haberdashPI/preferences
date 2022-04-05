@@ -2,6 +2,7 @@ Install = hs.loadSpoon("SpoonInstall")
 yabai = require('yabai')
 require('hs.ipc')
 hs.ipc.cliInstall()
+hs.ipc.cliInstall('/opt/homebrew')
 
 -- Clipboard history
 -- -----------------------------------------------------------------
@@ -23,47 +24,142 @@ vim:shouldDimScreenInNormalMode(false)
 -- Yabai command
 -- -----------------------------------------------------------------
 
-function windowMode(fn)
-  modestr = nil;
-  yabai.send(function(data)
-    result = hs.json.decode(data)
-    fn(result.type)
-  end, "query", "--spaces","--space", "recent")
-end
--- wmk = hs.hotkey.modal.new('ctrl', ';')
 c = require("hs.canvas")
-modeDisplay = nil
-function showModeDisplay(d,text)
-  clearModeDisplay(0);
-  curWindowMode = nil
-  windowMode(function(mode) curWindowMode = mode
 
+numberDisplays = {};
+function showWindowNumbers()
+  yabai.send(function(data)
+    print("Show window numbers")
+    data = data:gsub("inf", "0")
+    local success, result_err = pcall(function() return hs.json.decode(data) end)
+    if not success then
+      print("Parsing error: "..result_err)
+    else
+      local win = managedWindows(result_err)
+      showNumber(win)
+    end
+  end,'query','--windows','--space','mouse')
+  -- filter floating and minimized windows
+end
+
+function hideWindowNumbers()
+  if not (numberDisplays == nil) then
+    for _, display in pairs(numberDisplays) do
+      display:delete()
+    end
+    numberDisplays = nil;
+  end
+end
+
+function focusOnWindow(n)
+  yabai.send(function(data)
+    -- print(result)
+    local result = hs.json.decode(data)
+    local wins = managedWindows(result)
+    yabai.send(function() 
+      hideWindowNumbers()
+    end, 'window','--focus', wins[n].id)
+  end,'query','--windows','--space','mouse')
+end
+
+function showNumber(boxes)
+  hideWindowNumbers();
   local frame = hs.screen.mainScreen():frame()
   local height = 110
   local padding = 24
-  modeDisplay = c.new({x=frame.w*0.25,y=frame.h/2-height/2,h=height-2*padding,w=frame.w*0.5}):appendElements({
+  local textHeight = 50;
+  local textWidth = 30*2;
+
+  numberDisplays = {};
+  for i, box in pairs(boxes) do
+    numberDisplays[i] = c.new({x=box.x+box.w/2-textWidth + box.stack_index*(textWidth+2),y=box.y+box.h/2-textHeight,h=textHeight,w=textWidth}):appendElements({
     {type = "rectangle", type = "rectangle",
       roundedRectRadii = {xRadius = padding/4, yRadius = padding/4},
       withShadow = true,
       padding = 10.0,
-      fillColor = { alpha = 0.7, green = 0.0, red = 0.0, blue = 0.0},
+      fillColor = { alpha = 0.7, green = 0.0, red = 1.0, blue = 0.0},
       strokeWidth = 1.0, strokeColor = { alpha = 1.0, green = 0.25, red = 0.25, blue = 0.25}},
     {action = "fill", type = "text", fillColor = { red = 1.0, green = 1.0, blue = 1.0},
-    text = text or ("Moving windows ("..(curWindowMode or "")..")"),
-    frame = {x = padding, y = (height-padding)*0.2, w = "80%", h = "80%"}, textSize = (height - padding)*0.3}
-  })
-  modeDisplay:show(d);
-
-end)
-end
-
-function clearModeDisplay(d)
-  if not (modeDisplay == nil) then
-    hs.printf("display "..tostring(modeDisplay).."\n")
-    modeDisplay:delete(d)
+      text = tostring(i), frame = {x = padding, y = (textHeight-padding)*0.5, w = "80%", h = "80%"}, textSize = (textHeight - padding)*0.8}
+    })
+    numberDisplays[i]:show();
   end
-  modeDisplay = nil
 end
+
+function upperLeft(w1, w2)
+  if w1.y ~= w2.y then
+    return w1.y < w2.y
+  elseif w1.x ~= w2.x then
+    return w1.x < w2.x
+  elseif w1.h ~= w2.h then
+    return w1.h < w2.h
+  elseif w1.w < w2.w then
+    return w1.w < w2.w
+  else
+    return w1.id < w1.id
+  end
+end
+
+function managedWindows(windows)
+  local results = {}
+  local j = 0;
+  if windows == nil then
+    return results
+  end
+  for i, window in pairs(windows) do
+    if (not window["is-floating"]) and (not window["is-minimized"]) then
+      print("Including non floating non minimized window")
+      j = j + 1
+      results[j] = window.frame
+      results[j].stack_index = window["stack-index"]
+      results[j].id = window.id
+    end
+  end
+  table.sort(results, upperLeft)
+  return results
+end
+
+-- function windowMode(fn)
+--   modestr = nil;
+--   yabai.send(function(data)
+--     result = hs.json.decode(data)
+--     fn(result.type)
+--   end, "query", "--spaces","--space", "recent")
+-- end
+-- wmk = hs.hotkey.modal.new('ctrl', ';')
+
+-- modeDisplay = nil
+-- function showModeDisplay(d,text)
+--   clearModeDisplay(0);
+--   curWindowMode = nil
+--   windowMode(function(mode) curWindowMode = mode
+
+--   local frame = hs.screen.mainScreen():frame()
+--   local height = 110
+--   local padding = 24
+--   modeDisplay = c.new({x=frame.w*0.25,y=frame.h/2-height/2,h=height-2*padding,w=frame.w*0.5}):appendElements({
+--     {type = "rectangle", type = "rectangle",
+--       roundedRectRadii = {xRadius = padding/4, yRadius = padding/4},
+--       withShadow = true,
+--       padding = 10.0,
+--       fillColor = { alpha = 0.7, green = 0.0, red = 0.0, blue = 0.0},
+--       strokeWidth = 1.0, strokeColor = { alpha = 1.0, green = 0.25, red = 0.25, blue = 0.25}},
+--     {action = "fill", type = "text", fillColor = { red = 1.0, green = 1.0, blue = 1.0},
+--     text = text or ("Moving windows ("..(curWindowMode or "")..")"),
+--     frame = {x = padding, y = (height-padding)*0.2, w = "80%", h = "80%"}, textSize = (height - padding)*0.3}
+--   })
+--   modeDisplay:show(d);
+
+-- end)
+-- end
+
+-- function clearModeDisplay(d)
+--   if not (modeDisplay == nil) then
+--     hs.printf("display "..tostring(modeDisplay).."\n")
+--     modeDisplay:delete(d)
+--   end
+--   modeDisplay = nil
+-- end
 
 -- function wmk:entered()
 --   showModeDisplay(0.25)
@@ -303,99 +399,6 @@ end
 -- function toggleDesktop()
 --   yabai.send(function() end, 'space', '--toggle', 'show-desktop')
 -- end
-
-numberDisplays = {};
-function showWindowNumbers()
-  yabai.send(function(data)
-    print("Show window numbers")
-    data = data:gsub("inf", "0")
-    local success, result_err = pcall(function() return hs.json.decode(data) end)
-    if not success then
-      print("Parsing error: "..result_err)
-    else
-      local win = managedWindows(result_err)
-      showNumber(win)
-    end
-  end,'query','--windows','--space','mouse')
-  -- filter floating and minimized windows
-end
-
-function hideWindowNumbers()
-  if not (numberDisplays == nil) then
-    for _, display in pairs(numberDisplays) do
-      display:delete()
-    end
-    numberDisplays = nil;
-  end
-end
-
-function focusOnWindow(n)
-  yabai.send(function(data)
-    -- print(result)
-    local result = hs.json.decode(data)
-    local wins = managedWindows(result)
-    yabai.send(function() 
-      hideWindowNumbers()
-    end, 'window','--focus', wins[n].id)
-  end,'query','--windows','--space','mouse')
-end
-
-function showNumber(boxes)
-  hideWindowNumbers();
-  local frame = hs.screen.mainScreen():frame()
-  local height = 110
-  local padding = 24
-  local textHeight = 50;
-  local textWidth = 30*2;
-
-  numberDisplays = {};
-  for i, box in pairs(boxes) do
-    numberDisplays[i] = c.new({x=box.x+box.w/2-textWidth + box.stack_index*(textWidth+2),y=box.y+box.h/2-textHeight,h=textHeight,w=textWidth}):appendElements({
-    {type = "rectangle", type = "rectangle",
-      roundedRectRadii = {xRadius = padding/4, yRadius = padding/4},
-      withShadow = true,
-      padding = 10.0,
-      fillColor = { alpha = 0.7, green = 0.0, red = 1.0, blue = 0.0},
-      strokeWidth = 1.0, strokeColor = { alpha = 1.0, green = 0.25, red = 0.25, blue = 0.25}},
-    {action = "fill", type = "text", fillColor = { red = 1.0, green = 1.0, blue = 1.0},
-      text = tostring(i), frame = {x = padding, y = (textHeight-padding)*0.5, w = "80%", h = "80%"}, textSize = (textHeight - padding)*0.8}
-    })
-    numberDisplays[i]:show();
-  end
-end
-
-function upperLeft(w1, w2)
-  if w1.y ~= w2.y then
-    return w1.y < w2.y
-  elseif w1.x ~= w2.x then
-    return w1.x < w2.x
-  elseif w1.h ~= w2.h then
-    return w1.h < w2.h
-  elseif w1.w < w2.w then
-    return w1.w < w2.w
-  else
-    return w1.id < w1.id
-  end
-end
-
-function managedWindows(windows)
-  local results = {}
-  local j = 0;
-  if windows == nil then
-    return results
-  end
-  for i, window in pairs(windows) do
-    if (not window["is-floating"]) and (not window["is-minimized"]) then
-      print("Including non floating non minimized window")
-      j = j + 1
-      results[j] = window.frame
-      results[j].stack_index = window["stack-index"]
-      results[j].id = window.id
-    end
-  end
-  table.sort(results, upperLeft)
-  return results
-end
 
 -- wmk:bind('', '=', balanceSplits)
 -- wmk:bind('', 'a', function() focusMain(); tileLayout(); showModeDisplay(0) end)
