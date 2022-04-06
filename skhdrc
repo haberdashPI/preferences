@@ -9,7 +9,7 @@
 :: navigate : spacebar -m config background_color 0x88eeeeee &; \
     spacebar -m config foreground_color 0xff111111 &; \
     spacebar -m config center_shell on &; \
-    spacebar -m config center_shell_command 'echo "navigate"' 
+    spacebar -m config center_shell_command 'echo "Navigation"' 
 
 ctrl + cmd - 0x29 ; navigate
 navigate < ctrl + cmd - 0x29 ; default
@@ -53,7 +53,7 @@ ctrl - h [
     spacebar -m config foreground_color 0xff111111 &; \
     spacebar -m config center_shell on &; \
     hs -A -c 'hideWindowNumbers()' &; \
-    spacebar -m config center_shell_command 'echo "window management"' 
+    spacebar -m config center_shell_command 'echo "Window Management"' 
     
 ctrl - 0x29 ; yabai # semicolon
 navigate < ctrl - 0x29 ; yabai
@@ -71,7 +71,7 @@ yabai < l : yabai -m window first --resize bottom_right:100:100
 yabai < g : yabai -m window --focus first
 yabai < 0x1E : yabai -m window --focus stack.next || yabai -m window --focus stack.first
 yabai < 0x21 : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
-yabai < 0x2A : yabai -m window --focus recent
+yabai < 0x2A : yabai -m window --focus recent && skhd -k "return"
 yabai < v : yabai -m window --focus mouse
 
 # navigate / move to spaces
@@ -85,7 +85,7 @@ yabai < 6 : skhd -k "ctrl - 6"
 :: moveto : spacebar -m config background_color 0x88eeeeee &; \
     spacebar -m config foreground_color 0xff111111 &; \
     spacebar -m config center_shell on &; \
-    spacebar -m config center_shell_command 'echo "move to: "' 
+    spacebar -m config center_shell_command 'echo "Moving Window to: "' 
 
 yabai < t ; moveto
 moveto < return ; yabai
@@ -101,7 +101,7 @@ moveto < 6 : yabai -m window --space 6 && skhd -k "return" && skhd -k "ctrl - 6"
 :: jumpto : spacebar -m config background_color 0x88eeeeee &; \
      spacebar -m config foreground_color 0xff111111 &; \
      spacebar -m config center_shell on &; \
-     spacebar -m config center_shell_command 'echo "jump to: "' &; \
+     spacebar -m config center_shell_command 'echo "Jump to Window: "' &; \
      hs -A -c 'showWindowNumbers()'
 
 yabai < w ; jumpto
@@ -175,7 +175,7 @@ yabai < shift - 0x2B : cur_window=$(yabai -m query --windows --window | jq '.id'
      spacebar -m config foreground_color 0xff111111 &; \
      spacebar -m config center_shell on &; \
      hs -A -c 'hideWindowNumbers()' &; \
-     spacebar -m config center_shell_command 'echo "resize"'
+     spacebar -m config center_shell_command 'echo "Resize Window: "'
 
 yabai < c ; resize
 resize < return ; yabai

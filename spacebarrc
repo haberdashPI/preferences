@@ -9,4 +9,4 @@ spacebar -m config title off
 spacebar -m config space_icon_strip ◼︎ ◼︎ ◼︎ ◼︎ ● ●
 spacebar -m config clock off
 spacebar -m config power off
-spacebar -m config text_font "Helvetica:Bold:18.0"
+spacebar -m config text_font "San Francisco:Regular:18.0"
