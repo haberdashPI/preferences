@@ -6,21 +6,26 @@
 
 ############################
 # generic navigation
-:: navigate : spacebar -m config background_color 0xeeeeeeee &; \
+:: navigate : spacebar -m config background_color 0x88eeeeee &; \
     spacebar -m config foreground_color 0xff111111 &; \
     spacebar -m config center_shell on &; \
     spacebar -m config center_shell_command 'echo "navigate"' 
 
-ctrl - 0x32 ; navigate
-navigate < return ; default
-navigate < escape ; default
-navigate < ctrl - 0x32 ; default
-navigate < 0x32 ; default
+ctrl + cmd - 0x29 ; navigate
+navigate < ctrl + cmd - 0x29 ; default
 
 navigate < j : skhd -k "0x7D"
 navigate < k : skhd -k "0x7E"
 navigate < h : skhd -k "0x7B"
 navigate < l : skhd -k "0x7C"
+navigate < L [
+    "Calendar" : skhd -k "cmd - 0x7C"
+    * ~
+]
+navigate < H [
+    "Calendar" : skhd -k "cmd - 0x7B"
+    * ~
+]
 
 ############################
 # slack navigation
@@ -44,13 +49,15 @@ ctrl - h [
 
 ############################
 # yabai window manipulation
-:: yabai : spacebar -m config background_color 0xeeeeeeee &; \
+:: yabai : spacebar -m config background_color 0x88eeeeee &; \
     spacebar -m config foreground_color 0xff111111 &; \
     spacebar -m config center_shell on &; \
     hs -A -c 'hideWindowNumbers()' &; \
-    spacebar -m config center_shell_command 'echo "yabai"' 
+    spacebar -m config center_shell_command 'echo "window management"' 
     
 ctrl - 0x29 ; yabai # semicolon
+navigate < ctrl - 0x29 ; yabai
+yabai < cmd + ctrl - 0x29 ; navigate
 yabai < return ; default
 yabai < escape ; default
 
@@ -75,7 +82,7 @@ yabai < 4 : skhd -k "ctrl - 4"
 yabai < 5 : skhd -k "ctrl - 5"
 yabai < 6 : skhd -k "ctrl - 6"
 
-:: moveto : spacebar -m config background_color 0xeeeeeeee &; \
+:: moveto : spacebar -m config background_color 0x88eeeeee &; \
     spacebar -m config foreground_color 0xff111111 &; \
     spacebar -m config center_shell on &; \
     spacebar -m config center_shell_command 'echo "move to: "' 
@@ -91,7 +98,7 @@ moveto < 5 : yabai -m window --space 5 && skhd -k "return" && skhd -k "ctrl - 5"
 moveto < 6 : yabai -m window --space 6 && skhd -k "return" && skhd -k "ctrl - 6" 
 
 # move to windows by number
-:: jumpto : spacebar -m config background_color 0xeeeeeeee &; \
+:: jumpto : spacebar -m config background_color 0x88eeeeee &; \
      spacebar -m config foreground_color 0xff111111 &; \
      spacebar -m config center_shell on &; \
      spacebar -m config center_shell_command 'echo "jump to: "' &; \
@@ -164,7 +171,7 @@ yabai < shift - 0x2B : cur_window=$(yabai -m query --windows --window | jq '.id'
 
 # resize windows
 # move to windows by number
-:: resize : spacebar -m config background_color 0xeeeeeeee &; \
+:: resize : spacebar -m config background_color 0x88eeeeee &; \
      spacebar -m config foreground_color 0xff111111 &; \
      spacebar -m config center_shell on &; \
      hs -A -c 'hideWindowNumbers()' &; \
