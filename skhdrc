@@ -13,6 +13,7 @@
 
 ctrl + cmd - 0x29 ; navigate
 navigate < ctrl + cmd - 0x29 ; default
+navigate < i ; default
 
 navigate < j : skhd -k "0x7D"
 navigate < k : skhd -k "0x7E"
@@ -24,6 +25,10 @@ navigate < L [
 ]
 navigate < H [
     "Calendar" : skhd -k "cmd - 0x7B"
+    * ~
+]
+navigate < a [
+    "Mail" : skhd -k "cmd + ctrl - a"
     * ~
 ]
 

@@ -43,6 +43,7 @@ elif [[ $OSTYPE == "darwin"* ]]; then
     brew install dust
     brew tap homebrew/cask-fonts
     brew install --cask font-sauce-code-pro-nerd-font
+    bash <(curl -s https://raw.githubusercontent.com/dbalatero/VimMode.spoon/master/bin/installer)
 else
     echo "OS Not supported"
     exit 1
