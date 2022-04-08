@@ -6,7 +6,7 @@ spacebar -m config center_shell_command 'echo "hello!"'
 spacebar -m config position bottom
 spacebar -m config height 30
 spacebar -m config title off
-spacebar -m config space_icon_strip ◼︎ ◼︎ ◼︎ ◼︎ ● ●
+spacebar -m config space_icon_strip ◼︎ ◼︎ ◼︎ ◼︎ ◼︎ ◼︎
 spacebar -m config clock off
 spacebar -m config power off
 spacebar -m config text_font "San Francisco:Regular:18.0"
