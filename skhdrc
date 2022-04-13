@@ -19,16 +19,33 @@ navigate < j : skhd -k "0x7D"
 navigate < k : skhd -k "0x7E"
 navigate < h : skhd -k "0x7B"
 navigate < l : skhd -k "0x7C"
-navigate < L [
+navigate < 0 : skhd -k "0x73"
+navigate < o : skhd -k "A" && skhd -k "return"
+navigate < shift - o : skhd -k "k" && skhd -k "A" && skhd -k "return"
+navigate < shift - 0x15 : skhd -k "0x77"
+navigate < shift - a : skhd -k "0x77" && skhd -k "i"
+navigate < shift - i : skhd -k "0x73" && skhd -k "i"
+navigate < shift - k : skhd -k "0x74"
+navigate < shift - j : skhd -k "0x79"
+
+navigate < shift - l [
     "Calendar" : skhd -k "cmd - 0x7C"
     * ~
 ]
-navigate < H [
+navigate < x : skhd -k "0x75"
+navigate < u : skhd -k "cmd - z"
+navigate < w : skhd -k "alt - 0x7C"
+navigate < b : skhd -k "alt - 0x7B"
+navigate < shift - h [
     "Calendar" : skhd -k "cmd - 0x7B"
     * ~
 ]
 navigate < a [
     "Mail" : skhd -k "cmd + ctrl - a"
+    * ~
+]
+navigate < d [
+    "Mail" : skhd -k "cmd - 0x33"
     * ~
 ]
 
