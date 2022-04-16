@@ -1,4 +1,3 @@
-# code: language=bash
 :: default : spacebar -m config background_color 0xaa222222 &; \
     spacebar -m config foreground_color 0xeeeeeeee &; \
     spacebar -m config center_shell_command 'echo ""' &; \
