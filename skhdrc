@@ -176,6 +176,7 @@ yabai < shift - l : yabai -m window --warp next || yabai -m window --warp first
 yabai < shift - h : yabai -m window --warp prev || yabai -m window --warp last
 yabai < shift - 6 : yabai -m window --stack next
 yabai < shift - 5 : yabai -m window --stack prev
+yabai < m : skhd -k "cmd - m"
 
 # navigate / move to displays
 # 0x2F = .
