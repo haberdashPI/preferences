@@ -83,13 +83,14 @@ yabai < return ; default
 yabai < escape ; default
 
 # navigate windows
-yabai < j : yabai -m window --focus next || yabai -m window --focus first
 yabai < 0x29  : (yabai -m window --focus next || yabai -m window --focus first) && skhd -k "return"
 yabai < 0x27  : (yabai -m window --focus prev || yabai -m window --focus last) && skhd -k "return"
-yabai < k : yabai -m window --focus prev || yabai -m window --focus last
-yabai < h : yabai -m window first --resize bottom_right:-100:-100
-yabai < l : yabai -m window first --resize bottom_right:100:100
-yabai < g : yabai -m window --focus first
+yabai < shift - 0x29  : (yabai -m window --focus next || yabai -m window --focus first)
+yabai < shift - 0x27  : (yabai -m window --focus prev || yabai -m window --focus last)
+yabai < j : yabai -m window --focus south
+yabai < k : yabai -m window --focus north
+yabai < h : yabai -m window --focus west
+yabai < l : yabai -m window --focus east
 yabai < 0x1E : yabai -m window --focus stack.next || yabai -m window --focus stack.first
 yabai < 0x21 : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
 yabai < 0x2A : yabai -m window --focus recent && skhd -k "return"
@@ -146,10 +147,6 @@ jumpto < 6 : hs -A -c 'focusOnWindow(6)' && skhd -k 'return'
 jumpto < 7 : hs -A -c 'focusOnWindow(7)' && skhd -k 'return'
 jumpto < 8 : hs -A -c 'focusOnWindow(8)' && skhd -k 'return'
 jumpto < 9 : hs -A -c 'focusOnWindow(9)' && skhd -k 'return'
-jumpto < j : yabai -m window --focus south
-jumpto < k : yabai -m window --focus north
-jumpto < h : yabai -m window --focus west
-jumpto < l : yabai -m window --focus east
 
 # move to display (alternative)
 # 0x2F = .
