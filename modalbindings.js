@@ -236,13 +236,30 @@ keybindings: {
     },
 
     // jupyter based cell selection
-    "::doc::'y": { kind: "select", label: "jupyter", detail: "jupyter related selection commands"},
-    "::doc::'yc": { kind: "select", label: "cell →", detail: "next jupyter notebook cell"},
-    "'yc": ["jupyter.gotoNextCellInFile", "jupyter.selectCell"],
-    "::doc::'yC": { kind: "select", label: "cell ←", detail: "previous jupyter notebook cell"},
-    "'yC": ["jupyter.gotoPrevCellInFile", "jupyter.selectCell"],
+    "::doc::'y": { kind: "select", label: "cell →", detail: "next jupyter notebook cell"},
+    "'y": {
+        if: "__language == 'markdown' || __language == 'quarto'",
+        then: "terminal-polyglot.next-fence-select",
+        else: ["jupyter.gotoNextCellInFile", "jupyter.selectCell"],
+    },
+    "::doc::'Y": { kind: "select", label: "cell ←", detail: "previous jupyter notebook cell"},
+    "'Y": {
+        if: "__language == 'markdown' || __language == 'quarto'",
+        then: "terminal-polyglot.prev-fence-select",
+        else: ["jupyter.gotoPrevCellInFile", "jupyter.selectCell"],
+    },
     "::doc::uy": { kind: "select", label: "cell", detail: "select a jyputer notebook cell"},
-    uy: "jupyter.selectCell",
+    uy: {
+        if: "__language == 'markdown' || __language == 'quarto'",
+        then: "terminal-polyglot.select-fence",
+        else: "jupyter.selectCell",
+    },
+    "::doc::,y": { kind: "action", label: "create cell", detail: "Create a new jupyter notebook cell"},
+    ",y": {
+        if: "__language == 'quarto'",
+        then: "quarto.insertCodeCell",
+        else: "jupyter.selectCell",
+    },
 
     // function arguments
     "::doc::,": { kind: "leader", label: "window (mostly)", detail: "additional commands, mostly related to changes to the editor/view/window" },
@@ -786,7 +803,7 @@ keybindings: {
     "::doc::d": {kind: "action", label: "delete", detail: "Delete selection and save to paste buffer"},
     d: countSelectsLines('down', [
         "editor.action.clipboardCutAction",
-        "modalkeys.enterNormal"
+        { "modalkeys.enterMode": { mode: "normal" } }, // modalkeys.enterNormal has async issues that cause the entire line to be deleted here
     ]),
 
     "::doc::D": {kind: "action", label: "delete (eol/up)", detail: "without count: Delete from cursor to end of line; with count: Delete from current line up `count` number of keys."},
@@ -797,7 +814,7 @@ keybindings: {
     ],
     [
         "editor.action.clipboardCutAction",
-        "editor.action.enterNormal"
+        { "modalkeys.enterMode": { mode: "normal" } }, // modalkeys.enterNormal has async issues that cause the entire line to be deleted here
     ]),
 
     "::doc::x": {kind: "action", label: "delete char", detail: "delete the character under the cursor"},
