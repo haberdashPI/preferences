@@ -240,13 +240,21 @@ keybindings: {
     "'y": {
         if: "__language == 'markdown' || __language == 'quarto'",
         then: "terminal-polyglot.next-fence-select",
-        else: ["jupyter.gotoNextCellInFile", "jupyter.selectCell"],
+        else: [
+            { "jupyter.gotoNextCellInFile": {}, repeat: "__count" },
+            { "revealLine": { lineNumber: '__line', at: 'center' } },
+            "jupyter.selectCell"
+        ],
     },
     "::doc::'Y": { kind: "select", label: "cell ←", detail: "previous jupyter notebook cell"},
     "'Y": {
         if: "__language == 'markdown' || __language == 'quarto'",
         then: "terminal-polyglot.prev-fence-select",
-        else: ["jupyter.gotoPrevCellInFile", "jupyter.selectCell"],
+        else: [
+            { "jupyter.gotoPrevCellInFile": {}, repeat: "__count" }, 
+            { "revealLine": { lineNumber: '__line', at: 'center' } },
+            "jupyter.selectCell"
+        ],
     },
     "::doc::uy": { kind: "select", label: "cell", detail: "select a jyputer notebook cell"},
     uy: {
