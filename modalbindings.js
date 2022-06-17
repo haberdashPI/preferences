@@ -1051,7 +1051,7 @@ keybindings: {
     "::doc::g{": {kind: "action", label: "all current", detail: "accept all current changes"},
     "g{": "merge-conflict.accept.all-current",
     "::doc::g}": {kind: "action", label: "all incoming", detail: "accept all incoming changes"},
-    "g}": "merge-conflict.accept.all-current",
+    "g}": "merge-conflict.accept.all-incoming",
     "::doc::g|": {kind: "action", label: "all both", detail: "accept all both changes"},
     "g|": "merge-conflict.accept.all-both",
     "::doc::,e": {kind: "select", label: "error →", detail: "move to next error"},
