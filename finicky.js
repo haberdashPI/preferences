@@ -13,7 +13,7 @@ module.exports = {
     handlers: [
       {
         // These websites don't work as well in Safari
-        match: ["meet.google.com/*", "*.sharepoint.com/*"],
+        match: ["meet.google.com/*", "*.sharepoint.com/*", "calendar.google.com/*"],
         browser: "Google Chrome"
       }
     ]
