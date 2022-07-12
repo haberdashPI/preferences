@@ -26,6 +26,7 @@ alias aws-start-pet="aws ec2 start-instances --instance-ids i-098f4655c326af67f 
 alias aws-stop-pet="aws ec2 stop-instances --instance-ids i-098f4655c326af67f --profile dlittle"
 alias aws-sleep-pet="aws ec2 stop-instances --instance-ids i-098f4655c326af67f --profile dlittle --hibernate"
 alias aws-restart-pet="aws ec2 reboot-instances --instance-ids i-098f4655c326af67f --profile dlittle"
+alias aws-pet-status="aws ec2 describe-instance-status --instance-ids i-098f4655c326af67f --profile dlittle | jq '.InstanceStatuses[0].InstanceState.Name'"
 
 function hdir(){
   pushd ~
