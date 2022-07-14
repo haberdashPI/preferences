@@ -142,7 +142,7 @@ docTips: [
     },
     { 
         title: "Advanced text modification",
-        comment: "Many of hte most useful, more complex text manipulation commands", 
+        comment: "Many of the most useful, more complex text manipulation commands", 
         id: "advanced_text",
         entries: [
             { title: "Insert", id: "advanced_insert" },
@@ -150,7 +150,27 @@ docTips: [
             { title: "Change brackets", id: "text_bracket" },
             { title: "Change captilization", id: "case" },
             { title: "Change a number", id: "text_number" },
-            { title: "Indent Lines", id: "text_indent" }
+            { title: "Indent Lines", id: "text_indent" },
+        ]
+    },
+    { 
+        title: "History",
+        comment: "Commands for interacting with past actions/selections",
+        id: "all_history",
+        entries: [
+            { title: "Command", id: "action_history" },
+            { title: "Curosr", id: "cursor_history" },
+            { title: "Keyboard Macors", id: "macro" }
+        ]
+    },
+    {
+        title: "Interface", 
+        comment: "Commands for modifying/moving around a the VSCode UI",
+        id: "ux",
+        entries: [
+            { title: "Palette Commands", id: "palette" },
+            { title: "Terminal", id: "terminal" },
+            { title: ""}
         ]
     },
     { 
@@ -1018,65 +1038,65 @@ keybindings: {
     // TODO: this is where I stopped adding action tips
 
     // ### File/window related
-    "::doc::,f": {kind: "window", label: "open file", detail: "Open file using quick open"},
+    "::doc::,f": {kind: "window", label: "open file", detail: "Open file using quick open", tip: "palette"},
     ",f": "workbench.action.quickOpen",
-    "::doc::,R": {kind: "window", label: "open recent", detail: "Open recent file"},
+    "::doc::,R": {kind: "window", label: "open recent", detail: "Open recent file", tip: "palette"},
     ",R": "workbench.action.openRecent",
-    "::doc::,,": {kind: "action", label: "command", detail: "Show the VSCode command palette"},
+    "::doc::,,": {kind: "action", label: "command", detail: "Show the VSCode command palette", tip: "palette"},
     ",,": "workbench.action.showCommands",
-    "::doc::,g": {kind: "window", label: "goto line", detail: "Use VSCode goto line command"},
+    "::doc::,g": {kind: "window", label: "goto line", detail: "Use VSCode goto line command", tip: "palette"},
     ",g": "workbench.action.gotoLine",
 
     // ### History
 
-    "::doc::z": {kind: "history", label: "undo", detail: "VSCode Undo"},
+    "::doc::z": {kind: "history", label: "undo", detail: "VSCode Undo", tip: "action_history"},
     z: [ "undo", "modalkeys.cancelMultipleSelections", "modalkeys.untouchDocument", ],
-    "::doc::Z": {kind: "history", label: "undo", detail: "VSCode Redo"},
+    "::doc::Z": {kind: "history", label: "undo", detail: "VSCode Redo", tip: "action_history"},
     Z: [ "redo", "modalkeys.cancelMultipleSelections", "modalkeys.untouchDocument", ],
-    "::doc::-": {kind: "history", label: "cursor undo", detail: "VSCode Cursor Undo"},
+    "::doc::-": {kind: "history", label: "cursor undo", detail: "VSCode Cursor Undo", tip: "cursor_history"},
     "-": "cursorUndo",
-    "::doc::_": {kind: "history", label: "cursor redo", detail: "VSCode Cursor Redo"},
+    "::doc::_": {kind: "history", label: "cursor redo", detail: "VSCode Cursor Redo", tip: "cursor_history"},
     "_": "cursorRedo",
-    "::doc::g-": {kind: "history", label: "nav ←", detail: "Go back in navigation history (e.g. goto definition)"},
+    "::doc::g-": {kind: "history", label: "nav ←", detail: "Go back in navigation history (e.g. goto definition)", tip: "cursor_history"},
     "g-": "workbench.action.navigateBackInNavigationLocations",
-    "::doc::g_": {kind: "history", label: "nav →", detail: "Go forward in navigation history (e.g. goto definition)"},
+    "::doc::g_": {kind: "history", label: "nav →", detail: "Go forward in navigation history (e.g. goto definition)", tip: "cursor_history"},
     "g_": "workbench.action.navigateForwardInNavigationLocations",
-    "::doc::'-": {kind: "history", label: "edit hist ←", detail: "Go back in edit history (e.g. goto definition)"},
+    "::doc::'-": {kind: "history", label: "edit hist ←", detail: "Go back in edit history (e.g. goto definition)", tip: "cursor_history"},
     "'-": "workbench.action.navigateBackInEditLocations",
-    "::doc::'_": {kind: "history", label: "edit hist →", detail: "Go forward in edit history (e.g. goto definition)"},
+    "::doc::'_": {kind: "history", label: "edit hist →", detail: "Go forward in edit history (e.g. goto definition)", tip: "cursor_history"},
     "'_": "workbench.action.navigateForwardInEditLocations",
 
-    "::doc::.": {kind: "history", label: "repeat", detail: "repeat last sentence (last selection and action pair)"},
+    "::doc::.": {kind: "history", label: "repeat", detail: "repeat last sentence (last selection and action pair)", tip: "action_history"},
     ".": [
         "modalkeys.repeatLastUsedSelection",
         "modalkeys.repeatLastChange",
     ],
-    "::doc::'.": {kind: "history", label: "repeat select", detail: "repeat last used selection (last selection followed by action pair)"},
+    "::doc::'.": {kind: "history", label: "repeat select", detail: "repeat last used selection (last selection followed by action pair)", tip: "cursor_history"},
     "'.": "modalkeys.repeatLastUsedSelection",
-    "::doc::g.": {kind: "history", label: "repeat action", detail: "repeat last action"},
+    "::doc::g.": {kind: "history", label: "repeat action", detail: "repeat last action", tip: "action_history"},
     "g.": "modalkeys.repeatLastChange",
 
-    "::doc::q": {kind: "history", label: "record", detail: "toggle macro recording (use count to label it), use `'q` to cancel recording"},
+    "::doc::q": {kind: "history", label: "record", detail: "toggle macro recording (use count to label it), use `'q` to cancel recording", tip: "macro"},
     "q": { "modalkeys.toggleRecordingMacro": { register: "__count" } },
-    "::doc::Q": {kind: "history", label: "replay", detail: "replay the macro (specify which macro using a count)"},
+    "::doc::Q": {kind: "history", label: "replay", detail: "replay the macro (specify which macro using a count)", tip: "macro"},
     "Q": { "modalkeys.replayMacro": { register: "__count" } },
-    "::doc::'q": {kind: "history", label: "cancel recording", detail: "stop recording a macro (don't save it)"},
+    "::doc::'q": {kind: "history", label: "cancel recording", detail: "stop recording a macro (don't save it)", tip: "macro"},
     "'q": "modalkeys.cancelRecordingMacro",
 
     // ### Comments 
-    "::doc::g;": {kind: "action", label: "comment →", detail: "select next comment"},
+    "::doc::g;": {kind: "action", label: "comment →", detail: "select next comment", tip: "comment"},
     "g;":  countSelectsLines('down', [
         "editor.action.commentLine", "modalkeys.cancelMultipleSelections",
     ]),
-    "::doc::g:": {kind: "action", label: "comment ←", detail: "select previous comment"},
+    "::doc::g:": {kind: "action", label: "comment ←", detail: "select previous comment", tip: "comment"},
     "g:":  countSelectsLines('down', [
         "editor.action.blockComment", "modalkeys.cancelMultipleSelections",
     ]),
-    "::doc::gq": {kind: "action", label: "wrap", detail: "wrap text, preserving commenting"},
+    "::doc::gq": {kind: "action", label: "wrap", detail: "wrap text, preserving commenting", tip: "change"},
     "gq": "rewrap.rewrapComment",
 
     // ### terminal actions
-    "::doc::M": {kind: "action", label: "to repl", detail: "send text to a terminal (usually containing a REPL); use langauge specific extensions when available and put the pasted code into a block (when defined)."},
+    "::doc::M": {kind: "action", label: "to repl", detail: "send text to a terminal (usually containing a REPL); use langauge specific extensions when available and put the pasted code into a block (when defined).", tip: "terminal"},
     M: countSelectsLines('down', [
         {
             if: "__language == 'julia'",
@@ -1094,7 +1114,7 @@ keybindings: {
         "modalkeys.cancelMultipleSelections",
         "modalkeys.touchDocument"
     ]),
-    "::doc::m": {kind: "action", label: "to repl (v2)", detail: "send text to a terminal (usually containing a REPL), placing in a block when defined."},
+    "::doc::m": {kind: "action", label: "to repl (v2)", detail: "send text to a terminal (usually containing a REPL), placing in a block when defined.", tip: "terminal"},
     m: countSelectsLines('down', [
         {
             if: "!__selection.isSingleLine",
@@ -1104,7 +1124,7 @@ keybindings: {
         "modalkeys.cancelMultipleSelections",
         "modalkeys.touchDocument"
     ]),
-    "::doc::gm": {kind: "action", label: "to repl (v3)", detail: "send text to a terminal (usually containing a REPL)."},
+    "::doc::gm": {kind: "action", label: "to repl (v3)", detail: "send text to a terminal (usually containing a REPL).", tip: "terminal"},
     gm: countSelectsLines('down', [
         "terminal-polyglot.send-text",
         "modalkeys.cancelMultipleSelections",
@@ -1122,6 +1142,7 @@ keybindings: {
     gl: "git.pull",
     "::doc::gp": {kind: "action", label: "git push", detail: "push changes to remote"},
     gp: "git.push",
+    
     "::doc::gc": {kind: "action", label: "→ conflict", detail: "move to next merge conflict"},
     gc: "merge-conflict.next",
     "::doc::gC": {kind: "action", label: "← conflict", detail: "move to previous merge conflict"},
@@ -1151,6 +1172,7 @@ keybindings: {
     "::doc::,}": {kind: "action", label: "cmpr current", detail: "compare current change (merge editor)"},
     ",}": "mergeEditor.compareInput2WithBase",
     "::doc::,e": {kind: "select", label: "error →", detail: "move to next error"},
+
     ",e": "editor.action.marker.next",
     "::doc::,E": {kind: "select", label: "error ←", detail: "move to previous error"},
     ",E": "editor.action.marker.prev",
