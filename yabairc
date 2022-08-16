@@ -1,6 +1,6 @@
 # code: language=bash
 yabai -m config layout bsp
-yabai -m config window_palcement second_child
+yabai -m config window_placement second_child
 
 # yabai -m rule --add app="^zoom.*$" sticky=on layer=above manage=off
 yabai -m rule --add app="^iTerm2" sticky=on layer=above manage=off
@@ -13,4 +13,4 @@ yabai -m config bottom_padding 15
 yabai -m config left_padding   15
 yabai -m config right_padding  15
 yabai -m config window_gap     15
-yabai -m config mouse_follows_focus on
+yabai -m config mouse_follows_focus off
