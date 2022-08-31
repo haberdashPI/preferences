@@ -22,11 +22,11 @@ bindkey '\e;' autosuggest-accept
 alias matlab="matlab -nodesktop -nosplash"
 alias ll="exa --long --group-directories-first"
 alias ls="exa"
-alias aws-start-pet="aws ec2 start-instances --instance-ids i-098f4655c326af67f --profile dlittle"
-alias aws-stop-pet="aws ec2 stop-instances --instance-ids i-098f4655c326af67f --profile dlittle"
-alias aws-sleep-pet="aws ec2 stop-instances --instance-ids i-098f4655c326af67f --profile dlittle --hibernate"
-alias aws-restart-pet="aws ec2 reboot-instances --instance-ids i-098f4655c326af67f --profile dlittle"
-alias aws-pet-status="aws ec2 describe-instance-status --instance-ids i-098f4655c326af67f --profile dlittle | jq '.InstanceStatuses[0].InstanceState.Name'"
+alias aws-start-pet="aws ec2 start-instances --instance-ids i-0f3a93ed98733b772 --profile dlittle"
+alias aws-stop-pet="aws ec2 stop-instances --instance-ids i-0f3a93ed98733b772 --profile dlittle"
+alias aws-sleep-pet="aws ec2 stop-instances --instance-ids i-0f3a93ed98733b772 --profile dlittle --hibernate"
+alias aws-restart-pet="aws ec2 reboot-instances --instance-ids i-0f3a93ed98733b772 --profile dlittle"
+alias aws-pet-status="aws ec2 describe-instance-status --instance-ids i-0f3a93ed98733b772 --profile dlittle | jq '.InstanceStatuses[0].InstanceState.Name'"
 
 function hdir(){
   pushd ~
