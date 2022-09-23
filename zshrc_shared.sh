@@ -24,10 +24,30 @@ alias ll="exa --long --group-directories-first"
 alias ls="exa"
 alias aws-start-pet="aws ec2 start-instances --instance-ids i-0f3a93ed98733b772 --profile dlittle"
 alias aws-stop-pet="aws ec2 stop-instances --instance-ids i-0f3a93ed98733b772 --profile dlittle"
-alias aws-sleep-pet="aws ec2 stop-instances --instance-ids i-0f3a93ed98733b772 --profile dlittle --hibernate"
+alias aws-sleep-pet-force="aws ec2 stop-instances --instance-ids i-0f3a93ed98733b772 --profile dlittle --hibernate"
 alias aws-restart-pet="aws ec2 reboot-instances --instance-ids i-0f3a93ed98733b772 --profile dlittle"
 alias aws-pet-status="aws ec2 describe-instance-status --instance-ids i-0f3a93ed98733b772 --profile dlittle | jq '.InstanceStatuses[0].InstanceState.Name'"
 
+# pet hibernation
+aws-sleep-pet() {
+    local ids profile
+    ids="i-0f3a93ed98733b772"
+
+    if ! ssh -A dlittle.pets.beacon.lol "/home/linuxbrew/.linuxbrew/bin/rg -q 'hibinit-agent.*s sufficient swap available' /var/log/syslog"; then
+        echo "Swap not sufficient to hibernate"
+        return 1
+    fi
+
+    if ! ssh -A dlittle.pets.beacon.lol "/home/linuxbrew/.linuxbrew/bin/rg -q 'hibinit-agent.service: Succeeded.' /var/log/syslog"; then
+        echo "Did not find expected 'success' after hibernation setup"
+        return 1
+    fi
+
+    echo "Hibernating $ids"
+    aws --profile dlittle ec2 stop-instances --hibernate --instance-ids $ids
+}
+
+# hotkeys for folder navigation in terminal
 function hdir(){
   pushd ~
   exa --long --group-directories-first
