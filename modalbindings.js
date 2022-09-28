@@ -347,21 +347,27 @@ keybindings: {
     "::doc::'y": { kind: "select", label: "cell →", detail: "next jupyter notebook cell", tip: "notebook"},
     "'y": {
         if: "__language == 'markdown' || __language == 'quarto'",
-        then: "terminal-polyglot.next-fence-select",
+        then: [
+            "terminal-polyglot.next-fence-select",
+            { "revealLine": { lineNumber: '__line', at: 'center' } }
+        ],
         else: [
             { "jupyter.gotoNextCellInFile": {}, repeat: "__count" },
-            { "revealLine": { lineNumber: '__line', at: 'center' } },
-            "jupyter.selectCell"
+            "jupyter.selectCell",
+            { "revealLine": { lineNumber: '__line', at: 'center' } }
         ],
     },
     "::doc::'Y": { kind: "select", label: "cell ←", detail: "previous jupyter notebook cell", tip: "notebook"},
     "'Y": {
         if: "__language == 'markdown' || __language == 'quarto'",
-        then: "terminal-polyglot.prev-fence-select",
+        then: [
+            "terminal-polyglot.prev-fence-select",
+            { "revealLine": { lineNumber: '__line', at: 'center' } }
+        ],
         else: [
             { "jupyter.gotoPrevCellInFile": {}, repeat: "__count" }, 
-            { "revealLine": { lineNumber: '__line', at: 'center' } },
-            "jupyter.selectCell"
+            "jupyter.selectCell",
+            { "revealLine": { lineNumber: '__line', at: 'center' } }
         ],
     },
     "::doc::uy": { kind: "select", label: "cell", detail: "select a jyputer notebook cell", tip: "notebook"},
