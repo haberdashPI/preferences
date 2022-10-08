@@ -1,0 +1,10 @@
+Host dlittle.pets.beacon.lol
+    AddKeysToAgent yes
+    ForwardAgent yes
+    PubKeyAuthentication yes
+    HostName dlittle.pets.beacon.lol
+    IdentityFile ~/.ssh/dlittle-ec2
+    User ubuntu
+    RemoteForward 2000 localhost:2000 
+    LocalCommand /bin/bash -c 'nc -z localhost 2000 && echo "pasteboard port 2000 listener already active" || while true; do nc -l localhost 2000 | pbcopy; echo updated_pasteboard; done' & 
+    PermitLocalCommand yes
