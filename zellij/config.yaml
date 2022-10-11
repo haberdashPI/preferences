@@ -5,27 +5,28 @@
 # `zellij setup --check`
 # It should show current config locations and features that are enabled.
 
+default_mode: locked
 keybinds:
     unbind: true
     normal:
         - action: [SwitchToMode: Locked,]
-          key: [Ctrl: 'g',]
+          key: [Esc]
         - action: [SwitchToMode: Pane,]
-          key: [Ctrl: 'p',]
+          key: [Char: 'p',]
         - action: [SwitchToMode: Resize,]
-          key: [Ctrl: 'n',]
+          key: [Char: 'n',]
         - action: [SwitchToMode: Tab,]
-          key: [Ctrl: 't',]
+          key: [Char: 't',]
         - action: [SwitchToMode: Scroll,]
-          key: [Ctrl: 's',]
+          key: [Char: 's',]
         - action: [SwitchToMode: Session,]
-          key: [Ctrl: 'o',]
+          key: [Char: 'o',]
         - action: [SwitchToMode: Move,]
-          key: [Ctrl: 'h',]
+          key: [Char: 'h',]
         - action: [SwitchToMode: Tmux,]
-          key: [Ctrl: 'b',]
+          key: [Char: 'b',]
         - action: [Quit,]
-          key: [Ctrl: 'q',]
+          key: [Char: 'q',]
         - action: [NewPane: ]
           key: [ Alt: 'n',]
         - action: [MoveFocusOrTab: Left,]
@@ -47,10 +48,10 @@ keybinds:
         #   key: [ Alt: 'c']
     locked:
         - action: [SwitchToMode: Normal,]
-          key: [Ctrl: 'g',]
+          key: [Esc]
     resize:
         - action: [SwitchToMode: Locked,]
-          key: [Ctrl: 'g']
+          key: [Esc]
         - action: [SwitchToMode: Pane,]
           key: [Ctrl: 'p',]
         - action: [SwitchToMode: Tab,]
@@ -99,7 +100,7 @@ keybinds:
           key: [ Alt: '-']
     pane:
         - action: [SwitchToMode: Locked,]
-          key: [Ctrl: 'g']
+          key: [Esc]
         - action: [SwitchToMode: Resize,]
           key: [Ctrl: 'n',]
         - action: [SwitchToMode: Tab,]
@@ -162,7 +163,7 @@ keybinds:
           key: [Char: 'c']
     move:
         - action: [SwitchToMode: Locked,]
-          key: [Ctrl: 'g']
+          key: [Esc]
         - action: [SwitchToMode: Pane,]
           key: [Ctrl: 'p',]
         - action: [SwitchToMode: Tab,]
@@ -205,7 +206,7 @@ keybinds:
           key: [ Alt: '-']
     tab:
         - action: [SwitchToMode: Locked,]
-          key: [Ctrl: 'g']
+          key: [Esc]
         - action: [SwitchToMode: Pane,]
           key: [Ctrl: 'p',]
         - action: [SwitchToMode: Resize,]
@@ -278,7 +279,7 @@ keybinds:
         - action: [SwitchToMode: Tab,]
           key: [Ctrl: 't',]
         - action: [SwitchToMode: Locked,]
-          key: [Ctrl: 'g',]
+          key: [Esc]
         - action: [SwitchToMode: Pane,]
           key: [Ctrl: 'p',]
         - action: [SwitchToMode: Move,]
@@ -353,7 +354,7 @@ keybinds:
         - action: [SwitchToMode: Tab,]
           key: [Ctrl: 't',]
         - action: [SwitchToMode: Locked,]
-          key: [Ctrl: 'g',]
+          key: [Esc]
         - action: [SwitchToMode: Pane,]
           key: [Ctrl: 'p',]
         - action: [SwitchToMode: Move,]
@@ -452,7 +453,7 @@ keybinds:
           key: [ Alt: '-']
     session:
         - action: [SwitchToMode: Locked,]
-          key: [Ctrl: 'g']
+          key: [Esc]
         - action: [SwitchToMode: Resize,]
           key: [Ctrl: 'n',]
         - action: [SwitchToMode: Pane,]
@@ -489,7 +490,7 @@ keybinds:
           key: [ Alt: '-']
     tmux:
         - action: [SwitchToMode: Locked,]
-          key: [Ctrl: 'g']
+          key: [Esc]
         - action: [SwitchToMode: Resize,]
           key: [Ctrl: 'n',]
         - action: [SwitchToMode: Pane,]
