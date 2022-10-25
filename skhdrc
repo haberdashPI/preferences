@@ -31,6 +31,10 @@ navigate < shift - l [
     "Calendar" : skhd -k "cmd - 0x7C"
     * ~
 ]
+navigate < t [
+    "Calendar" : skhd -k "cmd ~ t"
+    * ~
+]
 navigate < x : skhd -k "0x75"
 navigate < u : skhd -k "cmd - z"
 navigate < w : skhd -k "alt - 0x7C"
@@ -69,7 +73,25 @@ ctrl - h [
 ]
 
 ############################
+# alternative window manipulation (rectangle)
+
+# :: wm : spacebar -m config background_color 0x88eeeeee &; \
+#     spacebar -m config foreground_color 0xff111111 &; \
+#     spacebar -m config center_shell on &; \
+#     hs -A -c 'hideWindowNumbers()' &; \
+#     spacebar -m config center_shell_command 'echo "Window Management"' 
+
+# ctrl - 0x29 ; wm # 0x29 = semicolon
+# navigate < ctrl - 0x29 ; wm
+# wm < cmd + ctrl - 0x29 ; navigate
+
+# wm < m ; wmove
+# wm < s ; wswitch
+# wmove < 
+
+############################
 # yabai window manipulation
+
 :: yabai : spacebar -m config background_color 0x88eeeeee &; \
     spacebar -m config foreground_color 0xff111111 &; \
     spacebar -m config center_shell on &; \
