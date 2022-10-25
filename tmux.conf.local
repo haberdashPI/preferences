@@ -321,11 +321,11 @@ tmux_conf_theme_clock_style="24"
 #   - false (default)
 # on macOS, this requires installing reattach-to-user-namespace, see README.md
 # on Linux, this requires xsel or xclip
-tmux_conf_copy_to_os_clipboard=true
+tmux_conf_copy_to_os_clipboard=false
 
 # custom paste setup for remote
-# set -g @plugin 'tmux-plugins/tmux-yank'
-# set -g @override_copy_command 'nc localhost 2000'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @override_copy_command 'nc localhost 2224'
 
 # -- user customizations -------------------------------------------------------
 # this is the place to override or undo settings
