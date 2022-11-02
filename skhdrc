@@ -14,6 +14,7 @@ ctrl + cmd - 0x29 ; navigate
 navigate < ctrl + cmd - 0x29 ; default
 navigate < i ; default
 
+navigate < c : skhd -k "cmd + alt - c"
 navigate < j : skhd -k "0x7D"
 navigate < k : skhd -k "0x7E"
 navigate < h : skhd -k "0x7B"
@@ -49,6 +50,16 @@ navigate < a [
 ]
 navigate < d [
     "Mail" : skhd -k "cmd - 0x33"
+    * ~
+]
+
+navigate < 0x2B [
+    "Safari" : skhd -k "cmd + shift - 0x7E"
+    * ~
+]
+
+navigate < 0x2F [
+    "Safari" : skhd -k "cmd + shift - 0x7D"
     * ~
 ]
 
