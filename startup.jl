@@ -19,6 +19,7 @@ end
 
 @tryusing OhMyREPL enable_autocomplete_brackets(false)
 @tryusing Revise
+@tryusing PackageCompatUI
 @tryusing TerminalPager begin
     TerminalPager.set_keybinding("j", :down)
     TerminalPager.set_keybinding("j", :fastdown, shift=true)
