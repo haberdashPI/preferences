@@ -1,17 +1,7 @@
-Install = hs.loadSpoon("SpoonInstall")
 yabai = require('yabai')
 require('hs.ipc')
 hs.ipc.cliInstall()
 hs.ipc.cliInstall('/opt/homebrew')
-
--- Clipboard history
--- -----------------------------------------------------------------
-
-Install:andUse("TextClipboardHistory", {
-  disable = false, config = { show_in_menubar = false, },
-  hotkeys = { toggle_clipboard = { { "cmd", "shift" }, "v" } },
-  start = true,
-})
 
 -- Vim mode
 -- -----------------------------------------------------------------

@@ -1,7 +1,19 @@
+Host bastion*.pets.beacon.lol
+    IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    PubKeyAuthentication yes
+
 Host dlittle.pets.beacon.lol
+    HostName dlittle.pets.beacon.lol
+    User ubuntu
+    IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
     ForwardAgent yes
     PubKeyAuthentication yes
-    HostName dlittle.pets.beacon.lol
-    IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    ProxyJump bastion@bastion.pets.beacon.lol
+
+Host dlittle-quarto.pets.beacon.lol
+    HostName dlittle-quarto.pets.beacon.lol
     User ubuntu
-    RemoteForward 2224 127.0.0.1:2224
+    IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    ForwardAgent yes
+    PubKeyAuthentication yes
+    ProxyJump bastion@bastion.pets.beacon.lol

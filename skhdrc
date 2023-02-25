@@ -46,10 +46,12 @@ navigate < shift - h [
 ]
 navigate < a [
     "Mail" : skhd -k "cmd + ctrl - a"
+    "Outlook" : skhd -k "ctrl - e"
     * ~
 ]
 navigate < d [
     "Mail" : skhd -k "cmd - 0x33"
+    "Outlook": skhd -k "cmd - 0x33"
     * ~
 ]
 
@@ -136,6 +138,9 @@ yabai < 3 : skhd -k "ctrl - 3"
 yabai < 4 : skhd -k "ctrl - 4"
 yabai < 5 : skhd -k "ctrl - 5"
 yabai < 6 : skhd -k "ctrl - 6"
+yabai < 7 : skhd -k "ctrl - 7"
+yabai < 8 : skhd -k "ctrl - 8"
+yabai < 9 : skhd -k "ctrl - 9"
 
 :: moveto : spacebar -m config background_color 0x88eeeeee &; \
     spacebar -m config foreground_color 0xff111111 &; \
@@ -151,6 +156,9 @@ moveto < 3 : yabai -m window --space 3 && skhd -k "return" && skhd -k "ctrl - 3"
 moveto < 4 : yabai -m window --space 4 && skhd -k "return" && skhd -k "ctrl - 4" 
 moveto < 5 : yabai -m window --space 5 && skhd -k "return" && skhd -k "ctrl - 5" 
 moveto < 6 : yabai -m window --space 6 && skhd -k "return" && skhd -k "ctrl - 6" 
+moveto < 7 : yabai -m window --space 7 && skhd -k "return" && skhd -k "ctrl - 7" 
+moveto < 8 : yabai -m window --space 8 && skhd -k "return" && skhd -k "ctrl - 8" 
+moveto < 9 : yabai -m window --space 9 && skhd -k "return" && skhd -k "ctrl - 9" 
 
 # move to windows by number
 :: jumpto : spacebar -m config background_color 0x88eeeeee &; \
