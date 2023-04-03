@@ -40,3 +40,5 @@ else
                         user=ENV["MY_USER_PUSHOVER_TOKEN"])
     end
 end
+
+ENV["JULIA_PKG_USE_CLI_GIT"] = "true"
