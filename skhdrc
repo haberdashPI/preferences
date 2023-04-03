@@ -25,8 +25,14 @@ navigate < shift - o : skhd -k "k" && skhd -k "A" && skhd -k "return"
 navigate < shift - 0x15 : skhd -k "0x77"
 navigate < shift - a : skhd -k "0x77" && skhd -k "i"
 navigate < shift - i : skhd -k "0x73" && skhd -k "i"
-navigate < shift - k : skhd -k "0x74"
-navigate < shift - j : skhd -k "0x79"
+navigate < shift - k [
+    "Slack": skhd -k "alt + shift - 0x7E"
+    *: navigate < shift - k : skhd -k "0x74"
+]
+navigate < shift - j [
+    "Slack": skhd -k "alt + shift - 0x7D"
+    *: navigate < shift - k : skhd -k "0x79"
+]
 
 navigate < shift - l [
     "Calendar" : skhd -k "cmd - 0x7C"
