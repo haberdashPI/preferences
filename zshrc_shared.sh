@@ -17,8 +17,6 @@ if type brew &>/dev/null; then
   compinit
 fi
 
-bindkey '\e;' autosuggest-accept
-
 alias matlab="matlab -nodesktop -nosplash"
 alias ll="exa --long --group-directories-first"
 alias ls="exa"
@@ -27,6 +25,19 @@ alias aws-stop-pet="aws ec2 stop-instances --instance-ids i-0f3a93ed98733b772 --
 alias aws-sleep-pet-force="aws ec2 stop-instances --instance-ids i-0f3a93ed98733b772 --profile pet --hibernate"
 alias aws-restart-pet="aws ec2 reboot-instances --instance-ids i-0f3a93ed98733b772 --profile pet"
 alias aws-pet-status="aws ec2 describe-instance-status --instance-ids i-0f3a93ed98733b772 --profile pet | jq '.InstanceStatuses[0].InstanceState.Name'"
+alias awsp="aws configure list-profiles | fzf --height=20% | read AWS_PROFILE"
+
+jlfmt() {
+    if [ -z $1 ]; then
+      julia --startup-file=no --project=@format -e "using JuliaFormatter; format(\".\", YASStyle())"
+    else
+      julia --startup-file=no --project=@format -e "using JuliaFormatter; format(\"$1\", YASStyle())"
+    fi
+}
+
+pluto() {
+  julia --project=@pluto -e 'using Pluto; Pluto.run(; auto_reload_from_file=true)'
+}
 
 # pet hibernation
 aws-sleep-pet() {
@@ -78,6 +89,7 @@ bindkey -s '\ek' 'udir\n'
 bindkey -s '\ej' 'idir\n'
 bindkey -s '\el' 'fdir\n'
 bindkey -s '\eg' 'hdir\n'
+bindkey '\e;' autosuggest-accept
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export FZF_DEFAULT_OPTS='--bind tab:down --cycle'
