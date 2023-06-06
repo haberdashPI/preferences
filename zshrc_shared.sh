@@ -39,6 +39,8 @@ pluto() {
   julia --project=@pluto -e 'using Pluto; Pluto.run(; auto_reload_from_file=true)'
 }
 
+source change_ec2_instance_type.sh
+
 # pet hibernation
 aws-sleep-pet() {
     local ids profile
