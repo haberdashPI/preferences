@@ -112,10 +112,6 @@ echo "[user]" >> ~/.gitconfig
 echo "    name = \"David F Little\"" >> ~/.gitconfig
 echo "    email = david.frank.little@gmail.com" >> ~/.gitconfig
 
-# mr (myrepos) setup
-ln -s ~/Documents/preferences/mrconfig ~/.mrconfig
-mr update
-
 # julia setup
 brew install juliaup
 juliaup add release
