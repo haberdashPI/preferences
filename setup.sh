@@ -116,6 +116,6 @@ echo "    email = david.frank.little@gmail.com" >> ~/.gitconfig
 brew install juliaup
 juliaup add release
 juliaup default release
-julia -e 'using Pkg; Pkg.add(["OhMyREPL", "Revise", "TerminalPager", "Alert", "AlertPushover"])'
+julia -e 'using Pkg; Pkg.add(["OhMyREPL", "Revise", "TerminalPager", "Alert", "AlertPushover", "PackageCompatUI"])'
 mkdir -p ~/.julia/config
 ln -s ~/Documents/preferences/startup.jl ~/.julia/config/startup.jl
