@@ -20,11 +20,22 @@ fi
 alias matlab="matlab -nodesktop -nosplash"
 alias ll="exa --long --group-directories-first"
 alias ls="exa"
-alias aws-start-pet="aws ec2 start-instances --instance-ids i-0f3a93ed98733b772 --profile pet"
-alias aws-stop-pet="aws ec2 stop-instances --instance-ids i-0f3a93ed98733b772 --profile pet"
-alias aws-sleep-pet-force="aws ec2 stop-instances --instance-ids i-0f3a93ed98733b772 --profile pet --hibernate"
-alias aws-restart-pet="aws ec2 reboot-instances --instance-ids i-0f3a93ed98733b772 --profile pet"
-alias aws-pet-status="aws ec2 describe-instance-status --instance-ids i-0f3a93ed98733b772 --profile pet | jq '.InstanceStatuses[0].InstanceState.Name'"
+export EC2_INSTANCE_ID=i-08c11ad6928e88948
+alias aws-start-pet="aws ec2 start-instances --instance-ids $EC2_INSTANCE_ID --profile pet"
+alias aws-stop-pet="aws ec2 stop-instances --instance-ids $EC2_INSTANCE_ID --profile pet"
+alias aws-sleep-pet-force="aws ec2 stop-instances --instance-ids $EC2_INSTANCE_ID --profile pet --hibernate"
+alias aws-restart-pet="aws ec2 reboot-instances --instance-ids $EC2_INSTANCE_ID --profile pet"
+alias aws-pet-status="aws ec2 describe-instance-status --instance-ids $EC2_INSTANCE_ID --profile pet | jq '.InstanceStatuses[0].InstanceState.Name'"
+
+alias aws-get-instance-type="aws --profile pet ec2 describe-instances --filters Name=tag:Name,Values=dlittle-pet-instance --query 'Reservations[0].Instances[0].InstanceType' --output text"
+
+source ${HOME}/Documents/preferences/change_ec2_instance_type.sh
+
+aws-set-instance-type() {
+  instance=`echo "t3.xlarge\nr6a.xlarge\nbr6a.2xlarge\nr5.xlarge\nm5a.2xlarge\nm6a.2xlarge\nm7g.2xlarge\ng4dn.xlarge" | fzf`
+  AWS_PROFILE=pet change_ec2_instance_type -vfr -i $EC2_INSTANCE_ID -t $instance
+}
+
 alias awsp="aws configure list-profiles | fzf --height=20% | read AWS_PROFILE"
 
 jlfmt() {
@@ -38,8 +49,6 @@ jlfmt() {
 pluto() {
   julia --project=@pluto -e 'using Pluto; Pluto.run(; auto_reload_from_file=true)'
 }
-
-source change_ec2_instance_type.sh
 
 # pet hibernation
 aws-sleep-pet() {

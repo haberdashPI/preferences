@@ -41,7 +41,7 @@
 ###############################################################################
 
 # Import the general_purpose functions.
-source awsdocs_general.sh
+source ${HOME}/Documents/preferences/awsdocs_general.sh
 
 ###############################################################################
 # function instance-exists
