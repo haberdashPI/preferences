@@ -32,9 +32,6 @@ alias aws-get-instance-type="aws --profile pet ec2 describe-instances --filters 
 source ${HOME}/Documents/preferences/change_ec2_instance_type.sh
 
 aws-set-instance-type() {
-  if [[ $OSTYPE == "darwin"* ]]; then
-    open https://aws.amazon.com/ec2/instance-types/
-  fi;
   instance=`echo "t3.xlarge\nr6a.xlarge\nbr6a.2xlarge\nr5.xlarge\nm5a.2xlarge\nm6a.2xlarge\ng4dn.xlarge" | fzf`
   AWS_PROFILE=pet change_ec2_instance_type -vfr -i $EC2_INSTANCE_ID -t $instance
 }
