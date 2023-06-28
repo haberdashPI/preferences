@@ -2,7 +2,6 @@ if isinteractive()
     @eval using VimBindings
 end
 
-
 macro tryusing(mod, expr...)
     quote
         try
@@ -43,3 +42,4 @@ end
 ENV["JULIA_PKG_USE_CLI_GIT"] = "true"
 
 import Pkg
+
