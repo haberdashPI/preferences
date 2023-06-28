@@ -27,6 +27,7 @@ end
 @static if isinteractive()
     @tryusing OhMyREPL enable_autocomplete_brackets(false)
     @tryusing PackageCompatUI
+    @tryusing Infiltrator
 
     @static if gethostname() ∉ ["edgewater", "dlittle"]
         @tryusing Alert alert_REPL!(duration=5.0)
