@@ -1117,7 +1117,8 @@ keybindings: {
             if: "__language == 'julia'",
             then: {
                 if: "__selection.isEmpty",
-                then: ["expandLineSelection", "language-julia.executeCodeBlockOrSelectionAndMove"],
+                then: ["expandLineSelection", "selection-utilities.trimSelectionWhitespace", 
+                       "language-julia.executeCodeBlockOrSelectionAndMove"],
                 else: "language-julia.executeCodeBlockOrSelectionAndMove"
             },
             else: {
