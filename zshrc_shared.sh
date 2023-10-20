@@ -50,6 +50,10 @@ pluto() {
   julia --project=@pluto -e 'using Pluto; Pluto.run(; auto_reload_from_file=true)'
 }
 
+beacon-jl-templates() {
+  julia --project=@templates -e 'using BeaconPkgTemplates; prompt_new_beacon_package()'
+}
+
 # pet hibernation
 aws-sleep-pet() {
     local ids profile
