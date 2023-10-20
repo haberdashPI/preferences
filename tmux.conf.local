@@ -371,7 +371,13 @@ bind C-z send-prefix
 set -g status-position top
 
 # use fish by default
-set-option -g default-shell /usr/bin/fish
+if-shell -b '[ "$(uname)" = Linux ]' {
+    set-option -g default-shell /usr/bin/fish
+}
+
+if-shell -b '[ "$(uname)" = Darwin ]' {
+    set-option -g default-shell /opt/homebrew/bin/fish
+}
 
 # -- tpm -----------------------------------------------------------------------
 
