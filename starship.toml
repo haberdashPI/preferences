@@ -1,8 +1,7 @@
 
-# format = " ╭$all$fill$line_break╰$time──$character"
 format = """\
 [](bg:#030B16 fg:#7DF9AA)\
-[⌘ ](bg:#7DF9AA fg:#090c0c)\
+[$os ](bg:#7DF9AA fg:#090c0c)\
 [](fg:#7DF9AA bg:#1C3A5E)\
 $time\
 [](fg:#1C3A5E bg:#3B76F0)\
@@ -11,10 +10,16 @@ $directory\
 $git_branch\
 $git_status\
 $git_metrics\
-[](fg:#FCF392 bg:#030B16) $all\
+[](fg:#FCF392 bg:#030B16) $aws$all\
 $line_break\
 $shell$character\
 """
+
+[os]
+disabled = false
+sybmols.Macos = "⌘"
+symbols.Ubuntu = ""
+style = "bg:#7DF9AA fg:#090c0c"
 
 [directory]
 format = "[ ﱮ $path ]($style)"
