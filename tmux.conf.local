@@ -370,8 +370,8 @@ bind C-z send-prefix
 # move status line to top
 set -g status-position top
 
-# use zsh by default
-set-option -g default-shell /bin/zsh
+# use fish by default
+set-option -g default-shell /usr/bin/fish
 
 # -- tpm -----------------------------------------------------------------------
 

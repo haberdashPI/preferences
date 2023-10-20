@@ -1,6 +1,6 @@
 ZSH_THEME="powerlevel10k/powerlevel10k"
 KEYTIMEOUT=1
-
+export JULIA_PKG_USE_CLI_GIT="true"
 export JULIA_PKG_DEVDIR="${HOME}/Documents/tools"
 
 export ZVM_INIT_MODE=sourcing
