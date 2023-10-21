@@ -26,6 +26,7 @@ alias aws-stop-pet="aws ec2 stop-instances --instance-ids $EC2_INSTANCE_ID --pro
 alias aws-sleep-pet-force="aws ec2 stop-instances --instance-ids $EC2_INSTANCE_ID --profile pet --hibernate"
 alias aws-restart-pet="aws ec2 reboot-instances --instance-ids $EC2_INSTANCE_ID --profile pet"
 alias aws-pet-status="aws ec2 describe-instance-status --instance-ids $EC2_INSTANCE_ID --profile pet | jq '.InstanceStatuses[0].InstanceState.Name'"
+alias julia_roll="julia --project=@roll -i -e 'using DiceRolls; rep(fn,n) = map(i -> fn(), 1:n); macro rep(body, n); :(rep(function() \$body end, \$n)); end'"
 
 alias aws-get-instance-type="aws --profile pet ec2 describe-instances --filters Name=tag:Name,Values=dlittle-pet-instance --query 'Reservations[0].Instances[0].InstanceType' --output text"
 
