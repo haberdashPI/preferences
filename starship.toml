@@ -18,7 +18,7 @@ $shell$character\
 
 [os]
 disabled = false
-symbols.Macos = "⌘"
+symbols.Macos = ""
 symbols.Ubuntu = ""
 style = "bg:#51a1c9 fg:#090c0c"
 
@@ -62,3 +62,10 @@ time_format='%l:%M%P'
 [shell]
 disabled = false
 fish_indicator = "🐟"
+
+[julia]
+format = '[$symbol($version) ]($style)'
+
+[nodejs]
+format = '[$symbol($version) ]($style)'
+
