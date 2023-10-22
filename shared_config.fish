@@ -51,6 +51,10 @@ function beacon-jl-templates
   julia --project=@templates -e 'using BeaconPkgTemplates; prompt_new_beacon_package()'
 end
 
+function jlroll
+  julia --project=@roll -i -e 'using DiceRolls; rep(fn,n) = map(i -> fn(), 1:n); macro rep(body, n); :(rep(function() $body end, $n)); end'
+end
+
 # hotkeys for folder navigation in terminal
 function hdir
   pushd ~

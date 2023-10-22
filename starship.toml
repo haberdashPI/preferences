@@ -1,29 +1,30 @@
 
+# 242, 197, 160
 format = """\
-[](bg:#030B16 fg:#7DF9AA)\
-[$os ](bg:#7DF9AA fg:#090c0c)\
-[](fg:#7DF9AA bg:#1C3A5E)\
+[](bg:#030B16 fg:#51a1c9)\
+[$os ](bg:#51a1c9 fg:#090c0c)\
+[](fg:#51a1c9 bg:#d04966)\
 $time\
-[](fg:#1C3A5E bg:#3B76F0)\
+[](fg:#d04966 bg:#51a1c9)\
 $directory\
-[](fg:#3B76F0 bg:#FCF392)\
+[](fg:#51a1c9 bg:#e8b557)\
 $git_branch\
 $git_status\
 $git_metrics\
-[](fg:#FCF392 bg:#030B16) $aws$all\
+[](fg: #e8b557 bg:#030B16) $aws$julia$rust$r$python$nodejs\
 $line_break\
 $shell$character\
 """
 
 [os]
 disabled = false
-sybmols.Macos = "⌘"
+symbols.Macos = "⌘"
 symbols.Ubuntu = ""
-style = "bg:#7DF9AA fg:#090c0c"
+style = "bg:#51a1c9 fg:#090c0c"
 
 [directory]
 format = "[ ﱮ $path ]($style)"
-style = "fg:#E4E4E4 bg:#3B76F0"
+style = "fg:#E4E4E4 bg:#51a1c9"
 fish_style_pwd_dir_length = 3
 substitutions.beacon = "🧠"
 substitutions.Documents = "📄"
@@ -33,15 +34,15 @@ substitutions.Desktop = "🖥️"
 [git_branch]
 format = '[ $symbol$branch(:$remote_branch) ]($style)'
 symbol = "  "
-style = "fg:#1C3A5E bg:#FCF392"
+style = "fg:#d04966 bg:#e8b557"
 
 [git_status]
 format = '([$all_status$ahead_behind]($style))'
-style = "fg:#1C3A5E bg:#FCF392"
+style = "fg:#d04966 bg:#e8b557"
 
 [git_metrics]
 format = "([+$added]($added_style))[]($added_style)"
-added_style = "fg:#1C3A5E bg:#FCF392"
+added_style = "fg:#d04966 bg:#e8b557"
 deleted_style = "fg:bright-red bg:235"
 disabled = false
 
@@ -55,7 +56,7 @@ error_symbol = '[✖](#E84D44)'
 [time]
 disabled = false
 style = "bg:#1d2230"
-format = '[[ $time ](bg:#1C3A5E fg:#8DFBD2)]($style)'
+format = '[[ $time ](bg:#d04966 fg:#8DFBD2)]($style)'
 time_format='%l:%M%P'
 
 [shell]
