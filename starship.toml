@@ -29,7 +29,7 @@ fish_style_pwd_dir_length = 3
 substitutions.beacon = "🧠"
 substitutions.Documents = "📄"
 substitutions.Downloads = "⬇"
-substitutions.Desktop = "🖥️"
+substitutions.Desktop = "🖥️ "
 
 [git_branch]
 format = '[ $symbol$branch(:$remote_branch) ]($style)'
