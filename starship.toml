@@ -1,17 +1,17 @@
 
 # 242, 197, 160
 format = """\
-[ ](bg:#51a1c9 fg:#030B16)\
-[$os ](bg:#51a1c9 fg:#E4E4E4)\
-[](fg:#51a1c9 bg:#d04966)\
+[ ](bg:#30aad7 fg:#030B16)\
+[$os ](bg:#30aad7 fg:#E4E4E4)\
+[](fg:#30aad7 bg:#e95478)\
 $time\
-[](fg:#d04966 bg:#51a1c9)\
+[](fg:#e95478 bg:#30aad7)\
 $directory\
-[](fg:#51a1c9 bg:#e8b557)\
+[](fg:#30aad7 bg:#fab795)\
 $git_branch\
 $git_status\
 $git_metrics\
-[](fg: #e8b557 bg:#030B16) $package$julia$rust$r$python$nodejs$aws\
+[](fg: #fab795 bg:#030B16) $package$julia$rust$r$python$nodejs$aws\
 $line_break\
 $shell$character\
 """
@@ -20,14 +20,14 @@ $shell$character\
 disabled = false
 symbols.Macos = ""
 symbols.Ubuntu = ""
-style = "bg:#51a1c9 fg:#090c0c"
+style = "bg:#30aad7 fg:#090c0c"
 
 [package]
 format = '[$symbol$version]($style) '
 
 [directory]
 format = "[ ﱮ $path ]($style)"
-style = "fg:#E4E4E4 bg:#51a1c9"
+style = "fg:#E4E4E4 bg:#30aad7"
 fish_style_pwd_dir_length = 3
 substitutions.beacon = "🧠"
 substitutions.Documents = "📄"
@@ -37,15 +37,15 @@ substitutions.Desktop = "🖥️ "
 [git_branch]
 format = '[ $symbol$branch(:$remote_branch) ]($style)'
 symbol = "  "
-style = "fg:#d04966 bg:#e8b557"
+style = "fg:#e95478 bg:#fab795"
 
 [git_status]
 format = '([$all_status$ahead_behind]($style))'
-style = "fg:#d04966 bg:#e8b557"
+style = "fg:#e95478 bg:#fab795"
 
 [git_metrics]
 format = "([+$added]($added_style))[]($added_style)"
-added_style = "fg:#d04966 bg:#e8b557"
+added_style = "fg:#e95478 bg:#fab795"
 deleted_style = "fg:bright-red bg:235"
 disabled = false
 
@@ -54,7 +54,7 @@ format = "[  $duration ]($style)"
 style = "fg:bright-white bg:18"
 
 [character]
-error_symbol = '[✖](#E84D44)'
+error_symbol = '[✖](#e95478)'
 
 [aws]
 format = '[$symbol($profile )(\($region\) )(\[$duration\] )]($style)'
@@ -63,7 +63,7 @@ force_display = true
 [time]
 disabled = false
 style = "bg:#1d2230"
-format = '[[ $time ](bg:#d04966 fg:#8DFBD2)]($style)'
+format = '[[ $time ](bg:#e95478 fg:#30aad7)]($style)'
 time_format='%l:%M%P'
 
 [shell]
