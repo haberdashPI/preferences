@@ -11,7 +11,7 @@ $directory\
 $git_branch\
 $git_status\
 $git_metrics\
-[](fg: #e8b557 bg:#030B16) $aws$julia$rust$r$python$nodejs\
+[](fg: #e8b557 bg:#030B16) $package$julia$rust$r$python$nodejs$aws\
 $line_break\
 $shell$character\
 """
@@ -21,6 +21,9 @@ disabled = false
 symbols.Macos = ""
 symbols.Ubuntu = ""
 style = "bg:#51a1c9 fg:#090c0c"
+
+[package]
+format = '[$symbol$version]($style) '
 
 [directory]
 format = "[ ﱮ $path ]($style)"
@@ -54,6 +57,7 @@ style = "fg:bright-white bg:18"
 error_symbol = '[✖](#E84D44)'
 
 [aws]
+format = '[$symbol($profile )(\($region\) )(\[$duration\] )]($style)'
 force_display = true
 
 [time]
