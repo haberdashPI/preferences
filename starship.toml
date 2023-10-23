@@ -53,6 +53,9 @@ style = "fg:bright-white bg:18"
 [character]
 error_symbol = '[✖](#E84D44)'
 
+[aws]
+force_display = true
+
 [time]
 disabled = false
 style = "bg:#1d2230"
