@@ -5,7 +5,11 @@ if status is-interactive
   fish_vi_key_bindings
 end
 
+function starship_transient_prompt_func
+  starship module time && printf " " && starship module character
+end
 starship init fish | source
+enable_transience
 
 export JULIA_PKG_DEVDIR="{$HOME}/Documents/tools"
 
@@ -74,6 +78,8 @@ end
 function fdir
   pushd (fd -t d -d 8 | fzf) && exa --long --group-directories-first
 end
+
+abbr --add --position anywhere -- -CA --color=always
 
 if test -f "{$HOME}/.pushovervars"
   source $HOME/.pushovervars

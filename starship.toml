@@ -4,16 +4,14 @@ format = """\
 [ ](bg:#30aad7 fg:#030B16)\
 [$os ](bg:#30aad7 fg:#E4E4E4)\
 [](fg:#30aad7 bg:#e95478)\
-$time\
-[](fg:#e95478 bg:#30aad7)\
 $directory\
-[](fg:#30aad7 bg:#fab795)\
+[](fg:#e95478 bg:#fab795)\
 $git_branch\
 $git_status\
 $git_metrics\
 [](fg: #fab795 bg:#030B16) $package$julia$rust$r$python$nodejs$aws\
 $line_break\
-$shell$character\
+$time $character\
 """
 
 [os]
@@ -27,7 +25,7 @@ format = '[$symbol$version]($style) '
 
 [directory]
 format = "[ ﱮ $path ]($style)"
-style = "fg:#E4E4E4 bg:#30aad7"
+style = "fg:#E4E4E4 bg:#e95478"
 fish_style_pwd_dir_length = 3
 substitutions.beacon = "🧠"
 substitutions.Documents = "📄"
@@ -62,8 +60,7 @@ force_display = true
 
 [time]
 disabled = false
-style = "bg:#1d2230"
-format = '[[ $time ](bg:#e95478 fg:#30aad7)]($style)'
+format = '[$time]($style)'
 time_format='%l:%M%P'
 
 [shell]
