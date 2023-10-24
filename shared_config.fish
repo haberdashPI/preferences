@@ -55,6 +55,18 @@ function beacon-jl-templates
   julia --project=@templates -e 'using BeaconPkgTemplates; prompt_new_beacon_package()'
 end
 
+function beacon-jl-package
+  julia --project=@templates -e "using BeaconPkgTemplates; prompt_new_basic_package(;$argv)"
+end
+
+function beacon-jl-subpackage
+  julia --project=@templates -e "using BeaconPkgTemplates; prompt_new_monorepo_subpackage(;$argv)"
+end
+
+function beacon-jl-oneoff
+  julia --project=@templates -e "using BeaconPkgTemplates; prompt_new_one_off_task(;$argv)"
+end
+
 function jlroll
   julia --project=@roll -i -e 'using DiceRolls; rep(fn,n) = map(i -> fn(), 1:n); macro rep(body, n); :(rep(function() $body end, $n)); end'
 end
