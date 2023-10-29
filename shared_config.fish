@@ -1,8 +1,12 @@
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/opt/homebrew/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
 
 if status is-interactive
   fish_vi_key_bindings
+
+  mcfly init fish | source
+  mcfly-fzf init fish | source
 
   function starship_transient_prompt_func
     starship module time && printf " " && starship module character
@@ -97,8 +101,8 @@ if status is-interactive
   bind -M insert \ej 'idir; commandline -f repaint'
   bind -M insert \el 'fdir; commandline -f repaint'
   bind -M insert \eg 'hdir; commandline -f repaint'
-  bind -M insert \cr __hishtory_on_control_r
-  # bind -M insert \e; accept-autosuggestion
+  # bind -M insert \cr __hishtory_on_control_r
+  bind -M insert \e/ accept-autosuggestion
 
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
   export FZF_DEFAULT_OPTS='--bind tab:down --cycle'
