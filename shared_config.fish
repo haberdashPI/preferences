@@ -101,7 +101,6 @@ if status is-interactive
   bind -M insert \ej 'idir; commandline -f repaint'
   bind -M insert \el 'fdir; commandline -f repaint'
   bind -M insert \eg 'hdir; commandline -f repaint'
-  # bind -M insert \cr __hishtory_on_control_r
   bind -M insert \e/ accept-autosuggestion
 
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
