@@ -123,17 +123,17 @@ yabai < cmd + ctrl - 0x29 ; navigate
 yabai < return ; default
 yabai < escape ; default
 
-# navigate windows
-yabai < 0x29  : bash -c '(yabai -m window --focus next || yabai -m window --focus first) && skhd -k "return"'
-yabai < 0x27  : bash -c '(yabai -m window --focus prev || yabai -m window --focus last) && skhd -k "return"'
-yabai < shift - 0x29  : bash -c '(yabai -m window --focus next || yabai -m window --focus first)'
-yabai < shift - 0x27  : bash -c '(yabai -m window --focus prev || yabai -m window --focus last)'
+# navigate windows (0x29=";", 0x27="'")
+yabai < 0x29  : if not yabai -m window --focus next; yabai -m window --focus first; end; skhd -k "return"
+yabai < 0x27  : if not yabai -m window --focus prev; yabai -m window --focus last; end; skhd -k "return"
+yabai < shift - 0x29  : if not yabai -m window --focus next; yabai -m window --focus first; end
+yabai < shift - 0x27  : if not yabai -m window --focus prev; yabai -m window --focus last; end
 yabai < j : yabai -m window --focus south
 yabai < k : yabai -m window --focus north
 yabai < h : yabai -m window --focus west
 yabai < l : yabai -m window --focus east
-yabai < 0x1E : bash -c 'yabai -m window --focus stack.next || yabai -m window --focus stack.first'
-yabai < 0x21 : bash -c 'yabai -m window --focus stack.prev || yabai -m window --focus stack.last'
+yabai < 0x1E : if not yabai -m window --focus stack.next; yabai -m window --focus stack.first; end
+yabai < 0x21 : if not yabai -m window --focus stack.prev; yabai -m window --focus stack.last; end
 yabai < 0x2A : yabai -m window --focus recent && skhd -k "return"
 yabai < v : yabai -m window --focus mouse
 
@@ -214,10 +214,10 @@ yabai < f : yabai -m window --toggle zoom-fullscreen
 yabai < r : yabai -m space --rotate 270
 yabai < shift - r : yabai -m space --rotate 90
 yabai < shift - g : yabai -m window --swap first
-yabai < shift - j : bash -c 'yabai -m window --swap next || yabai -m window --swap first'
-yabai < shift - k : bash -c 'yabai -m window --swap prev || yabai -m window --swap last'
-yabai < shift - l : bash -c 'yabai -m window --warp next || yabai -m window --warp first'
-yabai < shift - h : bash -c 'yabai -m window --warp prev || yabai -m window --warp last'
+yabai < shift - j : if not yabai -m window --swap next; yabai -m window --swap first; end
+yabai < shift - k : if not yabai -m window --swap prev; yabai -m window --swap last; end
+yabai < shift - l : if not yabai -m window --warp next; yabai -m window --warp first; end
+yabai < shift - h : if not yabai -m window --warp prev; yabai -m window --warp last; end
 yabai < shift - 6 : yabai -m window --stack next
 yabai < shift - 5 : yabai -m window --stack prev
 yabai < m : skhd -k "cmd - m"
@@ -225,16 +225,20 @@ yabai < shift - w : yabai -m window --close
 
 # navigate / move to displays
 # 0x2F = .
-yabai < 0x2F : bash -c 'yabai -m display --focus next || yabai -m display --focus first'
-yabai < shift - 0x2F : cur_window=$(yabai -m query --windows --window | jq '.id') && \
-                    bash -c '(yabai -m window --display next || yabai -m window --display first)' && \
-                    yabai -m window --focus ${cur_window}
+yabai < 0x2F : if not yabai -m display --focus next; yabai -m display --focus first; end
+yabai < shift - 0x2F : begin; \
+    set -l cur_window $(yabai -m query --windows --window | jq '.id'); \
+    if not yabai -m window --display next; yabai -m window --display first; end; \
+    yabai -m window --focus $cur_window; \
+end
 
 # 0x2B = ,
-yabai < 0x2B : bash -c 'yabai -m display --focus prev || yabai -m display --focus last'
-yabai < shift - 0x2B : cur_window=$(yabai -m query --windows --window | jq '.id') && \
-                    bash -c '(yabai -m window --display prev || yabai -m window --display last)' && \
-                    yabai -m window --focus ${cur_window}
+yabai < 0x2B : if not yabai -m display --focus prev; yabai -m display --focus last; end
+yabai < shift - 0x2B : begin; \
+    set -l cur_window $(yabai -m query --windows --window | jq '.id'); \
+    if not yabai -m window --display prev; yabai -m window --display last; end; \
+    yabai -m window --focus $cur_window; \
+end
 
 # resize windows
 # move to windows by number
