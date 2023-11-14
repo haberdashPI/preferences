@@ -1046,8 +1046,8 @@ keybindings: {
         "editor.action.outdentLines", 
         "modalkeys.cancelMultipleSelections"
     ]),
-    "::doc::g>": {kind: "action", label: "format", detail: "Format code", tip: "text_indent"},
-    "g>": countSelectsLines('down', "editor.action.formatSelection", [
+    "::doc::g/": {kind: "action", label: "format", detail: "Format code", tip: "text_indent"},
+    "g/": countSelectsLines('down', "editor.action.formatSelection", [
         "editor.action.formatSelection",
         "modalkeys.cancelMultipleSelections"
     ]),
