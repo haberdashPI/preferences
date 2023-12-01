@@ -38,8 +38,8 @@ if status is-interactive
   end
   
   function aws-set-instance-type
-    set -l instance (echo "t3.xlarge\nr6a.xlarge\nbr6a.2xlarge\nr5.xlarge\nm5a.2xlarge\nm6a.2xlarge\ng4dn.xlarge" | fzf)
-    bash -c "source {$HOME}/Documents/preferences/change_ec2_instance_type.sh; AWS_PROFILE=pet change_ec2_instance_type -vfr -i {$EC2_INSTANCE_ID} -t {$instance}"
+    set -l instance (printf "t3.xlarge\nr6a.xlarge\nr6a.2xlarge\nr6a.4xlarge\nr5.xlarge\nm5a.2xlarge\nm6a.2xlarge\ng4dn.xlarge" | fzf)
+    bash -c "source $HOME/Documents/preferences/change_ec2_instance_type.sh; AWS_PROFILE=pet change_ec2_instance_type -vfr -i $EC2_INSTANCE_ID -t $instance"
   end
   
   function jlfmt
