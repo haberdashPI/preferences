@@ -51,6 +51,9 @@ function activate_from(file::String)
         dir = joinpath(parts...)
     end
     Pkg.activate(dir)
+    cd(dir)
+    @info "Current directory is: $dir"
+    return dir
 end
 
 ENV["JULIA_PKG_USE_CLI_GIT"] = "true"
