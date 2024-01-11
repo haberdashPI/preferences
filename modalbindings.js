@@ -1422,6 +1422,8 @@ keybindings: {
     // [Selection Utilities](https://github.com/haberdashPI/vscode-selection-utilities)
     // allows insertion of characters on both sides of a selection.
 
+    // TODO: this is where we left of translating
+    
     "::doc::, ": { kind: "action", label: "spaces around", detail: "insert spaces around current selections"},
     ", ": { "selection-utilities.insertAround": { before: " ", after: " " }},
     "::doc::g'": {kind: "mode", label: "symmetric insert", detail: "Move to symmetric insert mode: in this mode there are a variety of operations (inserts, deletions) that can be performed at both the start and end of a selection."},
