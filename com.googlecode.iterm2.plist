@@ -1107,6 +1107,10 @@
 	<string>Post Notification</string>
 	<key>MaxVertically</key>
 	<false/>
+	<key>NeverWarnAboutShortLivedSessions_0027F2CE-4500-4AE0-84ED-5CA9377680DC</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_0027F2CE-4500-4AE0-84ED-5CA9377680DC_selection</key>
+	<integer>0</integer>
 	<key>NeverWarnAboutShortLivedSessions_250430C6-765F-4A24-A0BC-9AA0F08C13F0</key>
 	<true/>
 	<key>New Bookmarks</key>
