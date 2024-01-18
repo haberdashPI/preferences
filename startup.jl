@@ -56,6 +56,11 @@ function activate_from(file::String)
     return dir
 end
 
+function run_from(file::String)
+    activate_from(file)
+    include(file)
+end
+
 ENV["JULIA_PKG_USE_CLI_GIT"] = "true"
 
 import Pkg
