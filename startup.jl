@@ -45,6 +45,7 @@ function activate_from(file::String)
         if isempty(dir)
             # if we found no project, assume dirname(file) is desired
             dir = dirname(file)
+
             break
         end
         parts = parts[1:(end-1)]
