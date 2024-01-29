@@ -13,13 +13,13 @@ if status is-interactive
   end
   starship init fish | source
   enable_transience
-  
+
   export JULIA_PKG_DEVDIR="{$HOME}/Documents/tools"
-  
+
   function ll; exa --long --group-directories-first $argv; end
   function ls; exa $argv; end
   export EC2_INSTANCE_ID=i-08c11ad6928e88948
-  
+
   function aws-start-pet; aws ec2 start-instances --instance-ids $EC2_INSTANCE_ID --profile pet; end
   function aws-stop-pet; aws ec2 stop-instances --instance-ids $EC2_INSTANCE_ID --profile pet; end
   function aws-sleep-pet-force; aws ec2 stop-instances --instance-ids $EC2_INSTANCE_ID --profile pet --hibernate; end
@@ -28,7 +28,7 @@ if status is-interactive
   function aws-get-instance-type; aws --profile pet ec2 describe-instances --filters Name=tag:Name,Values=dlittle-pet-instance --query 'Reservations[0].Instances[0].InstanceType' --output text; end
   function awsp
       if test (count $argv) -lt 1
-          set -l prof (aws configure list-profiles | fzf --height=20%) 
+          set -l prof (aws configure list-profiles | fzf --height=20%)
           export AWS_DEFAULT_PROFILE=$prof
           export AWS_PROFILE=$prof
       else
@@ -36,44 +36,44 @@ if status is-interactive
           export AWS_PROFILE=$argv[1]
       end
   end
-  
+
   function aws-set-instance-type
     set -l instance (printf "t3.xlarge\nr6a.xlarge\nr6a.2xlarge\nr6a.4xlarge\nr5.xlarge\nm5a.2xlarge\nm6a.2xlarge\ng4dn.xlarge" | fzf)
     bash -c "source $HOME/Documents/preferences/change_ec2_instance_type.sh; AWS_PROFILE=pet change_ec2_instance_type -vfr -i $EC2_INSTANCE_ID -t $instance"
   end
-  
+
   function jlfmt
       if test (count $argv) -lt 1
-        julia --startup-file=no --project=@format -e "using JuliaFormatter; format(\".\", YASStyle())"
+        julia +release --startup-file=no --project=@format -e "using JuliaFormatter; format(\".\", YASStyle())"
       else
-        julia --startup-file=no --project=@format -e "using JuliaFormatter; format(\"{$argv[1]}\", YASStyle())"
+        julia +release --startup-file=no --project=@format -e "using JuliaFormatter; format(\"{$argv[1]}\", YASStyle())"
       end
   end
-  
+
   function pluto
-    julia --project=@pluto -e 'using Pluto; Pluto.run(; auto_reload_from_file=true)'
+    julia +release --project=@pluto -e 'using Pluto; Pluto.run(; auto_reload_from_file=true)'
   end
-  
+
   function beacon-jl-templates
-    julia --project=@templates -e 'using BeaconPkgTemplates; prompt_new_beacon_package()'
+    julia +release --project=@templates -e 'using BeaconPkgTemplates; prompt_new_beacon_package()'
   end
-  
+
   function beacon-jl-package
-    julia --project=@templates -e "using BeaconPkgTemplates; prompt_new_basic_package(;$argv)"
+    julia +release --project=@templates -e "using BeaconPkgTemplates; prompt_new_basic_package(;$argv)"
   end
-  
+
   function beacon-jl-subpackage
-    julia --project=@templates -e "using BeaconPkgTemplates; prompt_new_monorepo_subpackage(;$argv)"
+    julia +release --project=@templates -e "using BeaconPkgTemplates; prompt_new_monorepo_subpackage(;$argv)"
   end
-  
+
   function beacon-jl-oneoff
-    julia --project=@templates -e "using BeaconPkgTemplates; prompt_new_one_off_task(;$argv)"
+    julia +release --project=@templates -e "using BeaconPkgTemplates; prompt_new_one_off_task(;$argv)"
   end
-  
+
   function jlroll
-    julia --project=@roll -i -e 'using DiceRolls; rep(fn,n) = map(i -> fn(), 1:n); macro rep(body, n); :(rep(function() $body end, $n)); end'
+    julia +release --project=@roll -i -e 'using DiceRolls; rep(fn,n) = map(i -> fn(), 1:n); macro rep(body, n); :(rep(function() $body end, $n)); end'
   end
-  
+
   # hotkeys for folder navigation in terminal
   function hdir
     pushd ~
@@ -93,7 +93,7 @@ if status is-interactive
   function fdir
     pushd (fd -t d -d 8 | fzf) && exa --long --group-directories-first
   end
-  
+
   abbr --add --position anywhere -- -CA --color=always
 
   bind -M insert \eh 'bdir; commandline -f repaint'
@@ -118,7 +118,7 @@ if test (uname) = Darwin
     export AWS_PROFILE=dlittle
   end
 
-  # OPTIONAL: Set some defaults for all profiles. The AWS CLI profile does not inherit any config 
+  # OPTIONAL: Set some defaults for all profiles. The AWS CLI profile does not inherit any config
   # settings from the `source_profile` or the `[default]` profile.
   # https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-list
   export AWS_DEFAULT_REGION="us-east-2"
