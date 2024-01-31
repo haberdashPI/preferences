@@ -41,7 +41,10 @@ end
 function activate_from(file::String)
     parts = splitpath(dirname(file))
     dir = joinpath(parts...)
-    while !isfile(joinpath(dir, "Project.toml")) && !isfile(joinpath(dir, "JuliaProject.toml"))
+    while !isfile(joinpath(dir, "Project.toml")) &&
+              !isfile(joinpath(dir, "JuliaProject.toml")) &&
+              !ispath(joinpath(dir, ".git"))
+
         if isempty(dir)
             # if we found no project, assume dirname(file) is desired
             dir = dirname(file)
@@ -49,6 +52,11 @@ function activate_from(file::String)
             break
         end
         parts = parts[1:(end-1)]
+        # give up if there's nothing left
+        if isempty(parts)
+            dir = dirname(file)
+            break
+        end
         dir = joinpath(parts...)
     end
     Pkg.activate(dir)
