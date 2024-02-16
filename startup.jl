@@ -27,15 +27,15 @@ end
     @tryusing OhMyREPL enable_autocomplete_brackets(false)
     @tryusing Infiltrator
 
-    @static if gethostname() ∉ ["dlittle"]
-        @tryusing Alert alert_REPL!(duration=5.0)
-    else
-        @tryusing Alert begin
-            using AlertPushover
-            pushover_alert!(; token=ENV["MY_PUSHOVER_TOKEN"],
-                            user=ENV["MY_USER_PUSHOVER_TOKEN"])
-        end
-    end
+    # @static if gethostname() ∉ ["dlittle"]
+    #     @tryusing Alert alert_REPL!(duration=5.0)
+    # else
+    #     @tryusing Alert begin
+    #         using AlertPushover
+    #         pushover_alert!(; token=ENV["MY_PUSHOVER_TOKEN"],
+    #                         user=ENV["MY_USER_PUSHOVER_TOKEN"])
+    #     end
+    # end
 end
 
 function activate_from(file::String)
