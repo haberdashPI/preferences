@@ -1,7 +1,3 @@
-if isinteractive()
-    @eval using VimBindings
-end
-
 macro tryusing(mod, expr...)
     quote
         try
