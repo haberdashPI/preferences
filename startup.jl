@@ -20,7 +20,7 @@ end
 @tryusing Revise
 
 @static if isinteractive()
-    @tryusing OhMyREPL enable_autocomplete_brackets(false)
+    # @tryusing OhMyREPL enable_autocomplete_brackets(false)
     @tryusing Infiltrator
 
     # @static if gethostname() ∉ ["dlittle"]
