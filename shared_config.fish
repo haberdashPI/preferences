@@ -42,6 +42,10 @@ if status is-interactive
     bash -c "source $HOME/Documents/preferences/change_ec2_instance_type.sh; AWS_PROFILE=pet change_ec2_instance_type -vfr -i $EC2_INSTANCE_ID -t $instance"
   end
 
+  function juliavim
+    julia $argv -i -e "using VimBindings"
+  end
+
   function jlfmt
       if test (count $argv) -lt 1
         julia +release --startup-file=no --project=@format -e "using JuliaFormatter; format(\".\", YASStyle())"
