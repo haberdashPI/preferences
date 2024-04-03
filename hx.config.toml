@@ -1,0 +1,7 @@
+theme = "ayu_mirage"
+
+[editor]
+true-color = true
+
+[keys.insert]
+"C-[" = "normal_mode"

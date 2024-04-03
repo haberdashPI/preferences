@@ -1,0 +1,12 @@
+[[language]]
+name = "julia"
+language-servers = [{name = "julia-lsp"}]
+
+[language-server.julia-lsp]
+command = "/opt/homebrew/bin/julia"
+timeout = 60
+args = ["--project=@lsp", "--startup-file=no", "--history-file=no", "--quiet", "-e", "using LanguageServer; runserver()"]
+required-root-patterns = ["Project.toml", "JuliaProject.toml"]
+
+
+

@@ -3,10 +3,14 @@ if test (uname) = Linux
     # various programs
     export DEBUG_FRONTEND=noninteractive
     sudo apt -yq install prometheus-node-exporter # requested by @soulshake for beacon infra
-    sudo apt -yq install tmux # essention remote work tool
-    sudo apt -yq install neovim # cli editor of choice
     sudo apt -yq install fzf # fuzy completion tool
     sudo apt -yq install jq # json parsing
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    rustup update
+    cargo install --locked zellij # terminal multiplexer
+    sudo add-apt-repository ppa:maveonair/helix-editor
+    sudo apt -yq update
+    sudo apt -yq install helix # text editor
 
     yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/ubuntu/.zprofile
@@ -18,27 +22,23 @@ if test (uname) = Linux
     brew install exa # modern `ls` alternative
     brew install fd # modern `find` alternative
     brew install gh # git hub CLI
-    brew install dust # mordern disk usage tool
-    brew install nvm # node version manager
+    brew install dust # modrern disk usage tool
     brew install starship # command prompt
 else if test (uname) = Darwin
     yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    brew install gpg 
-    brew install tmux 
-    brew install neovim 
-    brew install myrepos 
-    brew install fzf 
-    brew install bat 
-    brew install dust 
-    brew install tldr 
-    brew install exa 
-    brew install nvm
-    brew install fd 
-    brew install gh    
+    brew install gpg
+    brew install zellij
+    brew install helix
+    brew install fzf
+    brew install bat
+    brew install dust
+    brew install tldr
+    brew install exa
+    brew install fd
+    brew install gh
     brew install jq
     brew install koekeishiya/formulae/skhd
     brew install koekeishiya/formulae/yabai
-    brew install dust
     brew tap homebrew/cask-fonts
     brew install --cask font-sauce-code-pro-nerd-font
     brew install starship
@@ -51,19 +51,16 @@ end
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 fisher install patrickf1/fzf.fish
 fisher install jethrokuan/z
+fisher install jorgebucaran/nvm.fish
+fisher install kpbaks/zellij.fish
 echo "source ~/Documents/preferences/shared_config.fish" >> ~/.config/fish/config.fish
 
-# TMUX
-git clone https://github.com/gpakosz/.tmux.git
-ln -s -f .tmux/.tmux.conf
-ln -s ~/Documents/preferences/tmux.conf.local .tmux.conf.local
+# zellij config
+ln -s
 
-# neo vim
-mkdir -p ~/.config/nvim
-ln -s ~/Documents/preferences/vimrc ~/.config/nvim/init.vim
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-nvim --headless +silent +PlugInstall +qall
+# helix config
+ln -s ~/Documents/preferences/hx.config.toml ~/.config/helix/config.toml
+ln -s ~/Documents/preferences/hx.languages.toml ~/.config/helix/languages.toml
 
 # git setup
 echo "[user]" >> ~/.gitconfig
@@ -73,7 +70,8 @@ echo "    email = david.frank.little@gmail.com" >> ~/.gitconfig
 # julia setup
 curl -fsSL https://install.julialang.org | sh
 juliaup add release
+juliaup add 1.9
 juliaup default release
-julia -e 'using Pkg; Pkg.add(["OhMyREPL", "Revise", "VimBindings", "Alert", "AlertPushover", "Infiltrator"])'
+julia -e 'using Pkg; Pkg.add(["VimBindings", "Revise", "Infiltrator"])'
 mkdir -p ~/.julia/config
 ln -s ~/Documents/preferences/startup.jl ~/.julia/config/startup.jl
