@@ -24,6 +24,9 @@ if test (uname) = Linux
     brew install gh # git hub CLI
     brew install dust # modrern disk usage tool
     brew install starship # command prompt
+
+    # zellij copy/paste configuration (makes copy/paste on remote VSCode sessions possible)
+    ln -s ~/Documents/preferences/zj.config.kdl ~/.config/zellij/config.kdl
 else if test (uname) = Darwin
     yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     brew install gpg
@@ -54,9 +57,6 @@ fisher install jethrokuan/z
 fisher install jorgebucaran/nvm.fish
 fisher install kpbaks/zellij.fish
 echo "source ~/Documents/preferences/shared_config.fish" >> ~/.config/fish/config.fish
-
-# zellij config
-ln -s
 
 # helix config
 ln -s ~/Documents/preferences/hx.config.toml ~/.config/helix/config.toml
