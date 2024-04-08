@@ -1,2 +1,3 @@
 copy_command "code -"
 crollback_editor "code -w"
+seession_serialization false
