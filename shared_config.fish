@@ -19,13 +19,50 @@ if status is-interactive
   function ll; exa --long --group-directories-first $argv; end
   function ls; exa $argv; end
   export EC2_INSTANCE_ID=i-08c11ad6928e88948
+  export EC2_BEAST_INSTANCE_ID=i-03438b5bf1cdd1ab8
 
-  function aws-start-pet; aws ec2 start-instances --instance-ids $EC2_INSTANCE_ID --profile pet; end
-  function aws-stop-pet; aws ec2 stop-instances --instance-ids $EC2_INSTANCE_ID --profile pet; end
-  function aws-sleep-pet-force; aws ec2 stop-instances --instance-ids $EC2_INSTANCE_ID --profile pet --hibernate; end
-  function aws-restart-pet; aws ec2 reboot-instances --instance-ids $EC2_INSTANCE_ID --profile pet; end
-  function aws-pet-status; aws ec2 describe-instance-status --instance-ids $EC2_INSTANCE_ID --profile pet | jq '.InstanceStatuses[0].InstanceState.Name'; end
-  function aws-get-instance-type; aws --profile pet ec2 describe-instances --filters Name=tag:Name,Values=dlittle-pet-instance --query 'Reservations[0].Instances[0].InstanceType' --output text; end
+  function aws-start-pet
+    if test (count $argv) -lt 1
+      aws ec2 start-instances --instance-ids $EC2_INSTANCE_ID --profile pet
+    else
+      aws ec2 start-instances --instance-ids $argv[1] --profile pet
+    end
+  end
+  function aws-stop-pet
+    if test (count $argv) -lt 1
+      aws ec2 stop-instances --instance-ids $EC2_INSTANCE_ID --profile pet
+    else
+      aws ec2 stop-instances --instance-ids $argv[1] --profile pet
+    end
+  end
+  function aws-sleep-pet-force
+    if test (count $argv) -lt 1
+      aws ec2 stop-instances --instance-ids $EC2_INSTANCE_ID --profile pet --hibernate
+    else
+      aws ec2 stop-instances --instance-ids $argv[1] --profile pet --hibernate
+    end
+  end
+  function aws-restart-pet
+    if test (count $argv) -lt 1
+      aws ec2 reboot-instances --instance-ids $EC2_INSTANCE_ID --profile pet
+    else
+      aws ec2 reboot-instances --instance-ids $argv[1] --profile pet
+    end
+  end
+  function aws-pet-status
+    if test (count $argv) -lt 1
+      aws ec2 describe-instance-status --instance-ids $EC2_INSTANCE_ID --profile pet | jq '.InstanceStatuses[0].InstanceState.Name'
+    else
+      aws ec2 describe-instance-status --instance-ids $argv[1] --profile pet | jq '.InstanceStatuses[0].InstanceState.Name'
+    end
+  end
+  function aws-get-instance-type
+    if test (count $argv) -lt 1
+      aws --profile pet ec2 describe-instances --filters Name=tag:Name,Values=dlittle-pet-instance --query 'Reservations[0].Instances[0].InstanceType' --output text
+    else
+      aws --profile pet ec2 describe-instances --filters Name=tag:Name,Values=dlittle-pet-instance --query 'Reservations[0].Instances[0].InstanceType' --output text
+    end
+  end
   function awsp
       if test (count $argv) -lt 1
           set -l prof (aws configure list-profiles | fzf --height=20%)
