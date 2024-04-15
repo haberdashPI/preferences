@@ -13,8 +13,8 @@ Host dlittle.pets.beacon.lol
     PubKeyAuthentication yes
     ProxyJump bastion@bastion.pets.beacon.lol
 
-Host dlittle-quarto.pets.beacon.lol
-    HostName dlittle-quarto.pets.beacon.lol
+Host dlittle-beast.pets.beacon.lol
+    HostName dlittle-beast.pets.beacon.lol
     User ubuntu
     IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
     ForwardAgent yes

@@ -12,9 +12,10 @@ if test (uname) = Linux
     sudo apt -yq update
     sudo apt -yq install helix # text editor
 
-    yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/ubuntu/.zprofile
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh > ./install.sh
+    yes | /bin/bash ./install.sh
+    rm ./install.sh
+    /home/linuxbrew/.linuxbrew/bin/brew shellenv >> /home/ubuntu/.config/fish/config.fish
     sudo apt-get install build-essential
     brew install bat # modern `less` alternative
     brew install dust # modern `du` alternative
@@ -28,7 +29,9 @@ if test (uname) = Linux
     # zellij copy/paste configuration (makes copy/paste on remote VSCode sessions possible)
     ln -s ~/Documents/preferences/zj.config.kdl ~/.config/zellij/config.kdl
 else if test (uname) = Darwin
-    yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh > ./install.sh
+    yes | /bin/bash ./install.sh
+    rm ./install.sh
     brew install gpg
     brew install zellij
     brew install helix
