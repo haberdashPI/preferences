@@ -1,6 +1,11 @@
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:/opt/homebrew/bin"
-export PATH="$PATH:$HOME/.cargo/bin"
+fish_add_path $HOME/.local/bin
+fish_add_path $HOME/.cargo/bin
+fish_add_path $HOME/.juliaup/bin
+if test (uname) = Linux
+  fish_add_path /home/linuxbrew/.linuxbrew/bin
+else
+  fish_add_path /opt/homebrew/bin
+end
 
 if status is-interactive
   fish_vi_key_bindings

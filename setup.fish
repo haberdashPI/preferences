@@ -5,11 +5,22 @@ if test (uname) = Linux
     sudo apt -yq install prometheus-node-exporter # requested by @soulshake for beacon infra
     sudo apt -yq install fzf # fuzy completion tool
     sudo apt -yq install jq # json parsing
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    mkdir ~/.config/fish/conf.d
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > ./rust.install.sh
+    yes '1' | sh ./rust.install.sh
+    source "$HOME/.cargo/env.fish"
     rustup update
     cargo install --locked zellij # terminal multiplexer
-    sudo add-apt-repository ppa:maveonair/helix-editor
+    cargo install --locked bat
+    cargo install --locked du-dust
+    cargo install --locked exa
+    cargo install --git https://github.com/bnprks/mcfly-fzf
+    curl -sS https://starship.rs/install.sh | sudo sh
+    ln -s ~/Documents/preferences/starship.toml ~/.config/starship.toml
+
+    yes | sudo add-apt-repository ppa:maveonair/helix-editor
     sudo apt -yq update
+    sudo apt -yq install fd-find
     sudo apt -yq install helix # text editor
 
     curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh > ./install.sh
@@ -17,16 +28,11 @@ if test (uname) = Linux
     rm ./install.sh
     /home/linuxbrew/.linuxbrew/bin/brew shellenv >> /home/ubuntu/.config/fish/config.fish
     sudo apt-get install build-essential
-    brew install bat # modern `less` alternative
-    brew install dust # modern `du` alternative
-    brew install tldr # summarizes commands (shorter than `man`)
-    brew install exa # modern `ls` alternative
-    brew install fd # modern `find` alternative
+    brew install mcfly
     brew install gh # git hub CLI
-    brew install dust # modrern disk usage tool
-    brew install starship # command prompt
 
     # zellij copy/paste configuration (makes copy/paste on remote VSCode sessions possible)
+    mkdir -p ~/.config/zellij/
     ln -s ~/Documents/preferences/zj.config.kdl ~/.config/zellij/config.kdl
 else if test (uname) = Darwin
     curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh > ./install.sh
@@ -48,7 +54,9 @@ else if test (uname) = Darwin
     brew tap homebrew/cask-fonts
     brew install --cask font-sauce-code-pro-nerd-font
     brew install starship
+    brew install mcfly
     bash <(curl -s https://raw.githubusercontent.com/dbalatero/VimMode.spoon/master/bin/installer)
+    cargo install --git https://github.com/bnprks/mcfly-fzf
 else
     echo "OS Not supported"
     exit 1
@@ -60,8 +68,15 @@ fisher install jethrokuan/z
 fisher install jorgebucaran/nvm.fish
 fisher install kpbaks/zellij.fish
 echo "source ~/Documents/preferences/shared_config.fish" >> ~/.config/fish/config.fish
+source ~/.config/fish/config.fish
+
+# # install tldr tool
+# nvm install latest
+# nvm use latest
+# npm install -g tldr
 
 # helix config
+mkdir -p ~/.config/helix/
 ln -s ~/Documents/preferences/hx.config.toml ~/.config/helix/config.toml
 ln -s ~/Documents/preferences/hx.languages.toml ~/.config/helix/languages.toml
 
@@ -72,6 +87,7 @@ echo "    email = david.frank.little@gmail.com" >> ~/.gitconfig
 
 # julia setup
 curl -fsSL https://install.julialang.org | sh
+fish_add_path $HOME/.juliaup/bin
 juliaup add release
 juliaup add 1.9
 juliaup default release
