@@ -1,8 +1,10 @@
 
 # 242, 197, 160
+# 
 format = """\
 [ ](bg:#30aad7 fg:#030B16)\
-[$os ](bg:#30aad7 fg:#E4E4E4)\
+[$os ](bg:#30aad7 fg:#000000)\
+[ $hostname ](bg:#30aad7 fg:#000000)\
 [](fg:#30aad7 bg:#e95478)\
 $directory\
 [](fg:#e95478 bg:#fab795)\
@@ -13,6 +15,10 @@ $git_metrics\
 $line_break\
 $time $character\
 """
+
+[hostname]
+disabled = false
+format = '$hostname'
 
 [os]
 disabled = false
