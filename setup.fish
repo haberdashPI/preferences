@@ -1,7 +1,6 @@
 
 if test (uname) = Linux
     # various programs
-    export DEBUG_FRONTEND=noninteractive
     sudo apt -yq install prometheus-node-exporter # requested by @soulshake for beacon infra
     sudo apt -yq install fzf # fuzy completion tool
     sudo apt -yq install jq # json parsing
@@ -87,7 +86,6 @@ echo "    email = david.frank.little@gmail.com" >> ~/.gitconfig
 
 # julia setup
 curl -fsSL https://install.julialang.org | sh
-fish_add_path $HOME/.juliaup/bin
 juliaup add release
 juliaup add 1.9
 juliaup default release

@@ -24,6 +24,7 @@ if status is-interactive
   function ll; exa --long --group-directories-first $argv; end
   function ls; exa $argv; end
   export EC2_INSTANCE_ID=i-08c11ad6928e88948
+  export EC2_ALTERNATE_INSTANCE_ID=i-0d1d74c582632d1af
   export EC2_BEAST_INSTANCE_ID=i-03438b5bf1cdd1ab8
 
   function aws-start-pet
@@ -80,8 +81,13 @@ if status is-interactive
   end
 
   function aws-set-instance-type
-    set -l instance (printf "t3.xlarge\nr6a.xlarge\nr6a.2xlarge\nr6a.4xlarge\nr5.xlarge\nm5a.2xlarge\nm6a.2xlarge\ng4dn.xlarge" | fzf)
-    bash -c "source $HOME/Documents/preferences/change_ec2_instance_type.sh; AWS_PROFILE=pet change_ec2_instance_type -vfr -i $EC2_INSTANCE_ID -t $instance"
+    if test (count $argv) -lt 1
+      set -l instance (printf "t3.xlarge\nr6a.xlarge\nr6a.2xlarge\nr6a.4xlarge\nr5.xlarge\nm5a.2xlarge\nm6a.2xlarge\ng4dn.xlarge" | fzf)
+      bash -c "source $HOME/Documents/preferences/change_ec2_instance_type.sh; AWS_PROFILE=pet change_ec2_instance_type -vfr -i $EC2_INSTANCE_ID -t $instance"
+    else
+      set -l instance (printf "t3.xlarge\nr6a.xlarge\nr6a.2xlarge\nr6a.4xlarge\nr5.xlarge\nm5a.2xlarge\nm6a.2xlarge\ng4dn.xlarge" | fzf)
+      bash -c "source $HOME/Documents/preferences/change_ec2_instance_type.sh; AWS_PROFILE=pet change_ec2_instance_type -vfr -i $argv[1] -t $instance"
+    end
   end
 
   function juliavim

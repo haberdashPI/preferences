@@ -20,3 +20,11 @@ Host dlittle-beast.pets.beacon.lol
     ForwardAgent yes
     PubKeyAuthentication yes
     ProxyJump bastion@bastion.pets.beacon.lol
+
+Host dlittle-alternate.pets.beacon.lol
+    HostName dlittle-alternate.pets.beacon.lol
+    User ubuntu
+    IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    ForwardAgent yes
+    PubKeyAuthentication yes
+    ProxyJump bastion@bastion.pets.beacon.lol
