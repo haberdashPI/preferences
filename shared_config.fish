@@ -8,7 +8,9 @@ else
 end
 
 if status is-interactive
-  fish_vi_key_bindings
+  set -g fish_key_bindings fish_vi_key_bindings
+  bind -M insert \cf accept-autosuggestion
+  bind -M insert \ef forward-word
 
   mcfly init fish | source
   mcfly-fzf init fish | source
