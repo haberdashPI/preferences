@@ -2,6 +2,8 @@ theme = "ayu_mirage"
 
 [editor]
 true-color = true
+line-number = "relative"
+cursorline = true
 
 [keys.insert]
 "C-[" = "normal_mode"
