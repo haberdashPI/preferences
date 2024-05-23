@@ -1,6 +1,6 @@
 
 # 242, 197, 160
-# 
+#
 format = """\
 [ ](bg:#30aad7 fg:#030B16)\
 [$os ](bg:#30aad7 fg:#000000)\
@@ -22,15 +22,15 @@ format = '$hostname'
 
 [os]
 disabled = false
-symbols.Macos = ""
-symbols.Ubuntu = ""
+symbols.Macos = ""
+symbols.Ubuntu = "🐧"
 style = "bg:#30aad7 fg:#090c0c"
 
 [package]
 format = '[$symbol$version]($style) '
 
 [directory]
-format = "[ ﱮ $path ]($style)"
+format = "[ 📁 $path ]($style)"
 style = "fg:#E4E4E4 bg:#e95478"
 fish_style_pwd_dir_length = 3
 substitutions.beacon = "🧠"
@@ -40,7 +40,7 @@ substitutions.Desktop = "🖥️ "
 
 [git_branch]
 format = '[ $symbol$branch(:$remote_branch) ]($style)'
-symbol = "  "
+symbol = "⎇"
 style = "fg:#e95478 bg:#fab795"
 
 [git_status]
@@ -54,7 +54,7 @@ deleted_style = "fg:bright-red bg:235"
 disabled = false
 
 [cmd_duration]
-format = "[  $duration ]($style)"
+format = "[⌛ $duration ]($style)"
 style = "fg:bright-white bg:18"
 
 [character]
@@ -78,4 +78,3 @@ format = '[$symbol($version) ]($style)'
 
 [nodejs]
 format = '[$symbol($version) ]($style)'
-
