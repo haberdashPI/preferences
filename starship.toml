@@ -3,7 +3,7 @@
 #
 format = """\
 [ ](bg:#30aad7 fg:#030B16)\
-[$os ](bg:#30aad7 fg:#000000)\
+[$os](bg:#30aad7 fg:#000000)\
 [ $hostname ](bg:#30aad7 fg:#000000)\
 [](fg:#30aad7 bg:#e95478)\
 $directory\
@@ -22,15 +22,15 @@ format = '$hostname'
 
 [os]
 disabled = false
-symbols.Macos = ""
-symbols.Ubuntu = "🐧"
+symbols.Macos = ""
+symbols.Ubuntu = ""
 style = "bg:#30aad7 fg:#090c0c"
 
 [package]
 format = '[$symbol$version]($style) '
 
 [directory]
-format = "[ 📁 $path ]($style)"
+format = "[ \uf07b  $path ]($style)"
 style = "fg:#E4E4E4 bg:#e95478"
 fish_style_pwd_dir_length = 3
 substitutions.beacon = "🧠"
@@ -40,7 +40,7 @@ substitutions.Desktop = "🖥️ "
 
 [git_branch]
 format = '[ $symbol$branch(:$remote_branch) ]($style)'
-symbol = "⎇"
+symbol = " "
 style = "fg:#e95478 bg:#fab795"
 
 [git_status]

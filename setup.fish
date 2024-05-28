@@ -12,7 +12,7 @@ if test (uname) = Linux
     cargo install --locked zellij # terminal multiplexer
     cargo install --locked bat
     cargo install --locked du-dust
-    cargo install --locked exa
+    cargo install --locked lsd
     cargo install --git https://github.com/bnprks/mcfly-fzf
     curl -sS https://starship.rs/install.sh | sudo sh
     ln -s ~/Documents/preferences/starship.toml ~/.config/starship.toml
@@ -44,14 +44,15 @@ else if test (uname) = Darwin
     brew install bat
     brew install dust
     brew install tldr
-    brew install exa
+    brew install lsd
     brew install fd
     brew install gh
     brew install jq
     brew install koekeishiya/formulae/skhd
     brew install koekeishiya/formulae/yabai
     brew tap homebrew/cask-fonts
-    brew install --cask font-sauce-code-pro-nerd-font
+    brew install --cask font-fira-mono-nerd-font
+    brew install --cask font-fira-code-nerd-font
     brew install starship
     brew install mcfly
     bash <(curl -s https://raw.githubusercontent.com/dbalatero/VimMode.spoon/master/bin/installer)

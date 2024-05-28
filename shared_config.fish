@@ -23,8 +23,8 @@ if status is-interactive
 
   export JULIA_PKG_DEVDIR="{$HOME}/Documents/tools"
 
-  function ll; exa --long --group-directories-first $argv; end
-  function ls; exa $argv; end
+  function ll; lsd --long --group-directories-first $argv; end
+  function ls; lsd $argv; end
   export EC2_INSTANCE_ID=i-08c11ad6928e88948
   export EC2_ALTERNATE_INSTANCE_ID=i-0d1d74c582632d1af
   export EC2_BEAST_INSTANCE_ID=i-03438b5bf1cdd1ab8
@@ -131,21 +131,21 @@ if status is-interactive
   # hotkeys for folder navigation in terminal
   function hdir
     pushd ~
-    exa --long --group-directories-first
+    lsd --long --group-directories-first
   end
   function udir
     pushd ..
-    exa --long --group-directories-first
+    lsd --long --group-directories-first
   end
   function bdir
     popd
-    exa --long --group-directories-first
+    lsd --long --group-directories-first
   end
   function idir
-    pushd (fd -t d -d 1 | fzf) && exa --long --group-directories-first
+    pushd (fd -t d -d 1 | fzf) && printf "\n" && lsd --long --group-directories-first
   end
   function fdir
-    pushd (fd -t d -d 8 | fzf) && exa --long --group-directories-first
+    pushd (fd -t d -d 8 | fzf) && printf "\n" && lsd --long --group-directories-first
   end
 
   abbr --add --position anywhere -- -CA --color=always
