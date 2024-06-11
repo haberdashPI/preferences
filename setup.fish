@@ -67,6 +67,7 @@ fisher install patrickf1/fzf.fish
 fisher install jethrokuan/z
 fisher install jorgebucaran/nvm.fish
 fisher install kpbaks/zellij.fish
+fisher install inwaar/fish-aws
 echo "source ~/Documents/preferences/shared_config.fish" >> ~/.config/fish/config.fish
 source ~/.config/fish/config.fish
 

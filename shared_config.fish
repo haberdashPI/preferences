@@ -142,10 +142,10 @@ if status is-interactive
     lsd --long --group-directories-first
   end
   function idir
-    pushd (fd -t d -d 1 | fzf) && printf "\n" && lsd --long --group-directories-first
+    pushd (fd -t d -d 1 | fzf) && printf "\n\n" && lsd --long --group-directories-first
   end
   function fdir
-    pushd (fd -t d -d 8 | fzf) && printf "\n" && lsd --long --group-directories-first
+    pushd (fd -t d -d 8 | fzf) && printf "\n\n" && lsd --long --group-directories-first
   end
 
   abbr --add --position anywhere -- -CA --color=always
