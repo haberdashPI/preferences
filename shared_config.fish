@@ -96,6 +96,9 @@ if status is-interactive
     julia $argv -i -e "using VimBindings"
   end
 
+  function jlroll
+    julia +release --startup-file=no --project=@roll -i -e 'using DiceRolls; rep(fn,n) = map(i -> fn(), 1:n); macro rep(n, body); :(rep(function() \\$body end, \\$n)); end'
+  end
   function jlfmt
       if test (count $argv) -lt 1
         julia +release --startup-file=no --project=@format -e "using JuliaFormatter; format(\".\", YASStyle())"
